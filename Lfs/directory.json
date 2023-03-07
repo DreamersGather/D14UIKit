@@ -1,0 +1,19 @@
+{
+    "Bin": {
+        "Images": {
+            "Cursors": {
+                "WinConcept": {
+                    "Dark": {
+                        "Busy": {},
+                        "Working": {}
+                    },
+                    "Light": {
+                        "Busy": {},
+                        "Working": {}
+                    }
+                }
+            }
+        },
+        "Shaders": {}
+    }
+}

@@ -1,0 +1,16 @@
+﻿root = true
+
+[*]
+charset = utf-8-bom
+
+indent_size = 4
+indent_style = space
+
+trim_trailing_whitespace = true
+
+end_of_line = crlf
+insert_final_newline = true
+
+[*.{h,cpp}]
+#            comment                source
+guidelines = 78 5px solid 207160E8, 100 5px solid 407160E8

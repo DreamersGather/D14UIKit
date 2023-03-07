@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{734b18ab-6017-43ad-bc8c-78fe0cc9b625}</ProjectGuid>
+    <RootNamespace>D14UIKit</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>D14UIKit</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Manifest />
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy generated library to Test environment.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Manifest />
+    <Manifest />
+    <PostBuildEvent />
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy generated library to Test environment.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Exp\Application.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\MainWindow.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\Common\ResourcePack.cpp" />
+    <None Include=".editorconfig" />
+    <None Include=".gitignore" />
+    <None Include="Bin\Shaders\Letterbox.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Bin\Shaders\PS" />
+    <None Include="Bin\Shaders\VS" />
+    <None Include="LICENSE" />
+    <None Include="comment.html" />
+    <ClCompile Include="Src\UIKit\Appearances\ComboBox.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
+    </ClCompile>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Common\DirectXError.cpp" />
+    <ClCompile Include="Src\Common\MathUtils\2D.cpp" />
+    <ClCompile Include="Src\Common\MathUtils\3D.cpp" />
+    <ClCompile Include="Src\Common\MathUtils\GDI.cpp" />
+    <ClCompile Include="Src\Common\Precompile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Common/Precompile.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Src\Common\RuntimeError.cpp" />
+    <ClCompile Include="Src\Renderer\Camera.cpp">
+      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ShowIncludes>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\DebugUtils.cpp" />
+    <ClCompile Include="Src\Renderer\FrameResource.cpp" />
+    <ClCompile Include="Src\Renderer\GpuBuffer.cpp" />
+    <ClCompile Include="Src\Renderer\GraphUtils\Barrier.cpp" />
+    <ClCompile Include="Src\Renderer\GraphUtils\PSO.cpp" />
+    <ClCompile Include="Src\Renderer\Letterbox.cpp" />
+    <ClCompile Include="Src\Renderer\Renderer.cpp" />
+    <ClCompile Include="Src\Renderer\GraphUtils\StaticSampler.cpp" />
+    <ClCompile Include="Src\Renderer\TickTimer.cpp" />
+    <ClCompile Include="Src\UIKit\AnimationUtils\Sequence.cpp" />
+    <ClCompile Include="Src\UIKit\AnimationUtils\Motion.cpp" />
+    <ClCompile Include="Src\UIKit\Appearances\Appearance.cpp" />
+    <ClCompile Include="Src\UIKit\Appearances\Button.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\CheckBox.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ElevatedButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\FilledButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\FlatButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Label.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\LabelArea.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Layout.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\MenuItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\MenuSeparator.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\OnOffSwitch.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\OutlinedButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\PopupMenu.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\RawTextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ResizablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ScrollView.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Slider.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)SliderAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)SliderAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TabCaption.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TabGroup.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ToggleButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TreeViewItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ViewItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Window.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowAppearance</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ColorUtils.cpp" />
+    <ClCompile Include="Src\UIKit\Application.cpp" />
+    <ClCompile Include="Src\UIKit\BitmapUtils.cpp" />
+    <ClCompile Include="Src\UIKit\Button.cpp" />
+    <ClCompile Include="Src\UIKit\ComboBox.cpp" />
+    <ClCompile Include="Src\UIKit\IconLabel2.cpp" />
+    <ClCompile Include="Src\UIKit\LabelArea.cpp" />
+    <ClCompile Include="Src\UIKit\ListViewItem.cpp" />
+    <ClCompile Include="Src\UIKit\MenuItem.cpp" />
+    <ClCompile Include="Src\UIKit\MenuSeparator.cpp" />
+    <ClCompile Include="Src\UIKit\PopupMenu.cpp" />
+    <ClCompile Include="Src\UIKit\RawTextInput.cpp" />
+    <ClCompile Include="Src\UIKit\TabCaption.cpp" />
+    <ClCompile Include="Src\UIKit\CheckBox.cpp" />
+    <ClCompile Include="Src\UIKit\ClickablePanel.cpp" />
+    <ClCompile Include="Src\UIKit\ConstraintLayout.cpp" />
+    <ClCompile Include="Src\UIKit\Cursor.cpp" />
+    <ClCompile Include="Src\UIKit\DraggablePanel.cpp" />
+    <ClCompile Include="Src\UIKit\ElevatedButton.cpp" />
+    <ClCompile Include="Src\UIKit\Event.cpp" />
+    <ClCompile Include="Src\UIKit\FileSystemUtils.cpp" />
+    <ClCompile Include="Src\UIKit\FilledButton.cpp" />
+    <ClCompile Include="Src\UIKit\FlatButton.cpp" />
+    <ClCompile Include="Src\UIKit\GridLayout.cpp" />
+    <ClCompile Include="Src\UIKit\HorzSlider.cpp" />
+    <ClCompile Include="Src\UIKit\IconLabel.cpp" />
+    <ClCompile Include="Src\UIKit\Label.cpp" />
+    <ClCompile Include="Src\UIKit\ListView.cpp" />
+    <ClCompile Include="Src\UIKit\MaskStyle.cpp" />
+    <ClCompile Include="Src\UIKit\OnOffSwitch.cpp" />
+    <ClCompile Include="Src\UIKit\OutlinedButton.cpp" />
+    <ClCompile Include="Src\UIKit\Panel.cpp" />
+    <ClCompile Include="Src\UIKit\ResizablePanel.cpp" />
+    <ClCompile Include="Src\UIKit\ResourceUtils.cpp" />
+    <ClCompile Include="Src\UIKit\ScrollView.cpp" />
+    <ClCompile Include="Src\UIKit\ShadowStyle.cpp" />
+    <ClCompile Include="Src\UIKit\Slider.cpp" />
+    <ClCompile Include="Src\UIKit\TabGroup.cpp" />
+    <ClCompile Include="Src\UIKit\TextInput.cpp" />
+    <ClCompile Include="Src\UIKit\ToggleButton.cpp" />
+    <ClCompile Include="Src\UIKit\TreeView.cpp" />
+    <ClCompile Include="Src\UIKit\TreeViewItem.cpp" />
+    <ClCompile Include="Src\UIKit\VertSlider.cpp" />
+    <ClCompile Include="Src\UIKit\ViewItem.cpp" />
+    <ClCompile Include="Src\UIKit\Window.cpp" />
+    <ClCompile Include="Src\UIKit\MainWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Exp\Inc\Application.h" />
+    <ClInclude Include="Exp\Inc\BasicTypes.h" />
+    <ClInclude Include="Exp\Inc\Common.h" />
+    <ClInclude Include="Exp\Inc\MainWindow.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\IndexIterator.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\EnableMasterPtr.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\NonCopyable.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\PasskeyIdiom.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\PointerEquality.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\TypeTraits.h" />
+    <ClInclude Include="Src\Common\CppLangUtils\FinalAction.h" />
+    <ClInclude Include="Src\Common\DirectXError.h" />
+    <ClInclude Include="Src\Common\MathUtils\Basic.h" />
+    <ClInclude Include="Src\Common\MathUtils\2D.h" />
+    <ClInclude Include="Src\Common\MathUtils\3D.h" />
+    <ClInclude Include="Src\Common\MathUtils\GDI.h" />
+    <ClInclude Include="Src\Common\ResourcePack.h" />
+    <ClInclude Include="Src\Common\Precompile.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\Barrier.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\ParamHelper.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\PSO.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\ICamera.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawLayer.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawObject.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawObject2D.h" />
+    <ClInclude Include="Src\Common\Interfaces\ISortable.h" />
+    <ClInclude Include="Src\Renderer\Camera.h" />
+    <ClInclude Include="Src\Renderer\DebugUtils.h" />
+    <ClInclude Include="Src\Renderer\FrameResource.h" />
+    <ClInclude Include="Src\Renderer\GpuBuffer.h" />
+    <ClInclude Include="Src\Renderer\Letterbox.h" />
+    <ClInclude Include="Src\Renderer\Renderer.h" />
+    <ClInclude Include="Src\Common\RuntimeError.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\StaticSampler.h" />
+    <ClInclude Include="Src\Renderer\TickTimer.h" />
+    <ClInclude Include="Src\UIKit\AnimationUtils\Sequence.h" />
+    <ClInclude Include="Src\UIKit\AnimationUtils\Motion.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Appearance.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Button.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ComboBox.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Label.h" />
+    <ClInclude Include="Src\UIKit\Appearances\LabelArea.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Layout.h" />
+    <ClInclude Include="Src\UIKit\Appearances\MenuSeparator.h" />
+    <ClInclude Include="Src\UIKit\Appearances\RawTextInput.h" />
+    <ClInclude Include="Src\UIKit\Appearances\TabCaption.h" />
+    <ClInclude Include="Src\UIKit\Appearances\TextInput.h" />
+    <ClInclude Include="Src\UIKit\Appearances\CheckBox.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ElevatedButton.h" />
+    <ClInclude Include="Src\UIKit\Appearances\FilledButton.h" />
+    <ClInclude Include="Src\UIKit\Appearances\FlatButton.h" />
+    <ClInclude Include="Src\UIKit\Appearances\MenuItem.h" />
+    <ClInclude Include="Src\UIKit\Appearances\OnOffSwitch.h" />
+    <ClInclude Include="Src\UIKit\Appearances\OutlinedButton.h" />
+    <ClInclude Include="Src\UIKit\Appearances\PopupMenu.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ResizablePanel.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ScrollView.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Slider.h" />
+    <ClInclude Include="Src\UIKit\Appearances\TabGroup.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ToggleButton.h" />
+    <ClInclude Include="Src\UIKit\Appearances\TreeViewItem.h" />
+    <ClInclude Include="Src\UIKit\Appearances\ViewItem.h" />
+    <ClInclude Include="Src\UIKit\Appearances\Window.h" />
+    <ClInclude Include="Src\UIKit\AppEntry.h" />
+    <ClInclude Include="Src\UIKit\Application.h" />
+    <ClInclude Include="Src\UIKit\BitmapUtils.h" />
+    <ClInclude Include="Src\UIKit\Button.h" />
+    <ClInclude Include="Src\UIKit\ColorUtils.h" />
+    <ClInclude Include="Src\UIKit\ComboBox.h" />
+    <ClInclude Include="Src\UIKit\IconLabel2.h" />
+    <ClInclude Include="Src\UIKit\LabelArea.h" />
+    <ClInclude Include="Src\UIKit\MenuSeparator.h" />
+    <ClInclude Include="Src\UIKit\RawTextEditor.h" />
+    <ClInclude Include="Src\UIKit\RawTextInput.h" />
+    <ClInclude Include="Src\UIKit\TabCaption.h" />
+    <ClInclude Include="Src\UIKit\TextBox.h" />
+    <ClInclude Include="Src\UIKit\CheckBox.h" />
+    <ClInclude Include="Src\UIKit\ClickablePanel.h" />
+    <ClInclude Include="Src\UIKit\ConstraintLayout.h" />
+    <ClInclude Include="Src\UIKit\Cursor.h" />
+    <ClInclude Include="Src\UIKit\DraggablePanel.h" />
+    <ClInclude Include="Src\UIKit\ElevatedButton.h" />
+    <ClInclude Include="Src\UIKit\Event.h" />
+    <ClInclude Include="Src\UIKit\FileSystemUtils.h" />
+    <ClInclude Include="Src\UIKit\FilledButton.h" />
+    <ClInclude Include="Src\UIKit\FlatButton.h" />
+    <ClInclude Include="Src\UIKit\GridLayout.h" />
+    <ClInclude Include="Src\UIKit\HorzSlider.h" />
+    <ClInclude Include="Src\UIKit\IconLabel.h" />
+    <ClInclude Include="Src\UIKit\Label.h" />
+    <ClInclude Include="Src\UIKit\Layout.h" />
+    <ClInclude Include="Src\UIKit\ListView.h" />
+    <ClInclude Include="Src\UIKit\ListViewItem.h" />
+    <ClInclude Include="Src\UIKit\MaskStyle.h" />
+    <ClInclude Include="Src\UIKit\MenuItem.h" />
+    <ClInclude Include="Src\UIKit\OnOffSwitch.h" />
+    <ClInclude Include="Src\UIKit\OutlinedButton.h" />
+    <ClInclude Include="Src\UIKit\Panel.h" />
+    <ClInclude Include="Src\UIKit\PopupMenu.h" />
+    <ClInclude Include="Src\UIKit\ResizablePanel.h" />
+    <ClInclude Include="Src\UIKit\ResourceUtils.h" />
+    <ClInclude Include="Src\UIKit\ScrollView.h" />
+    <ClInclude Include="Src\UIKit\ShadowStyle.h" />
+    <ClInclude Include="Src\UIKit\Slider.h" />
+    <ClInclude Include="Src\UIKit\SolidStyle.h" />
+    <ClInclude Include="Src\UIKit\StatefulObject.h" />
+    <ClInclude Include="Src\UIKit\StrokeStyle.h" />
+    <ClInclude Include="Src\UIKit\TabGroup.h" />
+    <ClInclude Include="Src\UIKit\RawTextBox.h" />
+    <ClInclude Include="Src\UIKit\TextEditor.h" />
+    <ClInclude Include="Src\UIKit\TextInput.h" />
+    <ClInclude Include="Src\UIKit\TextInputObject.h" />
+    <ClInclude Include="Src\UIKit\ToggleButton.h" />
+    <ClInclude Include="Src\UIKit\TreeView.h" />
+    <ClInclude Include="Src\UIKit\TreeViewItem.h" />
+    <ClInclude Include="Src\UIKit\ValuefulObject.h" />
+    <ClInclude Include="Src\UIKit\VertSlider.h" />
+    <ClInclude Include="Src\UIKit\ViewItem.h" />
+    <ClInclude Include="Src\UIKit\WaterfallView.h" />
+    <ClInclude Include="Src\UIKit\Window.h" />
+    <ClInclude Include="Src\UIKit\MainWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Bin\Shaders\README.txt" />
+    <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D14UIKit.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Alternate.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Arrow.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\BackDiag.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Beam.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\1.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\10.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\11.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\12.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\13.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\14.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\15.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\16.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\17.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\18.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\19.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\2.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\20.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\21.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\22.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\3.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\4.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\5.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\6.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\7.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\8.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\9.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Hand.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Help.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\HorzSize.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\MainDiag.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Move.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Pen.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Person.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Pin.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Select.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Stop.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\VertSize.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\1.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\10.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\11.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\12.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\13.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\14.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\15.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\16.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\17.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\18.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\19.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\2.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\20.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\21.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\22.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\3.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\4.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\5.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\6.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\7.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\8.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\9.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Alternate.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Arrow.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\BackDiag.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Beam.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\1.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\10.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\11.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\12.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\13.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\14.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\15.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\16.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\17.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\18.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\19.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\2.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\20.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\21.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\22.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\3.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\4.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\5.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\6.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\7.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\8.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\9.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Hand.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Help.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\HorzSize.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\MainDiag.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Move.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Pen.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Person.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Pin.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Select.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Stop.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\VertSize.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\1.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\10.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\11.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\12.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\13.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\14.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\15.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\16.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\17.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\18.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\19.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\2.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\20.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\21.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\22.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\3.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\4.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\5.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\6.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\7.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\8.png" />
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\9.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
