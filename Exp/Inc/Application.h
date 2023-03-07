@@ -25,7 +25,7 @@ namespace d14uikit
 
     private:
         struct Impl;
-        std::unique_ptr<Impl> pimpl = {};
+        std::shared_ptr<Impl> pimpl = {};
 
     public:
         static Application* app();

@@ -41,7 +41,7 @@ namespace d14engine::uikit
         // Set g_app to nullptr after the application destroyed to help the
         // objects decide whether there's need to do the clearing.
 
-        ~Application() { g_app = nullptr; }
+        virtual ~Application() { g_app = nullptr; }
 
         // This field stores the original create-info passed in the ctor.
         const CreateInfo createInfo = {};

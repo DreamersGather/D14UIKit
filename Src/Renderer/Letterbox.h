@@ -18,7 +18,7 @@ namespace d14engine::renderer
         Letterbox(Renderer* rndr, Token);
 
         // prevent std::unique_ptr from generating default deleter
-        ~Letterbox();
+        virtual ~Letterbox() = default;
 
     private:
         Renderer* rndr = nullptr;
