@@ -1,0 +1,55 @@
+﻿#pragma once
+
+#include "Common/Precompile.h"
+
+#include "UIKit/Appearances/FlatButton.h"
+
+namespace d14engine::uikit::appearance
+{
+    struct ComboBox
+    {
+        struct Appearance : AppearanceProxy<FlatButton::Appearance>
+        {
+            static void initialize();
+
+            struct Arrow
+            {
+                struct Geometry
+                {
+                    struct Line
+                    {
+                        D2D1_POINT_2F point0 = {}, point1 = {};
+                    }
+                    line0 = { { -35.0f, 16.0f }, { -27.0f, 24.0f } },
+                    line1 = { { -28.0f, 24.0f }, { -20.0f, 16.0f } };
+                }
+                geometry = {};
+
+                SolidStyle background = {};
+                // i.e. background when disabled
+                SolidStyle secondaryBackground = {};
+
+                float strokeWidth = 1.0f;
+            }
+            arrow = {};
+
+            struct ThemeStyle : FlatButton::Appearance::ThemeStyle
+            {
+                struct Arrow
+                {
+                    struct Background
+                    {
+                        D2D1_COLOR_F color = {};
+                    }
+                    background = {},
+                    secondaryBackground = {};
+                }
+                arrow = {};
+            };
+            _D14_SET_THEME_STYLE_MAP_DECL;
+
+            void changeTheme(FlatButton::Appearance& appearance, WstrParam themeName) override;
+        }
+        appearance = {};
+    };
+}

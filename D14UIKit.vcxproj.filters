@@ -1,0 +1,1042 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Common\Precompile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\Letterbox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\Renderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\TickTimer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\GpuBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\GraphUtils\StaticSampler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\FrameResource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\DebugUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\GraphUtils\PSO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\RuntimeError.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\DirectXError.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\GraphUtils\Barrier.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\MathUtils\GDI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\MathUtils\2D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\MathUtils\3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Appearance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\AnimationUtils\Sequence.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\BitmapUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\CheckBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ClickablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ConstraintLayout.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Cursor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\DraggablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ElevatedButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Event.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\FileSystemUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\FilledButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\FlatButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\GridLayout.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\HorzSlider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\IconLabel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Label.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ListView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\MaskStyle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\OnOffSwitch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\OutlinedButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Panel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ResizablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ResourceUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ScrollView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ShadowStyle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Slider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\TabGroup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ToggleButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\TreeView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\TreeViewItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\VertSlider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ViewItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\AnimationUtils\Motion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\MenuItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\PopupMenu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\MenuSeparator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\MainWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\TabCaption.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ComboBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ListViewItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\LabelArea.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\ColorUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\CheckBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ElevatedButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\FilledButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\FlatButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Label.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\LabelArea.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Layout.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\MenuItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\MenuSeparator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\OnOffSwitch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\OutlinedButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\PopupMenu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\RawTextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ResizablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ScrollView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Slider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TabCaption.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TabGroup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ToggleButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\TreeViewItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ViewItem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\Window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\Appearances\ComboBox.cpp" />
+    <ClCompile Include="Src\UIKit\RawTextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\TextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\IconLabel2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Common\ResourcePack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\MainWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Common\Precompile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Interfaces\ICamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawObject2D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\Interfaces\ISortable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\DebugUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\FrameResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GpuBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Letterbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\RuntimeError.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GraphUtils\StaticSampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\TickTimer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GraphUtils\PSO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\TypeTraits.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\FinalAction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\IndexIterator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GraphUtils\Barrier.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\DirectXError.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\MathUtils\GDI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\MathUtils\2D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\MathUtils\3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\MathUtils\Basic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GraphUtils\ParamHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\EnableMasterPtr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\NonCopyable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\PasskeyIdiom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Appearance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\TextInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\CheckBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\FilledButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\FlatButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\OnOffSwitch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\OutlinedButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ResizablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ScrollView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Slider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\TabGroup.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ToggleButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\TreeViewItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ViewItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\AnimationUtils\Sequence.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\BitmapUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TextBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\CheckBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ClickablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ConstraintLayout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Cursor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\DraggablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ElevatedButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\FileSystemUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\FilledButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\FlatButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\GridLayout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\HorzSlider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\IconLabel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Label.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Layout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ListView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ListViewItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\MaskStyle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\OnOffSwitch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\OutlinedButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Panel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ResizablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ResourceUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ScrollView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ShadowStyle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Slider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\SolidStyle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\StatefulObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\StrokeStyle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TabGroup.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\RawTextBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TextInputObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ToggleButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TreeView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TreeViewItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ValuefulObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\VertSlider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ViewItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\WaterfallView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\AnimationUtils\Motion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\CppLangUtils\PointerEquality.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\MenuItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\MenuItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\PopupMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\PopupMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ElevatedButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\MenuSeparator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\MenuSeparator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\MainWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TabCaption.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\TabCaption.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\AppEntry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\ComboBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\RawTextInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ComboBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Label.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Layout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\Button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawLayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\Interfaces\IDrawObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\LabelArea.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\Appearances\LabelArea.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\RawTextEditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TextEditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\ColorUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\RawTextInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\TextInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\IconLabel2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Common\ResourcePack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\BasicTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\MainWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bin\Shaders\Letterbox.hlsl" />
+    <None Include=".gitignore" />
+    <None Include="LICENSE" />
+    <None Include=".editorconfig" />
+    <None Include="comment.html" />
+    <None Include="Bin\Shaders\PS" />
+    <None Include="Bin\Shaders\VS" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
+    <Text Include="Bin\Shaders\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D14UIKit.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Alternate.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Arrow.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\BackDiag.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Beam.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Hand.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Help.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\HorzSize.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\MainDiag.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Move.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Pen.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Person.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Pin.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Select.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Stop.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\VertSize.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Alternate.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Arrow.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\BackDiag.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Beam.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Hand.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Help.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\HorzSize.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\MainDiag.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Move.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Pen.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Person.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Pin.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Select.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Stop.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\VertSize.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\3.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\4.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\5.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\6.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\7.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\8.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\9.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\10.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\11.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\12.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\13.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\14.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\15.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\16.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\17.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\18.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\19.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\20.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\21.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Busy\22.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\3.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\4.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\5.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\6.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\7.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\8.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\9.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\10.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\11.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\12.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\13.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\14.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\15.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\16.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\17.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\18.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\19.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\20.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\21.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Dark\Working\22.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\3.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\4.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\5.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\6.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\7.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\8.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\9.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\10.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\11.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\12.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\13.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\14.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\15.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\16.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\17.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\18.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\19.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\20.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\21.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Busy\22.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\3.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\4.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\5.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\6.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\7.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\8.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\9.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\10.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\11.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\12.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\13.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\14.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\15.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\16.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\17.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\18.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\19.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\20.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\21.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="Bin\Images\Cursors\WinConcept\Light\Working\22.png">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

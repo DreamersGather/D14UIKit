@@ -1,0 +1,10 @@
+{
+    "target": [
+        "Bin"
+    ],
+    "suffix": [
+        "VS",
+        "PS",
+        "png"
+    ]
+}
