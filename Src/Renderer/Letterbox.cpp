@@ -22,8 +22,6 @@ namespace d14engine::renderer
         }
     }
 
-    Letterbox::~Letterbox() { }
-
     bool Letterbox::enabled() const
     {
         return m_enabled;

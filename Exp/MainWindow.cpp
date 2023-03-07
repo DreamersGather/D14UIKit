@@ -3,24 +3,24 @@
 #include "Inc/MainWindow.h"
 
 #include "UIKit/MainWindow.h"
+#include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
 
 namespace d14uikit
 {
-    struct MainWindow::Impl
+    struct MainWindow::Impl : uikit::MainWindow
     {
-        SharedPtr<uikit::MainWindow> inst = {};
-
-        Impl(
-            const std::wstring& title = L"Untitled",
-            float captionPanelHeight = 32.0f,
-            float decorativeBarHeight = 4.0f)
+        Impl::Impl(
+            const std::wstring& title,
+            float captionPanelHeight,
+            float decorativeBarHeight)
             :
-            inst(uikit::makeRootUIObject<uikit::MainWindow>(
+            Panel({}, uikit::resource_utils::g_solidColorBrush),
+            MainWindow(
                 title,
                 captionPanelHeight,
-                decorativeBarHeight)) { }
+                decorativeBarHeight) { }
     };
 
     MainWindow::MainWindow(
@@ -28,10 +28,8 @@ namespace d14uikit
         float captionPanelHeight,
         float decorativeBarHeight)
         :
-        pimpl(std::make_unique<Impl>(
+        pimpl(uikit::makeRootUIObject<Impl>(
             title,
             captionPanelHeight,
             decorativeBarHeight)) { }
-
-    MainWindow::~MainWindow() { }
 }

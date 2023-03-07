@@ -9,31 +9,33 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    struct Application::Impl
+    struct Application::Impl : uikit::Application
     {
-        static Application* app;
-        UniquePtr<uikit::Application> inst = {};
+        using Application::Application;
 
-        Impl(int argc, wchar_t* argv[], const CreateInfo& info = {})
-        {
-            uikit::Application::CreateInfo _info = {};
-            _info.name = info.name;
-            _info.showCentered = info.centered;
-            _info.showMaximized = info.maximized;
-            _info.showFullscreen = info.fullscreen;
-            if (info.rect.has_value())
-            {
-                auto& value = info.rect.value();
-                _info.win32WindowRect = { value.left, value.top, value.right, value.bottom };
-            }
-            inst = std::make_unique<uikit::Application>(argc, argv, _info);
-        }
+        static d14uikit::Application* app;
     };
 
-    Application* Application::Impl::app = nullptr;
-
     Application::Application(int argc, wchar_t* argv[], const CreateInfo& info)
-        : pimpl(std::make_unique<Impl>(argc, argv, info)) { Impl::app = this; }
+    {
+        Impl::app = this;
+
+        uikit::Application::CreateInfo info2 = {};
+        info2.name = info.name;
+        info2.showCentered = info.centered;
+        info2.showMaximized = info.maximized;
+        info2.showFullscreen = info.fullscreen;
+        if (info.rect.has_value())
+        {
+            auto& rect = info.rect.value();
+            info2.win32WindowRect =
+            {
+                rect.left, rect.top,
+                rect.right, rect.bottom
+            };
+        }
+        pimpl = std::make_shared<Impl>(argc, argv, info2);
+    }
 
     Application::~Application()
     {
@@ -44,12 +46,14 @@ namespace d14uikit
         uikit::resource_utils::g_shadowEffect.Reset();
     }
 
+    Application* Application::Impl::app = nullptr;
+
     Application* Application::app() { return Impl::app; }
 
     int Application::run(const std::function<void(Application* app)>& onLaunch)
     {
-        return pimpl->inst->run([&](uikit::Application* app) { if (onLaunch) onLaunch(this); });
+        return pimpl->run([&](uikit::Application* app) { if (onLaunch) onLaunch(this); });
     }
 
-    void Application::exit() { pimpl->inst->exit(); }
+    void Application::exit() { pimpl->exit(); }
 }

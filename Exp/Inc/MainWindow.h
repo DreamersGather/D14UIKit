@@ -12,13 +12,8 @@ namespace d14uikit
             float captionPanelHeight = 32.0f,
             float decorativeBarHeight = 4.0f);
 
-        ~MainWindow();
-
     private:
         struct Impl;
-        std::unique_ptr<Impl> pimpl = {};
-
-    public:
-
+        std::shared_ptr<Impl> pimpl = {};
     };
 }
