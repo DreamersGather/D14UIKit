@@ -491,6 +491,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Bin\Shaders\README.txt" />
+    <Text Include="Src\sensitive.txt" />
     <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
   </ItemGroup>
   <ItemGroup>

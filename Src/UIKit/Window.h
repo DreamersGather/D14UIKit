@@ -81,8 +81,8 @@ namespace d14engine::uikit
         void setCenterUIObject(ShrdPtrParam<Panel> uiobj);
 
     protected:
-        const float m_captionPanelHeight = {};
-        const float m_decorativeBarHeight = {};
+        float m_captionPanelHeight = {};
+        float m_decorativeBarHeight = {};
 
         D2D1_RECT_F captionPanelAbsoluteRect() const;
         D2D1_RECT_F decorativeBarAbsoluteRect() const;
@@ -127,6 +127,12 @@ namespace d14engine::uikit
         D2D1_RECT_F captionIconLabelSelfcoordRect() const;
 
     public:
+        float captionPanelHeight() const;
+        void setCaptionPanelHeight(float value);
+
+        float decorativeBarHeight() const;
+        void setDecorativeBarHeight(float value);
+
         float clientAreaHeight() const;
         D2D1_RECT_F clientAreaSelfcoordRect() const;
 

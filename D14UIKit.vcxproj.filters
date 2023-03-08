@@ -677,6 +677,7 @@
   <ItemGroup>
     <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
     <Text Include="Bin\Shaders\README.txt" />
+    <Text Include="Src\sensitive.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D14UIKit.rc">
