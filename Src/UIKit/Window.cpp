@@ -248,6 +248,32 @@ namespace d14engine::uikit
         };
     }
 
+    float Window::captionPanelHeight() const
+    {
+        return m_captionPanelHeight;
+    }
+
+    void Window::setCaptionPanelHeight(float value)
+    {
+        m_captionPanelHeight = value;
+
+        m_caption->transform(captionIconLabelSelfcoordRect());
+        if (m_centerUIObject) m_centerUIObject->transform(clientAreaSelfcoordRect());
+    }
+
+    float Window::decorativeBarHeight() const
+    {
+        return m_decorativeBarHeight;
+    }
+
+    void Window::setDecorativeBarHeight(float value)
+    {
+        m_decorativeBarHeight = value;
+
+        m_caption->transform(captionIconLabelSelfcoordRect());
+        if (m_centerUIObject) m_centerUIObject->transform(clientAreaSelfcoordRect());
+    }
+
     float Window::clientAreaHeight() const
     {
         return height() - nonClientAreaHeight();
