@@ -2,18 +2,23 @@
 
 #include "Common.h"
 
+#include "Window.h"
+
 namespace d14uikit
 {
-    class DllExport MainWindow
+    class DllExport MainWindow : public Window
     {
-    public:
-        MainWindow(
-            const std::wstring& title = L"Untitled",
-            float captionPanelHeight = 32.0f,
-            float decorativeBarHeight = 4.0f);
+        _D14_UIKIT_PIMPL_DEF
 
-    private:
-        struct Impl;
-        std::shared_ptr<Impl> pimpl = {};
+        explicit MainWindow(const std::wstring& title = L"Untitled");
+
+        void showNormal();
+        void showMinimized();
+        void showMaximized();
+
+    protected:
+        explicit MainWindow(Passkey);
+
+        void initialize();
     };
 }

@@ -9,7 +9,7 @@ namespace d14engine::uikit
     struct Cursor;
     struct TextInputObject;
 
-    struct Application
+    struct Application : cpp_lang_utils::NonCopyable
     {
         friend struct Panel;
 

@@ -119,6 +119,7 @@
         "Bin/Images/Cursors/WinConcept/Light/Working/8.png",
         "Bin/Images/Cursors/WinConcept/Light/Working/9.png",
         "Bin/Shaders/PS",
-        "Bin/Shaders/VS"
+        "Bin/Shaders/VS",
+        "Test/test.png"
     ]
 }

@@ -289,6 +289,27 @@
     <ClCompile Include="Exp\Application.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\Image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\Panel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\Event.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\DraggablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\ResizablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\ClickablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\Window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Exp\MainWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -660,7 +681,58 @@
     <ClInclude Include="Exp\Inc\BasicTypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Exp\Inc\Panel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Panel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\VirtualKeyCode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\DraggablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\ResizablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\DraggablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\ResizablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\ClickablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\ClickablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="Exp\Inc\MainWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\MainWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

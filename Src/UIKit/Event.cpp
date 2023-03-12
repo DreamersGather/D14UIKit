@@ -6,6 +6,65 @@
 
 namespace d14engine::uikit
 {
+    bool Event::isKeyDown(int vkey)
+    {
+        return GetKeyState(vkey) & 0x8000;
+    }
+
+    bool Event::isKeyToggled(int vkey)
+    {
+        return GetKeyState(vkey) & 0x0001;
+    }
+
+    bool Event::LALT()
+    {
+        return isKeyDown(VK_LMENU);
+    }
+
+    bool Event::RALT()
+    {
+        return isKeyDown(VK_RMENU);
+    }
+
+    bool Event::ALT()
+    {
+        return LALT() || RALT();
+    }
+
+    bool Event::LCTRL()
+    {
+        return isKeyDown(VK_LCONTROL);
+    }
+
+    bool Event::RCTRL()
+    {
+        return isKeyDown(VK_RCONTROL);
+    }
+
+    bool Event::CTRL()
+    {
+        return LCTRL() || RCTRL();
+    }
+
+    bool Event::LSHIFT()
+    {
+        return isKeyDown(VK_LSHIFT);
+    }
+
+    bool Event::RSHIFT()
+    {
+        return isKeyDown(VK_RSHIFT);
+    }
+
+    bool Event::SHIFT()
+    {
+        return LSHIFT() || RSHIFT();
+    }
+
+    bool Event::CAPSLOCK()
+    {
+        return isKeyToggled(VK_CAPITAL);
+    }
 
 #define MBE_STATE MouseButtonEvent::State
 
@@ -77,65 +136,5 @@ namespace d14engine::uikit
     bool KeyboardEvent::State::released() const
     {
         return flag == Flag::Released;
-    }
-
-    bool KeyboardEvent::isKeyDown(int vkey)
-    {
-        return GetKeyState(vkey) & 0x8000;
-    }
-
-    bool KeyboardEvent::isKeyToggled(int vkey)
-    {
-        return GetKeyState(vkey) & 0x0001;
-    }
-
-    bool KeyboardEvent::LALT()
-    {
-        return isKeyDown(VK_LMENU);
-    }
-
-    bool KeyboardEvent::RALT()
-    {
-        return isKeyDown(VK_RMENU);
-    }
-
-    bool KeyboardEvent::ALT()
-    {
-        return LALT() || RALT();
-    }
-
-    bool KeyboardEvent::LCTRL()
-    {
-        return isKeyDown(VK_LCONTROL);
-    }
-
-    bool KeyboardEvent::RCTRL()
-    {
-        return isKeyDown(VK_RCONTROL);
-    }
-
-    bool KeyboardEvent::CTRL()
-    {
-        return LCTRL() || RCTRL();
-    }
-
-    bool KeyboardEvent::LSHIFT()
-    {
-        return isKeyDown(VK_LSHIFT);
-    }
-
-    bool KeyboardEvent::RSHIFT()
-    {
-        return isKeyDown(VK_RSHIFT);
-    }
-
-    bool KeyboardEvent::SHIFT()
-    {
-        return LSHIFT() || RSHIFT();
-    }
-
-    bool KeyboardEvent::CAPSLOCK()
-    {
-        return isKeyToggled(VK_CAPITAL);
     }
 }

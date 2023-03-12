@@ -1021,8 +1021,8 @@ namespace d14engine::uikit
         DWORD value = FALSE, valueSize = sizeof(value);
 
         if (SUCCEEDED(RegGetValue(HKEY_CURRENT_USER,
-            L"Software\\Microsoft\\Windows\\DWM",
-            L"AccentColor", RRF_RT_REG_DWORD, nullptr, &value, &valueSize)))
+            L"Software\\Microsoft\\Windows\\DWM", L"AccentColor",
+            RRF_RT_REG_DWORD, nullptr, &value, &valueSize)))
         {
             BYTE r = value % 256;
             BYTE g = (value >> 8) % 256;
