@@ -51,7 +51,12 @@ namespace d14engine::uikit
         return uiobj;
     }
 
-    struct Panel : std::enable_shared_from_this<Panel>, renderer::IDrawObject2D, ISortable<Panel>
+    struct Panel
+        :
+        std::enable_shared_from_this<Panel>,
+        cpp_lang_utils::NonCopyable,
+        renderer::IDrawObject2D,
+        ISortable<Panel> 
     {
         friend struct Application;
 

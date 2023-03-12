@@ -2,9 +2,24 @@
 
 namespace d14uikit
 {
+    struct Point
+    {
+        int x = {}, y = {};
+    };
+
+    struct Size
+    {
+        int width = {}, height = {};
+    };
+
     struct Rect
     {
-        int left = {}; int top = {};
-        int right = {}; int bottom = {};
+        int left = {}, top = {};
+        int right = {}, bottom = {};
+    };
+
+    struct Color
+    {
+        int r = {}, g = {}, b = {};
     };
 }

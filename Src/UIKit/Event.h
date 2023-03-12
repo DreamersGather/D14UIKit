@@ -12,6 +12,27 @@ namespace d14engine::uikit
 
         using Size = D2D1_SIZE_F;
         using Point = D2D1_POINT_2F;
+
+        static bool isKeyDown(int vkey);
+        static bool isKeyToggled(int vkey);
+
+        // Return whether the key is down.
+
+        static bool LALT();
+        static bool RALT();
+        static bool ALT();
+
+        static bool LCTRL();
+        static bool RCTRL();
+        static bool CTRL();
+
+        static bool LSHIFT();
+        static bool RSHIFT();
+        static bool SHIFT();
+
+        // Return whether the key is toggled.
+
+        static bool CAPSLOCK();
     };
 
     struct SizeEvent : Event
@@ -112,6 +133,8 @@ namespace d14engine::uikit
 
     struct KeyboardEvent : Event
     {
+        WPARAM vkey = VK_NONAME;
+
         struct State
         {
             enum class Flag
@@ -126,28 +149,5 @@ namespace d14engine::uikit
             bool released() const;
         }
         state = {};
-
-        WPARAM vkey = VK_NONAME;
-
-        static bool isKeyDown(int vkey);
-        static bool isKeyToggled(int vkey);
-
-        // Return whether the key is down.
-
-        static bool LALT();
-        static bool RALT();
-        static bool ALT();
-
-        static bool LCTRL();
-        static bool RCTRL();
-        static bool CTRL();
-
-        static bool LSHIFT();
-        static bool RSHIFT();
-        static bool SHIFT();
-
-        // Return whether the key is toggled.
-
-        static bool CAPSLOCK();
     };
 }

@@ -1037,6 +1037,7 @@ namespace d14engine::uikit
                 uiobj->addUIObject(temporaryLocked);
             }
         }
+        else uiobj->addUIObject(shared_from_this());
     }
 
     const Panel::ChildObjectSet& Panel::children() const

@@ -175,9 +175,37 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ClickablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\DraggablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\Event.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)EventPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)EventPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\Image.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ImagePrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\MainWindow.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\Panel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\ResizablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\Window.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\Common\ResourcePack.cpp" />
     <None Include=".editorconfig" />
@@ -365,10 +393,27 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClCompile Include="Src\UIKit\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Exp\Application.h" />
+    <ClInclude Include="Exp\ClickablePanel.h" />
+    <ClInclude Include="Exp\DraggablePanel.h" />
+    <ClInclude Include="Exp\Event.h" />
+    <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
     <ClInclude Include="Exp\Inc\BasicTypes.h" />
+    <ClInclude Include="Exp\Inc\ClickablePanel.h" />
+    <ClInclude Include="Exp\Inc\DraggablePanel.h" />
+    <ClInclude Include="Exp\Inc\Event.h" />
     <ClInclude Include="Exp\Inc\Common.h" />
+    <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\MainWindow.h" />
+    <ClInclude Include="Exp\Inc\Panel.h" />
+    <ClInclude Include="Exp\Inc\ResizablePanel.h" />
+    <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
+    <ClInclude Include="Exp\Inc\Window.h" />
+    <ClInclude Include="Exp\MainWindow.h" />
+    <ClInclude Include="Exp\Panel.h" />
+    <ClInclude Include="Exp\ResizablePanel.h" />
+    <ClInclude Include="Exp\Window.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h" />
     <ClInclude Include="Src\Common\CppLangUtils\IndexIterator.h" />

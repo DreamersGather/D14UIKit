@@ -1,6 +1,7 @@
 {
     "target": [
-        "Bin"
+        "Bin",
+        "Test"
     ],
     "suffix": [
         "VS",

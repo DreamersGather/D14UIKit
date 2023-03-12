@@ -1,13 +1,9 @@
 ﻿IMPORTANT! The source files below are different from UIKit @ D14Engine:
 
-Added:
-  Common/ResourcePack.(h,cpp)
-
 Deleted:
   Renderer/GraphUtils/Shader.(h,cpp)
 
 Modified:
   UIKit/Cursor.cpp
-  Renderer/Letterbox.cpp
   UIKit/Application.cpp
-  UIKit/BitmapUtils.(h,cpp)
+  Renderer/Letterbox.cpp
