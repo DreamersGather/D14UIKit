@@ -213,8 +213,8 @@ namespace d14uikit
 
     void Application::setLowEnergy(bool value)
     {
-        if (value) pimpl->uiobj->increaseAnimationCount();
-        else pimpl->uiobj->decreaseAnimationCount();
+        if (value) pimpl->uiobj->decreaseAnimationCount();
+        else pimpl->uiobj->increaseAnimationCount();
     }
 
     const std::wstring& Application::themeMode() const
