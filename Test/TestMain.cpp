@@ -27,9 +27,10 @@ int wmain(int argc, wchar_t* argv[])
 
     w.setContent(&p);
 
-    w.callback().onClose = [](Window* w)
+    w.callback().onClose = [&]
+    (Window* w)
     {
-        Application::app()->exit();
+        app.exit();
     };
     return app.run();
 }
