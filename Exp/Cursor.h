@@ -1,0 +1,13 @@
+﻿#pragma once
+
+#include "Inc/Cursor.h"
+
+namespace d14engine::uikit { struct Cursor; }
+
+namespace d14uikit
+{
+    struct Cursor::Impl
+    {
+        std::shared_ptr<d14engine::uikit::Cursor> uiobj = {};
+    };
+}

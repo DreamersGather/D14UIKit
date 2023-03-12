@@ -53,7 +53,8 @@ namespace d14engine::uikit
         else isDestroyed = m_parent.lock()->destroyUIObject(temporaryLocked);
 
         // Step 2
-        if (isDestroyed && f_onDestroy)
+        if (isDestroyed &&
+            f_onDestroy)
         {
             f_onDestroy(this);
         }

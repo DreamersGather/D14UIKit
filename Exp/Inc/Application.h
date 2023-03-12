@@ -6,6 +6,8 @@
 
 namespace d14uikit
 {
+    class Cursor;
+
     class DllExport Application : public _D14_UIKIT_NONCOPYABLE
     {
         _D14_UIKIT_PIMPL_DEF
@@ -14,7 +16,7 @@ namespace d14uikit
             int argc, wchar_t* argv[],
             const std::wstring& name = L"D14UIKit");
 
-        ~Application();
+        virtual ~Application();
 
         static Application* app();
 
@@ -69,5 +71,12 @@ namespace d14uikit
 
         const std::wstring& langLocale() const;
         void setLangLocale(const std::wstring& name);
+
+        Cursor* cursor() const;
+
+    protected:
+        explicit Application(Passkey);
+
+        void initialize();
     };
 }

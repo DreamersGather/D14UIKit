@@ -179,6 +179,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\Cursor.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CursorPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CursorPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\DraggablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
@@ -395,12 +399,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
   <ItemGroup>
     <ClInclude Include="Exp\Application.h" />
     <ClInclude Include="Exp\ClickablePanel.h" />
+    <ClInclude Include="Exp\Cursor.h" />
     <ClInclude Include="Exp\DraggablePanel.h" />
     <ClInclude Include="Exp\Event.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
     <ClInclude Include="Exp\Inc\BasicTypes.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
+    <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />
     <ClInclude Include="Exp\Inc\Event.h" />
     <ClInclude Include="Exp\Inc\Common.h" />

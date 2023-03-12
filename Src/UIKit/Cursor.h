@@ -68,14 +68,16 @@ namespace d14engine::uikit
         }
         m_customIcons = {};
 
-    public:
-        // To unregister an icon, you can simply pass an empty object.
-        
+    public:        
         void registerIcon(WstrParam themeName, StaticIconIndex index, const StaticIcon& icon);
+
         void registerIcon(WstrParam name, const StaticIcon& icon);
+        void unregisterStaticIcon(WstrParam name);
 
         void registerIcon(WstrParam themeName, DynamicIconIndex index, const DynamicIcon& icon);
+
         void registerIcon(WstrParam name, const DynamicIcon& icon);
+        void unregisterDynamicIcon(WstrParam name);
 
     protected:
         template<typename T>

@@ -1,7 +1,10 @@
 ﻿#include "Common/Precompile.h"
 
+#include "Cursor.h"
+#include "Panel.h"
 #include "Application.h"
 
+#include "UIKit/Cursor.h"
 #include "Renderer/TickTimer.h"
 #include "UIKit/Application.h"
 #include "UIKit/ColorUtils.h"
@@ -15,48 +18,37 @@ namespace d14uikit
         int argc, wchar_t* argv[],
         const std::wstring& name)
         :
-        pimpl(std::make_shared<Impl>())
+        Application(Passkey{})
     {
-        Impl::app = this;
-
         pimpl->uiobj = std::make_shared<uikit::Application>(
             argc, argv, uikit::Application::CreateInfo{ .name = name });
 
-        pimpl->uiobj->f_onSystemThemeStyleChange = [this]
-        {
-            if (pimpl->useSystemTheme)
-            {
-                auto& mode = pimpl->uiobj->systemThemeStyle().mode;
-                using ThemeMode = uikit::Application::ThemeStyle::Mode;
-
-                if (mode == ThemeMode::Light)
-                {
-                    pimpl->uiobj->changeTheme(L"Light");
-                }
-                else if (mode == ThemeMode::Dark)
-                {
-                    pimpl->uiobj->changeTheme(L"Dark");
-                }
-            }
-        };
+        initialize();
     }
 
     Application::~Application()
     {
         Impl::app = nullptr;
 
-        // fix memory leak error reported by d2d debug layer
+        // fix memory leak reported by d2d debug layer
         uikit::resource_utils::g_solidColorBrush.Reset();
         uikit::resource_utils::g_shadowEffect.Reset();
     }
 
-    Application* Application::Impl::app = nullptr;
+    Application* Application::app()
+    {
+        return Impl::app;
+    }
 
-    Application* Application::app() { return Impl::app; }
+    int Application::run()
+    {
+        return pimpl->uiobj->run();
+    }
 
-    int Application::run() { return pimpl->uiobj->run(); }
-
-    void Application::exit() { pimpl->uiobj->exit(); }
+    void Application::exit()
+    {
+        pimpl->uiobj->exit();
+    }
 
     Size Application::size() const
     {
@@ -283,5 +275,54 @@ namespace d14uikit
     void Application::setLangLocale(const std::wstring& name)
     {
         pimpl->uiobj->changeLangLocale(name);
+    }
+
+    Cursor* Application::cursor() const
+    {
+        return pimpl->cursor.get();
+    }
+
+     Application* Application::Impl::app = nullptr;
+
+    Application::Application(Passkey)
+        :
+        pimpl(std::make_shared<Impl>())
+    {
+        Impl::app = this; // reset in destructor
+    }
+
+    void Application::initialize()
+    {
+        pimpl->uiobj->f_onSystemThemeStyleChange = [this]
+        {
+            if (pimpl->useSystemTheme)
+            {
+                auto& mode = pimpl->uiobj->systemThemeStyle().mode;
+                using ThemeMode = uikit::Application::ThemeStyle::Mode;
+
+                if (mode == ThemeMode::Light)
+                {
+                    pimpl->uiobj->changeTheme(L"Light");
+                }
+                else if (mode == ThemeMode::Dark)
+                {
+                    pimpl->uiobj->changeTheme(L"Dark");
+                }
+            }
+        };
+        // Since Cursor::Passkey is protected, std::make_shared will fail here.
+        pimpl->cursor = std::shared_ptr<Cursor>(new Cursor(Cursor::Passkey{}));
+        
+        auto& cpimpl = pimpl->cursor->Panel::pimpl;
+        auto& ccimpl = pimpl->cursor->Cursor::pimpl;
+
+        auto cpuiobj = pimpl->uiobj->cursor()->shared_from_this();
+        auto ccuiobj = std::static_pointer_cast<uikit::Cursor>(cpuiobj);
+
+        cpimpl->uiobj = cpuiobj;
+        ccimpl->uiobj = ccuiobj;
+        
+        pimpl->cursor->Panel::initialize();
+        pimpl->cursor->Cursor::initialize();
     }
 }

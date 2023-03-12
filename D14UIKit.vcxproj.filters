@@ -313,6 +313,9 @@
     <ClCompile Include="Exp\MainWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\Cursor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -733,6 +736,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\MainWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Cursor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Cursor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
