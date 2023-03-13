@@ -331,7 +331,7 @@ namespace d14engine::uikit
             {
                 app->m_cursor->move(cursorPoint.x, cursorPoint.y);
             }
-            app->m_cursor->setIcon(Cursor::StaticIconIndex::Arrow);
+            app->m_cursor->setIcon(Cursor::Arrow);
 
             MouseMoveEvent e = {};
             e.cursorPoint = cursorPoint;

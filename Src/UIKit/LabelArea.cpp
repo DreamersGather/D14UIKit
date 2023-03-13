@@ -194,7 +194,7 @@ namespace d14engine::uikit
     {
         Label::onMouseMoveHelper(e);
 
-        Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::Beam);
+        Application::g_app->cursor()->setIcon(Cursor::Beam);
 
         if (isFocused() && e.buttonState.leftPressed)
         {

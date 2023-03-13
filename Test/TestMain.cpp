@@ -1,4 +1,5 @@
 ﻿#include "Application.h"
+#include "Cursor.h"
 #include "Image.h"
 #include "MainWindow.h"
 
@@ -23,6 +24,11 @@ int wmain(int argc, wchar_t* argv[])
     Image bkgn(L"test.png");
     pp.setImage(&bkgn);
 
+    pp.callback().onMouseMove = [&]
+    (Panel* p, MouseMoveEvent& e)
+    {
+        app.cursor()->setIcon(Cursor::Working);
+    };
     MainWindow w;
 
     w.setContent(&p);
