@@ -234,7 +234,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(relative.x, m_rect.top, afterWidth, height());
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::HorzSize);
+            Application::g_app->cursor()->setIcon(Cursor::HorzSize);
         }
 
         // Right
@@ -253,7 +253,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(m_rect.left, m_rect.top, afterWidth, height());
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::HorzSize);
+            Application::g_app->cursor()->setIcon(Cursor::HorzSize);
         }
 
         // Top
@@ -274,7 +274,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(m_rect.left, relative.y, width(), afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::VertSize);
+            Application::g_app->cursor()->setIcon(Cursor::VertSize);
         }
 
         // Bottom
@@ -293,7 +293,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(m_rect.left, m_rect.top, width(), afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::VertSize);
+            Application::g_app->cursor()->setIcon(Cursor::VertSize);
         }
 
         // Left Top
@@ -325,7 +325,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(relative.x, relative.y, afterWidth, afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::MainDiag);
+            Application::g_app->cursor()->setIcon(Cursor::MainDiag);
         }
 
         // Left Bottom
@@ -355,7 +355,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(relative.x, m_rect.top, afterWidth, afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::BackDiag);
+            Application::g_app->cursor()->setIcon(Cursor::BackDiag);
         }
 
         // Right Top
@@ -385,7 +385,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(m_rect.left, relative.y, afterWidth, afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::BackDiag);
+            Application::g_app->cursor()->setIcon(Cursor::BackDiag);
         }
 
         // Right Bottom
@@ -413,7 +413,7 @@ namespace d14engine::uikit
             }
             m_sizingRect = math_utils::rect(m_rect.left, m_rect.top, afterWidth, afterHeight);
 
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::MainDiag);
+            Application::g_app->cursor()->setIcon(Cursor::MainDiag);
         }
 
         // No Sizing
@@ -426,49 +426,49 @@ namespace d14engine::uikit
             {
                 m_isLeftHover = m_isTopHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::MainDiag);
+                Application::g_app->cursor()->setIcon(Cursor::MainDiag);
             }
             else if (isLeftResizable && isBottomResizable && isHitLeftBottomSizingCorner(p))
             {
                 m_isLeftHover = m_isBottomHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::BackDiag);
+                Application::g_app->cursor()->setIcon(Cursor::BackDiag);
             }
             else if (isRightResizable && isTopResizable && isHitRightTopSizingCorner(p))
             {
                 m_isRightHover = m_isTopHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::BackDiag);
+                Application::g_app->cursor()->setIcon(Cursor::BackDiag);
             }
             else if (isRightResizable && isBottomResizable && isHitRightBottomSizingCorner(p))
             {
                 m_isRightHover = m_isBottomHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::MainDiag);
+                Application::g_app->cursor()->setIcon(Cursor::MainDiag);
             }
             else if (isLeftResizable && p.x < m_absoluteRect.left)
             {
                 m_isLeftHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::HorzSize);
+                Application::g_app->cursor()->setIcon(Cursor::HorzSize);
             }
             else if (isTopResizable && p.y < m_absoluteRect.top)
             {
                 m_isTopHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::VertSize);
+                Application::g_app->cursor()->setIcon(Cursor::VertSize);
             }
             else if (isRightResizable && p.x > m_absoluteRect.right)
             {
                 m_isRightHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::HorzSize);
+                Application::g_app->cursor()->setIcon(Cursor::HorzSize);
             }
             else if (isBottomResizable && p.y > m_absoluteRect.bottom)
             {
                 m_isBottomHover = true;
 
-                Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::VertSize);
+                Application::g_app->cursor()->setIcon(Cursor::VertSize);
             }
         }
         if (isSizing())

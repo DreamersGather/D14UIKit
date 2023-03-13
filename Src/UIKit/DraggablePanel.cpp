@@ -50,7 +50,7 @@ namespace d14engine::uikit
         {
             Application::g_app->isTriggerDraggingWin32Window = true;
         }
-        Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::Move);
+        Application::g_app->cursor()->setIcon(Cursor::Move);
     }
 
     void DraggablePanel::onEndDraggingHelper()
@@ -61,7 +61,7 @@ namespace d14engine::uikit
         {
             Application::g_app->isTriggerDraggingWin32Window = false;
         }
-        Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::Arrow);
+        Application::g_app->cursor()->setIcon(Cursor::Arrow);
     }
 
     bool DraggablePanel::isTriggerDraggingHelper(const Event::Point& p)
@@ -110,7 +110,7 @@ namespace d14engine::uikit
             }
             default: break;
             }
-            Application::g_app->cursor()->setIcon(Cursor::StaticIconIndex::Move);
+            Application::g_app->cursor()->setIcon(Cursor::Move);
         }
     }
 
