@@ -24,9 +24,8 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        explicit DraggablePanel(Passkey);
-
         void initialize();
+        explicit DraggablePanel(Passkey);
 
         std::unique_ptr<Callback> pcallback = {};
 

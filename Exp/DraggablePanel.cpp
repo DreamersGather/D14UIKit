@@ -22,20 +22,6 @@ namespace d14uikit
         DraggablePanel::initialize();
     }
 
-    bool DraggablePanel::draggable() const
-    {
-        return pimpl->uiobj->isDraggable;
-    }
-
-    void DraggablePanel::setDraggable(bool value)
-    {
-        pimpl->uiobj->isDraggable = value;
-    }
-
-    DraggablePanel::Callback&
-        DraggablePanel::callback()
-        const { return *pcallback; }
-
     DraggablePanel::DraggablePanel(Passkey)
         :
         Panel(Panel::Passkey{}),
@@ -63,6 +49,18 @@ namespace d14uikit
             }
         };
     }
+
+    bool DraggablePanel::draggable() const
+    {
+        return pimpl->uiobj->isDraggable;
+    }
+
+    void DraggablePanel::setDraggable(bool value)
+    {
+        pimpl->uiobj->isDraggable = value;
+    }
+
+    DraggablePanel::Callback& DraggablePanel::callback() const { return *pcallback; }
 
     void DraggablePanel::onStartDragging() { }
 

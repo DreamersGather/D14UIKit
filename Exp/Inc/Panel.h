@@ -41,14 +41,17 @@ namespace d14uikit
         int y() const;
         void setY(int value);
 
-        Image* image() const;
-        void setImage(Image* imgae);
-
         Color color() const;
         void setColor(const Color& value);
 
         float opacity() const;
         void setOpacity(float value);
+
+        Image* image() const;
+        void setImage(Image* imgae);
+
+        int roundRadius() const;
+        void setRoundRadius(int value);
 
         void setGlobal(bool value);
 
@@ -88,9 +91,8 @@ namespace d14uikit
         Callback& callback() const;
         
     protected:
-        explicit Panel(Passkey);
-
         void initialize();
+        explicit Panel(Passkey);
 
         std::unique_ptr<Callback> pcallback = {};
 

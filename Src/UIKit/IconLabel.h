@@ -25,6 +25,8 @@ namespace d14engine::uikit
 
             ComPtr<ID2D1Bitmap1> bitmap = {};
             float bitmapOpacity = {};
+
+            Optional<D2D1_SIZE_F> customSize = std::nullopt;
         }
         icon = {};
 

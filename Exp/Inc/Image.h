@@ -25,5 +25,9 @@ namespace d14uikit
 
         void load(const std::wstring& path);
         void copy(Point offset, Image* source, Rect srcArea);
+
+    protected:
+        void initialize();
+        explicit Image(Passkey);
     };
 }

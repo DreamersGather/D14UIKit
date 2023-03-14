@@ -12,9 +12,13 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    MainWindow::MainWindow(const std::wstring& title) : MainWindow(Passkey{})
+    MainWindow::MainWindow(const std::wstring& title)
+        :
+        MainWindow(Passkey{})
     {
-        pimpl->uiobj = uikit::makeRootUIObject<uikit::MainWindow>(title);
+        MainWindow::pimpl->uiobj =
+        uikit::makeRootUIObject
+        <uikit::MainWindow>(title);
 
         Panel::pimpl->uiobj = pimpl->uiobj;
         DraggablePanel::pimpl->uiobj = pimpl->uiobj;
@@ -25,21 +29,7 @@ namespace d14uikit
         DraggablePanel::initialize();
         ResizablePanel::initialize();
         Window::initialize();
-    }
-
-    void MainWindow::showNormal()
-    {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Normal);
-    }
-
-    void MainWindow::showMinimized()
-    {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Minimized);
-    }
-
-    void MainWindow::showMaximized()
-    {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Maximized);
+        MainWindow::initialize();
     }
 
     MainWindow::MainWindow(Passkey)
@@ -49,4 +39,22 @@ namespace d14uikit
         pimpl(std::make_shared<Impl>()) { }
 
     void MainWindow::initialize() { }
+
+    void MainWindow::showNormal()
+    {
+        pimpl->uiobj->setDisplayState(
+            uikit::Window::DisplayState::Normal);
+    }
+
+    void MainWindow::showMinimized()
+    {
+        pimpl->uiobj->setDisplayState(
+            uikit::Window::DisplayState::Minimized);
+    }
+
+    void MainWindow::showMaximized()
+    {
+        pimpl->uiobj->setDisplayState(
+            uikit::Window::DisplayState::Maximized);
+    }
 }

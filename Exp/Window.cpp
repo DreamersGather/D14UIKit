@@ -14,9 +14,13 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    Window::Window(const std::wstring& title) : Window(Passkey{})
+    Window::Window(const std::wstring& title)
+        :
+        Window(Passkey{})
     {
-        pimpl->uiobj = uikit::makeUIObject<uikit::Window>(title);
+        Window::pimpl->uiobj =
+        uikit::makeUIObject
+        <uikit::Window>(title);
 
         Panel::pimpl->uiobj = pimpl->uiobj;
         DraggablePanel::pimpl->uiobj = pimpl->uiobj;
@@ -26,6 +30,54 @@ namespace d14uikit
         DraggablePanel::initialize();
         ResizablePanel::initialize();
         Window::initialize();
+    }
+
+    Window::Window(Passkey)
+        :
+        Panel(Panel::Passkey{}),
+        DraggablePanel(DraggablePanel::Passkey{}),
+        ResizablePanel(ResizablePanel::Passkey{}),
+        pimpl(std::make_shared<Impl>()),
+        pcallback(std::make_unique<Callback>()) { }
+
+    void Window::initialize()
+    {
+        pimpl->uiobj->f_onMinimize = [this]
+        (uikit::Window* w)
+        {
+            onMinimize();
+            if (pcallback->onMinimize)
+            {
+                pcallback->onMinimize(this);
+            }
+        };
+        pimpl->uiobj->f_onMaximize = [this]
+        (uikit::Window* w)
+        {
+            onMaximize();
+            if (pcallback->onMaximize)
+            {
+                pcallback->onMaximize(this);
+            }
+        };
+        pimpl->uiobj->f_onRestore = [this]
+        (uikit::Window* w)
+        {
+            onRestore();
+            if (pcallback->onRestore)
+            {
+                pcallback->onRestore(this);
+            }
+        };
+        pimpl->uiobj->f_onClose = [this]
+        (uikit::Window* w)
+        {
+            onClose();
+            if (pcallback->onClose)
+            {
+                pcallback->onClose(this);
+            }
+        };
     }
 
     const std::wstring& Window::title() const
@@ -132,54 +184,6 @@ namespace d14uikit
     Window::Callback& Window::callback() const
     {
         return *pcallback;
-    }
-
-    Window::Window(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        DraggablePanel(DraggablePanel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
-        pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void Window::initialize()
-    {
-        pimpl->uiobj->f_onMinimize = [this]
-        (uikit::Window* w)
-        {
-            onMinimize();
-            if (pcallback->onMinimize)
-            {
-                pcallback->onMinimize(this);
-            }
-        };
-        pimpl->uiobj->f_onMaximize = [this]
-        (uikit::Window* w)
-        {
-            onMaximize();
-            if (pcallback->onMaximize)
-            {
-                pcallback->onMaximize(this);
-            }
-        };
-        pimpl->uiobj->f_onRestore = [this]
-        (uikit::Window* w)
-        {
-            onRestore();
-            if (pcallback->onRestore)
-            {
-                pcallback->onRestore(this);
-            }
-        };
-        pimpl->uiobj->f_onClose = [this]
-        (uikit::Window* w)
-        {
-            onClose();
-            if (pcallback->onClose)
-            {
-                pcallback->onClose(this);
-            }
-        };
     }
 
     void Window::onMinimize() { }

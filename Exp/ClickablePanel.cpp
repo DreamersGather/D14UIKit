@@ -23,18 +23,6 @@ namespace d14uikit
         ClickablePanel::initialize();
     }
 
-    bool ClickablePanel::doubleClick() const
-    {
-        return pimpl->uiobj->enableDoubleClick;
-    }
-
-    void ClickablePanel::setDoubleClick(bool value)
-    {
-        pimpl->uiobj->enableDoubleClick = value;
-    }
-
-    ClickablePanel::Callback& ClickablePanel::callback() const { return *pcallback; }
-
     ClickablePanel::ClickablePanel(Passkey)
         :
         Panel(Panel::Passkey{}),
@@ -66,6 +54,18 @@ namespace d14uikit
             }
         };
     }
+
+    bool ClickablePanel::doubleClick() const
+    {
+        return pimpl->uiobj->enableDoubleClick;
+    }
+
+    void ClickablePanel::setDoubleClick(bool value)
+    {
+        pimpl->uiobj->enableDoubleClick = value;
+    }
+
+    ClickablePanel::Callback& ClickablePanel::callback() const { return *pcallback; }
 
     void ClickablePanel::onMouseButtonPress(MouseButtonClickEvent& event) { }
 

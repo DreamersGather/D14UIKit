@@ -15,6 +15,10 @@ namespace d14uikit
         initialize();
     }
 
+    Event::Event(Passkey) : pimpl(std::make_shared<Impl>()) { }
+
+    void Event::initialize() { }
+
     bool Event::isKeyDown(VirtualKeyCode vkey)
     {
         return uikit::Event::isKeyDown(vkey);
@@ -51,10 +55,6 @@ namespace d14uikit
 
     bool Event::capslock() { return isKeyToggled(vk_capital); }
 
-    Event::Event(Passkey) : pimpl(std::make_shared<Impl>()) { }
-
-    void Event::initialize() { }
-
     SizeEvent::SizeEvent() : SizeEvent(Passkey{})
     {
         Event::pimpl->uiobj =
@@ -65,18 +65,18 @@ namespace d14uikit
         SizeEvent::initialize();
     }
 
-    Size SizeEvent::size() const
-    {
-        auto& sz = pimpl->uiobj->size;
-        return { math_utils::round(sz.width), math_utils::round(sz.height) };
-    }
-
     SizeEvent::SizeEvent(Passkey)
         :
         Event(Event::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void SizeEvent::initialize() { }
+
+    Size SizeEvent::size() const
+    {
+        auto& sz = pimpl->uiobj->size;
+        return { math_utils::round(sz.width), math_utils::round(sz.height) };
+    }
 
     MoveEvent::MoveEvent() : MoveEvent(Passkey{})
     {
@@ -88,18 +88,18 @@ namespace d14uikit
         MoveEvent::initialize();
     }
 
-    Point MoveEvent::position() const
-    {
-        auto& pt = pimpl->uiobj->position;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
-    }
-
     MoveEvent::MoveEvent(Passkey)
         :
         Event(Event::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void MoveEvent::initialize() { }
+
+    Point MoveEvent::position() const
+    {
+        auto& pt = pimpl->uiobj->position;
+        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+    }
 
     MouseEvent::MouseEvent() : MouseEvent(Passkey{})
     {
@@ -111,18 +111,18 @@ namespace d14uikit
         MouseEvent::initialize();
     }
 
-    Point MouseEvent::cursorPoint() const
-    {
-        auto& pt = pimpl->uiobj->cursorPoint;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
-    }
-
     MouseEvent::MouseEvent(Passkey)
         :
         Event(Event::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void MouseEvent::initialize() { }
+
+    Point MouseEvent::cursorPoint() const
+    {
+        auto& pt = pimpl->uiobj->cursorPoint;
+        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+    }
 
     MouseMoveEvent::MouseMoveEvent() : MouseMoveEvent(Passkey{})
     {
@@ -136,18 +136,18 @@ namespace d14uikit
         MouseMoveEvent::initialize();
     }
 
-    Point MouseMoveEvent::lastCursorPoint() const
-    {
-        auto& pt = pimpl->uiobj->lastCursorPoint;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
-    }
-
     MouseMoveEvent::MouseMoveEvent(Passkey)
         :
         MouseEvent(MouseEvent::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void MouseMoveEvent::initialize() { }
+
+    Point MouseMoveEvent::lastCursorPoint() const
+    {
+        auto& pt = pimpl->uiobj->lastCursorPoint;
+        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+    }
 
     MouseButtonEvent::MouseButtonEvent() : MouseButtonEvent(Passkey{})
     {
@@ -160,6 +160,13 @@ namespace d14uikit
         MouseEvent::initialize();
         MouseButtonEvent::initialize();
     }
+
+    MouseButtonEvent::MouseButtonEvent(Passkey)
+        :
+        MouseEvent(MouseEvent::Passkey{}),
+        pimpl(std::make_shared<Impl>()) { }
+
+    void MouseButtonEvent::initialize() { }
 
     bool MouseButtonEvent::leftDown() const
     {
@@ -206,13 +213,6 @@ namespace d14uikit
         return pimpl->uiobj->state.middleDblclk();
     }
 
-    MouseButtonEvent::MouseButtonEvent(Passkey)
-        :
-        MouseEvent(MouseEvent::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void MouseButtonEvent::initialize() { }
-
     MouseWheelEvent::MouseWheelEvent() : MouseWheelEvent(Passkey{})
     {
         Event::pimpl->uiobj =
@@ -225,17 +225,17 @@ namespace d14uikit
         MouseWheelEvent::initialize();
     }
 
-    int MouseWheelEvent::deltaCount() const
-    {
-        return pimpl->uiobj->deltaCount;
-    }
-
     MouseWheelEvent::MouseWheelEvent(Passkey)
         :
         MouseEvent(MouseEvent::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void MouseWheelEvent::initialize() { }
+
+    int MouseWheelEvent::deltaCount() const
+    {
+        return pimpl->uiobj->deltaCount;
+    }
 
     KeyboardEvent::KeyboardEvent() : KeyboardEvent(Passkey{})
     {
@@ -246,6 +246,13 @@ namespace d14uikit
         Event::initialize();
         KeyboardEvent::initialize();
     }
+
+    KeyboardEvent::KeyboardEvent(Passkey)
+        :
+        Event(Event::Passkey{}),
+        pimpl(std::make_shared<Impl>()) { }
+
+    void KeyboardEvent::initialize() { }
 
     VirtualKeyCode KeyboardEvent::vkey() const
     {
@@ -262,13 +269,6 @@ namespace d14uikit
         return pimpl->uiobj->state.released();
     }
 
-    KeyboardEvent::KeyboardEvent(Passkey)
-        :
-        Event(Event::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void KeyboardEvent::initialize() { }
-
     MouseButtonClickEvent::MouseButtonClickEvent() : MouseButtonClickEvent(Passkey{})
     {
         Event::pimpl->uiobj =
@@ -278,6 +278,13 @@ namespace d14uikit
         Event::initialize();
         MouseButtonClickEvent::initialize();
     }
+
+    MouseButtonClickEvent::MouseButtonClickEvent(Passkey)
+        :
+        Event(Event::Passkey{}),
+        pimpl(std::make_shared<Impl>()) { }
+
+    void MouseButtonClickEvent::initialize() { }
 
     bool MouseButtonClickEvent::left() const
     {
@@ -293,11 +300,4 @@ namespace d14uikit
     {
         return pimpl->uiobj->middle();
     }
-
-    MouseButtonClickEvent::MouseButtonClickEvent(Passkey)
-        :
-        Event(Event::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void MouseButtonClickEvent::initialize() { }
 }

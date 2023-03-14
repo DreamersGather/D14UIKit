@@ -39,9 +39,8 @@ namespace d14uikit
         static bool capslock();
 
     protected:
-        explicit Event(Passkey);
-
         void initialize();
+        explicit Event(Passkey);
     };
 
     class DllExport SizeEvent : public Event
@@ -53,9 +52,8 @@ namespace d14uikit
         Size size() const;
 
     protected:
-        explicit SizeEvent(Passkey);
-
         void initialize();
+        explicit SizeEvent(Passkey);
     };
 
     class DllExport MoveEvent : public Event
@@ -67,9 +65,8 @@ namespace d14uikit
         Point position() const;
 
     protected:
-        explicit MoveEvent(Passkey);
-
         void initialize();
+        explicit MoveEvent(Passkey);
     };
 
     class DllExport MouseEvent : public Event
@@ -81,9 +78,8 @@ namespace d14uikit
         Point cursorPoint() const;
 
     protected:
-        explicit MouseEvent(Passkey);
-
         void initialize();
+        explicit MouseEvent(Passkey);
     };
 
     class DllExport MouseMoveEvent : public MouseEvent
@@ -95,9 +91,8 @@ namespace d14uikit
         Point lastCursorPoint() const;
 
     protected:
-        explicit MouseMoveEvent(Passkey);
-
         void initialize();
+        explicit MouseMoveEvent(Passkey);
     };
 
     class DllExport MouseButtonEvent : public MouseEvent
@@ -117,9 +112,8 @@ namespace d14uikit
         bool middleDblclk() const;
 
     protected:
-        explicit MouseButtonEvent(Passkey);
-
         void initialize();
+        explicit MouseButtonEvent(Passkey);
     };
 
     class DllExport MouseWheelEvent : public MouseEvent
@@ -131,9 +125,8 @@ namespace d14uikit
         int deltaCount() const;
 
     protected:
-        explicit MouseWheelEvent(Passkey);
-
         void initialize();
+        explicit MouseWheelEvent(Passkey);
     };
 
     class DllExport KeyboardEvent : public Event
@@ -148,9 +141,8 @@ namespace d14uikit
         bool released() const;
 
     protected:
-        explicit KeyboardEvent(Passkey);
-
         void initialize();
+        explicit KeyboardEvent(Passkey);
     };
 
     class DllExport MouseButtonClickEvent : public Event
@@ -164,8 +156,7 @@ namespace d14uikit
         bool middle() const;
 
     protected:
-        explicit MouseButtonClickEvent(Passkey);
-
         void initialize();
+        explicit MouseButtonClickEvent(Passkey);
     };
 }

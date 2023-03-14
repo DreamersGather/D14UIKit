@@ -17,8 +17,7 @@ namespace d14uikit
         void showMaximized();
 
     protected:
-        explicit MainWindow(Passkey);
-
         void initialize();
+        explicit MainWindow(Passkey);
     };
 }

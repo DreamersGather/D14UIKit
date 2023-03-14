@@ -175,6 +175,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\Button.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ClickablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
@@ -187,9 +191,21 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ElevatedButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Event.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)EventPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)EventPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\FilledButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\FlatButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Image.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
@@ -199,6 +215,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\OutlinedButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Panel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelPrivate</ObjectFileName>
@@ -206,6 +226,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClCompile Include="Exp\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\ToggleButton.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowPrivate</ObjectFileName>
@@ -398,27 +422,39 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exp\Application.h" />
+    <ClInclude Include="Exp\Button.h" />
     <ClInclude Include="Exp\ClickablePanel.h" />
     <ClInclude Include="Exp\Cursor.h" />
     <ClInclude Include="Exp\DraggablePanel.h" />
+    <ClInclude Include="Exp\ElevatedButton.h" />
     <ClInclude Include="Exp\Event.h" />
+    <ClInclude Include="Exp\FilledButton.h" />
+    <ClInclude Include="Exp\FlatButton.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
     <ClInclude Include="Exp\Inc\BasicTypes.h" />
+    <ClInclude Include="Exp\Inc\Button.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
     <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />
+    <ClInclude Include="Exp\Inc\ElevatedButton.h" />
     <ClInclude Include="Exp\Inc\Event.h" />
     <ClInclude Include="Exp\Inc\Common.h" />
+    <ClInclude Include="Exp\Inc\FilledButton.h" />
+    <ClInclude Include="Exp\Inc\FlatButton.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\MainWindow.h" />
+    <ClInclude Include="Exp\Inc\OutlinedButton.h" />
     <ClInclude Include="Exp\Inc\Panel.h" />
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
+    <ClInclude Include="Exp\Inc\ToggleButton.h" />
     <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
     <ClInclude Include="Exp\Inc\Window.h" />
     <ClInclude Include="Exp\MainWindow.h" />
+    <ClInclude Include="Exp\OutlinedButton.h" />
     <ClInclude Include="Exp\Panel.h" />
     <ClInclude Include="Exp\ResizablePanel.h" />
+    <ClInclude Include="Exp\ToggleButton.h" />
     <ClInclude Include="Exp\Window.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h" />

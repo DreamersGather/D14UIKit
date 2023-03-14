@@ -10,11 +10,24 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    Image::Image() : pimpl(std::make_shared<Impl>()) { }
+    Image::Image() : Image(Passkey{}) { }
 
-    Image::Image(int width, int height) : Image() { setSize({ width, height }); }
+    Image::Image(int width, int height)
+        :
+        Image(Passkey{})
+    {
+        setSize({ width, height });
+    }
 
-    Image::Image(const std::wstring& path) : Image() { load(path); }
+    Image::Image(const std::wstring& path)
+        :
+        Image(Passkey{}) { load(path); }
+
+    Image::Image(Passkey)
+        :
+        pimpl(std::make_shared<Impl>()) { }
+
+    void Image::initialize() { }
 
     Size Image::size() const
     {

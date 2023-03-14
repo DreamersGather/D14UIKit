@@ -27,9 +27,8 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        explicit ResizablePanel(Passkey);
-
         void initialize();
+        explicit ResizablePanel(Passkey);
 
         std::unique_ptr<Callback> pcallback = {};
 

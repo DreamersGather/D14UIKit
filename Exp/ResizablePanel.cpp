@@ -22,33 +22,6 @@ namespace d14uikit
         ResizablePanel::initialize();
     }
 
-    bool ResizablePanel::resizable() const
-    {
-        return pimpl->resizable;
-    }
-
-    void ResizablePanel::setResizable(bool value)
-    {
-        pimpl->resizable = value;
-
-        pimpl->uiobj->isLeftResizable = pimpl->uiobj->isRightResizable =
-        pimpl->uiobj->isTopResizable = pimpl->uiobj->isBottomResizable = value;
-    }
-
-    bool ResizablePanel::dynamicSizing() const
-    {
-        return pimpl->uiobj->enableDynamicSizing;
-    }
-
-    void ResizablePanel::setDynamicSizing(bool value)
-    {
-        pimpl->uiobj->enableDynamicSizing = value;
-    }
-
-    ResizablePanel::Callback&
-        ResizablePanel::callback()
-        const { return *pcallback; }
-
     ResizablePanel::ResizablePanel(Passkey)
         :
         Panel(Panel::Passkey{}),
@@ -76,6 +49,31 @@ namespace d14uikit
             }
         };
     }
+
+    bool ResizablePanel::resizable() const
+    {
+        return pimpl->resizable;
+    }
+
+    void ResizablePanel::setResizable(bool value)
+    {
+        pimpl->resizable = value;
+
+        pimpl->uiobj->isLeftResizable = pimpl->uiobj->isRightResizable =
+        pimpl->uiobj->isTopResizable = pimpl->uiobj->isBottomResizable = value;
+    }
+
+    bool ResizablePanel::dynamicSizing() const
+    {
+        return pimpl->uiobj->enableDynamicSizing;
+    }
+
+    void ResizablePanel::setDynamicSizing(bool value)
+    {
+        pimpl->uiobj->enableDynamicSizing = value;
+    }
+
+    ResizablePanel::Callback& ResizablePanel::callback() const { return *pcallback; }
 
     void ResizablePanel::onStartResizing() { }
 
