@@ -66,8 +66,7 @@ namespace d14uikit
         void setIcon(DynamicIconIndex index);
 
     protected:
-        explicit Cursor(Passkey);
-
         void initialize();
+        explicit Cursor(Passkey);
     };
 }

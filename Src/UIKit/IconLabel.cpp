@@ -85,7 +85,15 @@ namespace d14engine::uikit
         {
             if (pIconLabel->icon.bitmap)
             {
-                auto iconSize = pIconLabel->icon.bitmap->GetSize();
+                D2D1_SIZE_F iconSize = {};
+                if (pIconLabel->icon.customSize.has_value())
+                {
+                    iconSize = pIconLabel->icon.customSize.value();
+                }
+                else // use the original size of the bitmap
+                {
+                    iconSize = pIconLabel->icon.bitmap->GetSize();
+                }
                 float textWidth = pIconLabel->m_label->textMetrics().widthIncludingTrailingWhitespace;
 
                 float spacing = pIconLabel->width() - iconSize.width - textWidth;
@@ -136,7 +144,11 @@ namespace d14engine::uikit
         iconLabel->f_updateLayout = [iconHeadPadding, iconTailPadding](IconLabel* pIconLabel)
         {
             D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-            if (pIconLabel->icon.bitmap)
+            if (pIconLabel->icon.customSize.has_value())
+            {
+                iconSize = pIconLabel->icon.customSize.value();
+            }
+            else if (pIconLabel->icon.bitmap != nullptr)
             {
                 iconSize = pIconLabel->icon.bitmap->GetSize();
             }
@@ -177,7 +189,11 @@ namespace d14engine::uikit
         iconLabel->f_updateLayout = [](IconLabel* pIconLabel)
         {
             D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-            if (pIconLabel->icon.bitmap)
+            if (pIconLabel->icon.customSize.has_value())
+            {
+                iconSize = pIconLabel->icon.customSize.value();
+            }
+            else if (pIconLabel->icon.bitmap != nullptr)
             {
                 iconSize = pIconLabel->icon.bitmap->GetSize();
             }
@@ -220,7 +236,11 @@ namespace d14engine::uikit
         iconLabel->f_updateLayout = [](IconLabel* pIconLabel)
         {
             D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-            if (pIconLabel->icon.bitmap)
+            if (pIconLabel->icon.customSize.has_value())
+            {
+                iconSize = pIconLabel->icon.customSize.value();
+            }
+            else if (pIconLabel->icon.bitmap != nullptr)
             {
                 iconSize = pIconLabel->icon.bitmap->GetSize();
             }

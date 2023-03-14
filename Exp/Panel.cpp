@@ -23,191 +23,6 @@ namespace d14uikit
         initialize();
     }
 
-    bool Panel::destory()
-    {
-        if (pimpl->uiobj->destroy())
-        {
-            pimpl->parent = nullptr;
-            return true;
-        }
-        else return false;
-    }
-
-    bool Panel::visible() const
-    {
-        return pimpl->uiobj->visible();
-    }
-
-    void Panel::setVisible(bool value)
-    {
-        pimpl->uiobj->setVisible(value);
-    }
-
-    bool Panel::enabled() const
-    {
-        return pimpl->uiobj->enabled();
-    }
-
-    void Panel::setEnabled(bool value)
-    {
-        pimpl->uiobj->setEnabled(value);
-    }
-
-    Size Panel::size() const
-    {
-        auto sz = pimpl->uiobj->size();
-        return
-        {
-            math_utils::round(sz.width),
-            math_utils::round(sz.height)
-        };
-    }
-
-    void Panel::setSize(const Size& value)
-    {
-        pimpl->uiobj->resize((float)value.width, (float)value.height);
-    }
-
-    int Panel::width() const
-    {
-        return math_utils::round(pimpl->uiobj->width());
-    }
-
-    void Panel::setWidth(int value)
-    {
-        pimpl->uiobj->resize((float)value, pimpl->uiobj->height());
-    }
-
-    int Panel::height() const
-    {
-        return math_utils::round(pimpl->uiobj->height());
-    }
-
-    void Panel::setHeight(int value)
-    {
-        pimpl->uiobj->resize(pimpl->uiobj->width(), (float)value);
-    }
-
-    Point Panel::position() const
-    {
-        auto pos = pimpl->uiobj->position();
-        return { math_utils::round(pos.x), math_utils::round(pos.y) };
-    }
-
-    void Panel::setPosition(const Point& value)
-    {
-        pimpl->uiobj->move((float)value.x, (float)value.y);
-    }
-
-    int Panel::x() const
-    {
-        return math_utils::round(pimpl->uiobj->position().x);
-    }
-
-    void Panel::setX(int value)
-    {
-        auto pos = pimpl->uiobj->position();
-        pimpl->uiobj->move((float)value, pos.y);
-    }
-
-    int Panel::y() const
-    {
-        return math_utils::round(pimpl->uiobj->position().y);
-    }
-
-    void Panel::setY(int value)
-    {
-        auto pos = pimpl->uiobj->position();
-        pimpl->uiobj->move(pos.x, (float)value);
-    }
-
-    Image* Panel::image() const
-    {
-        return pimpl->image;
-    }
-
-    void Panel::setImage(Image* image)
-    {
-        pimpl->image = image;
-
-        if (image == nullptr)
-        {
-            pimpl->uiobj->bitmap.Reset();
-        }
-        else // new background
-        {
-            pimpl->uiobj->bitmap = image->getImpl()->bitmap;
-        }
-    }
-
-    Color Panel::color() const
-    {
-        auto rgb = uikit::color_utils::convert(pimpl->bkgn.color);
-        return { rgb.R, rgb.G, rgb.B };
-    }
-
-    void Panel::setColor(const Color& value)
-    {
-        pimpl->bkgn.color = uikit::color_utils::convert(
-            uikit::color_utils::iRGB{ value.r, value.g, value.b });
-    }
-
-    float Panel::opacity() const
-    {
-        return pimpl->bkgn.opacity;
-    }
-
-    void Panel::setOpacity(float value)
-    {
-        pimpl->bkgn.opacity = value;
-    }
-
-    void Panel::setGlobal(bool value)
-    {
-        if (value)
-        {
-            pimpl->uiobj->registerDrawObjects();
-            pimpl->uiobj->registerApplicationEvents();
-        }
-        else // local
-        {
-            pimpl->uiobj->unregisterDrawObjects();
-            pimpl->uiobj->unregisterApplicationEvents();
-        }
-    }
-
-    Panel* Panel::parent() const
-    {
-        return pimpl->parent;
-    }
-
-    void Panel::setParent(Panel* uiobj)
-    {
-        pimpl->parent = uiobj;
-        if (uiobj != nullptr)
-        {
-            pimpl->uiobj->setParent(uiobj->pimpl->uiobj);
-        }
-        else pimpl->uiobj->setParent(nullptr);
-    }
-
-    void Panel::moveTopmost()
-    {
-        pimpl->uiobj->moveTopmost();
-    }
-
-    void Panel::moveAbove(Panel* uiobj)
-    {
-        pimpl->uiobj->moveAbovePeerObject(uiobj->pimpl->uiobj.get());
-    }
-
-    void Panel::moveBelow(Panel* uiobj)
-    {
-        pimpl->uiobj->moveBelowPeerObject(uiobj->pimpl->uiobj.get());
-    }
-
-    Panel::Callback& Panel::callback() const { return *pcallback; }
-
     Panel::Panel(Passkey)
         :
         pimpl(std::make_shared<Impl>()),
@@ -346,6 +161,198 @@ namespace d14uikit
             }
         };
     }
+
+    bool Panel::destory()
+    {
+        if (pimpl->uiobj->destroy())
+        {
+            pimpl->parent = nullptr;
+            return true;
+        }
+        else return false;
+    }
+
+    bool Panel::visible() const
+    {
+        return pimpl->uiobj->visible();
+    }
+
+    void Panel::setVisible(bool value)
+    {
+        pimpl->uiobj->setVisible(value);
+    }
+
+    bool Panel::enabled() const
+    {
+        return pimpl->uiobj->enabled();
+    }
+
+    void Panel::setEnabled(bool value)
+    {
+        pimpl->uiobj->setEnabled(value);
+    }
+
+    Size Panel::size() const
+    {
+        auto sz = pimpl->uiobj->size();
+        return
+        {
+            math_utils::round(sz.width),
+            math_utils::round(sz.height)
+        };
+    }
+
+    void Panel::setSize(const Size& value)
+    {
+        pimpl->uiobj->resize((float)value.width, (float)value.height);
+    }
+
+    int Panel::width() const
+    {
+        return math_utils::round(pimpl->uiobj->width());
+    }
+
+    void Panel::setWidth(int value)
+    {
+        pimpl->uiobj->resize((float)value, pimpl->uiobj->height());
+    }
+
+    int Panel::height() const
+    {
+        return math_utils::round(pimpl->uiobj->height());
+    }
+
+    void Panel::setHeight(int value)
+    {
+        pimpl->uiobj->resize(pimpl->uiobj->width(), (float)value);
+    }
+
+    Point Panel::position() const
+    {
+        auto pos = pimpl->uiobj->position();
+        return { math_utils::round(pos.x), math_utils::round(pos.y) };
+    }
+
+    void Panel::setPosition(const Point& value)
+    {
+        pimpl->uiobj->move((float)value.x, (float)value.y);
+    }
+
+    int Panel::x() const
+    {
+        return math_utils::round(pimpl->uiobj->position().x);
+    }
+
+    void Panel::setX(int value)
+    {
+        auto pos = pimpl->uiobj->position();
+        pimpl->uiobj->move((float)value, pos.y);
+    }
+
+    int Panel::y() const
+    {
+        return math_utils::round(pimpl->uiobj->position().y);
+    }
+
+    void Panel::setY(int value)
+    {
+        auto pos = pimpl->uiobj->position();
+        pimpl->uiobj->move(pos.x, (float)value);
+    }
+
+    Color Panel::color() const
+    {
+        auto rgb = uikit::color_utils::convert(pimpl->bkgn.color);
+        return {  rgb.R,  rgb.G,  rgb.B  };
+    }
+
+    void Panel::setColor(const Color& value)
+    {
+        pimpl->bkgn.color = uikit::color_utils::convert(
+            uikit::color_utils::iRGB{ value.r, value.g, value.b });
+    }
+
+    float Panel::opacity() const
+    {
+        return pimpl->bkgn.opacity;
+    }
+
+    void Panel::setOpacity(float value)
+    {
+        pimpl->bkgn.opacity = value;
+    }
+
+    Image* Panel::image() const
+    {
+        return pimpl->image;
+    }
+
+    void Panel::setImage(Image* image)
+    {
+        pimpl->image = image;
+        if (image != nullptr)
+        {
+            pimpl->uiobj->bitmap = image->getImpl()->bitmap;
+        }
+        else pimpl->uiobj->bitmap.Reset();
+    }
+
+    int Panel::roundRadius() const
+    {
+        return math_utils::round(pimpl->uiobj->roundRadiusX);
+    }
+
+    void Panel::setRoundRadius(int value)
+    {
+        pimpl->uiobj->roundRadiusX =
+        pimpl->uiobj->roundRadiusY = (float)value;
+    }
+
+    void Panel::setGlobal(bool value)
+    {
+        if (value)
+        {
+            pimpl->uiobj->registerDrawObjects();
+            pimpl->uiobj->registerApplicationEvents();
+        }
+        else // local
+        {
+            pimpl->uiobj->unregisterDrawObjects();
+            pimpl->uiobj->unregisterApplicationEvents();
+        }
+    }
+
+    Panel* Panel::parent() const
+    {
+        return pimpl->parent;
+    }
+
+    void Panel::setParent(Panel* uiobj)
+    {
+        pimpl->parent = uiobj;
+        if (uiobj != nullptr)
+        {
+            pimpl->uiobj->setParent(uiobj->pimpl->uiobj);
+        }
+        else pimpl->uiobj->setParent(nullptr);
+    }
+
+    void Panel::moveTopmost()
+    {
+        pimpl->uiobj->moveTopmost();
+    }
+
+    void Panel::moveAbove(Panel* uiobj)
+    {
+        pimpl->uiobj->moveAbovePeerObject(uiobj->pimpl->uiobj.get());
+    }
+
+    void Panel::moveBelow(Panel* uiobj)
+    {
+        pimpl->uiobj->moveBelowPeerObject(uiobj->pimpl->uiobj.get());
+    }
+
+    Panel::Callback& Panel::callback() const { return *pcallback; }
 
     void Panel::onSize(SizeEvent& event) { }
 

@@ -24,9 +24,8 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        explicit ClickablePanel(Passkey);
-
         void initialize();
+        explicit ClickablePanel(Passkey);
 
         std::unique_ptr<Callback> pcallback = {};
 

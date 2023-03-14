@@ -75,8 +75,7 @@ namespace d14uikit
         Cursor* cursor() const;
 
     protected:
-        explicit Application(Passkey);
-
         void initialize();
+        explicit Application(Passkey);
     };
 }

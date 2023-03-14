@@ -19,6 +19,13 @@ namespace d14uikit
         Cursor::initialize();
     }
 
+    Cursor::Cursor(Passkey)
+        :
+        Panel(Panel::Passkey{}),
+        pimpl(std::make_shared<Impl>()) { }
+
+    void Cursor::initialize() { }
+
     void Cursor::setIcon(StaticIconIndex index)
     {
         pimpl->uiobj->setIcon(
@@ -30,11 +37,4 @@ namespace d14uikit
         pimpl->uiobj->setIcon(
             uikit::Cursor::DynamicIconIndex(index));
     }
-
-    Cursor::Cursor(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void Cursor::initialize() { }
 }

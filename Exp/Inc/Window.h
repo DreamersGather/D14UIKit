@@ -54,9 +54,8 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        explicit Window(Passkey);
-
         void initialize();
+        explicit Window(Passkey);
 
         std::unique_ptr<Callback> pcallback = {};
 

@@ -63,7 +63,11 @@ namespace d14engine::uikit
         iconLabel->f_updateLayout = [textHeadPadding, hotkeyTailPadding](IconLabel* pIconLabel)
         {
             D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-            if (pIconLabel->icon.bitmap)
+            if (pIconLabel->icon.customSize.has_value())
+            {
+                iconSize = pIconLabel->icon.customSize.value();
+            }
+            else if (pIconLabel->icon.bitmap != nullptr)
             {
                 iconSize = pIconLabel->icon.bitmap->GetSize();
             }

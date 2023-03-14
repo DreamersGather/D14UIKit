@@ -1,0 +1,15 @@
+﻿#pragma once
+
+#include "Inc/ToggleButton.h"
+
+namespace d14engine::uikit { struct ToggleButton; }
+
+namespace d14uikit
+{
+    struct ToggleButton::Impl
+    {
+        std::shared_ptr<d14engine::uikit::ToggleButton> uiobj = {};
+
+        State state = State::Deactivated;
+    };
+}
