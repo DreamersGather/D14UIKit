@@ -432,8 +432,9 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\FlatButton.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
-    <ClInclude Include="Exp\Inc\BasicTypes.h" />
+    <ClInclude Include="Exp\Inc\BasicType.h" />
     <ClInclude Include="Exp\Inc\Button.h" />
+    <ClInclude Include="Exp\Inc\Callback.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
     <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />

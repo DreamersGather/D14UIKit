@@ -699,7 +699,7 @@
     <ClInclude Include="Exp\Inc\Common.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Exp\Inc\BasicTypes.h">
+    <ClInclude Include="Exp\Inc\BasicType.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\Inc\Panel.h">
@@ -796,6 +796,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\ToggleButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Callback.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿#include "Application.h"
+#include "Callback.h"
 #include "Cursor.h"
 #include "ElevatedButton.h"
 #include "FilledButton.h"
@@ -25,6 +26,11 @@ int wmain(int argc, wchar_t* argv[])
     pp.setHeight(256);
     pp.setImage(&ico);
 
+    pp.D14_onMouseMove(&, p, e)
+    {
+        app.cursor()->setIcon(Cursor::Busy);
+    };
+
     FlatButton btn1;
     btn1.setParent(&p);
     btn1.setX(300);
@@ -35,6 +41,17 @@ int wmain(int argc, wchar_t* argv[])
     btn1.setIcon(&ico);
     btn1.setIconSize({ 32, 32 });
     btn1.setText(L"Flat Button");
+
+    btn1.D14_onMouseEnter(, p, e)
+    {
+        auto btn = dynamic_cast<Button*>(p);
+        btn->setText(L"Gotcha!");
+    };
+    btn1.D14_onMouseLeave(, p, e)
+    {
+        auto btn = dynamic_cast<Button*>(p);
+        btn->setText(L"No idea.");
+    };
 
     FilledButton btn2;
     btn2.setParent(&p);
@@ -47,6 +64,23 @@ int wmain(int argc, wchar_t* argv[])
     btn2.setIconSize({ 32, 32 });
     btn2.setText(L"Filled Button");
 
+    btn2.D14_onMouseButton(, p, e)
+    {
+        auto btn = dynamic_cast<Button*>(p);
+        if (e.leftDblclk())
+        {
+            btn->setText(L"Left");
+        }
+        else if (e.rightDblclk())
+        {
+            btn->setText(L"Right");
+        }
+        else if (e.middleDblclk())
+        {
+            btn->setText(L"Middle");
+        }
+    };
+
     OutlinedButton btn3;
     btn3.setParent(&p);
     btn3.setX(300);
@@ -57,6 +91,15 @@ int wmain(int argc, wchar_t* argv[])
     btn3.setIcon(&ico);
     btn3.setIconSize({ 32, 32 });
     btn3.setText(L"Outlined Button");
+
+    btn3.D14_onKeyboard(, p, e)
+    {
+        if (e.pressed() && isalpha(e.vkey()))
+        {
+            auto btn = dynamic_cast<Button*>(p);
+            btn->setText({ 1, (wchar_t)e.vkey() });
+        }
+    };
 
     ElevatedButton btn4;
     btn4.setParent(&p);
@@ -69,21 +112,20 @@ int wmain(int argc, wchar_t* argv[])
     btn4.setIconSize({ 32, 32 });
     btn4.setText(L"Elevated Button");
 
-    btn4.ClickablePanel::callback().onMouseButtonRelease = []
-    (ClickablePanel* clkp, MouseButtonClickEvent& e)
+    btn4.D14_onMouseButtonRelease(, clkp, e)
     {
         auto btn = (Button*)clkp;
         if (e.left())
         {
-            btn->setText(L"Left clicked");
+            btn->setText(L"Left");
         }
         else if (e.right())
         {
-            btn->setText(L"Right clicked");
+            btn->setText(L"Right");
         }
         else if (e.middle())
         {
-            btn->setText(L"Middle clicked");
+            btn->setText(L"Middle");
         }
     };
 
@@ -98,24 +140,28 @@ int wmain(int argc, wchar_t* argv[])
     btn5.setIconSize({ 32, 32 });
     btn5.setText(L"Toggle Button");
 
-    btn5.callback().onStateChange = []
-    (ToggleButton* btn, ToggleButton::State state)
+    btn5.D14_onStateChange(ToggleButton, , btn, state)
     {
-        if (state == ToggleButton::Activated)
+        switch (state)
+        {
+        case ToggleButton::State::Activated:
         {
             btn->setText(L"Activated");
+            break;
         }
-        else if (state == ToggleButton::Deactivated)
+        case ToggleButton::State::Deactivated:
         {
             btn->setText(L"Deactivated");
+            break;
+        }
+        default: break;
         }
     };
 
     MainWindow w;
     w.setContent(&p);
 
-    w.callback().onClose = [&]
-    (Window* w)
+    w.D14_onClose(&, w)
     {
         app.exit();
     };
