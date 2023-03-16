@@ -1,6 +1,8 @@
 ﻿Bin/
 Test/D14UIKit.dll
 Test/D14UIKit.lib
+Test/PyBind/D14UIKit.pyd
+Test/PyBind/D14UIKit.pyi
 Test/test.png
 
 ## Ignore Visual Studio temporary files, build results, and

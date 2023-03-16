@@ -4,6 +4,8 @@ Deleted:
   Renderer/GraphUtils/Shader.(h,cpp)
 
 Modified:
+  Common/Precompile.h
+  Common/ResourcePack.cpp
   UIKit/Cursor.cpp
   UIKit/Application.cpp
   Renderer/Letterbox.cpp

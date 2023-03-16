@@ -40,7 +40,7 @@ namespace d14engine::uikit
 
     void Application::initWin32Window()
     {
-        HINSTANCE hInstance = GetModuleHandle(L"D14UIKit");
+        HINSTANCE hInstance = GetModuleHandle(_D14_MODULE_NAME);
         
         WNDCLASSEX wndclass = {};
         wndclass.cbSize = sizeof(wndclass);

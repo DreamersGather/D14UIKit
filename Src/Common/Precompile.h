@@ -111,3 +111,9 @@ namespace d14engine
 
 // Allows virtual inheritance to solve diamond problem.
 #pragma warning(disable : 4250)
+
+#if defined(_D14_UIKIT_EXP)
+#define _D14_MODULE_NAME L"D14UIKit.dll"
+#elif defined(_D14_UIKIT_EXP_PY_BIND)
+#define _D14_MODULE_NAME L"D14UIKit.pyd"
+#endif

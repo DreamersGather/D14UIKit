@@ -8,7 +8,7 @@ namespace d14engine
 {
     ResourcePack loadResource(WstrParam name, WstrParam type)
     {
-        auto hModule = GetModuleHandle(L"D14UIKit");
+        auto hModule = GetModuleHandle(_D14_MODULE_NAME);
 
         auto hResInfo = FindResource(hModule, name.c_str(), type.c_str());
         if (hResInfo == nullptr) // target not in project's resource file
