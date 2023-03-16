@@ -20,9 +20,9 @@ namespace d14uikit
 
         struct Callback
         {
-            std::function<void(ResizablePanel*)> onStartResizing = {};
-
             std::function<void(ResizablePanel*)> onEndResizing = {};
+
+            std::function<void(ResizablePanel*)> onStartResizing = {};
         };
         Callback& callback() const;
 
@@ -32,8 +32,8 @@ namespace d14uikit
 
         std::unique_ptr<Callback> pcallback = {};
 
-        virtual void onStartResizing();
-
         virtual void onEndResizing();
+
+        virtual void onStartResizing();
     };
 }

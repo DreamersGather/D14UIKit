@@ -17,9 +17,9 @@ namespace d14uikit
 
         struct Callback
         {
-            std::function<void(DraggablePanel*)> onStartDragging = {};
-
             std::function<void(DraggablePanel*)> onEndDragging = {};
+
+            std::function<void(DraggablePanel*)> onStartDragging = {};
         };
         Callback& callback() const;
 
@@ -29,8 +29,8 @@ namespace d14uikit
 
         std::unique_ptr<Callback> pcallback = {};
 
-        virtual void onStartDragging();
-
         virtual void onEndDragging();
+
+        virtual void onStartDragging();
     };
 }

@@ -2,7 +2,7 @@
 
 #include "Common.h"
 
-#include "BasicTypes.h"
+#include "BasicType.h"
 #include "VirtualKeyCode.h"
 
 namespace d14uikit
