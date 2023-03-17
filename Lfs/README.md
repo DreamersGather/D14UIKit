@@ -1,6 +1,6 @@
-﻿# Lfs: Large File System
+﻿﻿# Lfs: Large File System
 
-Since git does not support large file well and git.lfs requires pay to increase storage and bandwidth (only 1GB/month for free), we have to store the large files on the private server. The default server is ubuntu@d14engine.com, and you can change the IP address parameter of py.paramiko in pull.py and push.py to connect to another server. The connection is based on ssh, so you need to ask the administrator of the server to get the password before using.
+Since git does not support large file well and git.lfs requires pay to increase storage and bandwidth (only 1GB/month for free), we have to store the large files on the private server. The default server is ubuntu@d14games.com, and you can change the IP address parameter of py.paramiko in pull.py and push.py to connect to another server. The connection is based on ssh, so you need to ask the administrator of the server to get the password before using.
 
 The usage of Lfs is similar to Git, and there are only 3 operations: **add**, **pull**, **push**.
 
