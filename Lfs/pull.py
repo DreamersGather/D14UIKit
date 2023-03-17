@@ -19,9 +19,9 @@ filelist = filetree['large_file']
 sc = paramiko.SSHClient()
 sc.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-password = input('ubuntu@d14engine.com password: ')
+password = input('ubuntu@d14games.com password: ')
 try:
-    sc.connect('d14engine.com', 22, 'ubuntu', password)
+    sc.connect('d14games.com', 22, 'ubuntu', password)
 except:
     print('Failed to connect to the remote server.')
     print('Please ask the administrator to see whether the server is working;')
