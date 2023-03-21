@@ -15,7 +15,7 @@ namespace d14uikit
         Image(const std::wstring& path);
 
         Size size() const;
-        void setSize(Size value);
+        void setSize(const Size& value);
 
         int width() const;
         void setWidth(int value);

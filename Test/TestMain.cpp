@@ -11,9 +11,9 @@
 
 using namespace d14uikit;
 
-int wmain(int argc, wchar_t* argv[])
+int main()
 {
-    Application app(argc, argv);
+    Application app;
     app.setResizable(true);
 
     Image ico(L"test.png");
@@ -67,15 +67,15 @@ int wmain(int argc, wchar_t* argv[])
     btn2.D14_onMouseButton(, p, e)
     {
         auto btn = dynamic_cast<Button*>(p);
-        if (e.leftDblclk())
+        if (e->leftDblclk())
         {
             btn->setText(L"Left");
         }
-        else if (e.rightDblclk())
+        else if (e->rightDblclk())
         {
             btn->setText(L"Right");
         }
-        else if (e.middleDblclk())
+        else if (e->middleDblclk())
         {
             btn->setText(L"Middle");
         }
@@ -94,10 +94,10 @@ int wmain(int argc, wchar_t* argv[])
 
     btn3.D14_onKeyboard(, p, e)
     {
-        if (e.pressed() && isalpha(e.vkey()))
+        if (e->pressed() && isalpha(e->vkey()))
         {
             auto btn = dynamic_cast<Button*>(p);
-            btn->setText({ 1, (wchar_t)e.vkey() });
+            btn->setText({ 1, (wchar_t)e->vkey() });
         }
     };
 
@@ -115,15 +115,15 @@ int wmain(int argc, wchar_t* argv[])
     btn4.D14_onMouseButtonRelease(, clkp, e)
     {
         auto btn = (Button*)clkp;
-        if (e.left())
+        if (e->left())
         {
             btn->setText(L"Left");
         }
-        else if (e.right())
+        else if (e->right())
         {
             btn->setText(L"Right");
         }
-        else if (e.middle())
+        else if (e->middle())
         {
             btn->setText(L"Middle");
         }

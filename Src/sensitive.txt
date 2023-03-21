@@ -6,6 +6,8 @@ Deleted:
 Modified:
   Common/Precompile.h
   Common/ResourcePack.cpp
-  UIKit/Cursor.cpp
+  UIKit/AppEntry.h
   UIKit/Application.cpp
+  UIKit/Cursor.cpp
   Renderer/Letterbox.cpp
+  Renderer/Renderer.cpp

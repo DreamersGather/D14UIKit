@@ -145,7 +145,7 @@ namespace d14uikit
         explicit KeyboardEvent(Passkey);
     };
 
-    class DllExport MouseButtonClickEvent : public Event
+    class DllExport MouseButtonClickEvent : public MouseEvent
     {
         _D14_UIKIT_PIMPL_DEF
 

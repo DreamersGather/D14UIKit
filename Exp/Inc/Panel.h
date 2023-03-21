@@ -15,6 +15,8 @@ namespace d14uikit
 
         Panel();
 
+        virtual ~Panel() = default;
+
         bool destory();
 
         bool visible() const;
@@ -62,11 +64,19 @@ namespace d14uikit
         void moveAbove(Panel* uiobj);
         void moveBelow(Panel* uiobj);
 
+        // The UI event objects are set as non-copyable to be compatible
+        // with the pimpl idiom, and they are passed as references by the
+        // callbacks in the C++ code. According to pybind11 documentation,
+        // however, std::function parameters will fall back to reference
+        // only when they are passed as pointers, so we have to overwrite
+        // the callbacks to make the UI event objects passed as pointers.
+        // Also see "Functions -> Return value policies" in pybind11 docs.
+
         struct Callback
         {
-            std::function<void(Panel*, SizeEvent&)> onSize = {};
+            std::function<void(Panel*, SizeEvent*)> onSize = {};
 
-            std::function<void(Panel*, MoveEvent&)> onMove = {};
+            std::function<void(Panel*, MoveEvent*)> onMove = {};
 
             std::function<void(Panel*, const std::wstring&)> onChangeTheme = {};
 
@@ -76,17 +86,17 @@ namespace d14uikit
 
             std::function<void(Panel*)> onLoseFocus = {};
 
-            std::function<void(Panel*, MouseMoveEvent&)> onMouseEnter = {};
+            std::function<void(Panel*, MouseMoveEvent*)> onMouseEnter = {};
 
-            std::function<void(Panel*, MouseMoveEvent&)> onMouseMove = {};
+            std::function<void(Panel*, MouseMoveEvent*)> onMouseMove = {};
 
-            std::function<void(Panel*, MouseMoveEvent&)> onMouseLeave = {};
+            std::function<void(Panel*, MouseMoveEvent*)> onMouseLeave = {};
 
-            std::function<void(Panel*, MouseButtonEvent&)> onMouseButton = {};
+            std::function<void(Panel*, MouseButtonEvent*)> onMouseButton = {};
 
-            std::function<void(Panel*, MouseWheelEvent&)> onMouseWheel = {};
+            std::function<void(Panel*, MouseWheelEvent*)> onMouseWheel = {};
 
-            std::function<void(Panel*, KeyboardEvent&)> onKeyboard = {};
+            std::function<void(Panel*, KeyboardEvent*)> onKeyboard = {};
         };
         Callback& callback() const;
         
@@ -96,9 +106,9 @@ namespace d14uikit
 
         std::unique_ptr<Callback> pcallback = {};
 
-        virtual void onSize(SizeEvent& event);
+        virtual void onSize(SizeEvent* event);
 
-        virtual void onMove(MoveEvent& event);
+        virtual void onMove(MoveEvent* event);
 
         virtual void onChangeTheme(const std::wstring& name);
 
@@ -108,16 +118,16 @@ namespace d14uikit
 
         virtual void onLoseFocus();
 
-        virtual void onMouseEnter(MouseMoveEvent& event);
+        virtual void onMouseEnter(MouseMoveEvent* event);
 
-        virtual void onMouseMove(MouseMoveEvent& event);
+        virtual void onMouseMove(MouseMoveEvent* event);
 
-        virtual void onMouseLeave(MouseMoveEvent& event);
+        virtual void onMouseLeave(MouseMoveEvent* event);
 
-        virtual void onMouseButton(MouseButtonEvent& event);
+        virtual void onMouseButton(MouseButtonEvent* event);
 
-        virtual void onMouseWheel(MouseWheelEvent& event);
+        virtual void onMouseWheel(MouseWheelEvent* event);
 
-        virtual void onKeyboard(KeyboardEvent& event);
+        virtual void onKeyboard(KeyboardEvent* event);
     };
 }

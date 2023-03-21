@@ -36,10 +36,10 @@ namespace d14uikit
         {
             MouseButtonClickEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseButtonPress(event);
+            onMouseButtonPress(&event);
             if (pcallback->onMouseButtonPress)
             {
-                pcallback->onMouseButtonPress(this, event);
+                pcallback->onMouseButtonPress(this, &event);
             }
         };
         pimpl->uiobj->f_onMouseButtonRelease = [this]
@@ -47,10 +47,10 @@ namespace d14uikit
         {
             MouseButtonClickEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseButtonRelease(event);
+            onMouseButtonRelease(&event);
             if (pcallback->onMouseButtonRelease)
             {
-                pcallback->onMouseButtonRelease(this, event);
+                pcallback->onMouseButtonRelease(this, &event);
             }
         };
     }
@@ -67,7 +67,7 @@ namespace d14uikit
 
     ClickablePanel::Callback& ClickablePanel::callback() const { return *pcallback; }
 
-    void ClickablePanel::onMouseButtonPress(MouseButtonClickEvent& event) { }
+    void ClickablePanel::onMouseButtonPress(MouseButtonClickEvent* event) { }
 
-    void ClickablePanel::onMouseButtonRelease(MouseButtonClickEvent& event) { }
+    void ClickablePanel::onMouseButtonRelease(MouseButtonClickEvent* event) { }
 }

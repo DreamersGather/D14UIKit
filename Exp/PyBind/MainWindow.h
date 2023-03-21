@@ -6,7 +6,7 @@
 
 namespace d14uikit
 {
-    void Py_InitBasicType(py::module_& m);
+    void Py_InitMainWindow(py::module_& m);
 }
 
 #endif

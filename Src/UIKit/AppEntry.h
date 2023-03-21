@@ -5,7 +5,7 @@
 #include "Common/RuntimeError.h"
 
 #pragma comment(linker, "/subsystem:windows")
-#pragma comment(linker, "/entry:wmainCRTStartup")
+#pragma comment(linker, "/entry:mainCRTStartup")
 
 // The entry function must be of the specific signature:
 // ----- int Func_Name(int argc, wchar_t* argv[]) -----

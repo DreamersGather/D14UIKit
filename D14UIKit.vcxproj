@@ -239,7 +239,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP_PY_BIND;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP_PY_BIND;_D14_UIKIT_EXP_PY_BIND_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -300,7 +300,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP_PY_BIND;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP_PY_BIND;_D14_UIKIT_EXP_PY_BIND_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -417,11 +417,60 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\ClickablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\Common.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CommonBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\DraggablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Event.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)EventBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)EventBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)EventBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)EventBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\MainWindow.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Panel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PanelBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Window.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)WindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)WindowBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\__Test__.cpp" />
+    <ClCompile Include="Exp\PyBind\VirtualKeyCode.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
@@ -716,7 +765,17 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Panel.h" />
     <ClInclude Include="Exp\PyBind\Application.h" />
     <ClInclude Include="Exp\PyBind\BasicType.h" />
+    <ClInclude Include="Exp\PyBind\Callback.h" />
+    <ClInclude Include="Exp\PyBind\ClickablePanel.h" />
     <ClInclude Include="Exp\PyBind\Common.h" />
+    <ClInclude Include="Exp\PyBind\DraggablePanel.h" />
+    <ClInclude Include="Exp\PyBind\Event.h" />
+    <ClInclude Include="Exp\PyBind\MainWindow.h" />
+    <ClInclude Include="Exp\PyBind\Panel.h" />
+    <ClInclude Include="Exp\PyBind\ResizablePanel.h" />
+    <ClInclude Include="Exp\PyBind\Window.h" />
+    <ClInclude Include="Exp\PyBind\__Test__.h" />
+    <ClInclude Include="Exp\PyBind\VirtualKeyCode.h" />
     <ClInclude Include="Exp\ResizablePanel.h" />
     <ClInclude Include="Exp\ToggleButton.h" />
     <ClInclude Include="Exp\Window.h" />

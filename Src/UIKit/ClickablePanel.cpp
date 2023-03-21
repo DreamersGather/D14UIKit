@@ -50,6 +50,7 @@ namespace d14engine::uikit
     void ClickablePanel::onMouseButtonWrapper(MouseButtonEvent& e)
     {
         Event be = {};
+        be.cursorPoint = e.cursorPoint;
 
         bool leftDown = e.state.leftDown() || (!enableDoubleClick && e.state.leftDblclk());
         bool rightDown = e.state.rightDown() || (!enableDoubleClick && e.state.rightDblclk());

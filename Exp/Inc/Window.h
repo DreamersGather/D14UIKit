@@ -13,14 +13,14 @@ namespace d14uikit
 
         explicit Window(const std::wstring& title = L"Untitled");
 
-        const std::wstring& title() const;
-        void setTitle(const std::wstring& title);
-
         int captionHeight() const;
         void setCaptionHeight(int value);
 
         int decoBarHeight() const;
         void setDecoBarHeight(int value);
+
+        const std::wstring& title() const;
+        void setTitle(const std::wstring& title);
 
         int contentHeight() const;
         int nonContentHeight() const;

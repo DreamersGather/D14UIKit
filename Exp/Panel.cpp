@@ -41,10 +41,10 @@ namespace d14uikit
         {
             SizeEvent event = {};
             *event.getImpl()->uiobj = e;
-            onSize(event);
+            onSize(&event);
             if (pcallback->onSize)
             {
-                pcallback->onSize(this, event);
+                pcallback->onSize(this, &event);
             }
         };
         pimpl->uiobj->f_onMove = [this]
@@ -52,10 +52,10 @@ namespace d14uikit
         {
             MoveEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMove(event);
+            onMove(&event);
             if (pcallback->onMove)
             {
-                pcallback->onMove(this, event);
+                pcallback->onMove(this, &event);
             }
         };
         pimpl->uiobj->f_onChangeTheme = [this]
@@ -99,10 +99,10 @@ namespace d14uikit
         {
             MouseMoveEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseEnter(event);
+            onMouseEnter(&event);
             if (pcallback->onMouseEnter)
             {
-                pcallback->onMouseEnter(this, event);
+                pcallback->onMouseEnter(this, &event);
             }
         };
         pimpl->uiobj->f_onMouseMove = [this]
@@ -110,10 +110,10 @@ namespace d14uikit
         {
             MouseMoveEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseMove(event);
+            onMouseMove(&event);
             if (pcallback->onMouseMove)
             {
-                pcallback->onMouseMove(this, event);
+                pcallback->onMouseMove(this, &event);
             }
         };
         pimpl->uiobj->f_onMouseLeave = [this]
@@ -121,10 +121,10 @@ namespace d14uikit
         {
             MouseMoveEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseLeave(event);
+            onMouseLeave(&event);
             if (pcallback->onMouseLeave)
             {
-                pcallback->onMouseLeave(this, event);
+                pcallback->onMouseLeave(this, &event);
             }
         };
         pimpl->uiobj->f_onMouseButton = [this]
@@ -132,10 +132,10 @@ namespace d14uikit
         {
             MouseButtonEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseButton(event);
+            onMouseButton(&event);
             if (pcallback->onMouseButton)
             {
-                pcallback->onMouseButton(this, event);
+                pcallback->onMouseButton(this, &event);
             }
         };
         pimpl->uiobj->f_onMouseWheel = [this]
@@ -143,10 +143,10 @@ namespace d14uikit
         {
             MouseWheelEvent event = {};
             *event.getImpl()->uiobj = e;
-            onMouseWheel(event);
+            onMouseWheel(&event);
             if (pcallback->onMouseWheel)
             {
-                pcallback->onMouseWheel(this, event);
+                pcallback->onMouseWheel(this, &event);
             }
         };
         pimpl->uiobj->f_onKeyboard = [this]
@@ -154,10 +154,10 @@ namespace d14uikit
         {
             KeyboardEvent event = {};
             *event.getImpl()->uiobj = e;
-            onKeyboard(event);
+            onKeyboard(&event);
             if (pcallback->onKeyboard)
             {
-                pcallback->onKeyboard(this, event);
+                pcallback->onKeyboard(this, &event);
             }
         };
     }
@@ -354,9 +354,9 @@ namespace d14uikit
 
     Panel::Callback& Panel::callback() const { return *pcallback; }
 
-    void Panel::onSize(SizeEvent& event) { }
+    void Panel::onSize(SizeEvent* event) { }
 
-    void Panel::onMove(MoveEvent& event) { }
+    void Panel::onMove(MoveEvent* event) { }
 
     void Panel::onChangeTheme(const std::wstring& name) { }
 
@@ -366,15 +366,15 @@ namespace d14uikit
 
     void Panel::onLoseFocus() { }
 
-    void Panel::onMouseEnter(MouseMoveEvent& event) { }
+    void Panel::onMouseEnter(MouseMoveEvent* event) { }
 
-    void Panel::onMouseMove(MouseMoveEvent& event) { }
+    void Panel::onMouseMove(MouseMoveEvent* event) { }
 
-    void Panel::onMouseLeave(MouseMoveEvent& event) { }
+    void Panel::onMouseLeave(MouseMoveEvent* event) { }
 
-    void Panel::onMouseButton(MouseButtonEvent& event) { }
+    void Panel::onMouseButton(MouseButtonEvent* event) { }
 
-    void Panel::onMouseWheel(MouseWheelEvent& event) { }
+    void Panel::onMouseWheel(MouseWheelEvent* event) { }
 
-    void Panel::onKeyboard(KeyboardEvent& event) { }
+    void Panel::onKeyboard(KeyboardEvent* event) { }
 }

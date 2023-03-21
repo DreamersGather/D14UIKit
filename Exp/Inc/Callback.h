@@ -19,7 +19,7 @@ DraggablePanel::callback().onEndResizing = [cap](ResizablePanel* rsp)
 Panel::callback().onGetFocus = [cap](Panel* p)
 
 #define D14_onKeyboard(cap, p, e) \
-Panel::callback().onKeyboard = [cap](Panel* p, KeyboardEvent& e)
+Panel::callback().onKeyboard = [cap](Panel* p, KeyboardEvent* e)
 
 #define D14_onLoseFocus(cap, p) \
 Panel::callback().onLoseFocus = [cap](Panel* p)
@@ -31,34 +31,34 @@ Window::callback().onMaximize = [cap](Window* w)
 Window::callback().onMinimize = [cap](Window* w)
 
 #define D14_onMouseButton(cap, p, e) \
-Panel::callback().onMouseButton = [cap](Panel* p, MouseButtonEvent& e)
+Panel::callback().onMouseButton = [cap](Panel* p, MouseButtonEvent* e)
 
 #define D14_onMouseButtonPress(cap, clkp, e) \
-ClickablePanel::callback().onMouseButtonPress = [cap](ClickablePanel* clkp, MouseButtonClickEvent& e)
+ClickablePanel::callback().onMouseButtonPress = [cap](ClickablePanel* clkp, MouseButtonClickEvent* e)
 
 #define D14_onMouseButtonRelease(cap, clkp, e) \
-ClickablePanel::callback().onMouseButtonRelease = [cap](ClickablePanel* clkp, MouseButtonClickEvent& e)
+ClickablePanel::callback().onMouseButtonRelease = [cap](ClickablePanel* clkp, MouseButtonClickEvent* e)
 
 #define D14_onMouseEnter(cap, p, e) \
-Panel::callback().onMouseEnter = [cap](Panel* p, MouseMoveEvent& e)
+Panel::callback().onMouseEnter = [cap](Panel* p, MouseMoveEvent* e)
 
 #define D14_onMouseLeave(cap, p, e) \
-Panel::callback().onMouseLeave = [cap](Panel* p, MouseMoveEvent& e)
+Panel::callback().onMouseLeave = [cap](Panel* p, MouseMoveEvent* e)
 
 #define D14_onMouseMove(cap, p, e) \
-Panel::callback().onMouseMove = [cap](Panel* p, MouseMoveEvent& e)
+Panel::callback().onMouseMove = [cap](Panel* p, MouseMoveEvent* e)
 
 #define D14_onMouseWheel(cap, p, e) \
-Panel::callback().onMouseWheel = [cap](Panel* p, MouseWheelEvent& e)
+Panel::callback().onMouseWheel = [cap](Panel* p, MouseWheelEvent* e)
 
 #define D14_onMove(cap, p, e) \
-Panel::callback().onMove = [cap](Panel* p, MoveEvent& e)
+Panel::callback().onMove = [cap](Panel* p, MoveEvent* e)
 
 #define D14_onRestore(cap, w) \
 Window::callback().onRestore = [cap](Window* w)
 
 #define D14_onSize(cap, p, e) \
-Panel::callback().onSize = [cap](Panel* p, SizeEvent& e)
+Panel::callback().onSize = [cap](Panel* p, SizeEvent* e)
 
 #define D14_onStartDragging(cap, dgp) \
 DraggablePanel::callback().onStartDragging = [cap](DraggablePanel* dgp)

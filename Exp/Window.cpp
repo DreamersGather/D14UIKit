@@ -80,16 +80,6 @@ namespace d14uikit
         };
     }
 
-    const std::wstring& Window::title() const
-    {
-        return pimpl->uiobj->caption()->label()->text();
-    }
-
-    void Window::setTitle(const std::wstring& title)
-    {
-        pimpl->uiobj->caption()->label()->setText(title);
-    }
-
     int Window::captionHeight() const
     {
         return math_utils::round(pimpl->uiobj->captionPanelHeight());
@@ -110,14 +100,24 @@ namespace d14uikit
         pimpl->uiobj->setDecorativeBarHeight((float)value);
     }
 
-    int Window::contentHeight() const
+    const std::wstring& Window::title() const
     {
-        return math_utils::round(pimpl->uiobj->clientAreaHeight());
+        return pimpl->uiobj->caption()->label()->text();
+    }
+
+    void Window::setTitle(const std::wstring& title)
+    {
+        pimpl->uiobj->caption()->label()->setText(title);
     }
 
     int Window::nonContentHeight() const
     {
         return math_utils::round(pimpl->uiobj->nonClientAreaHeight());
+    }
+
+    int Window::contentHeight() const
+    {
+        return math_utils::round(pimpl->uiobj->clientAreaHeight());
     }
 
     Panel* Window::content() const
