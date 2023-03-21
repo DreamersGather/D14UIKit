@@ -4,6 +4,9 @@
 
 #include "Common.h"
 
-void initApplication(py::module_& m);
+namespace d14uikit
+{
+    void Py_InitApplication(py::module_& m);
+}
 
 #endif

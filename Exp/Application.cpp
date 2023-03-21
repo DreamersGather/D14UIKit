@@ -16,14 +16,12 @@ namespace d14uikit
 {
     Application* Application::Impl::app = nullptr;
 
-    Application::Application(
-        int argc, wchar_t* argv[],
-        const std::wstring& name)
+    Application::Application(const std::wstring& name)
         :
         Application(Passkey{})
     {
         pimpl->uiobj = std::make_shared<uikit::Application>(
-            argc, argv, uikit::Application::CreateInfo{ .name = name });
+            0, nullptr, uikit::Application::CreateInfo{ .name = name });
 
         initialize();
     }
@@ -82,6 +80,11 @@ namespace d14uikit
     Application* Application::app()
     {
         return Impl::app;
+    }
+
+    Cursor* Application::cursor() const
+    {
+        return pimpl->cursor.get();
     }
 
     int Application::run()
@@ -294,6 +297,8 @@ namespace d14uikit
 
         style.color = uikit::color_utils::convert(
             uikit::color_utils::iRGB{ value.r, value.g, value.b });
+
+        pimpl->uiobj->changeTheme(pimpl->uiobj->currThemeName());
     }
 
     bool Application::useSystemTheme() const
@@ -309,6 +314,10 @@ namespace d14uikit
             pimpl->uiobj->customThemeStyle = systemStyle;
         }
         pimpl->useSystemTheme = value;
+        if (pimpl->useSystemTheme)
+        {
+            pimpl->uiobj->changeTheme(pimpl->uiobj->currThemeName());
+        }
     }
 
     const std::wstring& Application::langLocale() const
@@ -319,10 +328,5 @@ namespace d14uikit
     void Application::setLangLocale(const std::wstring& name)
     {
         pimpl->uiobj->changeLangLocale(name);
-    }
-
-    Cursor* Application::cursor() const
-    {
-        return pimpl->cursor.get();
     }
 }

@@ -17,9 +17,9 @@ namespace d14uikit
 
         struct Callback
         {
-            std::function<void(ClickablePanel*, MouseButtonClickEvent&)> onMouseButtonPress = {};
+            std::function<void(ClickablePanel*, MouseButtonClickEvent*)> onMouseButtonPress = {};
 
-            std::function<void(ClickablePanel*, MouseButtonClickEvent&)> onMouseButtonRelease = {};
+            std::function<void(ClickablePanel*, MouseButtonClickEvent*)> onMouseButtonRelease = {};
         };
         Callback& callback() const;
 
@@ -29,8 +29,8 @@ namespace d14uikit
 
         std::unique_ptr<Callback> pcallback = {};
 
-        virtual void onMouseButtonPress(MouseButtonClickEvent& event);
+        virtual void onMouseButtonPress(MouseButtonClickEvent* event);
 
-        virtual void onMouseButtonRelease(MouseButtonClickEvent& event);
+        virtual void onMouseButtonRelease(MouseButtonClickEvent* event);
     };
 }

@@ -8,10 +8,10 @@ namespace d14engine::uikit
     struct SizeEvent;
     struct MoveEvent;
     struct MouseEvent;
-    struct MouseMoveEvent;
-    struct MouseButtonEvent;
-    struct MouseWheelEvent;
     struct KeyboardEvent;
+    struct MouseMoveEvent;
+    struct MouseWheelEvent;
+    struct MouseButtonEvent;
 }
 #include "UIKit/ClickablePanel.h" // can't forward declare
 
@@ -28,10 +28,11 @@ namespace d14uikit
     DECLARE_DUMMY_PIMPL(SizeEvent);
     DECLARE_DUMMY_PIMPL(MoveEvent);
     DECLARE_DUMMY_PIMPL(MouseEvent);
-    DECLARE_DUMMY_PIMPL(MouseMoveEvent);
-    DECLARE_DUMMY_PIMPL(MouseButtonEvent);
-    DECLARE_DUMMY_PIMPL(MouseWheelEvent);
     DECLARE_DUMMY_PIMPL(KeyboardEvent);
+    DECLARE_DUMMY_PIMPL(MouseMoveEvent);
+    DECLARE_DUMMY_PIMPL(MouseWheelEvent);
+    DECLARE_DUMMY_PIMPL(MouseButtonEvent);
+
     DECLARE_PIMPL(MouseButtonClickEvent, ClickablePanel::Event);
 
 #undef DECLARE_PIMPL

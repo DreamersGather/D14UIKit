@@ -2,11 +2,11 @@
 
 #include "Common/Precompile.h"
 
-#include "Common/CppLangUtils/IndexIterator.h"
-#include "Common/CppLangUtils/PointerEquality.h"
-#include "UIKit/ConstraintLayout.h"
 #include "UIKit/ScrollView.h"
 #include "UIKit/ViewItem.h"
+#include "UIKit/ConstraintLayout.h"
+#include "Common/CppLangUtils/IndexIterator.h"
+#include "Common/CppLangUtils/PointerEquality.h"
 
 namespace d14engine::uikit
 {
@@ -36,11 +36,7 @@ namespace d14engine::uikit
                 for (auto& item : m_items)
                 {
                     if (cpp_lang_utils::isMostDerivedEqual(uiobj, item))
-                    {
-                        removeItem(index);
-                        return true;
-                    }
-                    ++index;
+                        { removeItem(index); return true; } ++index;
                 }
                 return false;
             };
@@ -80,9 +76,14 @@ namespace d14engine::uikit
         ItemIndexSet m_selectedItemIndices = {};
 
     public:
-        const ItemList& childrenItems() const { return m_items; }
-
-        const ItemIndexSet& selectedItemIndices() const { return m_selectedItemIndices; }
+        const ItemList& childrenItems() const
+        {
+            return m_items;
+        }
+        const ItemIndexSet& selectedItemIndices() const
+        {
+            return m_selectedItemIndices;
+        }
 
         virtual void insertItem(const ItemList& items, size_t index = 0)
         {
@@ -100,11 +101,11 @@ namespace d14engine::uikit
 
             float offset = 0.0f;
             // Lower Items
-            for ( ; itemIndex < index; ++itemIndex )
+            for (; itemIndex < index; ++itemIndex)
             {
                 offset += (*itemIndex)->height();
             }
-            ItemIndex insertIndex = itemIndex;
+            ItemIndex insertStartIndex = itemIndex;
             // New Items
             for (auto& item : items)
             {
@@ -123,7 +124,7 @@ namespace d14engine::uikit
                 offset += item->height();
             }
             // Higher Items
-            for ( ; itemIndex < m_items.size(); ++itemIndex )
+            for (; itemIndex < m_items.size(); ++itemIndex)
             {
                 auto elemItor = m_layout->findElement(*itemIndex);
                 if (elemItor.has_value())
@@ -133,7 +134,7 @@ namespace d14engine::uikit
                 }
                 offset += (*itemIndex)->height();
             }
-            m_items.insert(insertIndex.iterator, items.begin(), items.end());
+            m_items.insert(insertStartIndex.iterator, items.begin(), items.end());
 
             ItemIndexSet updatedItemIndexSet = {};
             for (auto& itemIndex : m_selectedItemIndices)
@@ -405,34 +406,34 @@ do { \
 
         void triggerExtendedSelect(ItemIndexParam itemIndex)
         {
-            if (KeyboardEvent::SHIFT())
+            if (KeyboardEvent::CTRL())
+            {
+                triggerMultipleSelect(itemIndex);
+            }
+            else if (KeyboardEvent::SHIFT())
             {
                 if (!m_selectedItemIndices.empty())
                 {
-                    for (auto& tmpItemIndex : m_selectedItemIndices)
+                    for (auto& index : m_selectedItemIndices)
                     {
-                        (*tmpItemIndex)->triggerUnchkStateTrans();
+                        (*index)->triggerUnchkStateTrans();
                     }
                     m_selectedItemIndices.clear();
 
                     auto range = std::minmax(itemIndex, m_extendedSelectItemIndexOrigin);
-                    for (auto tmpItemIndex = range.first; tmpItemIndex <= range.second; ++tmpItemIndex)
+                    for (auto index = range.first; index <= range.second; ++index)
                     {
-                        (*tmpItemIndex)->triggerCheckStateTrans();
+                        (*index)->triggerCheckStateTrans();
 
-                        if (tmpItemIndex != itemIndex) // Highlight only the last selected item.
+                        if (index != itemIndex) // Highlight only the last selected item.
                         {
-                            (*tmpItemIndex)->triggerLeaveStateTrans();
+                            (*index)->triggerLeaveStateTrans();
                         }
-                        m_selectedItemIndices.insert(tmpItemIndex);
+                        m_selectedItemIndices.insert(index);
                     }
                     m_lastSelectedItemIndex = itemIndex;
                 }
                 else triggerSingleSelect(itemIndex);
-            }
-            else if (KeyboardEvent::CTRL())
-            {
-                triggerMultipleSelect(itemIndex);
             }
             else triggerSingleSelect(itemIndex);
         }

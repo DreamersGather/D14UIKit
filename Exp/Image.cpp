@@ -35,7 +35,7 @@ namespace d14uikit
         return { (int)pxSize.width, (int)pxSize.height };
     }
 
-    void Image::setSize(Size value)
+    void Image::setSize(const Size& value)
     {
         uikit::Application::g_app->dxRenderer()->beginGpuCommand();
 

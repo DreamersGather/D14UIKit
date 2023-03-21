@@ -281,7 +281,7 @@ namespace d14uikit
 
     MouseButtonClickEvent::MouseButtonClickEvent(Passkey)
         :
-        Event(Event::Passkey{}),
+        MouseEvent(MouseEvent::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
     void MouseButtonClickEvent::initialize() { }

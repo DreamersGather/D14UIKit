@@ -10,7 +10,7 @@ namespace d14engine::uikit
     {
         using Panel::Panel;
 
-        struct Event : uikit::Event
+        struct Event : MouseEvent
         {
             enum class Flag { Unknown, Left, Right, Middle } flag = Flag::Unknown;
 

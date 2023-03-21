@@ -12,13 +12,13 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL_DEF
 
-        Application(
-            int argc, wchar_t* argv[],
-            const std::wstring& name = L"D14UIKit");
+        explicit Application(const std::wstring& name = L"D14UIKit");
 
         virtual ~Application();
 
         static Application* app();
+
+        Cursor* cursor() const;
 
         int run();
         void exit();
@@ -71,8 +71,6 @@ namespace d14uikit
 
         const std::wstring& langLocale() const;
         void setLangLocale(const std::wstring& name);
-
-        Cursor* cursor() const;
 
     protected:
         void initialize();

@@ -343,6 +343,33 @@
     <ClCompile Include="Exp\PyBind\Common.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\Panel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Event.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\VirtualKeyCode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ClickablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\__Test__.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\DraggablePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\MainWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -817,6 +844,36 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\BasicType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Panel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\VirtualKeyCode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Callback.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\ClickablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\__Test__.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\ResizablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\DraggablePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\MainWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
