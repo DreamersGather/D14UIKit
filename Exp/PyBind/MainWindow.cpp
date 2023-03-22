@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "MainWindow.h"
 #include "Window.h"
 
@@ -20,5 +18,3 @@ namespace d14uikit
         i.def("showMaximized", &MainWindow::showMaximized);
     }
 }
-
-#endif

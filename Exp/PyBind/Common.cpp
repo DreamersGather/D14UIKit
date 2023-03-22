@@ -1,10 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Common.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND_DEBUG
+#ifdef _D14_UIKIT_PYBIND_DEBUG
 #include "__Test__.h"
 #endif
 #include "Application.h"
@@ -22,7 +20,7 @@ namespace d14uikit
 {
     PYBIND11_MODULE(D14UIKit, m)
     {
-#ifdef _D14_UIKIT_EXP_PY_BIND_DEBUG
+#ifdef _D14_UIKIT_PYBIND_DEBUG
         Py_InitTest(m);
 #endif
         // These init funcs are called when the module loaded.
@@ -41,5 +39,3 @@ namespace d14uikit
         Py_InitMainWindow(m);
     }
 }
-
-#endif

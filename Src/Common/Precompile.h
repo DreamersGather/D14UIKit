@@ -114,6 +114,6 @@ namespace d14engine
 
 #if defined(_D14_UIKIT_EXP)
 #define _D14_MODULE_NAME L"D14UIKit.dll"
-#elif defined(_D14_UIKIT_EXP_PY_BIND)
+#elif defined(_D14_UIKIT_PYBIND)
 #define _D14_MODULE_NAME L"D14UIKit.pyd"
 #endif
