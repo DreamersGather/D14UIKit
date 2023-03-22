@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Event.h"
 
 #include "Inc/Event.h"
@@ -208,5 +206,3 @@ namespace d14uikit
         }
     }
 }
-
-#endif

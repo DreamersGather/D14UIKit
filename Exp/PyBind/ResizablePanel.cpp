@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Callback.h"
 #include "ResizablePanel.h"
 
@@ -38,5 +36,3 @@ namespace d14uikit
             &ExResizablePanel::onStartResizing);
     }
 }
-
-#endif

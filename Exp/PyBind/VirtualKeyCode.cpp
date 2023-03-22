@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "VirtualKeyCode.h"
 
 namespace d14uikit
@@ -112,5 +110,3 @@ namespace d14uikit
         m.attr("vk_oem_clear") = 0xfe;
     }
 }
-
-#endif

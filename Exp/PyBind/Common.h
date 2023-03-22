@@ -1,8 +1,6 @@
 ﻿#pragma once
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
-#ifdef _D14_UIKIT_EXP_PY_BIND_DEBUG
+#ifdef _D14_UIKIT_PYBIND_DEBUG
 #define PYBIND11_DETAILED_ERROR_MESSAGES
 #endif
 
@@ -14,5 +12,3 @@ namespace d14uikit
     namespace py = pybind11;
     using namespace py::literals;
 }
-
-#endif

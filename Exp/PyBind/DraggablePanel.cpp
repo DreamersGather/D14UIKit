@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Callback.h"
 #include "DraggablePanel.h"
 
@@ -33,5 +31,3 @@ namespace d14uikit
             &ExDraggablePanel::onStartDragging);
     }
 }
-
-#endif

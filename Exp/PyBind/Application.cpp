@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Application.h"
 
 #include "Inc/Application.h"
@@ -121,5 +119,3 @@ namespace d14uikit
             &Application::setLangLocale);
     }
 }
-
-#endif

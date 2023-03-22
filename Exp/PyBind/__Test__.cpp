@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND_DEBUG
-
 #include "__Test__.h"
 
 // This file demostrates the basic boilerplate to use pybind11.
@@ -149,5 +147,3 @@ namespace d14uikit
         eagle.def(py::init<>());
     }
 }
-
-#endif

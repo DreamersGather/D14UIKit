@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Callback.h"
 #include "Window.h"
 
@@ -84,5 +82,3 @@ namespace d14uikit
         i.def("onMinimize", &ExWindow::onMinimize);
     }
 }
-
-#endif

@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "Panel.h"
 #include "Callback.h"
 
@@ -170,5 +168,3 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
             &ExPanel::onMouseButton);  
     }
 }
-
-#endif

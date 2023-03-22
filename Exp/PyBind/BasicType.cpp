@@ -1,7 +1,5 @@
 ﻿#include "Common/Precompile.h"
 
-#ifdef _D14_UIKIT_EXP_PY_BIND
-
 #include "BasicType.h"
 
 #include "Inc/BasicType.h"
@@ -56,5 +54,3 @@ namespace d14uikit
         }
     }
 }
-
-#endif
