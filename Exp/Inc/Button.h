@@ -16,8 +16,10 @@ namespace d14uikit
         void setIcon(Image* icon);
 
         Size iconSize() const;
-        void setIconSize(bool value);
         void setIconSize(const Size& value);
+
+        bool customIconSize() const;
+        void setCustomIconSize(bool value);
 
         const std::wstring& text() const;
         void setText(const std::wstring& text);
