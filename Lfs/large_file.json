@@ -120,6 +120,7 @@
         "Bin/Images/Cursors/WinConcept/Light/Working/9.png",
         "Bin/Shaders/PS",
         "Bin/Shaders/VS",
-        "Test/test.png"
+        "Test/test.png",
+        "Test/PyBind/test.png"
     ]
 }
