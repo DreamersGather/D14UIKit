@@ -16,5 +16,7 @@
         },
         "Shaders": {}
     },
-    "Test": {}
+    "Test": {
+        "PyBind": {}
+    }
 }
