@@ -7,12 +7,20 @@
 #endif
 #include "Application.h"
 #include "BasicType.h"
+#include "Button.h"
 #include "ClickablePanel.h"
+#include "Cursor.h"
 #include "DraggablePanel.h"
+#include "ElevatedButton.h"
 #include "Event.h"
+#include "FilledButton.h"
+#include "FlatButton.h"
+#include "Image.h"
 #include "MainWindow.h"
+#include "OutlinedButton.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
+#include "ToggleButton.h"
 #include "VirtualKeyCode.h"
 #include "Window.h"
 
@@ -27,11 +35,19 @@ namespace d14uikit
         // It is worth noting that the invocation order here
         // is significant: we must first init the base classes
         // to avoid pybind11 incomplete type reference error.
-        Py_InitApplication(m);
         Py_InitBasicType(m);
+        Py_InitApplication(m);
         Py_InitEvent(m);
+        Py_InitImage(m);
         Py_InitPanel(m);
+        Py_InitCursor(m);
         Py_InitClickablePanel(m);
+        Py_InitButton(m);
+        Py_InitFlatButton(m);
+        Py_InitOutlinedButton(m);
+        Py_InitFilledButton(m);
+        Py_InitElevatedButton(m);
+        Py_InitToggleButton(m);
         Py_InitDraggablePanel(m);
         Py_InitResizablePanel(m);
         Py_InitVirtualKeyCode(m);

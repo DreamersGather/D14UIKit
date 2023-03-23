@@ -74,20 +74,25 @@ namespace d14uikit
         };
     }
 
-    void Button::setIconSize(bool value)
-    {
-        if (value) pimpl->uiobj->content()->icon.customSize = {};
-        else pimpl->uiobj->content()->icon.customSize.reset();
-
-        pimpl->uiobj->content()->updateLayout();
-    }
-
     void Button::setIconSize(const Size& value)
     {
         pimpl->uiobj->content()->icon.customSize =
         {
             (float)value.width, (float)value.height
         };
+        pimpl->uiobj->content()->updateLayout();
+    }
+
+    bool Button::customIconSize() const
+    {
+        return pimpl->uiobj->content()->icon.customSize.has_value();
+    }
+
+    void Button::setCustomIconSize(bool value)
+    {
+        if (value) pimpl->uiobj->content()->icon.customSize = {};
+        else pimpl->uiobj->content()->icon.customSize.reset();
+
         pimpl->uiobj->content()->updateLayout();
     }
 
