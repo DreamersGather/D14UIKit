@@ -10,8 +10,6 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    Image::Image() : Image(Passkey{}) { }
-
     Image::Image(int width, int height)
         :
         Image(Passkey{})

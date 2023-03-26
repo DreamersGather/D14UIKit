@@ -10,8 +10,6 @@ namespace d14uikit
     {
         py::class_<Image> i(m, "Image");
 
-        i.def(py::init<>());
-
         i.def(
             py::init<int, int>(),
             "width"_a,

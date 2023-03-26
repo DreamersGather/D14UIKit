@@ -52,6 +52,19 @@ namespace d14engine::uikit
         enum class HorzAlignment { None, Left, Center, Right };
         enum class VertAlignment { None, Top, Center, Bottom };
 
+#define CONST_ENUM constexpr static auto
+
+        CONST_ENUM HNone = HorzAlignment::None;
+        CONST_ENUM Left = HorzAlignment::Left;
+        CONST_ENUM HCenter = HorzAlignment::Center;
+        CONST_ENUM Right = HorzAlignment::Right;
+        CONST_ENUM VNone = VertAlignment::None;
+        CONST_ENUM Top = VertAlignment::Top;
+        CONST_ENUM VCenter = VertAlignment::Center;
+        CONST_ENUM Bottom = VertAlignment::Bottom;
+
+#undef CONST_ENUM
+
         // Uses the cached overhang metrics to force align the text.
         struct HardAlignment
         {

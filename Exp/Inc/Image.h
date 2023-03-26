@@ -6,13 +6,12 @@
 
 namespace d14uikit
 {
-    class DllExport Image : public _D14_UIKIT_NONCOPYABLE
+    class DllExport Image : public NonCopyable
     {
         _D14_UIKIT_PIMPL_DEF
 
-        Image();
         Image(int width, int height);
-        Image(const std::wstring& path);
+        explicit Image(const std::wstring& path);
 
         Size size() const;
         void setSize(const Size& value);

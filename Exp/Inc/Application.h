@@ -8,7 +8,7 @@ namespace d14uikit
 {
     class Cursor;
 
-    class DllExport Application : public _D14_UIKIT_NONCOPYABLE
+    class DllExport Application : public NonCopyable
     {
         _D14_UIKIT_PIMPL_DEF
 
@@ -71,6 +71,12 @@ namespace d14uikit
 
         const std::wstring& langLocale() const;
         void setLangLocale(const std::wstring& name);
+
+        bool clearType() const;
+        void setClearType(bool value);
+
+        bool drawTextNatrualSymmetric() const;
+        void setDrawTextNatrualSymmetric(bool value);
 
     protected:
         void initialize();
