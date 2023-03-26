@@ -394,6 +394,18 @@
     <ClCompile Include="Exp\PyBind\ToggleButton.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\Font.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\Label.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Font.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\Label.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -922,6 +934,24 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ToggleButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Label.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\Font.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Font.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Label.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Font.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\Label.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

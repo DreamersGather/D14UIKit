@@ -3,6 +3,7 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 
 #ifdef _D14_UIKIT_EXP
@@ -17,13 +18,19 @@ protected: \
     struct Passkey { }; \
     std::shared_ptr<Impl> pimpl = {}; \
 public: \
-    Impl* getImpl() { return pimpl.get(); }
+    Impl* getImpl() const \
+    { \
+        return pimpl.get(); \
+    }
 
-class DllExport _D14_UIKIT_NONCOPYABLE
+namespace d14uikit
 {
-public:
-    _D14_UIKIT_NONCOPYABLE() = default;
+    class DllExport NonCopyable
+    {
+    public:
+        NonCopyable() = default;
 
-    _D14_UIKIT_NONCOPYABLE(const _D14_UIKIT_NONCOPYABLE&) = delete;
-    _D14_UIKIT_NONCOPYABLE& operator=(const _D14_UIKIT_NONCOPYABLE&) = delete;
-};
+        NonCopyable(const NonCopyable&) = delete;
+        NonCopyable& operator=(const NonCopyable&) = delete;
+    };
+}

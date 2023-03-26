@@ -5,6 +5,7 @@
 #include "FilledButton.h"
 #include "FlatButton.h"
 #include "Image.h"
+#include "Label.h"
 #include "MainWindow.h"
 #include "OutlinedButton.h"
 #include "ToggleButton.h"
@@ -15,6 +16,8 @@ int main()
 {
     Application app;
     app.setResizable(true);
+    app.setClearType(true);
+    app.setDrawTextNatrualSymmetric(true);
 
     Image ico(L"test.png");
 
@@ -30,6 +33,16 @@ int main()
     {
         app.cursor()->setIcon(Cursor::Busy);
     };
+
+    Label note;
+    note.setParent(&p);
+    note.setWidth(256);
+    note.setHeight(60);
+    note.setX(0);
+    note.setY(256);
+    note.setText(L"dragon");
+    note.setFont(Font(L"Default/Bold/18"));
+    note.setHorzAlign(Label::HCenter);
 
     FlatButton btn1;
     btn1.setParent(&p);

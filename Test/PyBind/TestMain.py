@@ -2,6 +2,8 @@
 
 app = Application()
 app.resizable = True
+app.clearType = True
+app.drawTextNatrualSymmetric = True
 
 ico = Image('test.png')
 
@@ -16,6 +18,16 @@ pp.image = ico;
 def pp_onMouseMove(p, e):
     Application.app.cursor.setIcon(Cursor.Busy)
 pp.f_onMouseMove = pp_onMouseMove
+
+note = Label()
+note.parent = p
+note.width = 256
+note.height = 60
+note.x = 0
+note.y = 256
+note.text = 'dragon'
+note.font = Font('Default/Bold/16')
+note.horzAlign = Label.HCenter
 
 btn1 = FlatButton()
 btn1.parent = p

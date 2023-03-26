@@ -46,21 +46,20 @@ namespace d14uikit
     {
         pimpl->uiobj->f_onSystemThemeStyleChange = [this]
         {
-            if (pimpl->useSystemTheme)
-            {
-                auto& mode = pimpl->uiobj->systemThemeStyle().mode;
-                using ThemeMode = uikit::Application::ThemeStyle::Mode;
+        if (pimpl->useSystemTheme)
+        {
+        auto& mode = pimpl->uiobj->systemThemeStyle().mode;
+        using ThemeMode = uikit::Application::ThemeStyle::Mode;
 
-                if (mode == ThemeMode::Light)
-                {
-                    pimpl->uiobj->changeTheme(L"Light");
-                }
-                else if (mode == ThemeMode::Dark)
-                {
-                    pimpl->uiobj->changeTheme(L"Dark");
-                }
-            }
-        };
+        if (mode == ThemeMode::Light)
+        {
+            pimpl->uiobj->changeTheme(L"Light");
+        }
+        else if (mode == ThemeMode::Dark)
+        {
+            pimpl->uiobj->changeTheme(L"Dark");
+        }}};
+
         // Since Cursor::Passkey is protected, std::make_shared will fail here.
         pimpl->cursor = std::shared_ptr<Cursor>(new Cursor(Cursor::Passkey{}));
         
@@ -247,13 +246,17 @@ namespace d14uikit
 
     bool Application::lowEnergy() const
     {
-        return pimpl->uiobj->animationCount() <= 0;
+        return pimpl->lowEnergy;
     }
 
     void Application::setLowEnergy(bool value)
     {
-        if (value) pimpl->uiobj->decreaseAnimationCount();
-        else pimpl->uiobj->increaseAnimationCount();
+        if (pimpl->lowEnergy != value)
+        {
+            if (value) pimpl->uiobj->decreaseAnimationCount();
+            else pimpl->uiobj->increaseAnimationCount();
+        }
+        pimpl->lowEnergy = value;
     }
 
     const std::wstring& Application::themeMode() const
@@ -328,5 +331,45 @@ namespace d14uikit
     void Application::setLangLocale(const std::wstring& name)
     {
         pimpl->uiobj->changeLangLocale(name);
+    }
+
+    bool Application::clearType() const
+    {
+        return pimpl->clearType;
+    }
+
+    void Application::setClearType(bool value)
+    {
+        if (pimpl->clearType != value)
+        {
+            auto rndr = pimpl->uiobj->dxRenderer();
+            if (value)
+            {
+                rndr->setTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE);
+            }
+            else rndr->setTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_DEFAULT);
+        }
+        pimpl->clearType = value;
+    }
+
+    bool Application::drawTextNatrualSymmetric() const
+    {
+        return pimpl->drawTextNatrualSymmetric;
+    }
+
+    void Application::setDrawTextNatrualSymmetric(bool value)
+    {
+        if (pimpl->drawTextNatrualSymmetric != value)
+        {
+            auto mode = pimpl->uiobj->dxRenderer()->getDefaultTextRenderingMode();
+            if (value)
+            {
+                mode.renderingMode = DWRITE_RENDERING_MODE_NATURAL_SYMMETRIC;
+            }
+            else mode.renderingMode = DWRITE_RENDERING_MODE_DEFAULT;
+
+            pimpl->uiobj->dxRenderer()->setTextRenderingMode(mode);
+        }
+        pimpl->drawTextNatrualSymmetric = value;
     }
 }

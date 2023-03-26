@@ -9,7 +9,7 @@ namespace d14uikit
 {
     class Image;
 
-    class DllExport Panel : public _D14_UIKIT_NONCOPYABLE
+    class DllExport Panel : public NonCopyable
     {
         _D14_UIKIT_PIMPL_DEF
 

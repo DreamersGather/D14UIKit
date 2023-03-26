@@ -117,5 +117,15 @@ namespace d14uikit
             "langLocale",
             &Application::langLocale,
             &Application::setLangLocale);
+
+        i.def_property(
+            "clearType",
+            &Application::clearType,
+            &Application::setClearType);
+
+        i.def_property(
+            "drawTextNatrualSymmetric",
+            &Application::drawTextNatrualSymmetric,
+            &Application::setDrawTextNatrualSymmetric);
     }
 }

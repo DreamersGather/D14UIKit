@@ -7,7 +7,7 @@
 
 namespace d14uikit
 {
-    class DllExport Event : public _D14_UIKIT_NONCOPYABLE
+    class DllExport Event : public NonCopyable
     {
         _D14_UIKIT_PIMPL_DEF
 
