@@ -19,7 +19,29 @@ int main()
     app.setClearType(true);
     app.setDrawTextNatrualSymmetric(true);
 
-    Image ico(L"test.png");
+    Image img(L"test.png");
+
+    constexpr auto row = 64, col = 64;
+    auto pixel = std::vector<Pixel>(row * col);
+
+    for (int r = 0; r < 64; ++r)
+    {
+        for (int c = 0; c < 64; ++c)
+        {
+#pragma warning(push)
+#pragma warning(disable : 6011)
+
+            pixel[r * 64 + c] =
+            {
+                (uint8_t)(r + c + 128),
+                (uint8_t)(255 - r),
+                (uint8_t)(255 - c),
+                (uint8_t)255 // b,g,r,a
+            };
+#pragma warning(pop)
+        }
+    }
+    img.copy({ 0, 0, col, row }, pixel.data());
 
     Panel p;
 
@@ -27,7 +49,7 @@ int main()
     pp.setParent(&p);
     pp.setWidth(256);
     pp.setHeight(256);
-    pp.setImage(&ico);
+    pp.setImage(&img);
 
     pp.D14_onMouseMove(&, p, e)
     {
@@ -51,7 +73,7 @@ int main()
     btn1.setWidth(240);
     btn1.setHeight(60);
     btn1.setRoundRadius(5);
-    btn1.setIcon(&ico);
+    btn1.setIcon(&img);
     btn1.setIconSize({ 32, 32 });
     btn1.setText(L"Flat Button");
 
@@ -73,7 +95,7 @@ int main()
     btn2.setWidth(240);
     btn2.setHeight(60);
     btn2.setRoundRadius(5);
-    btn2.setIcon(&ico);
+    btn2.setIcon(&img);
     btn2.setIconSize({ 32, 32 });
     btn2.setText(L"Filled Button");
 
@@ -101,7 +123,7 @@ int main()
     btn3.setWidth(240);
     btn3.setHeight(60);
     btn3.setRoundRadius(5);
-    btn3.setIcon(&ico);
+    btn3.setIcon(&img);
     btn3.setIconSize({ 32, 32 });
     btn3.setText(L"Outlined Button");
 
@@ -121,7 +143,7 @@ int main()
     btn4.setWidth(240);
     btn4.setHeight(60);
     btn4.setRoundRadius(5);
-    btn4.setIcon(&ico);
+    btn4.setIcon(&img);
     btn4.setIconSize({ 32, 32 });
     btn4.setText(L"Elevated Button");
 
@@ -149,7 +171,7 @@ int main()
     btn5.setWidth(240);
     btn5.setHeight(60);
     btn5.setRoundRadius(5);
-    btn5.setIcon(&ico);
+    btn5.setIcon(&img);
     btn5.setIconSize({ 32, 32 });
     btn5.setText(L"Toggle Button");
 

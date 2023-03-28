@@ -10,8 +10,10 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL_DEF
 
-        Image(int width, int height);
-        explicit Image(const std::wstring& path);
+        Image(int width, int height, bool cpuRead = true);
+        explicit Image(const std::wstring& path, bool cpuRead = false);
+
+        bool cpuRead() const;
 
         Size size() const;
         void setSize(const Size& value);
@@ -22,8 +24,12 @@ namespace d14uikit
         int height() const;
         void setHeight(int value);
 
-        void load(const std::wstring& path);
-        void copy(Point offset, Image* source, Rect srcArea);
+        void load(const std::wstring& path, bool cpuRead = false);
+
+        bool copy(Rect dst, Pixel* source);
+        bool copy(Point dst, Image* source, Rect src);
+
+        Pixel* map(); bool unmap(); // Idle the GPU before using!
 
     protected:
         void initialize();

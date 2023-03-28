@@ -290,7 +290,7 @@ namespace d14uikit
     void Panel::setImage(Image* image)
     {
         pimpl->image = image;
-        if (image != nullptr)
+        if (image != nullptr && !image->cpuRead())
         {
             pimpl->uiobj->bitmap = image->getImpl()->bitmap;
         }
