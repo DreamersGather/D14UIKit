@@ -62,7 +62,7 @@ namespace d14uikit
         };
         Style style() const;
 
-#define SET_STYLE(Name) constexpr static auto Name = Style::Name;
+#define SET_STYLE(Name) constexpr static auto Name = Style::Name
 
         SET_STYLE(Normal);
         SET_STYLE(Oblique);
@@ -86,7 +86,7 @@ namespace d14uikit
         };
         Stretch stretch() const;
 
-#define SET_STRETCH(Name) constexpr static auto Name = Stretch::Name;
+#define SET_STRETCH(Name) constexpr static auto Name = Stretch::Name
 
         SET_STRETCH(ExtraCondensed);
         SET_STRETCH(Condensed);
