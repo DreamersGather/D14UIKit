@@ -45,7 +45,7 @@ namespace d14uikit
     {
         pimpl->icon = icon;
         auto& targetIcon = pimpl->uiobj->content()->icon;
-        if (icon != nullptr)
+        if (icon != nullptr && !icon->cpuRead())
         {
             targetIcon.bitmap = icon->getImpl()->bitmap;
         }
@@ -78,7 +78,8 @@ namespace d14uikit
     {
         pimpl->uiobj->content()->icon.customSize =
         {
-            (float)value.width, (float)value.height
+            (float)value.width,
+            (float)value.height
         };
         pimpl->uiobj->content()->updateLayout();
     }

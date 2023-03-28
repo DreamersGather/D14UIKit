@@ -11,12 +11,10 @@ namespace d14uikit
         py::class_<Image> i(m, "Image");
 
         i.def(
-            py::init<int, int>(),
-            "width"_a,
-            "height"_a);
-
-        i.def(
-            py::init<const std::wstring&>(),
+            py::init([](const std::wstring& path)
+            {
+                return std::make_unique<Image>(path);
+            }),
             "path"_a);
 
         i.def_property(
@@ -36,14 +34,10 @@ namespace d14uikit
 
         i.def(
             "load",
-            &Image::load,
+            [](Image& self, const std::wstring& path)
+            {
+                self.load(path); // no cpu-read for py
+            },
             "path"_a);
-
-        i.def(
-            "copy",
-            &Image::copy,
-            "offset"_a,
-            "source"_a,
-            "srcArea"_a);
     }
 }

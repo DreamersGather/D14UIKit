@@ -5,7 +5,7 @@ app.resizable = True
 app.clearType = True
 app.drawTextNatrualSymmetric = True
 
-ico = Image('test.png')
+img = Image('test.png')
 
 p = Panel()
 
@@ -13,7 +13,7 @@ pp = Panel()
 pp.parent = p;
 pp.width = 256;
 pp.height = 256;
-pp.image = ico;
+pp.image = img;
 
 def pp_onMouseMove(p, e):
     Application.app.cursor.setIcon(Cursor.Busy)
@@ -36,7 +36,7 @@ btn1.y = 40
 btn1.width = 240
 btn1.height = 60
 btn1.roundRadius = 5
-btn1.icon = ico
+btn1.icon = img
 btn1.iconSize = Size(32, 32)
 btn1.text = 'Flat Button'
 
@@ -55,7 +55,7 @@ btn2.y = 140
 btn2.width = 240
 btn2.height = 60
 btn2.roundRadius = 5
-btn2.icon = ico
+btn2.icon = img
 btn2.iconSize = Size(32, 32)
 btn2.text = 'Filled Button'
 
@@ -75,7 +75,7 @@ btn3.y = 240
 btn3.width = 240
 btn3.height = 60
 btn3.roundRadius = 5
-btn3.icon = ico
+btn3.icon = img
 btn3.iconSize = Size(32, 32)
 btn3.text = 'Outlined Button'
 
@@ -93,7 +93,7 @@ btn4.y = 340
 btn4.width = 240
 btn4.height = 60
 btn4.roundRadius = 5
-btn4.icon = ico
+btn4.icon = img
 btn4.iconSize = Size(32, 32)
 btn4.text = 'Elevated Button'
 
@@ -113,7 +113,7 @@ btn5.y = 440
 btn5.width = 240
 btn5.height = 60
 btn5.roundRadius = 5
-btn5.icon = ico
+btn5.icon = img
 btn5.iconSize = Size(32, 32)
 btn5.text = 'Toggle Button'
 

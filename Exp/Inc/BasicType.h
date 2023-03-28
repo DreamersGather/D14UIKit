@@ -22,4 +22,9 @@ namespace d14uikit
     {
         int r = {}, g = {}, b = {};
     };
+
+    struct Pixel
+    {
+        uint8_t b = {}, g = {}, r = {}, a = {};
+    };
 }
