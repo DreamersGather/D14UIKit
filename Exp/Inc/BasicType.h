@@ -2,6 +2,11 @@
 
 namespace d14uikit
 {
+    struct Range
+    {
+        int offset = {}, length = {};
+    };
+
     struct Point
     {
         int x = {}, y = {};

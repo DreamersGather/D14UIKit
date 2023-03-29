@@ -215,6 +215,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\CheckBox.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ClickablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
@@ -316,6 +322,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ButtonBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\CheckBox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ClickablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
@@ -725,6 +739,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
   <ItemGroup>
     <ClInclude Include="Exp\Application.h" />
     <ClInclude Include="Exp\Button.h" />
+    <ClInclude Include="Exp\CheckBox.h" />
     <ClInclude Include="Exp\ClickablePanel.h" />
     <ClInclude Include="Exp\Cursor.h" />
     <ClInclude Include="Exp\DraggablePanel.h" />
@@ -738,6 +753,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\BasicType.h" />
     <ClInclude Include="Exp\Inc\Button.h" />
     <ClInclude Include="Exp\Inc\Callback.h" />
+    <ClInclude Include="Exp\Inc\CheckBox.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
     <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />
@@ -773,6 +789,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Callback.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\CheckBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>

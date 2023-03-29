@@ -10,12 +10,13 @@ namespace d14uikit
     {
         py::class_<Image> i(m, "Image");
 
-        i.def(
-            py::init([](const std::wstring& path)
-            {
-                return std::make_unique<Image>(path);
-            }),
-            "path"_a);
+        i.def(py::init<int, int, bool>(),
+              "width"_a, "height"_a,
+              "cpuRead"_a = false);
+
+        i.def(py::init<const std::wstring&, bool>(),
+              "path"_a,
+              "cpuRead"_a = false);
 
         i.def_property(
             "size",
@@ -34,10 +35,32 @@ namespace d14uikit
 
         i.def(
             "load",
-            [](Image& self, const std::wstring& path)
+            &Image::load,
+            "path"_a,
+            "cpuRead"_a = false);
+
+        i.def("copy", [](Image& self, const Rect& dst, const std::vector<Pixel>& source)
+        {
+            self.copy(dst, source.data());
+        },
+        "dst"_a, "source"_a);
+
+        i.def("copy", py::overload_cast<const Point&, Image*, const Rect&>(&Image::copy),
+        "dst"_a, "source"_a, "src"_a);
+
+        i.def("data", [](Image& self) -> std::vector<Pixel> // Returns copied pixel 2d-array.
+        {
+            if (self.cpuRead())
             {
-                self.load(path); // no cpu-read for py
-            },
-            "path"_a);
+                auto srcPix = self.map();
+                auto imgGeo = self.size();
+                auto pixNum = imgGeo.width * imgGeo.height;
+                std::vector<Pixel> dstPix(pixNum);
+                memcpy(dstPix.data(), srcPix, pixNum * sizeof(Pixel));
+                self.unmap();
+                return dstPix;
+            }
+            else return {}; // empty pixel 2d-array
+        });
     }
 }

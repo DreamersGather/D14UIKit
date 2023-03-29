@@ -20,6 +20,6 @@ namespace d14uikit
 
         _D14_CALLBACK_PROPERTY(ToggleButton, onStateChange);
 
-        i.def("onStateChange", &ExToggleButton::onStateChange);
+        i.def("onStateChange", &ExToggleButton::onStateChange, "state"_a);
     }
 }

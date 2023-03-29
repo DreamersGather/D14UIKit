@@ -10,7 +10,7 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL_DEF
 
-        Image(int width, int height, bool cpuRead = true);
+        Image(int width, int height, bool cpuRead = false);
         explicit Image(const std::wstring& path, bool cpuRead = false);
 
         bool cpuRead() const;
@@ -26,10 +26,10 @@ namespace d14uikit
 
         void load(const std::wstring& path, bool cpuRead = false);
 
-        bool copy(Rect dst, Pixel* source);
-        bool copy(Point dst, Image* source, Rect src);
+        void copy(const Rect& dst, const Pixel* source);
+        void copy(const Point& dst, Image* source, const Rect& src);
 
-        Pixel* map(); bool unmap(); // Idle the GPU before using!
+        Pixel* map(); void unmap(); // Set cpu-read before using!
 
     protected:
         void initialize();

@@ -6,6 +6,12 @@ app.clearType = True
 app.drawTextNatrualSymmetric = True
 
 img = Image('test.png')
+pixel = \
+[ \
+    Pixel(r + c + 128, 255 - r, 255 - c, 255) \
+    for r in range(64) for c in range(64) \
+]
+img.copy(Rect(0, 0, 64, 64), pixel)
 
 p = Panel()
 
@@ -21,13 +27,30 @@ pp.f_onMouseMove = pp_onMouseMove
 
 note = Label()
 note.parent = p
-note.width = 256
+note.width = 208
 note.height = 60
 note.x = 0
 note.y = 256
 note.text = 'dragon'
 note.font = Font('Default/Bold/16')
-note.horzAlign = Label.HCenter
+note.horzAlign = Label.Right
+
+ckbx = CheckBox()
+ckbx.parent = p
+ckbx.x = 230
+ckbx.y = 274
+ckbx.state = CheckBox.Intermediate
+ckbx.tripleState = True
+
+def ckbx_onStateChange(box, state):
+    global note
+    if state == CheckBox.Unchecked:
+        note.fontStyle = Font.Normal
+    elif state == CheckBox.Intermediate:
+        note.fontStyle = Font.Oblique
+    elif state == CheckBox.Checked:
+        note.fontStyle = Font.Italic
+ckbx.f_onStateChange = ckbx_onStateChange
 
 btn1 = FlatButton()
 btn1.parent = p

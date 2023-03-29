@@ -8,7 +8,7 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL_DEF
 
-        explicit Font(const std::wstring& referName);
+        explicit Font(const std::wstring& name);
 
         Font(const Font& other);
         Font& operator=(const Font& rhs);
@@ -101,8 +101,8 @@ namespace d14uikit
         // Returns "family/locale" paried-style strings.
         static std::set<std::wstring> querySystemFontNames();
 
-        static bool load(
-            const std::wstring& referName,
+        static void load(
+            const std::wstring& name,
             const std::wstring& familyName,
             int size, // in point
             const std::wstring& localeName,

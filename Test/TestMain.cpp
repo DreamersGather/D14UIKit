@@ -1,5 +1,6 @@
 ﻿#include "Application.h"
 #include "Callback.h"
+#include "CheckBox.h"
 #include "Cursor.h"
 #include "ElevatedButton.h"
 #include "FilledButton.h"
@@ -58,13 +59,43 @@ int main()
 
     Label note;
     note.setParent(&p);
-    note.setWidth(256);
+    note.setWidth(208);
     note.setHeight(60);
     note.setX(0);
     note.setY(256);
     note.setText(L"dragon");
     note.setFont(Font(L"Default/Bold/18"));
-    note.setHorzAlign(Label::HCenter);
+    note.setHorzAlign(Label::Right);
+
+    CheckBox ckbx;
+    ckbx.setParent(&p);
+    ckbx.setX(230);
+    ckbx.setY(274);
+    ckbx.setState(CheckBox::Intermediate);
+    ckbx.setTripleState(true);
+
+    ckbx.D14_onStateChange(CheckBox, &note, box, state)
+    {
+        switch (state)
+        {
+        case CheckBox::Unchecked:
+        {
+            note.setFontStyle(Font::Normal);
+            break;
+        }
+        case CheckBox::Intermediate:
+        {
+            note.setFontStyle(Font::Oblique);
+            break;
+        }
+        case CheckBox::Checked:
+        {
+            note.setFontStyle(Font::Italic);
+            break;
+        }
+        default: break;
+        }
+    };
 
     FlatButton btn1;
     btn1.setParent(&p);

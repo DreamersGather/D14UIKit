@@ -24,10 +24,12 @@ namespace d14uikit
 
         i.def(
             "onMouseButtonPress",
-            &ExClickablePanel::onMouseButtonPress);
+            &ExClickablePanel::onMouseButtonPress,
+            "event"_a);
 
         i.def(
             "onMouseButtonRelease",
-            &ExClickablePanel::onMouseButtonRelease);
+            &ExClickablePanel::onMouseButtonRelease,
+            "event"_a);
     }
 }

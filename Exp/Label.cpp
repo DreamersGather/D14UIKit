@@ -4,6 +4,8 @@
 #include "Label.h"
 #include "Panel.h"
 
+#include "Common/DirectXError.h"
+#include "Common/MathUtils/Basic.h"
 #include "UIKit/Label.h"
 
 using namespace d14engine;
@@ -73,7 +75,7 @@ namespace d14uikit
         case Justified: dst = DWRITE_TEXT_ALIGNMENT_JUSTIFIED; break;
         default: dst = DWRITE_TEXT_ALIGNMENT_LEADING; break;
         }
-        pimpl->uiobj->textLayout()->SetTextAlignment(dst);
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetTextAlignment(dst));
 
         // Updates horz hard alignment state.
         setHorzHardAlign(horzHardAlign());
@@ -123,7 +125,7 @@ namespace d14uikit
         case Bottom: dst = DWRITE_PARAGRAPH_ALIGNMENT_FAR; break;
         default: dst = DWRITE_PARAGRAPH_ALIGNMENT_CENTER; break;
         }
-        pimpl->uiobj->textLayout()->SetParagraphAlignment(dst);
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetParagraphAlignment(dst));
 
         // Updates vert hard alignment state.
         setVertHardAlign(vertHardAlign());
@@ -158,7 +160,145 @@ namespace d14uikit
 
     void Label::setWordWrapping(WordWrapping value)
     {
-        pimpl->uiobj->textLayout()->SetWordWrapping((DWRITE_WORD_WRAPPING)value);
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetWordWrapping((DWRITE_WORD_WRAPPING)value));
+    }
+
+    std::wstring Label::fontFamilyName() const
+    {
+        auto length = pimpl->uiobj->textLayout()->GetFontFamilyNameLength();
+        std::wstring name(++length, L'\0');
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->GetFontFamilyName(name.data(), length));
+        return name;
+    }
+
+    void Label::setFontFamilyName(const std::wstring& name, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontFamilyName(name.c_str(), textRange));
+    }
+
+    int Label::fontSize() const
+    {
+        return math_utils::round(pimpl->uiobj->textLayout()->GetFontSize() * 72.0f / 96.0f);
+    }
+
+    void Label::setFontSize(int value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        pimpl->uiobj->textLayout()->SetFontSize(value * 96.0f / 72.0f, textRange);
+    }
+
+    std::wstring Label::fontLocaleName() const
+    {
+        auto length = pimpl->uiobj->textLayout()->GetLocaleNameLength();
+        std::wstring name(++length, L'\0');
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->GetLocaleName(name.data(), length));
+        return name;
+    }
+
+    void Label::setFontLocaleName(const std::wstring& name, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetLocaleName(name.c_str(), textRange));
+    }
+
+    Font::Weight Label::fontWeight() const
+    {
+        return (Font::Weight)pimpl->uiobj->textLayout()->GetFontWeight();
+    }
+
+    void Label::setFontWeight(Font::Weight value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontWeight((DWRITE_FONT_WEIGHT)value, textRange));
+    }
+
+    Font::Style Label::fontStyle() const
+    {
+        return (Font::Style)pimpl->uiobj->textLayout()->GetFontStyle();
+    }
+
+    void Label::setFontStyle(Font::Style value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontStyle((DWRITE_FONT_STYLE)value, textRange));
+    }
+
+    Font::Stretch Label::fontStretch() const
+    {
+        return (Font::Stretch)pimpl->uiobj->textLayout()->GetFontStretch();
+    }
+
+    void Label::setFontStretch(Font::Stretch value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontStretch((DWRITE_FONT_STRETCH)value, textRange));
+    }
+
+    bool Label::underline(int offset) const
+    {
+        BOOL hasUnderline;
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->GetUnderline(offset, &hasUnderline));
+        return hasUnderline;
+    }
+
+    void Label::setUnderline(bool value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetUnderline(value, textRange));
+    }
+
+    bool Label::strikethrough(int offset) const
+    {
+        BOOL hasStrikethrough;
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->GetStrikethrough(offset, &hasStrikethrough));
+        return hasStrikethrough;
+    }
+
+    void Label::setStrikethrough(bool value, std::optional<Range> range)
+    {
+        DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
+        if (range.has_value())
+        {
+            auto& rangeValue = range.value();
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+        }
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetStrikethrough(value, textRange));
     }
 
     bool Label::drawTextClip() const
