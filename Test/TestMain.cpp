@@ -25,14 +25,14 @@ int main()
     constexpr auto row = 64, col = 64;
     auto pixel = std::vector<Pixel>(row * col);
 
-    for (int r = 0; r < 64; ++r)
+    for (int r = 0; r < row; ++r)
     {
-        for (int c = 0; c < 64; ++c)
+        for (int c = 0; c < col; ++c)
         {
 #pragma warning(push)
 #pragma warning(disable : 6011)
 
-            pixel[r * 64 + c] =
+            pixel[r * col + c] =
             {
                 (uint8_t)(r + c + 128),
                 (uint8_t)(255 - r),
