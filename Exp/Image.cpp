@@ -89,7 +89,7 @@ namespace d14uikit
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
     }
 
-    bool Image::copy(Rect dst, Pixel* source)
+    void Image::copy(const Rect& dst, const Pixel* source)
     {
         uikit::Application::g_app->dxRenderer()->beginGpuCommand();
 
@@ -101,14 +101,12 @@ namespace d14uikit
         int pitch = 4 * (dst.right - dst.left);
         // The pixel format of the bitmap is hardcoded as B8G8R8A8, so the pitch
         // (byte count of each scanline) is set to "4 * dst_width" directly.
-        bool status = SUCCEEDED(pimpl->bitmap->CopyFromMemory(&dstRect, source, pitch));
+        THROW_IF_FAILED(pimpl->bitmap->CopyFromMemory(&dstRect, source, pitch));
 
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
-
-        return status;
     }
 
-    bool Image::copy(Point dst, Image* source, Rect src)
+    void Image::copy(const Point& dst, Image* source, const Rect& src)
     {
         uikit::Application::g_app->dxRenderer()->beginGpuCommand();
         
@@ -122,12 +120,10 @@ namespace d14uikit
             (UINT)dst.x, (UINT)dst.y
         };
         // This doesn't work if either the source or destination bitmap is mapped.
-        bool status = SUCCEEDED(pimpl->bitmap->CopyFromBitmap(
+        THROW_IF_FAILED(pimpl->bitmap->CopyFromBitmap(
             &destPoint, source->pimpl->bitmap.Get(), &srcRect));
 
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
-
-        return status;
     }
 
     Pixel* Image::map()
@@ -139,12 +135,12 @@ namespace d14uikit
         constexpr auto options = D2D1_MAP_OPTIONS_READ;
         D2D1_MAPPED_RECT mapped = {};
 
-        bool status = SUCCEEDED(pimpl->bitmap->Map(options, &mapped));
+        THROW_IF_FAILED(pimpl->bitmap->Map(options, &mapped));
 
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
 
-        return status ? (Pixel*)mapped.bits : nullptr;
+        return (Pixel*)mapped.bits;
     }
 
-    bool Image::unmap() { return SUCCEEDED(pimpl->bitmap->Unmap()); }
+    void Image::unmap() { THROW_IF_FAILED(pimpl->bitmap->Unmap()); }
 }

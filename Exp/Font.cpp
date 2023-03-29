@@ -2,6 +2,7 @@
 
 #include "Font.h"
 
+#include "Common/DirectXError.h"
 #include "Common/MathUtils/Basic.h"
 #include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"
@@ -10,12 +11,12 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    Font::Font(const std::wstring& referName)
+    Font::Font(const std::wstring& name)
         :
         Font(Passkey{})
     {
         auto& formats = uikit::resource_utils::g_textFormats;
-        auto formatItor = formats.find(referName);
+        auto formatItor = formats.find(name);
         if (formatItor != formats.end())
         {
             pimpl->textFormat = formatItor->second;
@@ -52,7 +53,7 @@ namespace d14uikit
     {
         auto length = pimpl->textFormat->GetFontFamilyNameLength();
         std::wstring name(++length, L'\0');
-        pimpl->textFormat->GetFontFamilyName(name.data(), length);
+        THROW_IF_FAILED(pimpl->textFormat->GetFontFamilyName(name.data(), length));
         return name;
     }
 
@@ -65,7 +66,7 @@ namespace d14uikit
     {
         auto length = pimpl->textFormat->GetLocaleNameLength();
         std::wstring name(++length, L'\0');
-        pimpl->textFormat->GetLocaleName(name.data(), length);
+        THROW_IF_FAILED(pimpl->textFormat->GetLocaleName(name.data(), length));
         return name;
     }
 
@@ -96,8 +97,8 @@ namespace d14uikit
         return dstNames;
     }
 
-    bool Font::load(
-        const std::wstring& referName,
+    void Font::load(
+        const std::wstring& name,
         const std::wstring& familyName,
         int size,
         const std::wstring& localeName,
@@ -106,7 +107,7 @@ namespace d14uikit
         Stretch strech)
     {
         auto rndr = uikit::Application::g_app->dxRenderer();
-        return SUCCEEDED(rndr->dwriteFactory()->CreateTextFormat(
+        THROW_IF_FAILED(rndr->dwriteFactory()->CreateTextFormat(
             familyName.c_str(),
             nullptr,
             (DWRITE_FONT_WEIGHT)weight,
@@ -115,6 +116,6 @@ namespace d14uikit
             // 1 inch == 72 pt == 96 dip
             size * 96.0f / 72.0f,
             localeName.c_str(),
-            &uikit::resource_utils::g_textFormats[referName]));
+            &uikit::resource_utils::g_textFormats[name]));
     }
 }

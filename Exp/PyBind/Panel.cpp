@@ -121,19 +121,23 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
 
         i.def(
             "onSize",
-            &ExPanel::onSize);
+            &ExPanel::onSize,
+            "event"_a);
 
         i.def(
             "onMove",
-            &ExPanel::onMove);
+            &ExPanel::onMove,
+            "event"_a);
 
         i.def(
             "onChangeTheme",
-            &ExPanel::onChangeTheme);
+            &ExPanel::onChangeTheme,
+            "name"_a);
 
         i.def(
             "onChangeLangLocale",
-            &ExPanel::onChangeLangLocale);
+            &ExPanel::onChangeLangLocale,
+            "name"_a);
 
         i.def(
             "onGetFocus",
@@ -145,26 +149,32 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
 
         i.def(
             "onKeyboard",
-            &ExPanel::onKeyboard);
+            &ExPanel::onKeyboard,
+            "event"_a);
 
         i.def(
             "onMouseEnter",
-            &ExPanel::onMouseEnter);
+            &ExPanel::onMouseEnter,
+            "event"_a);
 
         i.def(
             "onMouseMove",
-            &ExPanel::onMouseMove);
+            &ExPanel::onMouseMove,
+            "event"_a);
 
         i.def(
             "onMouseLeave",
-            &ExPanel::onMouseLeave);
+            &ExPanel::onMouseLeave,
+            "event"_a);
 
         i.def(
             "onMouseWheel",
-            &ExPanel::onMouseWheel);
+            &ExPanel::onMouseWheel,
+            "event"_a);
 
         i.def(
             "onMouseButton",
-            &ExPanel::onMouseButton);  
+            &ExPanel::onMouseButton,
+            "event"_a);  
     }
 }

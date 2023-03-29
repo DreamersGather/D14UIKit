@@ -64,6 +64,30 @@ namespace d14uikit
 
 #undef SET_WORD_WRAPPING
 
+        std::wstring fontFamilyName() const;
+        void setFontFamilyName(const std::wstring& name, std::optional<Range> range = std::nullopt);
+
+        int fontSize() const;
+        void setFontSize(int value, std::optional<Range> range = std::nullopt);
+
+        std::wstring fontLocaleName() const;
+        void setFontLocaleName(const std::wstring& name, std::optional<Range> range = std::nullopt);
+
+        Font::Weight fontWeight() const;
+        void setFontWeight(Font::Weight value, std::optional<Range> range = std::nullopt);
+
+        Font::Style fontStyle() const;
+        void setFontStyle(Font::Style value, std::optional<Range> range = std::nullopt);
+
+        Font::Stretch fontStretch() const;
+        void setFontStretch(Font::Stretch value, std::optional<Range> range = std::nullopt);
+
+        bool underline(int offset) const;
+        void setUnderline(bool value, std::optional<Range> range = std::nullopt);
+
+        bool strikethrough(int offset) const;
+        void setStrikethrough(bool value, std::optional<Range> range = std::nullopt);
+
         bool drawTextClip() const;
         void setDrawTextClip(bool value);
 

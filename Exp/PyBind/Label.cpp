@@ -64,6 +64,106 @@ namespace d14uikit
             &Label::setWordWrapping);
 
         i.def_property(
+            "fontFamilyName",
+            &Label::fontFamilyName,
+            [](Label& self, const std::wstring& name)
+            {
+                self.setFontFamilyName(name);
+            });
+        i.def(
+            "setFontFamilyName",
+            &Label::setFontFamilyName,
+            "name"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
+            "fontSize",
+            &Label::fontSize,
+            [](Label& self, int value)
+            {
+                self.setFontSize(value);
+            });
+        i.def(
+            "setFontSize",
+            &Label::setFontSize,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
+            "fontLocaleName",
+            &Label::fontLocaleName,
+            [](Label& self, const std::wstring& name)
+            {
+                self.setFontLocaleName(name);
+            });
+        i.def(
+            "setFontLocaleName",
+            &Label::setFontLocaleName,
+            "name"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
+            "fontWeight",
+            &Label::fontWeight,
+            [](Label& self, Font::Weight value)
+            {
+                self.setFontWeight(value);
+            });
+        i.def(
+            "setFontWeight",
+            &Label::setFontWeight,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
+            "fontStyle",
+            &Label::fontStyle,
+            [](Label& self, Font::Style value)
+            {
+                self.setFontStyle(value);
+            });
+        i.def(
+            "setFontStyle",
+            &Label::setFontStyle,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
+            "fontStretch",
+            &Label::fontStretch,
+            [](Label& self, Font::Stretch value)
+            {
+                self.setFontStretch(value);
+            });
+        i.def(
+            "setFontStretch",
+            &Label::setFontStretch,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def(
+            "getUnderline",
+            &Label::underline,
+            "offset"_a);
+
+        i.def(
+            "setUnderline",
+            &Label::setUnderline,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def(
+            "getStrikethrough",
+            &Label::strikethrough,
+            "offset"_a);
+
+        i.def(
+            "setStrikethrough",
+            &Label::setStrikethrough,
+            "value"_a,
+            "range"_a = std::nullopt);
+
+        i.def_property(
             "drawTextClip",
             &Label::drawTextClip,
             &Label::setDrawTextClip);

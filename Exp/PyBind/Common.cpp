@@ -8,6 +8,7 @@
 #include "Application.h"
 #include "BasicType.h"
 #include "Button.h"
+#include "CheckBox.h"
 #include "ClickablePanel.h"
 #include "Cursor.h"
 #include "DraggablePanel.h"
@@ -51,6 +52,7 @@ namespace d14uikit
         Py_InitLabel(m);
         Py_InitClickablePanel(m);
         Py_InitButton(m);
+        Py_InitCheckBox(m);
         Py_InitFlatButton(m);
         Py_InitOutlinedButton(m);
         Py_InitFilledButton(m);

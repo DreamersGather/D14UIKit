@@ -10,7 +10,7 @@ namespace d14uikit
     {
         py::class_<Font> i(m, "Font");
 
-        i.def(py::init<const std::wstring&>(), "referName"_a);
+        i.def(py::init<const std::wstring&>(), "name"_a);
 
         i.def_property_readonly("familyName", &Font::familyName);
         i.def_property_readonly("size", &Font::size);
@@ -56,7 +56,7 @@ namespace d14uikit
         i.def_static(
             "load",
             &Font::load,
-            "referName"_a,
+            "name"_a,
             "familyName"_a,
             "size"_a,
             "localeName"_a,
