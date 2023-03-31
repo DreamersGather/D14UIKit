@@ -1022,6 +1022,7 @@ namespace d14engine::uikit
             if (!m_parent.expired())
             {
                 m_parent.lock()->removeUIObject(shared_from_this());
+                m_parent.reset();
             }
             return;
         }

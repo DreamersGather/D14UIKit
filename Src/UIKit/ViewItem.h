@@ -64,7 +64,11 @@ namespace d14engine::uikit
 
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
+    public:
         // Panel
+        void setEnabled(bool value) override;
+
+    protected:
         bool isHitHelper(const Event::Point& p) const override;
 
         bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;

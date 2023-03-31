@@ -8,11 +8,4 @@ namespace d14engine::uikit
     {
         return m_parentView;
     }
-
-    void ListViewItem::setEnabled(bool value)
-    {
-        ViewItem::setEnabled(value);
-
-        if (m_content) m_content->setEnabled(value);
-    }
 }

@@ -84,6 +84,15 @@ namespace d14engine::uikit
         WaterfallView::removeItem(index, count);
     }
 
+    void PopupMenu::clearAllItems()
+    {
+        for (auto& item : m_items)
+        {
+            item->m_parentMenu.reset();
+        }
+        WaterfallView::clearAllItems();
+    }
+
     const WeakPtr<MenuItem>& PopupMenu::associatedItem() const
     {
         return m_associatedItem;

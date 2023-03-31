@@ -98,11 +98,4 @@ namespace d14engine::uikit
             }
         }
     }
-
-    void MenuItem::setEnabled(bool value)
-    {
-        ViewItem::setEnabled(value);
-
-        if (m_content) m_content->setEnabled(value);
-    }
 }

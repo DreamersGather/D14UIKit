@@ -46,8 +46,5 @@ namespace d14engine::uikit
         void onChangeThemeHelper(WstrParam themeName) override;
 
         void onMouseButtonHelper(MouseButtonEvent& e) override;
-
-    public:
-        void setEnabled(bool value) override;
     };
 }
