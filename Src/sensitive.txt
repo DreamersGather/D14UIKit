@@ -1,6 +1,4 @@
-﻿IMPORTANT! The source files below are different from UIKit @ D14Engine:
-
-Deleted:
+﻿Deleted:
   Renderer/GraphUtils/Shader.(h,cpp)
 
 Modified:

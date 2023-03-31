@@ -17,9 +17,5 @@ namespace d14engine::uikit
 
     public:
         const WeakPtr<ListView>& parentView() const;
-
-    public:
-        // Panel
-        void setEnabled(bool value) override;
     };
 }

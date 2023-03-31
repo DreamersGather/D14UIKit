@@ -143,7 +143,7 @@ namespace d14engine::uikit
         {
             m_content->onRendererDrawD2d1Layer(rndr);
 
-            auto& setting = getAppearance().main[(size_t)state];
+            auto& setting = getAppearance().main[(size_t)(m_enabled ? state : State::Idle)];
 
             // Set opaque background to support rendering ClearType text.
             contentMask.color = setting.background.color;
@@ -163,7 +163,7 @@ namespace d14engine::uikit
 
     void ViewItem::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
     {
-        auto& setting = getAppearance().main[(size_t)state];
+        auto& setting = getAppearance().main[(size_t)(m_enabled ? state : State::Idle)];
 
         // Background
         resource_utils::g_solidColorBrush->SetColor(setting.background.color);
@@ -186,6 +186,13 @@ namespace d14engine::uikit
 
         rndr->d2d1DeviceContext()->DrawRoundedRectangle(
             outlineRect, resource_utils::g_solidColorBrush.Get(), setting.stroke.width);
+    }
+
+    void ViewItem::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        if (m_content) m_content->setEnabled(value);
     }
 
     bool ViewItem::isHitHelper(const Event::Point& p) const

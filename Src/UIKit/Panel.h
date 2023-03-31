@@ -56,7 +56,7 @@ namespace d14engine::uikit
         std::enable_shared_from_this<Panel>,
         cpp_lang_utils::NonCopyable,
         renderer::IDrawObject2D,
-        ISortable<Panel> 
+        ISortable<Panel>
     {
         friend struct Application;
 

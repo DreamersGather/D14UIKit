@@ -46,6 +46,7 @@ namespace d14engine::uikit
         void appendItem(const ItemList& items);
 
         void removeItem(size_t index, size_t count = 1) override;
+        void clearAllItems() override;
 
     protected:
         WeakPtr<MenuItem> m_associatedItem = {};
