@@ -34,6 +34,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(TabGroup)
 
+        float minimalWidth() const override;
+
     protected:
         struct TabImpl : Tab
         {
@@ -163,11 +165,7 @@ namespace d14engine::uikit
 
         void drawD2d1ObjectPosterior(renderer::Renderer* rndr) override;
 
-    public:
         // Panel
-        float minimalWidth() const override;
-
-    protected:
         bool isHitHelper(const Event::Point& p) const override;
 
         void onSizeHelper(SizeEvent& e) override;

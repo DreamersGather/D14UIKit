@@ -27,6 +27,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(Button)
 
+        void setEnabled(bool value) override;
+
     protected:
         SharedPtr<IconLabel> m_content = {};
 
@@ -54,10 +56,6 @@ namespace d14engine::uikit
 
         void onMouseLeaveHelper(MouseMoveEvent& e) override;
 
-    public:
-        void setEnabled(bool value) override;
-
-    protected:
         // ClickablePanel
         void onMouseButtonPressHelper(ClickablePanel::Event& e) override;
 

@@ -13,6 +13,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(TextInput)
 
+        void setEnabled(bool value) override;
+
     protected:
         State m_currState = State::Idle;
 
@@ -26,7 +28,6 @@ namespace d14engine::uikit
 
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
-    protected:
         // Panel
         void onChangeThemeHelper(WstrParam themeName) override;
 
@@ -37,8 +38,5 @@ namespace d14engine::uikit
         void onMouseEnterHelper(MouseMoveEvent& e) override;
 
         void onMouseLeaveHelper(MouseMoveEvent& e) override;
-
-    public:
-        void setEnabled(bool value) override;
     };
 }

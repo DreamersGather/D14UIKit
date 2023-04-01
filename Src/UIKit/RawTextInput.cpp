@@ -227,7 +227,7 @@ namespace d14engine::uikit
     void RawTextInput::onRendererDrawD2d1LayerHelper(Renderer* rndr)
     {
         // Rendering ClearType text requires an opaque background, while the
-        // other modes (e.g. Grayscale) do not.  The labels will be rendered
+        // other modes (e.g. Grayscale) do not.  The texts will be rendered
         // to m_visibleTextMask at first, so their background must be opaque
         // to be compatible with the potential ClearType text rendering mode.
         m_visibleTextMask.color = Label::getAppearance().background.color;

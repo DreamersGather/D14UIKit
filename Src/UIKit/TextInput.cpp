@@ -11,6 +11,24 @@ using namespace d14engine::renderer;
 
 namespace d14engine::uikit
 {
+    void TextInput::setEnabled(bool value)
+    {
+        RawTextInput::setEnabled(value);
+
+        if (value)
+        {
+            m_currState = State::Idle;
+        }
+        else // lose focus when disabled
+        {
+            if (isFocused())
+            {
+                Application::g_app->focusUIObject(nullptr);
+            }
+            m_currState = State::Disabled;
+        }
+    }
+
     void TextInput::onRendererUpdateObject2DHelper(Renderer* rndr)
     {
         RawTextInput::onRendererUpdateObject2DHelper(rndr);
@@ -126,24 +144,6 @@ namespace d14engine::uikit
         if (m_currState != State::Active)
         {
             m_currState = State::Idle;
-        }
-    }
-
-    void TextInput::setEnabled(bool value)
-    {
-        RawTextInput::setEnabled(value);
-
-        if (value)
-        {
-            m_currState = State::Idle;
-        }
-        else // lose focus when disabled
-        {
-            if (isFocused())
-            {
-                Application::g_app->focusUIObject(nullptr);
-            }
-            m_currState = State::Disabled;
         }
     }
 }

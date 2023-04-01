@@ -89,11 +89,9 @@ namespace d14engine::uikit
         // IDrawObject2D
         void drawD2d1ObjectPosterior(renderer::Renderer* rndr) override;
 
-    public:
         // Panel
         bool isHitHelper(const Event::Point& p) const override;
 
-    protected:
         void onChangeThemeHelper(WstrParam themeName) override;
         void onChangeThemeWrapper(WstrParam themeName);
 

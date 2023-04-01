@@ -49,6 +49,15 @@ namespace d14engine::uikit
         m_content->transform(selfCoordRect());
     }
 
+    void Button::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        m_currState = value ? State::Idle : State::Disabled;
+
+        m_content->label()->setEnabled(value);
+    }
+
     const SharedPtr<IconLabel>& Button::content() const
     {
         return m_content;
@@ -138,15 +147,6 @@ namespace d14engine::uikit
         ClickablePanel::onMouseLeaveHelper(e);
 
         m_currState = State::Idle;
-    }
-
-    void Button::setEnabled(bool value)
-    {
-        Panel::setEnabled(value);
-
-        m_currState = value ? State::Idle : State::Disabled;
-
-        m_content->label()->setEnabled(value);
     }
 
     void Button::onMouseButtonPressHelper(Event& e)

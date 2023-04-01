@@ -22,6 +22,19 @@ namespace d14engine::uikit
         m_currState.flag = OFF;
     }
 
+    void OnOffSwitch::setEnabled(bool value)
+    {
+        ClickablePanel::setEnabled(value);
+
+        if (m_animationTargetState != State::ActiveFlag::Finished)
+        {
+            setOnOffState(m_animationTargetState);
+        }
+        m_state.buttonFlag = value ?
+            State::ButtonFlag::Idle :
+            State::ButtonFlag::Disabled;
+    }
+
     void OnOffSwitch::setOnOff(State::ActiveFlag flag)
     {
         m_state.activeFlag = flag;
@@ -182,17 +195,6 @@ namespace d14engine::uikit
         ClickablePanel::onMouseLeaveHelper(e);
 
         m_state.buttonFlag = State::ButtonFlag::Idle;
-    }
-
-    void OnOffSwitch::setEnabled(bool value)
-    {
-        ClickablePanel::setEnabled(value);
-
-        if (m_animationTargetState != State::ActiveFlag::Finished)
-        {
-            setOnOffState(m_animationTargetState);
-        }
-        m_state.buttonFlag = value ? State::ButtonFlag::Idle : State::ButtonFlag::Disabled;
     }
 
     void OnOffSwitch::onMouseButtonPressHelper(ClickablePanel::Event& e)

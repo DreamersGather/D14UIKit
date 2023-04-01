@@ -78,6 +78,16 @@ namespace d14engine::uikit
         THROW_IF_FAILED(context->CreateLinearGradientBrush({}, coll.Get(), &decorativeBarBrush));
     }
 
+    float Window::minimalWidth() const
+    {
+        return nonClientAreaMinimalWidth();
+    }
+
+    float Window::minimalHeight() const
+    {
+        return nonClientAreaHeight();
+    }
+
     void Window::onMinimize()
     {
         onMinimizeHelper();
@@ -603,16 +613,6 @@ namespace d14engine::uikit
             rndr->d2d1DeviceContext()->DrawBitmap(
                 mask.bitmap.Get(), math_utils::roundf(m_absoluteRect), maskOpacity);
         }
-    }
-
-    float Window::minimalWidth() const
-    {
-        return nonClientAreaMinimalWidth();
-    }
-
-    float Window::minimalHeight() const
-    {
-        return nonClientAreaHeight();
     }
 
     bool Window::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)

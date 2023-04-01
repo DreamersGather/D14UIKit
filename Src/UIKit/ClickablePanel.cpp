@@ -4,6 +4,13 @@
 
 namespace d14engine::uikit
 {
+    void ClickablePanel::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        setEnabledWrapper(value);
+    }
+
     void ClickablePanel::onMouseButtonPress(Event& e)
     {
         onMouseButtonPressHelper(e);
@@ -101,13 +108,6 @@ namespace d14engine::uikit
                 onMouseButtonRelease(be);
             }
         }
-    }
-
-    void ClickablePanel::setEnabled(bool value)
-    {
-        Panel::setEnabled(value);
-
-        setEnabledWrapper(value);
     }
 
     void ClickablePanel::setEnabledWrapper(bool value)

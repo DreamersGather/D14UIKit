@@ -10,6 +10,8 @@ namespace d14engine::uikit
     {
         using Panel::Panel;
 
+        void setEnabled(bool value) override;
+
         struct Event : MouseEvent
         {
             enum class Flag { Unknown, Left, Right, Middle } flag = Flag::Unknown;
@@ -88,10 +90,8 @@ namespace d14engine::uikit
         // 
         // B1 -> A { ... funcWrapper() { B1's work... } }
         // B2 -> A { ... funcWrapper() { B2's work... } }
-        // C -> B1, B2 { func() override { A::func(); B1::funcWrapper(); B2::funcWrapper(); C's work... } }
+        // C -> B1, B2 { func() override { A::func(); B1/B2::funcWrapper(); C's work... } }
 
-    public:
-        void setEnabled(bool value) override;
         void setEnabledWrapper(bool value);
     };
 }
