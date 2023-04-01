@@ -88,7 +88,6 @@ namespace d14engine::uikit
 
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
-    protected:
         // Panel
         bool isHitHelper(const Event::Point& p) const override;
 
@@ -100,7 +99,6 @@ namespace d14engine::uikit
 
         void onMouseButtonHelper(MouseButtonEvent& e) override;
 
-    protected:
         // ValuefulObject
         void onValueChangeHelper(float value) override;
     };

@@ -8,6 +8,9 @@
 
 namespace d14engine::uikit
 {
+    template<typename T = Panel>
+    SharedPtr<T> nullUIObj() { return nullptr; }
+
     template<typename T, typename... Types>
     SharedPtr<T> makeUIObject(Types&& ...args)
     {

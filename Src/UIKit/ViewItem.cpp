@@ -35,6 +35,13 @@ namespace d14engine::uikit
         if (m_content) m_content->transform(selfCoordRect());
     }
 
+    void ViewItem::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        if (m_content) m_content->setEnabled(value);
+    }
+
     WeakPtr<Panel> ViewItem::content() const
     {
         return m_content;
@@ -186,13 +193,6 @@ namespace d14engine::uikit
 
         rndr->d2d1DeviceContext()->DrawRoundedRectangle(
             outlineRect, resource_utils::g_solidColorBrush.Get(), setting.stroke.width);
-    }
-
-    void ViewItem::setEnabled(bool value)
-    {
-        Panel::setEnabled(value);
-
-        if (m_content) m_content->setEnabled(value);
     }
 
     bool ViewItem::isHitHelper(const Event::Point& p) const

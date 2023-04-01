@@ -26,6 +26,15 @@ namespace d14engine::uikit
         enableTripleState(isTripleState);
     }
 
+    void CheckBox::setEnabled(bool value)
+    {
+        ClickablePanel::setEnabled(value);
+
+        m_state.buttonFlag = value ?
+            State::ButtonFlag::Idle :
+            State::ButtonFlag::Disabled;
+    }
+
     void CheckBox::setChecked(State::ActiveFlag flag)
     {
         m_state.activeFlag = flag;
@@ -149,13 +158,6 @@ namespace d14engine::uikit
         ClickablePanel::onMouseLeaveHelper(e);
 
         m_state.buttonFlag = State::ButtonFlag::Idle;
-    }
-
-    void CheckBox::setEnabled(bool value)
-    {
-        ClickablePanel::setEnabled(value);
-
-        m_state.buttonFlag = value ? State::ButtonFlag::Idle : State::ButtonFlag::Disabled;
     }
 
     void CheckBox::onMouseButtonPressHelper(ClickablePanel::Event& e)

@@ -39,6 +39,13 @@ namespace d14engine::uikit
         m_label->transform(selfCoordRect());
     }
 
+    void IconLabel::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        m_label->setEnabled(value);
+    }
+
     const SharedPtr<Label>& IconLabel::label() const
     {
         return m_label;
@@ -278,13 +285,6 @@ namespace d14engine::uikit
         return compactLayout(labelText, iconBitmap, iconBitmapOpacity, 12.0f, 0.0f, rect);
     }
 
-    void IconLabel::setEnabled(bool value)
-    {
-        Panel::setEnabled(value);
-
-        m_label->setEnabled(value);
-    }
-
     void IconLabel::onSizeHelper(SizeEvent& e)
     {
         Panel::onSizeHelper(e);
@@ -311,7 +311,8 @@ namespace d14engine::uikit
         {
             auto rect = math_utils::roundf(selfCoordToAbsolute(icon.rect));
 
-            rndr->d2d1DeviceContext()->DrawBitmap(icon.bitmap.Get(), rect, icon.bitmapOpacity);
+            rndr->d2d1DeviceContext()->DrawBitmap(
+                icon.bitmap.Get(), rect, icon.bitmapOpacity);
         }
     }
 }

@@ -31,10 +31,7 @@ namespace d14engine::uikit
         m_previewPanel->setBackgroundTriggerPanel(true);
     }
 
-    TabGroup::~TabGroup()
-    {
-        m_previewPanel->destroy();
-    }
+    TabGroup::~TabGroup() { m_previewPanel->destroy(); }
 
     void TabGroup::onInitializeFinish()
     {
@@ -45,21 +42,38 @@ namespace d14engine::uikit
 
     void TabGroup::loadActiveCardShadowBitmap()
     {
-        auto& setting = getAppearance().tabBar.card.main[(size_t)CardState::Active];
+        auto& setting = getAppearance().
+            tabBar.card.main[(size_t)CardState::Active];
 
-        activeCardShadow.loadShadowBitmap(math_utils::roundu(setting.geometry.size));
+        activeCardShadow.loadShadowBitmap(
+            math_utils::roundu(setting.geometry.size));
     }
 
     D2D1_RECT_F TabGroup::cardBarExtendedAbsoluteRect() const
     {
-        return math_utils::increaseTop(m_absoluteRect, -getAppearance().tabBar.geometry.height);
+        return math_utils::increaseTop(
+            m_absoluteRect,
+            -getAppearance().tabBar.geometry.height);
     }
 
     D2D1_RECT_F TabGroup::cardBarExtendedCardBarAbsoluteRect() const
     {
         auto& setting = getAppearance().tabBar.geometry;
-        
-        return math_utils::rect(m_absoluteRect.left, m_absoluteRect.top - setting.height, width(), setting.height);
+
+        float top = m_absoluteRect.top - setting.height;
+        return math_utils::rect(m_absoluteRect.left, top, width(), setting.height);
+    }
+
+    float TabGroup::minimalWidth() const
+    {
+        float minWidth = getAppearance().tabBar.geometry.rightPadding;
+
+        if (m_currActiveCardTabIndex.valid())
+        {
+            auto& rect = cardAbsoluteRect(m_currActiveCardTabIndex);
+            minWidth += absoluteToSelfCoord(rect).right;
+        }
+        return minWidth;
     }
 
     TabGroup::TabIndex TabGroup::selfcoordOffsetToCardTabIndex(float offset) const
@@ -171,7 +185,7 @@ namespace d14engine::uikit
 
         auto tabItor = m_tabs.insert(tabIndex.iterator, tab);
 
-        tabItor->m_previewItem = makeUIObject<MenuItem>();
+        tabItor->m_previewItem = makeUIObject<MenuItem>(nullUIObj());
         tabItor->m_previewItem->isInstant = false;
 
 #define UPDATE_TAB_INDEX(Tab_Index) \
@@ -344,6 +358,10 @@ do { \
         {
             tabIndex->caption->destroy();
             addUIObject(tabIndex->caption);
+
+            // The tab-caption may be disabled when the preview-panel
+            // calls updateItemIndexRangeActivity() to optimize performance.
+            tabIndex->caption->setEnabled(true);
         }
         m_previewPanel->clearAllItems();
 
@@ -411,8 +429,8 @@ do { \
             auto state = getCardState(tabIndex);
             auto& setting = getAppearance().tabBar.card.main[(size_t)state];
 
-            float tmpLength = cardLength + setting.geometry.size.width;
-            if (tmpLength > maxCardLegnth)
+            float temporaryLength = cardLength + setting.geometry.size.width;
+            if (temporaryLength > maxCardLegnth)
             {
                 m_candidateTabCount = tabIndex.index;
                 break;
@@ -421,13 +439,17 @@ do { \
             {
                 m_absoluteRect.left + cardLength,
                 m_absoluteRect.top - setting.geometry.size.height,
-                m_absoluteRect.left + cardLength + setting.geometry.size.width,
+                m_absoluteRect.left + temporaryLength,
                 m_absoluteRect.top + ((state == CardState::Active) ? 0.0f : setting.geometry.roundRadius)
             };
-            cardLength = tmpLength;
+            cardLength = temporaryLength;
 
             tabIndex->caption->destroy();
             addUIObject(tabIndex->caption);
+
+            // The tab-caption may be disabled when the preview-panel
+            // calls updateItemIndexRangeActivity() to optimize performance.
+            tabIndex->caption->setEnabled(true);
 
             tabIndex->caption->transform(absoluteToSelfCoord(cardCaptionAbsoluteRect(tabIndex)));
         }
@@ -867,17 +889,6 @@ do { \
             }
         }
         ResizablePanel::drawD2d1ObjectPosterior(rndr);
-    }
-
-    float TabGroup::minimalWidth() const
-    {
-        float minWidth = getAppearance().tabBar.geometry.rightPadding;
-
-        if (m_currActiveCardTabIndex.valid())
-        {
-            minWidth += absoluteToSelfCoord(cardAbsoluteRect(m_currActiveCardTabIndex)).right;
-        }
-        return minWidth;
     }
 
     bool TabGroup::isHitHelper(const Event::Point& p) const

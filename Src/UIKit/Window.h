@@ -40,6 +40,10 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(Window)
 
+        float minimalWidth() const override;
+
+        float minimalHeight() const override;
+
     public:
         void onMinimize();
 
@@ -207,13 +211,7 @@ namespace d14engine::uikit
 
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
-    public:
         // Panel
-        float minimalWidth() const override;
-
-        float minimalHeight() const override;
-
-    protected:
         bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
 
         void onSizeHelper(SizeEvent& e) override;

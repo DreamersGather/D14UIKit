@@ -17,6 +17,8 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
+        void setEnabled(bool value) override;
+
     protected:
         SharedPtr<Label> m_label2 = {};
 
@@ -34,11 +36,11 @@ namespace d14engine::uikit
             float hotkeyTailPadding = 30.0f,
             const D2D1_RECT_F& rect = {});
 
-    public:
-        void setEnabled(bool value) override;
-
     protected:
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        // IDrawObject2D
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
+        
+        // Panel
+        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
     };
 }

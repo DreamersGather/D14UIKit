@@ -18,6 +18,8 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
+        void setEnabled(bool value) override;
+
     public:
         struct Icon
         {
@@ -77,9 +79,6 @@ namespace d14engine::uikit
             ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
             float iconBitmapOpacity = 1.0f,
             const D2D1_RECT_F& rect = {});
-
-    public:
-        void setEnabled(bool value) override;
 
     protected:
         void onSizeHelper(SizeEvent& e) override;

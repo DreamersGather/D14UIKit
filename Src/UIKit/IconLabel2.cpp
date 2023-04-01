@@ -29,6 +29,13 @@ namespace d14engine::uikit
         m_label2->transform(selfCoordRect());
     }
 
+    void IconLabel2::setEnabled(bool value)
+    {
+        IconLabel::setEnabled(value);
+
+        m_label2->setEnabled(value);
+    }
+
     const SharedPtr<Label>& IconLabel2::label2() const
     {
         return m_label2;
@@ -96,11 +103,16 @@ namespace d14engine::uikit
         return iconLabel;
     }
 
-    void IconLabel2::setEnabled(bool value)
+    void IconLabel2::onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr)
     {
-        IconLabel::setEnabled(value);
+        // Label & Icon
+        IconLabel::onRendererDrawD2d1ObjectHelper(rndr);
 
-        m_label2->setEnabled(value);
+        // Label-2 Text
+        if (m_label2->isD2d1ObjectVisible())
+        {
+            m_label2->onRendererDrawD2d1Object(rndr);
+        }
     }
 
     bool IconLabel2::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
@@ -108,14 +120,5 @@ namespace d14engine::uikit
         if (cpp_lang_utils::isMostDerivedEqual(uiobj, m_label2)) return false;
 
         return IconLabel::destroyUIObjectHelper(uiobj);
-    }
-
-    void IconLabel2::onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr)
-    {
-        // Label & Icon
-        IconLabel::onRendererDrawD2d1ObjectHelper(rndr);
-
-        // Label 2 Text
-        if (m_label2->isD2d1ObjectVisible()) m_label2->onRendererDrawD2d1Object(rndr);
     }
 }

@@ -236,21 +236,22 @@ namespace d14engine::uikit
         bool sendNextImmediateMouseMoveEvent = false;
 
     private:
-        // The UI objects are maintained with a normal set, and the specific
-        // UI event callbacks are performed one by one in the Win32 wnd-proc.
+        // The UI objects are maintained with a std::set, and the UI event
+        // callbacks are performed in order within each Win32 wnd-proc.
         // 
-        // Under normal circumstances, the callbacks are called according to
+        // Under normal circumstances, the callbacks are invoked according to
         // the receiving order of the Win32 messages, in which case there is
         // no conflict between each callback.  If a callback, however, sends
-        // an immediate Win32 message internally, the wnd-proc will retrieve
-        // the normal set that stores the UI objects again and try to modify
-        // it to respond to the specific UI event, and this might cause some
-        // undefined behaviours because we are trying to change a normal set
-        // while traversing it with the corresponding iterator (STL invalid).
+        // an immediate Win32 message while being handled, the Win32 wnd-proc
+        // will retrieve the std::set stores the UI objects again and try to
+        // modify it to respond to the new UI event, and this may cause some
+        // undefined results because we are trying to insert/erase a std::set
+        // while traversing it with the corresponding iterator.
+        // (PS: That operation is invalid for all STL associated containers).
         // 
         // To solve the problem, we are determined to introduce a flag about
-        // whether the wnd-proc is handling any UI event, and newly received
-        // messages would be pushed into the system queue with PostMessage().
+        // whether the Win32 wnd-proc is handling any UI event, and the newly
+        // received Win32 messages will be added to the system message queue.
 
         bool m_isHandlingSensitiveUIEvent = false;
 
