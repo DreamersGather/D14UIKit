@@ -154,6 +154,12 @@ namespace d14engine::uikit::resource_utils
         }
     }
 
+    const static String g_emptyStr = {};
+    const String& emptyStrRef() { return g_emptyStr; }
+
+    const static Wstring g_emptyWstr = {};
+    const Wstring& emptyWstrRef() { return g_emptyWstr; }
+
     void loadCommonBrushes()
     {
         auto context = Application::g_app->dxRenderer()->d2d1DeviceContext();

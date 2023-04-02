@@ -40,6 +40,14 @@ namespace d14engine::uikit::resource_utils
 
 #pragma endregion
 
+#pragma region Text
+
+    const String& emptyStrRef();
+
+    const Wstring& emptyWstrRef();
+
+#pragma endregion
+
 #pragma region Common
 
     void loadCommonBrushes();
