@@ -3,6 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "Common/CppLangUtils/EnumClassMap.h"
+
 #include "UIKit/Appearances/CheckBox.h"
 #include "UIKit/ClickablePanel.h"
 #include "UIKit/StatefulObject.h"

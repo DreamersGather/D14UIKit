@@ -3,6 +3,7 @@
 #include "UIKit/ResourceUtils.h"
 
 #include "Common/DirectXError.h"
+
 #include "UIKit/Application.h"
 
 namespace d14engine::uikit::resource_utils

@@ -3,6 +3,7 @@
 #include "UIKit/LabelArea.h"
 
 #include "Renderer/TickTimer.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/Cursor.h"
 #include "UIKit/ResourceUtils.h"

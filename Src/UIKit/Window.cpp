@@ -5,6 +5,7 @@
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/2D.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
 #include "UIKit/ResourceUtils.h"

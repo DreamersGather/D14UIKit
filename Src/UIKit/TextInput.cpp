@@ -3,6 +3,7 @@
 #include "UIKit/TextInput.h"
 
 #include "Renderer/TickTimer.h"
+
 #include "UIKit/AnimationUtils/Motion.h"
 #include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"

@@ -3,6 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "Common/CppLangUtils/EnumClassMap.h"
+
 #include "UIKit/Appearances/ViewItem.h"
 #include "UIKit/MaskStyle.h"
 #include "UIKit/Panel.h"

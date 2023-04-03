@@ -2,13 +2,15 @@
 
 #include "UIKit/Application.h"
 
-#include "UIKit/Cursor.h"
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/GDI.h"
+
 #include "Renderer/TickTimer.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/BitmapUtils.h"
+#include "UIKit/Cursor.h"
 #include "UIKit/ResourceUtils.h"
 #include "UIKit/TextInputObject.h"
 

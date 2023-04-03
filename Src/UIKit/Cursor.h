@@ -3,6 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "Common/CppLangUtils/EnumClassMap.h"
+
 #include "UIKit/AnimationUtils/Sequence.h"
 #include "UIKit/Panel.h"
 
@@ -74,7 +75,7 @@ namespace d14engine::uikit
 
     protected:
         static IconSeries loadBasicIconSeries(WstrParam themeName);
-        static DynamicIcon loadBasicIconFrames(WstrParam name, size_t count);
+        static DynamicIcon loadBasicIconFrames(WstrParam framesPath);
 
     protected:
         BasicIconThemeMap m_classifiedBasicIcons = {};
