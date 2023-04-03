@@ -1,10 +1,12 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Event.h"
-#include "Image.h"
 #include "Panel.h"
 
+#include "Event.h"
+#include "Image.h"
+
 #include "Common/MathUtils/Basic.h"
+
 #include "UIKit/ColorUtils.h"
 #include "UIKit/Panel.h"
 #include "UIKit/ResourceUtils.h"
@@ -164,12 +166,7 @@ namespace d14uikit
 
     bool Panel::destory()
     {
-        if (pimpl->uiobj->destroy())
-        {
-            pimpl->parent = nullptr;
-            return true;
-        }
-        else return false;
+        return pimpl->uiobj->destroy();
     }
 
     bool Panel::visible() const
@@ -335,6 +332,22 @@ namespace d14uikit
             pimpl->uiobj->setParent(uiobj->pimpl->uiobj);
         }
         else pimpl->uiobj->setParent(nullptr);
+    }
+
+    void Panel::addChild(Panel* uiobj)
+    {
+        if (uiobj != nullptr)
+        {
+            pimpl->uiobj->addUIObject(uiobj->pimpl->uiobj);
+        }
+    }
+
+    void Panel::removeChild(Panel* uiobj)
+    {
+        if (uiobj != nullptr)
+        {
+            pimpl->uiobj->removeUIObject(uiobj->pimpl->uiobj);
+        }
     }
 
     void Panel::moveTopmost()

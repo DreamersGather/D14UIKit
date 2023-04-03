@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "DraggablePanel.h"
 #include "MainWindow.h"
+
+#include "DraggablePanel.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
 #include "Window.h"

@@ -227,6 +227,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ComboBox.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Cursor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CursorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CursorPrivate</ObjectFileName>
@@ -281,11 +287,29 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ListView.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\ListViewItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\MainWindow.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\MenuItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\OutlinedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
@@ -298,6 +322,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PopupMenu.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Application.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
@@ -338,6 +368,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ComboBox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Common.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CommonBinding</ObjectFileName>
@@ -419,6 +457,22 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelBinding</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\ListView.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ListViewItem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\MainWindow.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
@@ -426,6 +480,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\MenuItem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\OutlinedButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -443,6 +505,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\PopupMenu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
@@ -451,6 +521,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\ScrollView.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\ToggleButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -458,6 +536,30 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\TreeView.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\TreeViewItem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\ViewItem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowBinding</ObjectFileName>
@@ -485,11 +587,35 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ScrollView.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ToggleButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\TreeView.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\TreeViewItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\ViewItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowPrivate</ObjectFileName>
@@ -696,7 +822,6 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClCompile Include="Src\UIKit\ComboBox.cpp" />
     <ClCompile Include="Src\UIKit\IconLabel2.cpp" />
     <ClCompile Include="Src\UIKit\LabelArea.cpp" />
-    <ClCompile Include="Src\UIKit\ListViewItem.cpp" />
     <ClCompile Include="Src\UIKit\MenuItem.cpp" />
     <ClCompile Include="Src\UIKit\MenuSeparator.cpp" />
     <ClCompile Include="Src\UIKit\PopupMenu.cpp" />
@@ -741,6 +866,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Button.h" />
     <ClInclude Include="Exp\CheckBox.h" />
     <ClInclude Include="Exp\ClickablePanel.h" />
+    <ClInclude Include="Exp\ComboBox.h" />
     <ClInclude Include="Exp\Cursor.h" />
     <ClInclude Include="Exp\DraggablePanel.h" />
     <ClInclude Include="Exp\ElevatedButton.h" />
@@ -755,6 +881,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\Callback.h" />
     <ClInclude Include="Exp\Inc\CheckBox.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
+    <ClInclude Include="Exp\Inc\ComboBox.h" />
     <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />
     <ClInclude Include="Exp\Inc\ElevatedButton.h" />
@@ -765,17 +892,29 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\Font.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\Label.h" />
+    <ClInclude Include="Exp\Inc\ListView.h" />
+    <ClInclude Include="Exp\Inc\ListViewItem.h" />
     <ClInclude Include="Exp\Inc\MainWindow.h" />
+    <ClInclude Include="Exp\Inc\MenuItem.h" />
     <ClInclude Include="Exp\Inc\OutlinedButton.h" />
     <ClInclude Include="Exp\Inc\Panel.h" />
+    <ClInclude Include="Exp\Inc\PopupMenu.h" />
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
+    <ClInclude Include="Exp\Inc\ScrollView.h" />
     <ClInclude Include="Exp\Inc\ToggleButton.h" />
+    <ClInclude Include="Exp\Inc\TreeView.h" />
+    <ClInclude Include="Exp\Inc\TreeViewItem.h" />
+    <ClInclude Include="Exp\Inc\ViewItem.h" />
     <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
     <ClInclude Include="Exp\Inc\Window.h" />
     <ClInclude Include="Exp\Label.h" />
+    <ClInclude Include="Exp\ListView.h" />
+    <ClInclude Include="Exp\ListViewItem.h" />
     <ClInclude Include="Exp\MainWindow.h" />
+    <ClInclude Include="Exp\MenuItem.h" />
     <ClInclude Include="Exp\OutlinedButton.h" />
     <ClInclude Include="Exp\Panel.h" />
+    <ClInclude Include="Exp\PopupMenu.h" />
     <ClInclude Include="Exp\PyBind\Application.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -797,6 +936,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ClickablePanel.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\ComboBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -840,7 +983,19 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\ListView.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\ListViewItem.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\MainWindow.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\MenuItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -852,11 +1007,31 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\PopupMenu.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\ResizablePanel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\ScrollView.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\ToggleButton.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\TreeView.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\TreeViewItem.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\ViewItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -873,7 +1048,11 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\ResizablePanel.h" />
+    <ClInclude Include="Exp\ScrollView.h" />
     <ClInclude Include="Exp\ToggleButton.h" />
+    <ClInclude Include="Exp\TreeView.h" />
+    <ClInclude Include="Exp\TreeViewItem.h" />
+    <ClInclude Include="Exp\ViewItem.h" />
     <ClInclude Include="Exp\Window.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h" />

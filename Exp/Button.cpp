@@ -1,11 +1,13 @@
 ﻿#include "Common/Precompile.h"
 
 #include "Button.h"
+
 #include "ClickablePanel.h"
 #include "Image.h"
 #include "Panel.h"
 
 #include "Common/MathUtils/Basic.h"
+
 #include "UIKit/Button.h"
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
@@ -91,9 +93,13 @@ namespace d14uikit
 
     void Button::setCustomIconSize(bool value)
     {
-        if (value) pimpl->uiobj->content()->icon.customSize = {};
-        else pimpl->uiobj->content()->icon.customSize.reset();
+        auto& icon = pimpl->uiobj->content()->icon;
 
+        if (!value) icon.customSize.reset();
+        else if (!icon.customSize.has_value())
+        {
+            icon.customSize = {};
+        }
         pimpl->uiobj->content()->updateLayout();
     }
 

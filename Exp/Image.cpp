@@ -3,6 +3,7 @@
 #include "Image.h"
 
 #include "Common/DirectXError.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/BitmapUtils.h"
 

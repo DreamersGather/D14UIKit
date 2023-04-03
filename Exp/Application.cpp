@@ -1,13 +1,15 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Cursor.h"
-#include "Panel.h"
 #include "Application.h"
 
-#include "UIKit/Cursor.h"
+#include "Cursor.h"
+#include "Panel.h"
+
 #include "Renderer/TickTimer.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/ColorUtils.h"
+#include "UIKit/Cursor.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
@@ -59,21 +61,21 @@ namespace d14uikit
         {
             pimpl->uiobj->changeTheme(L"Dark");
         }}};
+        // Bind the existing cursor implementation to the interface.
+        {
+            auto& c = pimpl->cursor;
 
-        // Since Cursor::Passkey is protected, std::make_shared will fail here.
-        pimpl->cursor = std::shared_ptr<Cursor>(new Cursor(Cursor::Passkey{}));
+            c = std::shared_ptr<Cursor>(new Cursor(Cursor::Passkey{}));
+
+            auto uiobj1 = pimpl->uiobj->cursor()->shared_from_this();
+            auto uiobj2 = std::static_pointer_cast<uikit::Cursor>(uiobj1);
+
+            c->Panel::pimpl->uiobj = uiobj1;
+            c->Cursor::pimpl->uiobj = uiobj2;
         
-        auto& cpimpl = pimpl->cursor->Panel::pimpl;
-        auto& ccimpl = pimpl->cursor->Cursor::pimpl;
-
-        auto cpuiobj = pimpl->uiobj->cursor()->shared_from_this();
-        auto ccuiobj = std::static_pointer_cast<uikit::Cursor>(cpuiobj);
-
-        cpimpl->uiobj = cpuiobj;
-        ccimpl->uiobj = ccuiobj;
-        
-        pimpl->cursor->Panel::initialize();
-        pimpl->cursor->Cursor::initialize();
+            c->Panel::initialize();
+            c->Cursor::initialize();
+        }
     }
 
     Application* Application::app()

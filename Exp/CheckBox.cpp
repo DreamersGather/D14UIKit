@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "CheckBox.h"
+
 #include "ClickablePanel.h"
 #include "Panel.h"
 

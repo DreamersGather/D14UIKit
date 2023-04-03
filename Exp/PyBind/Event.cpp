@@ -12,7 +12,7 @@ namespace d14uikit
         {
             py::class_<Event> i(m, "Event");
 
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_static(
                 "isKeyDown",
@@ -80,7 +80,7 @@ namespace d14uikit
         {
             py::class_<SizeEvent, Event> i(m, "SizeEvent");
 
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "size",
@@ -90,7 +90,7 @@ namespace d14uikit
         {
             py::class_<MoveEvent, Event> i(m, "MoveEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "position",
@@ -100,7 +100,7 @@ namespace d14uikit
         {
             py::class_<MouseEvent, Event> i(m, "MouseEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "cursorPoint",
@@ -110,7 +110,7 @@ namespace d14uikit
         {
             py::class_<KeyboardEvent, Event> i(m, "KeyboardEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "vkey",
@@ -128,7 +128,7 @@ namespace d14uikit
         {
             py::class_<MouseMoveEvent, MouseEvent> i(m, "MouseMoveEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "lastCursorPoint",
@@ -138,7 +138,7 @@ namespace d14uikit
         {
             py::class_<MouseWheelEvent, MouseEvent> i(m, "MouseWheelEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "deltaCount",
@@ -148,7 +148,7 @@ namespace d14uikit
         {
             py::class_<MouseButtonEvent, MouseEvent> i(m, "MouseButtonEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "leftDown",
@@ -190,7 +190,7 @@ namespace d14uikit
         {
             py::class_<MouseButtonClickEvent, MouseEvent> i(m, "MouseButtonClickEvent");
         
-            i.def(py::init<>());
+            i.def(py::init());
 
             i.def_property_readonly(
                 "left",

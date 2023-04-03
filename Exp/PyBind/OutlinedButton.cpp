@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "ClickablePanel.h"
 #include "OutlinedButton.h"
+
+#include "ClickablePanel.h"
 
 #include "Inc/OutlinedButton.h"
 

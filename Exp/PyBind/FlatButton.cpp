@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "ClickablePanel.h"
 #include "FlatButton.h"
+
+#include "ClickablePanel.h"
 
 #include "Inc/FlatButton.h"
 

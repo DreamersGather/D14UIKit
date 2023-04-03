@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "Common.h"
-
 #include "BasicType.h"
 #include "Event.h"
 
@@ -59,6 +57,9 @@ namespace d14uikit
 
         Panel* parent() const;
         void setParent(Panel* uiobj);
+
+        void addChild(Panel* uiobj);
+        void removeChild(Panel* uiobj);
 
         void moveTopmost();
         void moveAbove(Panel* uiobj);

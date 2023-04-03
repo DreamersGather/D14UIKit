@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "Common.h"
-
 #include "FlatButton.h"
 
 namespace d14uikit

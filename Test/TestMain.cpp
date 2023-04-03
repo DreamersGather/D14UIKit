@@ -1,235 +1,38 @@
 ﻿#include "Application.h"
-#include "Callback.h"
-#include "CheckBox.h"
-#include "Cursor.h"
-#include "ElevatedButton.h"
-#include "FilledButton.h"
-#include "FlatButton.h"
-#include "Image.h"
-#include "Label.h"
+#include "ComboBox.h"
 #include "MainWindow.h"
-#include "OutlinedButton.h"
-#include "ToggleButton.h"
+#include "MenuItem.h"
+#include "PopupMenu.h"
 
 using namespace d14uikit;
 
 int main()
 {
     Application app;
-    app.setResizable(true);
-    app.setClearType(true);
-    app.setDrawTextNatrualSymmetric(true);
 
-    Image img(L"test.png");
-
-    constexpr auto row = 64, col = 64;
-    auto pixel = std::vector<Pixel>(row * col);
-
-    for (int r = 0; r < row; ++r)
-    {
-        for (int c = 0; c < col; ++c)
-        {
-#pragma warning(push)
-#pragma warning(disable : 6011)
-
-            pixel[r * col + c] =
-            {
-                (uint8_t)(r + c + 128),
-                (uint8_t)(255 - r),
-                (uint8_t)(255 - c),
-                (uint8_t)255 // b,g,r,a
-            };
-#pragma warning(pop)
-        }
-    }
-    img.copy({ 0, 0, col, row }, pixel.data());
+    MainWindow mwnd;
 
     Panel p;
+    mwnd.setContent(&p);
 
-    Panel pp;
-    pp.setParent(&p);
-    pp.setWidth(256);
-    pp.setHeight(256);
-    pp.setImage(&img);
-
-    pp.D14_onMouseMove(&, p, e)
+    std::list<std::shared_ptr<MenuItem>> items;
+    std::list<MenuItem*> pitems;
+    for (int i = 0; i < 5; ++i)
     {
-        app.cursor()->setIcon(Cursor::Busy);
-    };
+        auto item = std::make_shared<MenuItem>(L"Item " + std::to_wstring(i));
+        items.push_back(item);
+        pitems.push_back(item.get());
+    }
+    ComboBox selector;
+    selector.setParent(&p);
+    selector.setX(200);
+    selector.setY(200);
+    selector.setWidth(300);
+    selector.setRoundRadius(5);
+    selector.dropDownMenu()->setHeight(200);
+    selector.dropDownMenu()->setRoundExtension(5);
+    selector.dropDownMenu()->appendItem(pitems);
+    selector.setCurrSelected(0);
 
-    Label note;
-    note.setParent(&p);
-    note.setWidth(208);
-    note.setHeight(60);
-    note.setX(0);
-    note.setY(256);
-    note.setText(L"dragon");
-    note.setFont(Font(L"Default/Bold/18"));
-    note.setHorzAlign(Label::Right);
-
-    CheckBox ckbx;
-    ckbx.setParent(&p);
-    ckbx.setX(230);
-    ckbx.setY(274);
-    ckbx.setState(CheckBox::Intermediate);
-    ckbx.setTripleState(true);
-
-    ckbx.D14_onStateChange(CheckBox, &note, box, state)
-    {
-        switch (state)
-        {
-        case CheckBox::Unchecked:
-        {
-            note.setFontStyle(Font::Normal);
-            break;
-        }
-        case CheckBox::Intermediate:
-        {
-            note.setFontStyle(Font::Oblique);
-            break;
-        }
-        case CheckBox::Checked:
-        {
-            note.setFontStyle(Font::Italic);
-            break;
-        }
-        default: break;
-        }
-    };
-
-    FlatButton btn1;
-    btn1.setParent(&p);
-    btn1.setX(300);
-    btn1.setY(40);
-    btn1.setWidth(240);
-    btn1.setHeight(60);
-    btn1.setRoundRadius(5);
-    btn1.setIcon(&img);
-    btn1.setIconSize({ 32, 32 });
-    btn1.setText(L"Flat Button");
-
-    btn1.D14_onMouseEnter(, p, e)
-    {
-        auto btn = dynamic_cast<Button*>(p);
-        btn->setText(L"Gotcha!");
-    };
-    btn1.D14_onMouseLeave(, p, e)
-    {
-        auto btn = dynamic_cast<Button*>(p);
-        btn->setText(L"No idea.");
-    };
-
-    FilledButton btn2;
-    btn2.setParent(&p);
-    btn2.setX(300);
-    btn2.setY(140);
-    btn2.setWidth(240);
-    btn2.setHeight(60);
-    btn2.setRoundRadius(5);
-    btn2.setIcon(&img);
-    btn2.setIconSize({ 32, 32 });
-    btn2.setText(L"Filled Button");
-
-    btn2.D14_onMouseButton(, p, e)
-    {
-        auto btn = dynamic_cast<Button*>(p);
-        if (e->leftDblclk())
-        {
-            btn->setText(L"Left");
-        }
-        else if (e->rightDblclk())
-        {
-            btn->setText(L"Right");
-        }
-        else if (e->middleDblclk())
-        {
-            btn->setText(L"Middle");
-        }
-    };
-
-    OutlinedButton btn3;
-    btn3.setParent(&p);
-    btn3.setX(300);
-    btn3.setY(240);
-    btn3.setWidth(240);
-    btn3.setHeight(60);
-    btn3.setRoundRadius(5);
-    btn3.setIcon(&img);
-    btn3.setIconSize({ 32, 32 });
-    btn3.setText(L"Outlined Button");
-
-    btn3.D14_onKeyboard(, p, e)
-    {
-        if (e->pressed() && isalpha(e->vkey()))
-        {
-            auto btn = dynamic_cast<Button*>(p);
-            btn->setText({ 1, (wchar_t)e->vkey() });
-        }
-    };
-
-    ElevatedButton btn4;
-    btn4.setParent(&p);
-    btn4.setX(300);
-    btn4.setY(340);
-    btn4.setWidth(240);
-    btn4.setHeight(60);
-    btn4.setRoundRadius(5);
-    btn4.setIcon(&img);
-    btn4.setIconSize({ 32, 32 });
-    btn4.setText(L"Elevated Button");
-
-    btn4.D14_onMouseButtonRelease(, clkp, e)
-    {
-        auto btn = (Button*)clkp;
-        if (e->left())
-        {
-            btn->setText(L"Left");
-        }
-        else if (e->right())
-        {
-            btn->setText(L"Right");
-        }
-        else if (e->middle())
-        {
-            btn->setText(L"Middle");
-        }
-    };
-
-    ToggleButton btn5;
-    btn5.setParent(&p);
-    btn5.setX(300);
-    btn5.setY(440);
-    btn5.setWidth(240);
-    btn5.setHeight(60);
-    btn5.setRoundRadius(5);
-    btn5.setIcon(&img);
-    btn5.setIconSize({ 32, 32 });
-    btn5.setText(L"Toggle Button");
-
-    btn5.D14_onStateChange(ToggleButton, , btn, state)
-    {
-        switch (state)
-        {
-        case ToggleButton::State::Activated:
-        {
-            btn->setText(L"Activated");
-            break;
-        }
-        case ToggleButton::State::Deactivated:
-        {
-            btn->setText(L"Deactivated");
-            break;
-        }
-        default: break;
-        }
-    };
-
-    MainWindow w;
-    w.setContent(&p);
-
-    w.D14_onClose(&, w)
-    {
-        app.exit();
-    };
     return app.run();
 }

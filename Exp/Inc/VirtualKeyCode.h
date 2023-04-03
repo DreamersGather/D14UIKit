@@ -1,6 +1,4 @@
-﻿#include "Common.h"
-
-namespace d14uikit
+﻿namespace d14uikit
 {
     using VirtualKeyCode = int;
 

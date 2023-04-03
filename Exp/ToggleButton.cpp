@@ -1,11 +1,12 @@
 ﻿#include "Common/Precompile.h"
 
-#include "ClickablePanel.h"
+#include "ToggleButton.h"
+
 #include "Button.h"
+#include "ClickablePanel.h"
 #include "FilledButton.h"
 #include "FlatButton.h"
 #include "Panel.h"
-#include "ToggleButton.h"
 
 #include "UIKit/ToggleButton.h"
 

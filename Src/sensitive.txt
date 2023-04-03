@@ -14,3 +14,4 @@ Renderer/Renderer.cpp
 UIKit/AppEntry.h
 UIKit/Application.cpp
 UIKit/Cursor.cpp
+UIKit/Cursor.h

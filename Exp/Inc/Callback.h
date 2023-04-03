@@ -13,7 +13,10 @@ Window::callback().onClose = [cap](Window* w)
 DraggablePanel::callback().onEndDragging = [cap](DraggablePanel* dgp)
 
 #define D14_onEndResizing(cap, rsp) \
-DraggablePanel::callback().onEndResizing = [cap](ResizablePanel* rsp)
+ResizablePanel::callback().onEndResizing = [cap](ResizablePanel* rsp)
+
+#define D14_onEndThumbScrolling(cap, sv) \
+ScrollView::callback().onEndThumbScrolling = [cap](ScrollView* sv)
 
 #define D14_onGetFocus(cap, p) \
 Panel::callback().onGetFocus = [cap](Panel* p)
@@ -57,6 +60,9 @@ Panel::callback().onMove = [cap](Panel* p, MoveEvent* e)
 #define D14_onRestore(cap, w) \
 Window::callback().onRestore = [cap](Window* w)
 
+#define D14_onSelectedChange(cap, cb, text) \
+ComboBox::callback().onSelectedChange = [cap](ComboBox* cb, const std::wstring& text)
+
 #define D14_onSize(cap, p, e) \
 Panel::callback().onSize = [cap](Panel* p, SizeEvent* e)
 
@@ -64,7 +70,16 @@ Panel::callback().onSize = [cap](Panel* p, SizeEvent* e)
 DraggablePanel::callback().onStartDragging = [cap](DraggablePanel* dgp)
 
 #define D14_onStartResizing(cap, rsp) \
-DraggablePanel::callback().onStartResizing = [cap](ResizablePanel* rsp)
+ResizablePanel::callback().onStartResizing = [cap](ResizablePanel* rsp)
+
+#define D14_onStartThumbScrolling(cap, sv) \
+ScrollView::callback().onStartThumbScrolling = [cap](ScrollView* sv)
 
 #define D14_onStateChange(type, cap, obj, state) \
 type::callback().onStateChange = [cap](type* obj, type::State state)
+
+#define D14_onTriggerMenuItem(cap, menu, text) \
+PopupMenu::callback().onTriggerMenuItem = [cap](PopupMenu* menu, const std::wstring& text)
+
+#define D14_onViewportOffsetChange(cap, sv, offset) \
+ScrollView::callback().onViewportOffsetChange = [cap](ScrollView* sv, const Point& offset)
