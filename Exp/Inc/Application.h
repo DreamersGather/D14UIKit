@@ -57,6 +57,7 @@ namespace d14uikit
         void setFullscreen(bool value);
 
         int fps() const;
+
         bool lowEnergy() const;
         void setLowEnergy(bool value);
 

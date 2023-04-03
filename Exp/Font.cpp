@@ -4,6 +4,7 @@
 
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/Basic.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"
 

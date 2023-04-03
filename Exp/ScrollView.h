@@ -1,0 +1,15 @@
+﻿#pragma once
+
+#include "Inc/ScrollView.h"
+
+namespace d14engine::uikit { struct ScrollView; }
+
+namespace d14uikit
+{
+    struct ScrollView::Impl
+    {
+        std::shared_ptr<d14engine::uikit::ScrollView> uiobj = {};
+
+        Panel* content = nullptr;
+    };
+}

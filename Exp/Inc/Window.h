@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "Common.h"
-
 #include "DraggablePanel.h"
 #include "ResizablePanel.h"
 

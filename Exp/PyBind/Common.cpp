@@ -10,6 +10,7 @@
 #include "Button.h"
 #include "CheckBox.h"
 #include "ClickablePanel.h"
+#include "ComboBox.h"
 #include "Cursor.h"
 #include "DraggablePanel.h"
 #include "ElevatedButton.h"
@@ -19,11 +20,19 @@
 #include "Font.h"
 #include "Image.h"
 #include "Label.h"
+#include "ListView.h"
+#include "ListViewItem.h"
 #include "MainWindow.h"
+#include "MenuItem.h"
 #include "OutlinedButton.h"
 #include "Panel.h"
+#include "PopupMenu.h"
 #include "ResizablePanel.h"
+#include "ScrollView.h"
 #include "ToggleButton.h"
+#include "TreeView.h"
+#include "TreeViewItem.h"
+#include "ViewItem.h"
 #include "VirtualKeyCode.h"
 #include "Window.h"
 
@@ -46,21 +55,33 @@ namespace d14uikit
         Py_InitEvent(m);
         Py_InitFont(m);
         Py_InitImage(m);
-        Py_InitPanel(m);
 
-        Py_InitCursor(m);
-        Py_InitLabel(m);
-        Py_InitClickablePanel(m);
-        Py_InitButton(m);
-        Py_InitCheckBox(m);
-        Py_InitFlatButton(m);
-        Py_InitOutlinedButton(m);
-        Py_InitFilledButton(m);
-        Py_InitElevatedButton(m);
-        Py_InitToggleButton(m);
-        Py_InitDraggablePanel(m);
-        Py_InitResizablePanel(m);
-        Py_InitWindow(m);
-        Py_InitMainWindow(m);
+        // Calls init funcs according to the inheritance order.
+        // One indent for one layer of derivation relationship.
+
+        Py_InitPanel(m);
+            Py_InitCursor(m);
+            Py_InitClickablePanel(m);
+                Py_InitButton(m);
+                    Py_InitFlatButton(m);
+                        Py_InitComboBox(m);
+                        Py_InitFilledButton(m);
+                            Py_InitElevatedButton(m);
+                            Py_InitToggleButton(m);
+                        Py_InitOutlinedButton(m);
+                Py_InitCheckBox(m);
+            Py_InitDraggablePanel(m);
+            Py_InitResizablePanel(m);
+                Py_InitScrollView(m);
+                    Py_InitListView(m);
+                    Py_InitPopupMenu(m);
+                    Py_InitTreeView(m);
+                Py_InitWindow(m);
+                    Py_InitMainWindow(m);
+            Py_InitLabel(m);
+            Py_InitViewItem(m);
+                Py_InitListViewItem(m);
+                Py_InitMenuItem(m);
+                Py_InitTreeViewItem(m);
     }
 }

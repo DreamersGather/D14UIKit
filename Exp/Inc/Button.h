@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "Common.h"
-
 #include "ClickablePanel.h"
 
 namespace d14uikit

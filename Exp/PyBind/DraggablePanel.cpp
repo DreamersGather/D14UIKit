@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Callback.h"
 #include "DraggablePanel.h"
+
+#include "Callback.h"
 
 namespace d14uikit
 {
@@ -12,7 +13,7 @@ namespace d14uikit
             "DraggablePanel",
             py::multiple_inheritance());
 
-        i.def(py::init<>());
+        i.def(py::init());
 
         i.def_property(
             "draggable",

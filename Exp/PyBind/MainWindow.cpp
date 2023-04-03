@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "MainWindow.h"
+
 #include "Window.h"
 
 #include "Inc/MainWindow.h"

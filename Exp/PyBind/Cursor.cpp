@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "Cursor.h"
+
 #include "Panel.h"
 
 #include "Inc/Cursor.h"
@@ -11,7 +12,7 @@ namespace d14uikit
     {
         py::class_<Cursor, Panel, PyPanel<Cursor>> i(m, "Cursor");
 
-        i.def(py::init<>());
+        i.def(py::init());
 
         py::enum_<Cursor::StaticIconIndex>(i, "StaticIconIndex")
             .value("Alternate", Cursor::Alternate)

@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Callback.h"
 #include "Window.h"
+
+#include "Callback.h"
 
 namespace d14uikit
 {

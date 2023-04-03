@@ -1,7 +1,8 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Panel.h"
 #include "ResizablePanel.h"
+
+#include "Panel.h"
 
 #include "UIKit/ResizablePanel.h"
 #include "UIKit/ResourceUtils.h"

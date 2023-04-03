@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "Panel.h"
+
 #include "Callback.h"
 
 #include "Inc/Image.h"
@@ -11,7 +12,7 @@ namespace d14uikit
     {
         py::class_<Panel, PyPanel<>> i(m, "Panel");
 
-        i.def(py::init<>());
+        i.def(py::init());
 
         i.def(
             "destroy",

@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "DraggablePanel.h"
+
 #include "Panel.h"
 
 #include "UIKit/DraggablePanel.h"

@@ -1,6 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
 #include "Label.h"
+
 #include "Panel.h"
 
 #include "Inc/Label.h"

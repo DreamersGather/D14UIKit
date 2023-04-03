@@ -75,7 +75,7 @@ namespace d14engine::uikit
 
     protected:
         static IconSeries loadBasicIconSeries(WstrParam themeName);
-        static DynamicIcon loadBasicIconFrames(WstrParam framesPath);
+        static DynamicIcon loadBasicIconFrames(WstrParam name, size_t count);
 
     protected:
         BasicIconThemeMap m_classifiedBasicIcons = {};

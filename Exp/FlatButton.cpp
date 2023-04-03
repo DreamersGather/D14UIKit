@@ -1,8 +1,9 @@
 ﻿#include "Common/Precompile.h"
 
-#include "ClickablePanel.h"
-#include "Button.h"
 #include "FlatButton.h"
+
+#include "Button.h"
+#include "ClickablePanel.h"
 #include "Panel.h"
 
 #include "UIKit/FlatButton.h"

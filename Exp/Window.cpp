@@ -1,11 +1,13 @@
 ﻿#include "Common/Precompile.h"
 
+#include "Window.h"
+
 #include "DraggablePanel.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
-#include "Window.h"
 
 #include "Common/MathUtils/Basic.h"
+
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
 #include "UIKit/Window.h"
