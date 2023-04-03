@@ -5,6 +5,7 @@
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/MathUtils/2D.h"
 #include "Common/MathUtils/Basic.h"
+
 #include "UIKit/Application.h"
 
 using namespace d14engine::renderer;

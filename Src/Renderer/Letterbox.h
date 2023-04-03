@@ -3,6 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "Common/CppLangUtils/PasskeyIdiom.h"
+
 #include "Renderer/FrameResource.h"
 #include "Renderer/Interfaces/ICamera.h"
 

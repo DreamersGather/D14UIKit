@@ -3,6 +3,7 @@
 #include "UIKit/PopupMenu.h"
 
 #include "Common/CppLangUtils/PointerEquality.h"
+
 #include "UIKit/Application.h"
 
 using namespace d14engine::renderer;

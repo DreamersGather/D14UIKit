@@ -4,6 +4,7 @@
 
 #include "Common/DirectXError.h"
 #include "Common/ResourcePack.h"
+
 #include "UIKit/Application.h"
 
 namespace d14engine::uikit::bitmap_utils

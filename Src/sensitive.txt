@@ -1,11 +1,16 @@
-﻿Deleted:
-  Renderer/GraphUtils/Shader.(h,cpp)
+﻿========= Deleted =========
 
-Modified:
-  Common/Precompile.h
-  Common/ResourcePack.cpp
-  UIKit/AppEntry.h
-  UIKit/Application.cpp
-  UIKit/Cursor.cpp
-  Renderer/Letterbox.cpp
-  Renderer/Renderer.cpp
+Renderer/GraphUtils/Shader.cpp
+Renderer/GraphUtils/Shader.h
+
+========= Modified =========
+
+Common/Precompile.h
+Common/ResourcePack.cpp
+
+Renderer/Letterbox.cpp
+Renderer/Renderer.cpp
+
+UIKit/AppEntry.h
+UIKit/Application.cpp
+UIKit/Cursor.cpp

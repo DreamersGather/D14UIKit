@@ -3,6 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "Common/MathUtils/3D.h"
+
 #include "Renderer/FrameResource.h"
 #include "Renderer/Interfaces/ICamera.h"
 

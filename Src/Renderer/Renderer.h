@@ -4,6 +4,7 @@
 
 #include "Common/CppLangUtils/EnableMasterPtr.h"
 #include "Common/Interfaces/ISortable.h"
+
 #include "Renderer/FrameResource.h"
 
 namespace d14engine::renderer

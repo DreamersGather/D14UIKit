@@ -4,6 +4,7 @@
 
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/DirectXError.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/Cursor.h"
 #include "UIKit/IconLabel.h"
