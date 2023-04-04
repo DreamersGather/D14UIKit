@@ -10,7 +10,7 @@ namespace d14uikit
     {
         friend class ComboBox;
 
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(PopupMenu)
 
         PopupMenu();
 
@@ -30,9 +30,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit PopupMenu(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onTriggerMenuItem(const std::wstring& text);

@@ -76,9 +76,9 @@ namespace d14engine::uikit
                 m_content->icon = newContent->icon;
                 m_content->label()->copyTextStyle(newContent->label().get(), newContent->label()->text());
 
+                m_content->updateLayout();
                 m_content->setVisible(true);
             }
-            // Fall through to onSelectedChange.
         }
         else // Typically, pass SIZE_MAX to clear current selected item.
         {

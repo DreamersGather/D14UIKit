@@ -233,6 +233,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\ComboBoxItem.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Cursor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CursorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CursorPrivate</ObjectFileName>
@@ -882,6 +888,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\CheckBox.h" />
     <ClInclude Include="Exp\Inc\ClickablePanel.h" />
     <ClInclude Include="Exp\Inc\ComboBox.h" />
+    <ClInclude Include="Exp\Inc\ComboBoxItem.h" />
     <ClInclude Include="Exp\Inc\Cursor.h" />
     <ClInclude Include="Exp\Inc\DraggablePanel.h" />
     <ClInclude Include="Exp\Inc\ElevatedButton.h" />
@@ -901,6 +908,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\PopupMenu.h" />
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
     <ClInclude Include="Exp\Inc\ScrollView.h" />
+    <ClInclude Include="Exp\Inc\TextFormat.h" />
     <ClInclude Include="Exp\Inc\ToggleButton.h" />
     <ClInclude Include="Exp\Inc\TreeView.h" />
     <ClInclude Include="Exp\Inc\TreeViewItem.h" />
@@ -1049,6 +1057,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     </ClInclude>
     <ClInclude Include="Exp\ResizablePanel.h" />
     <ClInclude Include="Exp\ScrollView.h" />
+    <ClInclude Include="Exp\TextFormat.h" />
     <ClInclude Include="Exp\ToggleButton.h" />
     <ClInclude Include="Exp\TreeView.h" />
     <ClInclude Include="Exp\TreeViewItem.h" />

@@ -173,7 +173,7 @@ namespace d14uikit
         return name;
     }
 
-    void Label::setFontFamilyName(const std::wstring& name, std::optional<Range> range)
+    void Label::setFontFamilyName(const std::wstring& name, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -189,7 +189,7 @@ namespace d14uikit
         return math_utils::round(pimpl->uiobj->textLayout()->GetFontSize() * 72.0f / 96.0f);
     }
 
-    void Label::setFontSize(int value, std::optional<Range> range)
+    void Label::setFontSize(int value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -208,7 +208,7 @@ namespace d14uikit
         return name;
     }
 
-    void Label::setFontLocaleName(const std::wstring& name, std::optional<Range> range)
+    void Label::setFontLocaleName(const std::wstring& name, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -224,7 +224,7 @@ namespace d14uikit
         return (Font::Weight)pimpl->uiobj->textLayout()->GetFontWeight();
     }
 
-    void Label::setFontWeight(Font::Weight value, std::optional<Range> range)
+    void Label::setFontWeight(Font::Weight value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -240,7 +240,7 @@ namespace d14uikit
         return (Font::Style)pimpl->uiobj->textLayout()->GetFontStyle();
     }
 
-    void Label::setFontStyle(Font::Style value, std::optional<Range> range)
+    void Label::setFontStyle(Font::Style value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -256,7 +256,7 @@ namespace d14uikit
         return (Font::Stretch)pimpl->uiobj->textLayout()->GetFontStretch();
     }
 
-    void Label::setFontStretch(Font::Stretch value, std::optional<Range> range)
+    void Label::setFontStretch(Font::Stretch value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -274,7 +274,7 @@ namespace d14uikit
         return hasUnderline;
     }
 
-    void Label::setUnderline(bool value, std::optional<Range> range)
+    void Label::setUnderline(bool value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())
@@ -292,7 +292,7 @@ namespace d14uikit
         return hasStrikethrough;
     }
 
-    void Label::setStrikethrough(bool value, std::optional<Range> range)
+    void Label::setStrikethrough(bool value, const std::optional<Range>& range)
     {
         DWRITE_TEXT_RANGE textRange = { 0, (UINT32)pimpl->uiobj->text().size() };
         if (range.has_value())

@@ -9,7 +9,7 @@ namespace d14uikit
 
     class DllExport Panel : public NonCopyable
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Panel)
 
         Panel();
 
@@ -102,9 +102,6 @@ namespace d14uikit
         Callback& callback() const;
         
     protected:
-        void initialize();
-        explicit Panel(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onSize(SizeEvent* event);

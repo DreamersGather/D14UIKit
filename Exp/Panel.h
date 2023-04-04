@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Common/Precompile.h"
+
 #include "Inc/Panel.h"
 
 #include "UIKit/SolidStyle.h"

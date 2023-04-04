@@ -5,6 +5,7 @@
 #include "ClickablePanel.h"
 #include "Image.h"
 #include "Panel.h"
+#include "TextFormat.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -37,6 +38,8 @@ namespace d14uikit
         pimpl(std::make_shared<Impl>()) { }
 
     void Button::initialize() { }
+
+    _D14_UIKIT_TEXT_FORMAT_IMPL(Button, pimpl->uiobj->content())
 
     Image* Button::icon() const
     {
@@ -76,30 +79,18 @@ namespace d14uikit
         };
     }
 
-    void Button::setIconSize(const Size& value)
+    void Button::setIconSize(const std::optional<Size>& value)
     {
-        pimpl->uiobj->content()->icon.customSize =
+        if (value.has_value())
         {
-            (float)value.width,
-            (float)value.height
-        };
-        pimpl->uiobj->content()->updateLayout();
-    }
-
-    bool Button::customIconSize() const
-    {
-        return pimpl->uiobj->content()->icon.customSize.has_value();
-    }
-
-    void Button::setCustomIconSize(bool value)
-    {
-        auto& icon = pimpl->uiobj->content()->icon;
-
-        if (!value) icon.customSize.reset();
-        else if (!icon.customSize.has_value())
-        {
-            icon.customSize = {};
+            pimpl->uiobj->content()->icon.customSize =
+            {
+                (float)value.value().width,
+                (float)value.value().height
+            };
         }
+        else pimpl->uiobj->content()->icon.customSize.reset();
+
         pimpl->uiobj->content()->updateLayout();
     }
 

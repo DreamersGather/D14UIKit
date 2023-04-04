@@ -4,6 +4,8 @@
 
 #include "Callback.h"
 
+#include "Inc/PopupMenu.h"
+
 namespace d14uikit
 {
     void Py_InitComboBox(py::module_& m)

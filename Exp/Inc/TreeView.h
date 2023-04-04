@@ -8,7 +8,7 @@ namespace d14uikit
 
     class DllExport TreeView : public ScrollView
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(TreeView)
 
         TreeView();
 
@@ -17,9 +17,5 @@ namespace d14uikit
 
         void removeRootItem(int rootIndex, int count = 1);
         void clearAllItems();
-
-    protected:
-        void initialize();
-        explicit TreeView(Passkey);
     };
 }

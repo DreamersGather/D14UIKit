@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport Font
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Font)
 
         explicit Font(const std::wstring& name);
 
@@ -109,9 +109,5 @@ namespace d14uikit
             Weight weight = Weight::Normal,
             Style style = Style::Normal,
             Stretch strech = Stretch::Normal);
-
-    protected:
-        void initialize();
-        explicit Font(Passkey);
     };
 }

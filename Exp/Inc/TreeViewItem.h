@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport TreeViewItem : public ViewItem
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(TreeViewItem)
 
         explicit TreeViewItem(const std::wstring& text);
 
@@ -35,9 +35,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit TreeViewItem(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onStateChange(State state);

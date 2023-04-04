@@ -8,7 +8,7 @@ namespace d14uikit
     {
         friend class Application;
 
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Cursor)
 
         Cursor();
 
@@ -62,9 +62,5 @@ namespace d14uikit
         
         void setIcon(StaticIconIndex index);
         void setIcon(DynamicIconIndex index);
-
-    protected:
-        void initialize();
-        explicit Cursor(Passkey);
     };
 }

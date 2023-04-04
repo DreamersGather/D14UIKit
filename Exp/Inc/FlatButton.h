@@ -6,12 +6,8 @@ namespace d14uikit
 {
     class DllExport FlatButton : public Button
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(FlatButton)
 
         explicit FlatButton(const std::wstring& text = L"Button");
-
-    protected:
-        void initialize();
-        explicit FlatButton(Passkey);
     };
 }

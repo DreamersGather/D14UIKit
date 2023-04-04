@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Common/Precompile.h"
+
 #include "Inc/ResizablePanel.h"
 
 namespace d14engine::uikit { struct ResizablePanel; }

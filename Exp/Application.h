@@ -1,5 +1,7 @@
 ﻿#pragma
 
+#include "Common/Precompile.h"
+
 #include "Inc/Application.h"
 
 namespace d14engine::uikit { struct Application; }
