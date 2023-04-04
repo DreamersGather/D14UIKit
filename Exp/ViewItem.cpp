@@ -4,6 +4,7 @@
 
 #include "Image.h"
 #include "Panel.h"
+#include "TextFormat.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -36,6 +37,8 @@ namespace d14uikit
     {
         setHeight(30);
     }
+
+    _D14_UIKIT_TEXT_FORMAT_IMPL(ViewItem, pimpl->uiobj->getContent<uikit::IconLabel>().lock())
 
     Image* ViewItem::icon() const
     {
@@ -77,36 +80,20 @@ namespace d14uikit
         };
     }
 
-    void ViewItem::setIconSize(const Size& value)
+    void ViewItem::setIconSize(const std::optional<Size>& value)
     {
         auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
 
-        content->icon.customSize =
+        if (value.has_value())
         {
-            (float)value.width,
-            (float)value.height
-        };
-        content->updateLayout();
-    }
-
-    bool ViewItem::customIconSize() const
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-        return content->icon.customSize.has_value();
-    }
-
-    void ViewItem::setCustomIconSize(bool value)
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-        if (value)
-        {
-            if (!content->icon.customSize.has_value())
+            content->icon.customSize =
             {
-                content->icon.customSize = {};
-            }
+                (float)value.value().width,
+                (float)value.value().height
+            };
         }
         else content->icon.customSize.reset();
-
+        
         content->updateLayout();
     }
 

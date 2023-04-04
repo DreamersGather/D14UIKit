@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport ResizablePanel : virtual public Panel
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(ResizablePanel)
 
         ResizablePanel();
 
@@ -25,9 +25,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit ResizablePanel(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onEndResizing();

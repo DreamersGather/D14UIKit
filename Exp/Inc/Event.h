@@ -9,7 +9,7 @@ namespace d14uikit
 {
     class DllExport Event : public NonCopyable
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Event)
 
         Event();
 
@@ -37,67 +37,47 @@ namespace d14uikit
         // Return whether the key is toggled.
 
         static bool capslock();
-
-    protected:
-        void initialize();
-        explicit Event(Passkey);
     };
 
     class DllExport SizeEvent : public Event
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(SizeEvent)
 
         SizeEvent();
 
         Size size() const;
-
-    protected:
-        void initialize();
-        explicit SizeEvent(Passkey);
     };
 
     class DllExport MoveEvent : public Event
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MoveEvent)
 
         MoveEvent();
 
         Point position() const;
-
-    protected:
-        void initialize();
-        explicit MoveEvent(Passkey);
     };
 
     class DllExport MouseEvent : public Event
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MouseEvent)
 
         MouseEvent();
 
         Point cursorPoint() const;
-
-    protected:
-        void initialize();
-        explicit MouseEvent(Passkey);
     };
 
     class DllExport MouseMoveEvent : public MouseEvent
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MouseMoveEvent)
 
         MouseMoveEvent();
 
         Point lastCursorPoint() const;
-
-    protected:
-        void initialize();
-        explicit MouseMoveEvent(Passkey);
     };
 
     class DllExport MouseButtonEvent : public MouseEvent
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MouseButtonEvent)
 
         MouseButtonEvent();
 
@@ -110,28 +90,20 @@ namespace d14uikit
         bool middleDown() const;
         bool middleUp() const;
         bool middleDblclk() const;
-
-    protected:
-        void initialize();
-        explicit MouseButtonEvent(Passkey);
     };
 
     class DllExport MouseWheelEvent : public MouseEvent
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MouseWheelEvent)
 
         MouseWheelEvent();
 
         int deltaCount() const;
-
-    protected:
-        void initialize();
-        explicit MouseWheelEvent(Passkey);
     };
 
     class DllExport KeyboardEvent : public Event
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(KeyboardEvent)
 
         KeyboardEvent();
 
@@ -139,24 +111,16 @@ namespace d14uikit
 
         bool pressed() const;
         bool released() const;
-
-    protected:
-        void initialize();
-        explicit KeyboardEvent(Passkey);
     };
 
     class DllExport MouseButtonClickEvent : public MouseEvent
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(MouseButtonClickEvent)
 
         MouseButtonClickEvent();
 
         bool left() const;
         bool right() const;
         bool middle() const;
-
-    protected:
-        void initialize();
-        explicit MouseButtonClickEvent(Passkey);
     };
 }

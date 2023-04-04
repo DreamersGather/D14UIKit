@@ -12,16 +12,15 @@
 #define DllExport // used as interfaces
 #endif
 
-#define _D14_UIKIT_PIMPL_DEF \
+#define _D14_UIKIT_PIMPL(Type_Name) \
 protected: \
     struct Impl; \
-    struct Passkey { }; \
     std::shared_ptr<Impl> pimpl = {}; \
+    struct Passkey { }; \
+    explicit Type_Name(Passkey); \
+    void initialize(); \
 public: \
-    Impl* getImpl() const \
-    { \
-        return pimpl.get(); \
-    }
+    Impl* getImpl() const { return pimpl.get(); }
 
 namespace d14uikit
 {

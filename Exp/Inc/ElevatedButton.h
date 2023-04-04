@@ -6,12 +6,8 @@ namespace d14uikit
 {
     class DllExport ElevatedButton : public FilledButton
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(ElevatedButton)
 
         explicit ElevatedButton(const std::wstring& text = L"Button");
-
-    protected:
-        void initialize();
-        explicit ElevatedButton(Passkey);
     };
 }

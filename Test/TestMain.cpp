@@ -1,7 +1,8 @@
 ﻿#include "Application.h"
 #include "ComboBox.h"
+#include "ComboBoxItem.h"
+#include "Image.h"
 #include "MainWindow.h"
-#include "MenuItem.h"
 #include "PopupMenu.h"
 
 using namespace d14uikit;
@@ -12,6 +13,8 @@ int main()
 
     MainWindow mwnd;
 
+    Image img(L"test.png");
+
     Panel p;
     mwnd.setContent(&p);
 
@@ -19,7 +22,11 @@ int main()
     std::list<MenuItem*> pitems;
     for (int i = 0; i < 5; ++i)
     {
-        auto item = std::make_shared<MenuItem>(L"Item " + std::to_wstring(i));
+        auto item = std::make_shared<MenuItem>(L"Item " + std::to_wstring(i), L"Ctrl+F" + std::to_wstring(i));
+        item->setIcon(&img);
+        item->setIconSize(Size{ 24, 24 });
+        item->setFontSize(12);
+        item->syncLabelHotkeyTextFormat();
         items.push_back(item);
         pitems.push_back(item.get());
     }

@@ -26,11 +26,6 @@ namespace d14uikit
             &Button::setIconSize);
 
         i.def_property(
-            "customIconSize",
-            &Button::customIconSize,
-            &Button::setCustomIconSize);
-
-        i.def_property(
             "text",
             &Button::text,
             &Button::setText);

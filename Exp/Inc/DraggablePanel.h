@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport DraggablePanel : virtual public Panel
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(DraggablePanel)
 
         DraggablePanel();
 
@@ -22,9 +22,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit DraggablePanel(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onEndDragging();

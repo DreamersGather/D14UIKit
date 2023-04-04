@@ -23,6 +23,7 @@ namespace d14engine::uikit
             /* textFormat         */ resource_utils::g_textFormats.at(L"Default/Normal/16").Get(),
             /* maxWidth           */ std::nullopt,
             /* maxHeight          */ std::nullopt,
+            /* incrementalTabStop */ 4.0f * 96.0f / 72.0f,
             /* textAlignment      */ DWRITE_TEXT_ALIGNMENT_LEADING,
             /* paragraphAlignment */ DWRITE_PARAGRAPH_ALIGNMENT_CENTER,
             /* wordWrapping       */ DWRITE_WORD_WRAPPING_NO_WRAP
@@ -116,20 +117,39 @@ namespace d14engine::uikit
             /* textFormat         */ textFormat.Get(),
             /* maxWidth           */ std::nullopt,
             /* maxHeight          */ std::nullopt,
+            /* incrementalTabStop */ source->m_textLayout->GetIncrementalTabStop(),
             /* textAlignment      */ source->m_textLayout->GetTextAlignment(),
             /* paragraphAlignment */ source->m_textLayout->GetParagraphAlignment(),
             /* wordWrapping       */ source->m_textLayout->GetWordWrapping()
         };
         m_textLayout = getTextLayout(layoutParams);
+
+#define COPY_TEXT_LAYOUT_FONT_ARRT(Property_Name) do { \
+        auto& src = source->m_textLayout; \
+        decltype(src->GetFont##Property_Name()) value; \
+        if (FAILED(src->GetFont##Property_Name(0, &value))) \
+        { \
+            value = src->GetFont##Property_Name(); \
+        } \
+        m_textLayout->SetFont##Property_Name( \
+            value, { 0, (UINT32)m_text.size() }); \
+} while (0)
+
+        // Copy the format of the 1st character by default.
+
+        COPY_TEXT_LAYOUT_FONT_ARRT(Size);
+        COPY_TEXT_LAYOUT_FONT_ARRT(Weight);
+        COPY_TEXT_LAYOUT_FONT_ARRT(Style);
+        COPY_TEXT_LAYOUT_FONT_ARRT(Stretch);
+
+#undef COPY_TEXT_LAYOUT_FONT_ARRT
+
         updateTextOverhangMetrics();
 
         drawTextOptions = source->drawTextOptions;
     }
 
-    IDWriteTextLayout* Label::textLayout() const
-    {
-        return m_textLayout.Get();
-    }
+    IDWriteTextLayout* Label::textLayout() const { return m_textLayout.Get(); }
 
     DWRITE_TEXT_METRICS Label::textMetrics() const
     {
@@ -152,8 +172,13 @@ namespace d14engine::uikit
     {
         return
         {
-            m_textLayout->GetMaxWidth() + m_textOverhangs.left + m_textOverhangs.right,
-            m_textLayout->GetMaxHeight() + m_textOverhangs.top + m_textOverhangs.bottom
+            m_textLayout->GetMaxWidth() +
+            m_textOverhangs.left +
+            m_textOverhangs.right,
+
+            m_textLayout->GetMaxHeight() +
+            m_textOverhangs.top +
+            m_textOverhangs.bottom
         };
     }
 
@@ -181,6 +206,11 @@ namespace d14engine::uikit
             maxWidth,
             maxHeight,
             &textLayout));
+
+        THROW_IF_FAILED(textLayout->SetIncrementalTabStop(
+            params.incrementalTabStop.has_value() ?
+            params.incrementalTabStop.value() :
+            m_textLayout->GetIncrementalTabStop()));
 
         THROW_IF_FAILED(textLayout->SetTextAlignment(
             params.textAlignment.has_value() ?

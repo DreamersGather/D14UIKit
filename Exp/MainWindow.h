@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Common/Precompile.h"
+
 #include "Inc/MainWindow.h"
 
 namespace d14engine::uikit { struct MainWindow; }

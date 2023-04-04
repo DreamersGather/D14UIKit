@@ -7,7 +7,7 @@ namespace d14uikit
 {
     class DllExport Window : public DraggablePanel, public ResizablePanel
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Window)
 
         explicit Window(const std::wstring& title = L"Untitled");
 
@@ -52,9 +52,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit Window(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onMinimize();

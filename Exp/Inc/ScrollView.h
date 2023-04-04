@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport ScrollView : public ResizablePanel
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(ScrollView)
 
         ScrollView();
 
@@ -33,9 +33,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit ScrollView(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onEndThumbScrolling();

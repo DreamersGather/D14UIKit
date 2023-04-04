@@ -6,7 +6,7 @@ namespace d14uikit
 {
     class DllExport ToggleButton : public FilledButton
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(ToggleButton)
 
         explicit ToggleButton(const std::wstring& text = L"Button");
 
@@ -28,9 +28,6 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit ToggleButton(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
         virtual void onStateChange(State state);

@@ -10,7 +10,7 @@ namespace d14uikit
 
     class DllExport Application : public NonCopyable
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(Application)
 
         explicit Application(const std::wstring& name = L"D14UIKit");
 
@@ -78,9 +78,5 @@ namespace d14uikit
 
         bool drawTextNatrualSymmetric() const;
         void setDrawTextNatrualSymmetric(bool value);
-
-    protected:
-        void initialize();
-        explicit Application(Passkey);
     };
 }

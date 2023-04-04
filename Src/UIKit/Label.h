@@ -82,9 +82,9 @@ namespace d14engine::uikit
             Optional<float> maxWidth = std::nullopt;
             Optional<float> maxHeight = std::nullopt;
 
+            Optional<float> incrementalTabStop = std::nullopt;
             Optional<DWRITE_TEXT_ALIGNMENT> textAlignment = std::nullopt;
             Optional<DWRITE_PARAGRAPH_ALIGNMENT> paragraphAlignment = std::nullopt;
-
             Optional<DWRITE_WORD_WRAPPING> wordWrapping = std::nullopt;
         };
         ComPtr<IDWriteTextLayout>

@@ -8,7 +8,7 @@ namespace d14uikit
 
     class DllExport ComboBox : public FlatButton
     {
-        _D14_UIKIT_PIMPL_DEF
+        _D14_UIKIT_PIMPL(ComboBox)
 
         ComboBox();
 
@@ -24,11 +24,8 @@ namespace d14uikit
         Callback& callback() const;
 
     protected:
-        void initialize();
-        explicit ComboBox(Passkey);
-
         std::unique_ptr<Callback> pcallback = {};
 
-        void onSelectedChange(const std::wstring& text);
+        virtual void onSelectedChange(const std::wstring& text);
     };
 }
