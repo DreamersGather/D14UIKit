@@ -7,8 +7,6 @@
 #include "Panel.h"
 #include "TextFormat.h"
 
-#include "Common/MathUtils/Basic.h"
-
 #include "UIKit/Button.h"
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
@@ -38,8 +36,6 @@ namespace d14uikit
         pimpl(std::make_shared<Impl>()) { }
 
     void Button::initialize() { }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL(Button, pimpl->uiobj->content())
 
     Image* Button::icon() const
     {
@@ -105,4 +101,7 @@ namespace d14uikit
 
         pimpl->uiobj->content()->updateLayout();
     }
+
+    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(
+        Button, , label, pimpl->uiobj->content())
 }

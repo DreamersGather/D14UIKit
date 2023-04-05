@@ -38,10 +38,7 @@ namespace d14uikit
         ViewItem(ViewItem::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
-    void MenuItem::initialize()
-    {
-        setHeight(40);
-    }
+    void MenuItem::initialize() { setHeight(40); }
 
     PopupMenu* MenuItem::associatedMenu() const
     {
@@ -80,17 +77,6 @@ namespace d14uikit
         }
     }
 
-    void MenuItem::syncLabelHotkeyTextFormat()
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel2>();
-        if (!content.expired())
-        {
-            auto pcontent = content.lock();
-            // The hotkey label should always keep horizontal right alignment.
-            auto orgHorzAlign = pcontent->label2()->textLayout()->GetTextAlignment();
-
-            pcontent->label2()->copyTextStyle(pcontent->label().get());
-            pcontent->label2()->textLayout()->SetTextAlignment(orgHorzAlign);
-        }
-    }
+    _D14_UIKIT_TEXT_FORMAT_IMPL_OPTIONAL(MenuItem, Hotkey, label2,
+        pimpl->uiobj->getContent<uikit::IconLabel2>().lock())
 }

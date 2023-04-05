@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Common.h"
+#include "Common/Precompile.h"
 
 #include "ClickablePanel.h"
 

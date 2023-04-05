@@ -3,6 +3,7 @@
 #include "Button.h"
 
 #include "ClickablePanel.h"
+#include "TextFormat.h"
 
 #include "Inc/Button.h"
 #include "Inc/Image.h"
@@ -29,5 +30,7 @@ namespace d14uikit
             "text",
             &Button::text,
             &Button::setText);
+
+        _D14_UIKIT_PYBIND_TEXT_FORMAT(Button)
     }
 }

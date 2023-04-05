@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Common/Precompile.h"
+
 #ifdef _D14_UIKIT_PYBIND_DEBUG
 #define PYBIND11_DETAILED_ERROR_MESSAGES
 #endif

@@ -6,8 +6,6 @@
 #include "Panel.h"
 #include "TextFormat.h"
 
-#include "Common/MathUtils/Basic.h"
-
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
 #include "UIKit/ViewItem.h"
@@ -33,12 +31,7 @@ namespace d14uikit
         Panel(Panel::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
-    void ViewItem::initialize()
-    {
-        setHeight(30);
-    }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL(ViewItem, pimpl->uiobj->getContent<uikit::IconLabel>().lock())
+    void ViewItem::initialize() { setHeight(30); }
 
     Image* ViewItem::icon() const
     {
@@ -62,7 +55,8 @@ namespace d14uikit
 
     Size ViewItem::iconSize() const
     {
-        auto& icon = pimpl->uiobj->getContent<uikit::IconLabel>().lock()->icon;
+        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
+        auto& icon = content->icon;
 
         D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
         if (icon.customSize.has_value())
@@ -99,11 +93,16 @@ namespace d14uikit
 
     const std::wstring& ViewItem::text() const
     {
-        return pimpl->uiobj->getContent<uikit::IconLabel>().lock()->label()->text();
+        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
+        return content->label()->text();
     }
 
     void ViewItem::setText(const std::wstring& text)
     {
-        pimpl->uiobj->getContent<uikit::IconLabel>().lock()->label()->setText(text);
+        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
+        return content->label()->setText(text);
     }
+
+    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(ViewItem, , label,
+        pimpl->uiobj->getContent<uikit::IconLabel>().lock())
 }

@@ -20,6 +20,6 @@ namespace d14uikit
         const std::wstring& hotkeyText() const;
         void setHotkeyText(const std::wstring& text);
 
-        void syncLabelHotkeyTextFormat();
+        _D14_UIKIT_TEXT_FORMAT_DECL_OPTIONAL(Hotkey)
     };
 }

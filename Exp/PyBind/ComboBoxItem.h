@@ -6,5 +6,5 @@
 
 namespace d14uikit
 {
-    void Py_InitFlatButton(py::module_& m);
+    void Py_InitComboBoxItem(py::module_& m);
 }

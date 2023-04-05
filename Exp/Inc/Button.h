@@ -11,8 +11,6 @@ namespace d14uikit
 
         explicit Button(const std::wstring& text = L"Button");
 
-        _D14_UIKIT_TEXT_FORMAT_DECL
-
         Image* icon() const;
         void setIcon(Image* icon);
 
@@ -21,5 +19,7 @@ namespace d14uikit
 
         const std::wstring& text() const;
         void setText(const std::wstring& text);
+
+        _D14_UIKIT_TEXT_FORMAT_DECL_CONCRETE()
     };
 }
