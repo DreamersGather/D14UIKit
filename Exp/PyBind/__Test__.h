@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Common/Precompile.h"
+
 #ifdef _D14_UIKIT_PYBIND_DEBUG
 
 #include "Common.h"

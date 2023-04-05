@@ -184,7 +184,7 @@ namespace d14engine::uikit::resource_utils
     Optional<Wstring> getClipboardText(HWND hWndNewOwner)
     {
         Optional<Wstring> content = std::nullopt;
-
+        
         if (IsClipboardFormatAvailable(CF_UNICODETEXT) && OpenClipboard(hWndNewOwner))
         {
             auto hGlobal = GetClipboardData(CF_UNICODETEXT);
@@ -204,7 +204,7 @@ namespace d14engine::uikit::resource_utils
 
     void setClipboardText(WstrParam content, HWND hWndNewOwner)
     {
-        if (IsClipboardFormatAvailable(CF_UNICODETEXT) && OpenClipboard(hWndNewOwner))
+        if (OpenClipboard(hWndNewOwner))
         {
             auto hGlobal = GlobalAlloc(GHND | GMEM_SHARE, sizeof(WCHAR) * (content.size() + 1));
             if (hGlobal)

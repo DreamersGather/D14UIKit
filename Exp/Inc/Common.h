@@ -6,6 +6,10 @@
 #include <set>
 #include <string>
 
+// Allows the macro expansion substitutes
+// empty texts for the missing parameters.
+#pragma warning(disable : 4003)
+
 #ifdef _D14_UIKIT_EXP
 #define DllExport __declspec(dllexport)
 #else

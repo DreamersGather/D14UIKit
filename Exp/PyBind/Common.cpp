@@ -11,6 +11,7 @@
 #include "CheckBox.h"
 #include "ClickablePanel.h"
 #include "ComboBox.h"
+#include "ComboBoxItem.h"
 #include "Cursor.h"
 #include "DraggablePanel.h"
 #include "ElevatedButton.h"
@@ -82,6 +83,7 @@ namespace d14uikit
             Py_InitViewItem(m);
                 Py_InitListViewItem(m);
                 Py_InitMenuItem(m);
+                    Py_InitComboBoxItem(m);
                 Py_InitTreeViewItem(m);
     }
 }

@@ -8,7 +8,7 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL(TreeViewItem)
 
-        explicit TreeViewItem(const std::wstring& text);
+        explicit TreeViewItem(const std::wstring& text = L"ViewItem");
 
         int nodeLevel() const;
 

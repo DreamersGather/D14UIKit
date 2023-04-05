@@ -142,22 +142,40 @@ namespace d14uikit
             "value"_a,
             "range"_a = std::nullopt);
 
+        i.def_property(
+            "underline",
+            [](Label& self)
+            {
+                return self.underline(0);
+            },
+            [](Label& self, bool value)
+            {
+                self.setUnderline(value);
+            });
         i.def(
             "getUnderline",
             &Label::underline,
             "offset"_a);
-
         i.def(
             "setUnderline",
             &Label::setUnderline,
             "value"_a,
             "range"_a = std::nullopt);
 
+        i.def_property(
+            "strikethrough",
+            [](Label& self)
+            {
+                return self.strikethrough(0);
+            },
+            [](Label& self, bool value)
+            {
+                self.setStrikethrough(value);
+            });
         i.def(
             "getStrikethrough",
             &Label::strikethrough,
             "offset"_a);
-
         i.def(
             "setStrikethrough",
             &Label::setStrikethrough,
