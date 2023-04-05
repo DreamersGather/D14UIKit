@@ -12,7 +12,7 @@ namespace d14uikit
 {
     void Py_InitViewItem(py::module_& m)
     {
-        py::class_<ViewItem, PyPanel<ViewItem>> i(m, "ViewItem");
+        py::class_<ViewItem, Panel, PyPanel<ViewItem>> i(m, "ViewItem");
 
         i.def(py::init<const std::wstring&>(), "text"_a = L"ViewItem");
 

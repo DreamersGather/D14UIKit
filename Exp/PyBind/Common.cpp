@@ -12,6 +12,7 @@
 #include "ClickablePanel.h"
 #include "ComboBox.h"
 #include "ComboBoxItem.h"
+#include "ConstraintLayout.h"
 #include "Cursor.h"
 #include "DraggablePanel.h"
 #include "ElevatedButton.h"
@@ -19,6 +20,7 @@
 #include "FilledButton.h"
 #include "FlatButton.h"
 #include "Font.h"
+#include "GridLayout.h"
 #include "Image.h"
 #include "Label.h"
 #include "ListView.h"
@@ -73,6 +75,8 @@ namespace d14uikit
                 Py_InitCheckBox(m);
             Py_InitDraggablePanel(m);
             Py_InitResizablePanel(m);
+                Py_InitConstraintLayout(m);
+                Py_InitGridLayout(m);
                 Py_InitScrollView(m);
                     Py_InitListView(m);
                     Py_InitPopupMenu(m);
