@@ -46,7 +46,7 @@ namespace d14engine::uikit
             }
             return false;
         }
-        virtual bool setMinimalValue(Value_T value)
+        virtual bool setMinValue(Value_T value)
         {
             if (value <= m_maxValue)
             {
@@ -59,7 +59,7 @@ namespace d14engine::uikit
             }
             return false;
         }
-        virtual bool setMaximalValue(Value_T value)
+        virtual bool setMaxValue(Value_T value)
         {
             if (value >= m_minValue)
             {

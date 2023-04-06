@@ -20,21 +20,21 @@ namespace d14engine::uikit
         _D14_SET_APPEARANCE_GETTER(ScrollView)
 
     public:
-        void onStartThumbScrolling();
+        void onStartThumbScrolling(const D2D1_POINT_2F& offset);
 
-        Function<void(ScrollView*)> f_onStartThumbScrolling = {};
+        Function<void(ScrollView*, const D2D1_POINT_2F&)> f_onStartThumbScrolling = {};
 
-        void onEndThumbScrolling();
+        void onEndThumbScrolling(const D2D1_POINT_2F& offset);
 
-        Function<void(ScrollView*)> f_onEndThumbScrolling = {};
+        Function<void(ScrollView*, const D2D1_POINT_2F&)> f_onEndThumbScrolling = {};
 
         void onViewportOffsetChange(const D2D1_POINT_2F& offset);
 
         Function<void(ScrollView*, const D2D1_POINT_2F&)> f_onViewportOffsetChange = {};
 
     protected:
-        virtual void onStartThumbScrollingHelper();
-        virtual void onEndThumbScrollingHelper();
+        virtual void onStartThumbScrollingHelper(const D2D1_POINT_2F& offset);
+        virtual void onEndThumbScrollingHelper(const D2D1_POINT_2F& offset);
 
         virtual void onViewportOffsetChangeHelper(const D2D1_POINT_2F& offset);
 

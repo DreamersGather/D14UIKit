@@ -7,6 +7,9 @@ namespace d14uikit
 {
     class DllExport Label : public Panel
     {
+        friend class HorzSlider;
+        friend class VertSlider;
+
         _D14_UIKIT_PIMPL(Label)
 
         explicit Label(const std::wstring& text = {});

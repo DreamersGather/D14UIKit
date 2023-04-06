@@ -57,8 +57,8 @@ namespace d14engine::uikit
 
     public:
         bool setValue(float value) override;
-        bool setMinimalValue(float value) override;
-        bool setMaximalValue(float value) override;
+        bool setMinValue(float value) override;
+        bool setMaxValue(float value) override;
     
     protected:
         bool m_isSliding = false;

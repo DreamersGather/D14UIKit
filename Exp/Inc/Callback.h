@@ -15,8 +15,11 @@ DraggablePanel::callback().onEndDragging = [cap](DraggablePanel* dgp)
 #define D14_onEndResizing(rsp, cap) \
 ResizablePanel::callback().onEndResizing = [cap](ResizablePanel* rsp)
 
-#define D14_onEndThumbScrolling(sv, cap) \
-ScrollView::callback().onEndThumbScrolling = [cap](ScrollView* sv)
+#define D14_onEndSliding(type, sldr, value, cap) \
+type::callback().onEndSliding = [cap](type* sldr, float value)
+
+#define D14_onEndThumbScrolling(sv, offset, cap) \
+ScrollView::callback().onEndThumbScrolling = [cap](ScrollView* sv, const D2D1_POINT_2F& offset)
 
 #define D14_onGetFocus(p, cap) \
 Panel::callback().onGetFocus = [cap](Panel* p)
@@ -72,14 +75,20 @@ DraggablePanel::callback().onStartDragging = [cap](DraggablePanel* dgp)
 #define D14_onStartResizing(rsp, cap) \
 ResizablePanel::callback().onStartResizing = [cap](ResizablePanel* rsp)
 
-#define D14_onStartThumbScrolling(sv, cap) \
-ScrollView::callback().onStartThumbScrolling = [cap](ScrollView* sv)
+#define D14_onStartSliding(type, sldr, value, cap) \
+type::callback().onStartSliding = [cap](type* sldr, float value)
+
+#define D14_onStartThumbScrolling(sv, offset, cap) \
+ScrollView::callback().onStartThumbScrolling = [cap](ScrollView* sv, const D2D1_POINT_2F& offset)
 
 #define D14_onStateChange(type, obj, state, cap) \
 type::callback().onStateChange = [cap](type* obj, type::State state)
 
 #define D14_onTriggerMenuItem(menu, text, cap) \
 PopupMenu::callback().onTriggerMenuItem = [cap](PopupMenu* menu, const std::wstring& text)
+
+#define D14_onValueChange(type, obj, value, cap) \
+type::callback().onValueChange = [cap](type* obj, float value)
 
 #define D14_onViewportOffsetChange(sv, offset, cap) \
 ScrollView::callback().onViewportOffsetChange = [cap](ScrollView* sv, const Point& offset)

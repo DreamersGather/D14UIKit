@@ -98,16 +98,16 @@ namespace d14engine::uikit
         return isValueChanged;
     }
 
-    bool Slider::setMinimalValue(float value)
+    bool Slider::setMinValue(float value)
     {
-        bool isValueChanged = ValuefulObject::setMinimalValue(value);
+        bool isValueChanged = ValuefulObject::setMinValue(value);
         if (isValueChanged) onValueChange(m_value);
         return isValueChanged;
     }
 
-    bool Slider::setMaximalValue(float value)
+    bool Slider::setMaxValue(float value)
     {
-        bool isValueChanged = ValuefulObject::setMaximalValue(value);
+        bool isValueChanged = ValuefulObject::setMaxValue(value);
         if (isValueChanged) onValueChange(m_value);
         return isValueChanged;
     }
