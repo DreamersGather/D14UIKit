@@ -293,6 +293,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\HorzSlider.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Image.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ImagePrivate</ObjectFileName>
@@ -653,6 +659,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\VertSlider.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
@@ -918,6 +930,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\FlatButton.h" />
     <ClInclude Include="Exp\Font.h" />
     <ClInclude Include="Exp\GridLayout.h" />
+    <ClInclude Include="Exp\HorzSlider.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
     <ClInclude Include="Exp\Inc\BasicType.h" />
@@ -937,6 +950,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\FlatButton.h" />
     <ClInclude Include="Exp\Inc\Font.h" />
     <ClInclude Include="Exp\Inc\GridLayout.h" />
+    <ClInclude Include="Exp\Inc\HorzSlider.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\Label.h" />
     <ClInclude Include="Exp\Inc\ListView.h" />
@@ -948,10 +962,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\PopupMenu.h" />
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
     <ClInclude Include="Exp\Inc\ScrollView.h" />
+    <ClInclude Include="Exp\Inc\Slider.h" />
     <ClInclude Include="Exp\Inc\TextFormat.h" />
     <ClInclude Include="Exp\Inc\ToggleButton.h" />
     <ClInclude Include="Exp\Inc\TreeView.h" />
     <ClInclude Include="Exp\Inc\TreeViewItem.h" />
+    <ClInclude Include="Exp\Inc\VertSlider.h" />
     <ClInclude Include="Exp\Inc\ViewItem.h" />
     <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
     <ClInclude Include="Exp\Inc\Window.h" />
@@ -1110,10 +1126,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     </ClInclude>
     <ClInclude Include="Exp\ResizablePanel.h" />
     <ClInclude Include="Exp\ScrollView.h" />
+    <ClInclude Include="Exp\Slider.h" />
     <ClInclude Include="Exp\TextFormat.h" />
     <ClInclude Include="Exp\ToggleButton.h" />
     <ClInclude Include="Exp\TreeView.h" />
     <ClInclude Include="Exp\TreeViewItem.h" />
+    <ClInclude Include="Exp\VertSlider.h" />
     <ClInclude Include="Exp\ViewItem.h" />
     <ClInclude Include="Exp\Window.h" />
     <ClInclude Include="resource.h" />

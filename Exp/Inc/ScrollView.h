@@ -24,9 +24,9 @@ namespace d14uikit
 
         struct Callback
         {
-            std::function<void(ScrollView*)> onEndThumbScrolling = {};
+            std::function<void(ScrollView*, const Point&)> onEndThumbScrolling = {};
 
-            std::function<void(ScrollView*)> onStartThumbScrolling = {};
+            std::function<void(ScrollView*, const Point&)> onStartThumbScrolling = {};
 
             std::function<void(ScrollView*, const Point&)> onViewportOffsetChange = {};
         };
@@ -35,9 +35,9 @@ namespace d14uikit
     protected:
         std::unique_ptr<Callback> pcallback = {};
 
-        virtual void onEndThumbScrolling();
+        virtual void onEndThumbScrolling(const Point& offset);
 
-        virtual void onStartThumbScrolling();
+        virtual void onStartThumbScrolling(const Point& offset);
 
         virtual void onViewportOffsetChange(const Point& offset);
     };

@@ -37,18 +37,18 @@ namespace d14engine::uikit
         if (m_content) m_content->move(0, 0);
     }
 
-    void ScrollView::onStartThumbScrolling()
+    void ScrollView::onStartThumbScrolling(const D2D1_POINT_2F& offset)
     {
-        onStartThumbScrollingHelper();
+        onStartThumbScrollingHelper(offset);
 
-        if (f_onStartThumbScrolling) f_onStartThumbScrolling(this);
+        if (f_onStartThumbScrolling) f_onStartThumbScrolling(this, offset);
     }
 
-    void ScrollView::onEndThumbScrolling()
+    void ScrollView::onEndThumbScrolling(const D2D1_POINT_2F& offset)
     {
-        onEndThumbScrollingHelper();
+        onEndThumbScrollingHelper(offset);
 
-        if (f_onEndThumbScrolling) f_onEndThumbScrolling(this);
+        if (f_onEndThumbScrolling) f_onEndThumbScrolling(this, offset);
     }
 
     void ScrollView::onViewportOffsetChange(const D2D1_POINT_2F& offset)
@@ -58,12 +58,12 @@ namespace d14engine::uikit
         if (f_onViewportOffsetChange) f_onViewportOffsetChange(this, offset);
     }
 
-    void ScrollView::onStartThumbScrollingHelper()
+    void ScrollView::onStartThumbScrollingHelper(const D2D1_POINT_2F& offset)
     {
         forceGlobalExclusiveFocusing = true;
     }
 
-    void ScrollView::onEndThumbScrollingHelper()
+    void ScrollView::onEndThumbScrollingHelper(const D2D1_POINT_2F& offset)
     {
         forceGlobalExclusiveFocusing = false;
     }
@@ -431,8 +431,10 @@ namespace d14engine::uikit
             {
                 m_isVertBarDown = m_isVertBarHover;
             }
-            if (isControllingScrollBars()) onStartThumbScrolling();
-
+            if (isControllingScrollBars())
+            {
+                onStartThumbScrolling(m_viewportOffset);
+            }
             m_horzBarHoldOffset = p.x;
             m_vertBarHoldOffset = p.y;
 
@@ -440,8 +442,10 @@ namespace d14engine::uikit
         }
         else if (e.state.leftUp())
         {
-            if (isControllingScrollBars()) onEndThumbScrolling();
-
+            if (isControllingScrollBars())
+            {
+                onEndThumbScrolling(m_viewportOffset);
+            }
             m_isHorzBarDown = m_isVertBarDown = false;
             m_horzBarHoldOffset = m_vertBarHoldOffset = 0.0f;
             m_originalViewportOffset = { 0.0f, 0.0f };

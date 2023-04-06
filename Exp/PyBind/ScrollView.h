@@ -24,13 +24,13 @@ namespace d14uikit
     public:
         using PyResizablePanel::PyResizablePanel;
 
-        void onEndThumbScrolling() override
+        void onEndThumbScrolling(const Point& offset) override
         {
-            PYBIND11_OVERRIDE(void, ScrollViewBase, onEndThumbScrolling, );
+            PYBIND11_OVERRIDE(void, ScrollViewBase, onEndThumbScrolling, offset);
         }
-        void onStartThumbScrolling() override
+        void onStartThumbScrolling(const Point& offset) override
         {
-            PYBIND11_OVERRIDE(void, ScrollViewBase, onStartThumbScrolling, );
+            PYBIND11_OVERRIDE(void, ScrollViewBase, onStartThumbScrolling, offset);
         }
         void onViewportOffsetChange(const Point& offset) override
         {

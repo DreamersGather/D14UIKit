@@ -43,11 +43,13 @@ _D14_CALLBACK_PROPERTY(ScrollView, Name)
 
         i.def(
             "onEndThumbScrolling",
-            &ExScrollView::onEndThumbScrolling);
+            &ExScrollView::onEndThumbScrolling,
+            "offset"_a);
 
         i.def(
             "onStartThumbScrolling",
-            &ExScrollView::onStartThumbScrolling);
+            &ExScrollView::onStartThumbScrolling,
+            "offset"_a);
 
         i.def(
             "onViewportOffsetChange",

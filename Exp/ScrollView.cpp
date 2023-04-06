@@ -37,21 +37,31 @@ namespace d14uikit
     void ScrollView::initialize()
     {
         pimpl->uiobj->f_onStartThumbScrolling = [this]
-        (uikit::ScrollView* sv)
+        (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {
-            onStartResizing();
+            Point offset2 =
+            {
+                math_utils::round(offset.x),
+                math_utils::round(offset.y)
+            };
+            onStartThumbScrolling(offset2);
             if (pcallback->onStartThumbScrolling)
             {
-                pcallback->onStartThumbScrolling(this);
+                pcallback->onStartThumbScrolling(this, offset2);
             }
         };
         pimpl->uiobj->f_onEndThumbScrolling = [this]
-        (uikit::ScrollView* sv)
+        (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {
-            onEndResizing();
+            Point offset2 =
+            {
+                math_utils::round(offset.x),
+                math_utils::round(offset.y)
+            };
+            onEndThumbScrolling(offset2);
             if (pcallback->onEndThumbScrolling)
             {
-                pcallback->onEndThumbScrolling(this);
+                pcallback->onEndThumbScrolling(this, offset2);
             }
         };
         pimpl->uiobj->f_onViewportOffsetChange = [this]
@@ -122,9 +132,9 @@ namespace d14uikit
 
     ScrollView::Callback& ScrollView::callback() const { return *pcallback; }
 
-    void ScrollView::onEndThumbScrolling() { }
+    void ScrollView::onEndThumbScrolling(const Point& offset) { }
 
-    void ScrollView::onStartThumbScrolling() { }
+    void ScrollView::onStartThumbScrolling(const Point& offset) { }
 
     void ScrollView::onViewportOffsetChange(const Point& offset) { }
 }
