@@ -23,6 +23,10 @@ namespace d14uikit
         void removeItem(int index, int count = 1);
         void clearAllItems();
 
+        void setActivated(bool value);
+
+        void setBkgnTriggerPanel(bool value);
+
         struct Callback
         {
             std::function<void(PopupMenu*, const std::wstring&)> onTriggerMenuItem = {};

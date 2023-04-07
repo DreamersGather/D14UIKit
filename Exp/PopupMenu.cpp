@@ -96,6 +96,16 @@ namespace d14uikit
         pimpl->uiobj->clearAllItems();
     }
 
+    void PopupMenu::setActivated(bool value)
+    {
+        pimpl->uiobj->setActivated(value);
+    }
+
+    void PopupMenu::setBkgnTriggerPanel(bool value)
+    {
+        pimpl->uiobj->setBackgroundTriggerPanel(value);
+    }
+
     PopupMenu::Callback& PopupMenu::callback() const { return *pcallback; }
 
     void PopupMenu::onTriggerMenuItem(const std::wstring& text) { }

@@ -38,6 +38,10 @@ namespace d14engine::uikit
 
         void popupAssociatedMenu();
 
+        // Controls whether to send the related trigger event after clicking.
+        // This is often set as false for the static item like MenuSeparator.
+        bool isTriggerItem = true;
+
     protected:
         // IDrawObject2D
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
