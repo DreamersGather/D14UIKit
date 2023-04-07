@@ -2,11 +2,73 @@
 
 #include "Common/Precompile.h"
 
+#include "Label.h"
+#include "Panel.h"
+
 #include "Inc/BasicType.h"
 
 #include "Common/MathUtils/Basic.h"
+#include "UIKit/Label.h"
 
 #define _D14_UIKIT_SLIDER_IMPL(Type_Name)                                               \
+                                                                                        \
+Type_Name::Type_Name() : Type_Name(Passkey{})                                           \
+{                                                                                       \
+    Panel::pimpl->uiobj =                                                               \
+    Type_Name::pimpl->uiobj =                                                           \
+    uikit::makeUIObject<uikit::Type_Name>();                                            \
+                                                                                        \
+    Panel::initialize();                                                                \
+    Type_Name::initialize();                                                            \
+}                                                                                       \
+                                                                                        \
+Type_Name::Type_Name(Passkey)                                                           \
+    :                                                                                   \
+    Panel(Panel::Passkey{}),                                                            \
+    pimpl(std::make_shared<Impl>()),                                                    \
+    pcallback(std::make_unique<Callback>()) { }                                         \
+                                                                                        \
+void Type_Name::initialize()                                                            \
+{                                                                                       \
+    pimpl->uiobj->f_onValueChange = [this]                                              \
+    (uikit::Slider::ValuefulObject* obj, float value)                                   \
+    {                                                                                   \
+        onValueChange(value);                                                           \
+        if (pcallback->onValueChange)                                                   \
+        {                                                                               \
+            pcallback->onValueChange(this, value);                                      \
+        }                                                                               \
+    };                                                                                  \
+    pimpl->uiobj->f_onStartSliding = [this]                                             \
+    (uikit::Slider* sldr, float value)                                                  \
+    {                                                                                   \
+        onStartSliding(value);                                                          \
+        if (pcallback->onStartSliding)                                                  \
+        {                                                                               \
+            pcallback->onStartSliding(this, value);                                     \
+        }                                                                               \
+    };                                                                                  \
+    pimpl->uiobj->f_onEndSliding = [this]                                               \
+    (uikit::Slider* sldr, float value)                                                  \
+    {                                                                                   \
+        onEndSliding(value);                                                            \
+        if (pcallback->onEndSliding)                                                    \
+        {                                                                               \
+            pcallback->onEndSliding(this, value);                                       \
+        }                                                                               \
+    };                                                                                  \
+    /* Bind the existing label implementation to the interface. */                      \
+    {                                                                                   \
+        pimpl->valueLabel = std::shared_ptr<Label>(new Label(Label::Passkey{}));        \
+                                                                                        \
+        pimpl->valueLabel->Panel::pimpl->uiobj =                                        \
+        pimpl->valueLabel->Label::pimpl->uiobj =                                        \
+        pimpl->uiobj->valueLabel();                                                     \
+                                                                                        \
+        pimpl->valueLabel->Panel::initialize();                                         \
+        pimpl->valueLabel->Label::initialize();                                         \
+    }                                                                                   \
+}                                                                                       \
                                                                                         \
 float Type_Name::value() const                                                          \
 {                                                                                       \
@@ -156,3 +218,12 @@ void Type_Name::setVlabelTipSize(const Size& value)                             
     };                                                                                  \
     pimpl->uiobj->loadValueLabelShadowBitmap();                                         \
 }                                                                                       \
+                                                                                        \
+Type_Name::Callback& Type_Name::callback() const { return *pcallback; }                 \
+                                                                                        \
+void Type_Name::onValueChange(float value) { }                                          \
+                                                                                        \
+void Type_Name::onEndSliding(float value) { }                                           \
+                                                                                        \
+void Type_Name::onStartSliding(float value) { }                                         \
+                                                                                        \
