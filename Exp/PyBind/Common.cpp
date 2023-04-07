@@ -21,6 +21,7 @@
 #include "FlatButton.h"
 #include "Font.h"
 #include "GridLayout.h"
+#include "HorzSlider.h"
 #include "Image.h"
 #include "Label.h"
 #include "ListView.h"
@@ -35,6 +36,7 @@
 #include "ToggleButton.h"
 #include "TreeView.h"
 #include "TreeViewItem.h"
+#include "VertSlider.h"
 #include "ViewItem.h"
 #include "VirtualKeyCode.h"
 #include "Window.h"
@@ -74,6 +76,8 @@ namespace d14uikit
                         Py_InitOutlinedButton(m);
                 Py_InitCheckBox(m);
             Py_InitDraggablePanel(m);
+            Py_InitHorzSlider(m);
+            Py_InitLabel(m);
             Py_InitResizablePanel(m);
                 Py_InitConstraintLayout(m);
                 Py_InitGridLayout(m);
@@ -83,7 +87,7 @@ namespace d14uikit
                     Py_InitTreeView(m);
                 Py_InitWindow(m);
                     Py_InitMainWindow(m);
-            Py_InitLabel(m);
+            Py_InitVertSlider(m);
             Py_InitViewItem(m);
                 Py_InitListViewItem(m);
                 Py_InitMenuItem(m);
