@@ -29,6 +29,7 @@
 #include "ListViewItem.h"
 #include "MainWindow.h"
 #include "MenuItem.h"
+#include "MenuSeparator.h"
 #include "OutlinedButton.h"
 #include "Panel.h"
 #include "PopupMenu.h"
@@ -94,6 +95,7 @@ namespace d14uikit
                 Py_InitListViewItem(m);
                 Py_InitMenuItem(m);
                     Py_InitComboBoxItem(m);
+                    Py_InitMenuSeparator(m);
                 Py_InitTreeViewItem(m);
     }
 }

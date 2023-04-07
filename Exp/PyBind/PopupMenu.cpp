@@ -40,6 +40,14 @@ namespace d14uikit
             "clearAllItems",
             &PopupMenu::clearAllItems);
 
+        i.def(
+            "setActivated",
+            &PopupMenu::setActivated);
+
+        i.def(
+            "setBkgnTriggerPanel",
+            &PopupMenu::setBkgnTriggerPanel);
+
         _D14_CALLBACK_PROPERTY(PopupMenu, onTriggerMenuItem);
 
         i.def("onTriggerMenuItem", &ExPopupMenu::onTriggerMenuItem);

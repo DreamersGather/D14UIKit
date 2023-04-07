@@ -38,7 +38,7 @@ namespace d14uikit
         ViewItem(ViewItem::Passkey{}),
         pimpl(std::make_shared<Impl>()) { }
 
-    void MenuItem::initialize() { setHeight(40); }
+    void MenuItem::initialize() { }
 
     PopupMenu* MenuItem::associatedMenu() const
     {

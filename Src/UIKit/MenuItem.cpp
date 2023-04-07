@@ -92,8 +92,8 @@ namespace d14engine::uikit
 
         if (e.state.leftUp())
         {
-            // Note an expandable menu-item could not trigger any command.
-            if (isInstant && !m_associatedMenu && !m_parentMenu.expired())
+            // Note an expandable menu-item should not trigger any command.
+            if (!m_associatedMenu && isInstant && isTriggerItem && !m_parentMenu.expired())
             {
                 m_parentMenu.lock()->setActivatedIncludingParents(false);
             }

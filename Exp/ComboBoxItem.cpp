@@ -32,5 +32,5 @@ namespace d14uikit
         :
         MenuItem(MenuItem::Passkey{}) { }
 
-    void ComboBoxItem::initialize() { }
+    void ComboBoxItem::initialize() { setHeight(40); }
 }
