@@ -179,7 +179,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontFamilyName(name.c_str(), textRange));
     }
@@ -195,7 +195,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         pimpl->uiobj->textLayout()->SetFontSize(value * 96.0f / 72.0f, textRange);
     }
@@ -214,7 +214,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetLocaleName(name.c_str(), textRange));
     }
@@ -230,7 +230,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontWeight((DWRITE_FONT_WEIGHT)value, textRange));
     }
@@ -246,7 +246,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontStyle((DWRITE_FONT_STYLE)value, textRange));
     }
@@ -262,7 +262,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetFontStretch((DWRITE_FONT_STRETCH)value, textRange));
     }
@@ -280,7 +280,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetUnderline(value, textRange));
     }
@@ -298,7 +298,7 @@ namespace d14uikit
         if (range.has_value())
         {
             auto& rangeValue = range.value();
-            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.length };
+            textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetStrikethrough(value, textRange));
     }

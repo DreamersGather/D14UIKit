@@ -4,7 +4,7 @@ namespace d14uikit
 {
     struct Range
     {
-        int offset = {}, length = {};
+        int offset = {}, count = {};
     };
 
     struct Point

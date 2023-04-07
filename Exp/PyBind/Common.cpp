@@ -24,6 +24,7 @@
 #include "HorzSlider.h"
 #include "Image.h"
 #include "Label.h"
+#include "LabelArea.h"
 #include "ListView.h"
 #include "ListViewItem.h"
 #include "MainWindow.h"
@@ -78,6 +79,7 @@ namespace d14uikit
             Py_InitDraggablePanel(m);
             Py_InitHorzSlider(m);
             Py_InitLabel(m);
+                Py_InitLabelArea(m);
             Py_InitResizablePanel(m);
                 Py_InitConstraintLayout(m);
                 Py_InitGridLayout(m);
