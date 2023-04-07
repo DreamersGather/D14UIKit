@@ -13,10 +13,10 @@ namespace d14uikit
             py::class_<Range> i(m, "Range");
 
             i.def(py::init<int, int>(),
-                  "offset"_a = 0, "length"_a = 0);
+                  "offset"_a = 0, "count"_a = 0);
 
             i.def_readwrite("offset", &Range::offset);
-            i.def_readwrite("length", &Range::length);
+            i.def_readwrite("count", &Range::count);
         }
         // Point
         {

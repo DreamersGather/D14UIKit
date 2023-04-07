@@ -69,6 +69,21 @@ namespace d14uikit
             &Panel::setOpacity);
 
         i.def_property(
+            "outlineWidth",
+            &Panel::outlineWidth,
+            &Panel::setOutlineWidth);
+
+        i.def_property(
+            "outlineColor",
+            &Panel::outlineColor,
+            &Panel::setOutlineColor);
+
+        i.def_property(
+            "outlineOpacity",
+            &Panel::outlineOpacity,
+            &Panel::setOutlineOpacity);
+
+        i.def_property(
             "image",
             &Panel::image,
             &Panel::setImage);

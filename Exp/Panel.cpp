@@ -6,6 +6,7 @@
 #include "Image.h"
 
 #include "Common/MathUtils/Basic.h"
+#include "Common/MathUtils/2D.h"
 
 #include "UIKit/ColorUtils.h"
 #include "UIKit/Panel.h"
@@ -37,6 +38,18 @@ namespace d14uikit
         {
             uikit::resource_utils::g_solidColorBrush->SetColor(pimpl->bkgn.color);
             uikit::resource_utils::g_solidColorBrush->SetOpacity(pimpl->bkgn.opacity);
+        };
+        pimpl->uiobj->f_onRendererDrawD2d1ObjectAfter = [this]
+        (uikit::Panel* p, Renderer* rndr)
+        {
+            uikit::resource_utils::g_solidColorBrush->SetColor(pimpl->outline.color);
+            uikit::resource_utils::g_solidColorBrush->SetOpacity(pimpl->outline.opacity);
+
+            auto frame = math_utils::inner(p->absoluteRect(), pimpl->outline.width);
+            D2D1_ROUNDED_RECT outlineRect = { frame, p->roundRadiusX, p->roundRadiusY };
+
+            rndr->d2d1DeviceContext()->DrawRoundedRectangle(
+                outlineRect, uikit::resource_utils::g_solidColorBrush.Get(), pimpl->outline.width);
         };
         pimpl->uiobj->f_onSize = [this]
         (uikit::Panel* p, uikit::SizeEvent& e)
@@ -277,6 +290,38 @@ namespace d14uikit
     void Panel::setOpacity(float value)
     {
         pimpl->bkgn.opacity = value;
+    }
+
+    int Panel::outlineWidth() const
+    {
+        return math_utils::round(pimpl->outline.width);
+    }
+
+    void Panel::setOutlineWidth(int value)
+    {
+        pimpl->outline.width = (float)value;
+    }
+
+    Color Panel::outlineColor() const
+    {
+        auto rgb = uikit::color_utils::convert(pimpl->outline.color);
+        return {  rgb.R,  rgb.G,  rgb.B  };
+    }
+
+    void Panel::setOutlineColor(const Color& value)
+    {
+        pimpl->outline.color = uikit::color_utils::convert(
+            uikit::color_utils::iRGB{ value.r, value.g, value.b });
+    }
+
+    float Panel::outlineOpacity() const
+    {
+        return pimpl->outline.opacity;
+    }
+
+    void Panel::setOutlineOpacity(float value)
+    {
+        pimpl->outline.opacity = value;
     }
 
     Image* Panel::image() const

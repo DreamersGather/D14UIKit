@@ -311,6 +311,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\LabelArea.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ListView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
@@ -512,6 +518,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\LabelArea.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ListView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -969,6 +983,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\HorzSlider.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\Label.h" />
+    <ClInclude Include="Exp\Inc\LabelArea.h" />
     <ClInclude Include="Exp\Inc\ListView.h" />
     <ClInclude Include="Exp\Inc\ListViewItem.h" />
     <ClInclude Include="Exp\Inc\MainWindow.h" />
@@ -988,6 +1003,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
     <ClInclude Include="Exp\Inc\Window.h" />
     <ClInclude Include="Exp\Label.h" />
+    <ClInclude Include="Exp\LabelArea.h" />
     <ClInclude Include="Exp\ListView.h" />
     <ClInclude Include="Exp\ListViewItem.h" />
     <ClInclude Include="Exp\MainWindow.h" />
@@ -1076,6 +1092,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Label.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\LabelArea.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>

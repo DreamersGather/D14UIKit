@@ -47,6 +47,15 @@ namespace d14uikit
         float opacity() const;
         void setOpacity(float value);
 
+        int outlineWidth() const;
+        void setOutlineWidth(int value);
+
+        Color outlineColor() const;
+        void setOutlineColor(const Color& value);
+
+        float outlineOpacity() const;
+        void setOutlineOpacity(float value);
+
         Image* image() const;
         void setImage(Image* imgae);
 

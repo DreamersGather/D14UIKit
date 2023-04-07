@@ -43,16 +43,7 @@ namespace d14uikit
             i2.def(py::init());
 
             i2.def_readwrite("fixedSize", &GeoInfo::fixedSize);
-            // Axis
-            {
-                using Axis = GeoInfo::Axis;
-                py::class_<Axis> i3(i2, "Axis");
 
-                i3.def(py::init());
-
-                i3.def_readwrite("offset", &Axis::offset);
-                i3.def_readwrite("count", &Axis::count);
-            }
             i2.def_readwrite("x", &GeoInfo::x);
             i2.def_readwrite("y", &GeoInfo::y);
 

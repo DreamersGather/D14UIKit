@@ -26,11 +26,7 @@ namespace d14uikit
         {
             bool fixedSize = false;
 
-            struct Axis
-            {
-                int offset = {}, count = {};
-            }
-            x = {}, y = {};
+            Range x = {}, y = {};
 
             Rect spacing = { 0, 0, 0, 0 };
         };

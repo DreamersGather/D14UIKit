@@ -5,6 +5,7 @@
 #include "Inc/Panel.h"
 
 #include "UIKit/SolidStyle.h"
+#include "UIKit/StrokeStyle.h"
 
 namespace d14engine::uikit { struct Panel; }
 
@@ -17,6 +18,7 @@ namespace d14uikit
         Image* image = nullptr;
 
         d14engine::uikit::SolidStyle bkgn = { .opacity = 0.0f };
+        d14engine::uikit::StrokeStyle outline = { .opacity = 0.0f };
 
         Panel* parent = nullptr;
     };
