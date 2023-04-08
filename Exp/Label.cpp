@@ -99,7 +99,7 @@ namespace d14uikit
             case DWRITE_TEXT_ALIGNMENT_LEADING: dst = uikit::Label::Left; break;
             case DWRITE_TEXT_ALIGNMENT_CENTER: dst = uikit::Label::HCenter; break;
             case DWRITE_TEXT_ALIGNMENT_TRAILING: dst = uikit::Label::Right; break;
-            case DWRITE_TEXT_ALIGNMENT_JUSTIFIED: dst = uikit::Label::HNone;
+            case DWRITE_TEXT_ALIGNMENT_JUSTIFIED: dst = uikit::Label::HNone; break;
             default: dst = uikit::Label::HNone; break;
             }
         }

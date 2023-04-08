@@ -11,7 +11,5 @@ namespace d14uikit
     struct CheckBox::Impl
     {
         std::shared_ptr<d14engine::uikit::CheckBox> uiobj = {};
-
-        State state = Unchecked;
     };
 }

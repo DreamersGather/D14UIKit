@@ -38,14 +38,7 @@ namespace d14uikit
         (uikit::CheckBox::StatefulObject* obj,
          uikit::CheckBox::StatefulObject::Event& e)
         {
-            State state = {};
-            switch (e.flag)
-            {
-            case uikit::CheckBox::UNCHECKED: state = Unchecked; break;
-            case uikit::CheckBox::INTERMEDIATE: state = Intermediate; break;
-            case uikit::CheckBox::CHECKED: state = Checked; break;
-            default: break;
-            }
+            auto state = (State)e.flag;
             onStateChange(state);
             if (pcallback->onStateChange)
             {
@@ -56,20 +49,12 @@ namespace d14uikit
 
     CheckBox::State CheckBox::state() const
     {
-        return pimpl->state;
+        return (State)pimpl->uiobj->currState().flag;
     }
 
     void CheckBox::setState(State state)
     {
-        pimpl->state = state;
-        uikit::CheckBoxState::ActiveFlag flag = {};
-        switch (state)
-        {
-        case Unchecked: flag = uikit::CheckBox::UNCHECKED; break;
-        case Intermediate: flag = uikit::CheckBox::INTERMEDIATE; break;
-        case Checked: flag = uikit::CheckBox::CHECKED; break;
-        default: break;
-        }
+        auto flag = (uikit::CheckBoxState::ActiveFlag)state;
         pimpl->uiobj->setChecked(flag);
     }
 

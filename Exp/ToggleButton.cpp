@@ -47,13 +47,7 @@ namespace d14uikit
         (uikit::ToggleButton::StatefulObject* obj,
          uikit::ToggleButton::StatefulObject::Event& e)
         {
-            State state = {};
-            switch (e.flag)
-            {
-            case uikit::ToggleButton::ACTIVATED: state = Activated; break;
-            case uikit::ToggleButton::DEACTIVATED: state = Deactivated; break;
-            default: break;
-            }
+            auto state = (State)e.flag;
             onStateChange(state);
             if (pcallback->onStateChange)
             {
@@ -64,19 +58,12 @@ namespace d14uikit
 
     ToggleButton::State ToggleButton::state() const
     {
-        return pimpl->state;
+        return (State)pimpl->uiobj->currState().flag;
     }
 
     void ToggleButton::setState(State state)
     {
-        pimpl->state = state;
-        uikit::ToggleButtonState::ActiveFlag flag = {};
-        switch (state)
-        {
-        case Activated: flag = uikit::ToggleButton::ACTIVATED; break;
-        case Deactivated: flag = uikit::ToggleButton::DEACTIVATED; break;
-        default: break;
-        }
+        auto flag = (uikit::ToggleButtonState::ActiveFlag)state;
         pimpl->uiobj->setActivated(flag);
     }
 
