@@ -268,7 +268,7 @@ namespace d14uikit
 
     void Application::setThemeMode(const std::wstring& name)
     {
-        if (name != L"Light" || name != L"Dark") return;
+        if (name != L"Light" && name != L"Dark") return;
 
         if (useSystemTheme()) setUseSystemTheme(false);
 

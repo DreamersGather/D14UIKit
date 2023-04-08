@@ -30,6 +30,7 @@
 #include "MainWindow.h"
 #include "MenuItem.h"
 #include "MenuSeparator.h"
+#include "OnOffSwitch.h"
 #include "OutlinedButton.h"
 #include "Panel.h"
 #include "PopupMenu.h"
@@ -77,6 +78,7 @@ namespace d14uikit
                             Py_InitToggleButton(m);
                         Py_InitOutlinedButton(m);
                 Py_InitCheckBox(m);
+                Py_InitOnOffSwitch(m);
             Py_InitDraggablePanel(m);
             Py_InitHorzSlider(m);
             Py_InitLabel(m);

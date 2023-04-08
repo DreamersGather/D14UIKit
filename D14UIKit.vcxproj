@@ -347,6 +347,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\OnOffSwitch.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\OutlinedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
@@ -572,6 +578,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\OnOffSwitch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\OutlinedButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -1003,6 +1017,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\Inc\MainWindow.h" />
     <ClInclude Include="Exp\Inc\MenuItem.h" />
     <ClInclude Include="Exp\Inc\MenuSeparator.h" />
+    <ClInclude Include="Exp\Inc\OnOffSwitch.h" />
     <ClInclude Include="Exp\Inc\OutlinedButton.h" />
     <ClInclude Include="Exp\Inc\Panel.h" />
     <ClInclude Include="Exp\Inc\PopupMenu.h" />
@@ -1024,6 +1039,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <ClInclude Include="Exp\MainWindow.h" />
     <ClInclude Include="Exp\MenuItem.h" />
     <ClInclude Include="Exp\MenuSeparator.h" />
+    <ClInclude Include="Exp\OnOffSwitch.h" />
     <ClInclude Include="Exp\OutlinedButton.h" />
     <ClInclude Include="Exp\Panel.h" />
     <ClInclude Include="Exp\PopupMenu.h" />
@@ -1132,6 +1148,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\MenuSeparator.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\OnOffSwitch.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
