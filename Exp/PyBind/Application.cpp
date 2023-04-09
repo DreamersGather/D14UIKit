@@ -124,8 +124,8 @@ namespace d14uikit
             &Application::setClearType);
 
         i.def_property(
-            "drawTextNatrualSymmetric",
-            &Application::drawTextNatrualSymmetric,
-            &Application::setDrawTextNatrualSymmetric);
+            "textVertSmooth",
+            &Application::textVertSmooth,
+            &Application::setTextVertSmooth);
     }
 }
