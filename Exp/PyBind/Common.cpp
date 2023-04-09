@@ -38,6 +38,8 @@
 #include "RawTextEditor.h"
 #include "ResizablePanel.h"
 #include "ScrollView.h"
+#include "TabCaption.h"
+#include "TabGroup.h"
 #include "TextBox.h"
 #include "TextEditor.h"
 #include "ToggleButton.h"
@@ -98,8 +100,10 @@ namespace d14uikit
                     Py_InitListView(m);
                     Py_InitPopupMenu(m);
                     Py_InitTreeView(m);
+                Py_InitTabGroup(m);
                 Py_InitWindow(m);
                     Py_InitMainWindow(m);
+            Py_InitTabCaption(m);
             Py_InitVertSlider(m);
             Py_InitViewItem(m);
                 Py_InitListViewItem(m);

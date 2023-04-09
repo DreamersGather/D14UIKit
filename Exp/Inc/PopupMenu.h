@@ -9,6 +9,7 @@ namespace d14uikit
     class DllExport PopupMenu : public ScrollView
     {
         friend class ComboBox;
+        friend class TabGroup;
 
         _D14_UIKIT_PIMPL(PopupMenu)
 

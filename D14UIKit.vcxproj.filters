@@ -544,6 +544,12 @@
     <ClCompile Include="Exp\PyBind\TextEditor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\TabCaption.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\TabGroup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -1336,6 +1342,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TextEditor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\TabCaption.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\TabGroup.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

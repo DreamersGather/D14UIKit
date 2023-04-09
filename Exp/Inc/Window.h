@@ -17,6 +17,12 @@ namespace d14uikit
         int decoBarHeight() const;
         void setDecoBarHeight(int value);
 
+        Image* icon() const;
+        void setIcon(Image* icon);
+
+        Size iconSize() const;
+        void setIconSize(const std::optional<Size>& value);
+
         const std::wstring& title() const;
         void setTitle(const std::wstring& title);
 

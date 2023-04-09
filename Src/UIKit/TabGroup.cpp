@@ -350,6 +350,55 @@ do { \
         else return ButtonState::Idle;
     }
 
+    const SharedPtr<PopupMenu>& TabGroup::previewPanel() const
+    {
+        return m_previewPanel;
+    }
+
+    void TabGroup::updateCandidateTabInfo()
+    {
+        TabIndex orgIndex = { &m_tabs, 0 };
+        for (; orgIndex < m_candidateTabCount && orgIndex.valid(); ++orgIndex)
+        {
+            orgIndex->caption->destroy();
+            orgIndex->m_previewItem->setContent(orgIndex->caption);
+        }
+        m_candidateTabCount = m_tabs.size();
+
+        float cardLength = 0.0f;
+        float maxCardLegnth = width() - getAppearance().tabBar.geometry.rightPadding;
+
+        for (TabIndex tabIndex = { &m_tabs, 0 }; tabIndex.valid(); ++tabIndex)
+        {
+            auto state = getCardState(tabIndex);
+            auto& setting = getAppearance().tabBar.card.main[(size_t)state];
+
+            float temporaryLength = cardLength + setting.geometry.size.width;
+            if (temporaryLength > maxCardLegnth)
+            {
+                m_candidateTabCount = tabIndex.index;
+                break;
+            }
+            tabIndex->m_cardAbsoluteRectCache =
+            {
+                m_absoluteRect.left + cardLength,
+                m_absoluteRect.top - setting.geometry.size.height,
+                m_absoluteRect.left + temporaryLength,
+                m_absoluteRect.top + ((state == CardState::Active) ? 0.0f : setting.geometry.roundRadius)
+            };
+            cardLength = temporaryLength;
+
+            tabIndex->caption->destroy();
+            addUIObject(tabIndex->caption);
+
+            // The tab-caption may be disabled when the preview-panel
+            // calls updateItemIndexRangeActivity() to optimize performance.
+            tabIndex->caption->setEnabled(true);
+
+            tabIndex->caption->transform(absoluteToSelfCoord(cardCaptionAbsoluteRect(tabIndex)));
+        }
+    }
+
     void TabGroup::updatePreviewPanelItems()
     {
         D2D1_POINT_2F orgViewportOffset = m_previewPanel->viewportOffset();
@@ -405,55 +454,6 @@ do { \
             math_utils::increaseX(prvwSrc.offset, -m_previewPanel->width())));
 
         m_previewPanel->setViewportOffset(orgViewportOffset);
-    }
-
-    const SharedPtr<PopupMenu>& TabGroup::previewPanel() const
-    {
-        return m_previewPanel;
-    }
-
-    void TabGroup::updateCandidateTabInfo()
-    {
-        TabIndex orgIndex = { &m_tabs, 0 };
-        for (; orgIndex < m_candidateTabCount && orgIndex.valid(); ++orgIndex)
-        {
-            orgIndex->caption->destroy();
-            orgIndex->m_previewItem->setContent(orgIndex->caption);
-        }
-        m_candidateTabCount = m_tabs.size();
-
-        float cardLength = 0.0f;
-        float maxCardLegnth = width() - getAppearance().tabBar.geometry.rightPadding;
-
-        for (TabIndex tabIndex = { &m_tabs, 0 }; tabIndex.valid(); ++tabIndex)
-        {
-            auto state = getCardState(tabIndex);
-            auto& setting = getAppearance().tabBar.card.main[(size_t)state];
-
-            float temporaryLength = cardLength + setting.geometry.size.width;
-            if (temporaryLength > maxCardLegnth)
-            {
-                m_candidateTabCount = tabIndex.index;
-                break;
-            }
-            tabIndex->m_cardAbsoluteRectCache =
-            {
-                m_absoluteRect.left + cardLength,
-                m_absoluteRect.top - setting.geometry.size.height,
-                m_absoluteRect.left + temporaryLength,
-                m_absoluteRect.top + ((state == CardState::Active) ? 0.0f : setting.geometry.roundRadius)
-            };
-            cardLength = temporaryLength;
-
-            tabIndex->caption->destroy();
-            addUIObject(tabIndex->caption);
-
-            // The tab-caption may be disabled when the preview-panel
-            // calls updateItemIndexRangeActivity() to optimize performance.
-            tabIndex->caption->setEnabled(true);
-
-            tabIndex->caption->transform(absoluteToSelfCoord(cardCaptionAbsoluteRect(tabIndex)));
-        }
     }
 
     D2D1_RECT_F TabGroup::cardBarAbsoluteRect() const
