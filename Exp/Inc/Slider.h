@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "BasicType.h"
+#include "Common.h"
 
 namespace d14uikit { class Label; }
 

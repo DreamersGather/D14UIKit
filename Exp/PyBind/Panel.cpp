@@ -120,6 +120,7 @@ namespace d14uikit
 #define DEF_PROPERTY(Name) \
 _D14_CALLBACK_PROPERTY(Panel, Name)
 
+        DEF_PROPERTY(onUpdate);
         DEF_PROPERTY(onSize);
         DEF_PROPERTY(onMove);
         DEF_PROPERTY(onChangeTheme);
@@ -134,6 +135,10 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
         DEF_PROPERTY(onMouseButton);
         
 #undef DEF_PROPERTY
+
+        i.def(
+            "onUpdate",
+            &ExPanel::onUpdate);
 
         i.def(
             "onSize",

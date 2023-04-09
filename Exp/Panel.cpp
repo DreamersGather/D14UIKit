@@ -2,6 +2,7 @@
 
 #include "Panel.h"
 
+#include "Common.h"
 #include "Event.h"
 #include "Image.h"
 
@@ -33,6 +34,15 @@ namespace d14uikit
 
     void Panel::initialize()
     {
+        pimpl->uiobj->f_onRendererUpdateObject2D = [this]
+        (uikit::Panel* p, Renderer* rndr)
+        {
+            onUpdate();
+            if (pcallback->onUpdate)
+            {
+                pcallback->onUpdate(this);
+            }
+        };
         pimpl->uiobj->f_onRendererDrawD2d1ObjectBefore = [this]
         (uikit::Panel* p, Renderer* rndr)
         {
@@ -204,82 +214,72 @@ namespace d14uikit
 
     Size Panel::size() const
     {
-        auto sz = pimpl->uiobj->size();
-        return
-        {
-            math_utils::round(sz.width),
-            math_utils::round(sz.height)
-        };
+        return convert(pimpl->uiobj->size());
     }
 
     void Panel::setSize(const Size& value)
     {
-        pimpl->uiobj->resize((float)value.width, (float)value.height);
+        pimpl->uiobj->resize(convert(value));
     }
 
     int Panel::width() const
     {
-        return math_utils::round(pimpl->uiobj->width());
+        return size().width;
     }
 
     void Panel::setWidth(int value)
     {
-        pimpl->uiobj->resize((float)value, pimpl->uiobj->height());
+        setSize({ value, height() });
     }
 
     int Panel::height() const
     {
-        return math_utils::round(pimpl->uiobj->height());
+        return size().height;
     }
 
     void Panel::setHeight(int value)
     {
-        pimpl->uiobj->resize(pimpl->uiobj->width(), (float)value);
+        setSize({ width(), value });
     }
 
     Point Panel::position() const
     {
-        auto pos = pimpl->uiobj->position();
-        return { math_utils::round(pos.x), math_utils::round(pos.y) };
+        return convert(pimpl->uiobj->position());
     }
 
     void Panel::setPosition(const Point& value)
     {
-        pimpl->uiobj->move((float)value.x, (float)value.y);
+        pimpl->uiobj->move(convert(value));
     }
 
     int Panel::x() const
     {
-        return math_utils::round(pimpl->uiobj->position().x);
+        return position().x;
     }
 
     void Panel::setX(int value)
     {
-        auto pos = pimpl->uiobj->position();
-        pimpl->uiobj->move((float)value, pos.y);
+        setPosition({ value, y() });
     }
 
     int Panel::y() const
     {
-        return math_utils::round(pimpl->uiobj->position().y);
+        return position().y;
     }
 
     void Panel::setY(int value)
     {
-        auto pos = pimpl->uiobj->position();
-        pimpl->uiobj->move(pos.x, (float)value);
+        setPosition({ x(), value });
     }
 
     Color Panel::color() const
     {
-        auto rgb = uikit::color_utils::convert(pimpl->bkgn.color);
-        return {  rgb.R,  rgb.G,  rgb.B  };
+        return convert(pimpl->bkgn.color);
     }
 
     void Panel::setColor(const Color& value)
     {
-        pimpl->bkgn.color = uikit::color_utils::convert(
-            uikit::color_utils::iRGB{ value.r, value.g, value.b });
+        pimpl->bkgn.color = convert(value);
     }
 
     float Panel::opacity() const
@@ -304,14 +304,12 @@ namespace d14uikit
 
     Color Panel::outlineColor() const
     {
-        auto rgb = uikit::color_utils::convert(pimpl->outline.color);
-        return {  rgb.R,  rgb.G,  rgb.B  };
+        return convert(pimpl->outline.color);
     }
 
     void Panel::setOutlineColor(const Color& value)
     {
-        pimpl->outline.color = uikit::color_utils::convert(
-            uikit::color_utils::iRGB{ value.r, value.g, value.b });
+        pimpl->outline.color = convert(value);
     }
 
     float Panel::outlineOpacity() const
@@ -411,6 +409,8 @@ namespace d14uikit
     }
 
     Panel::Callback& Panel::callback() const { return *pcallback; }
+
+    void Panel::onUpdate() { }
 
     void Panel::onSize(SizeEvent* event) { }
 

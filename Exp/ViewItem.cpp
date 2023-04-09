@@ -2,6 +2,7 @@
 
 #include "ViewItem.h"
 
+#include "Common.h"
 #include "Image.h"
 #include "Panel.h"
 #include "TextFormat.h"
@@ -67,11 +68,7 @@ namespace d14uikit
         {
             iconSize = icon.bitmap->GetSize();
         }
-        return
-        {
-            math_utils::round(iconSize.width),
-            math_utils::round(iconSize.height)
-        };
+        return convert(iconSize);
     }
 
     void ViewItem::setIconSize(const std::optional<Size>& value)
@@ -80,11 +77,7 @@ namespace d14uikit
 
         if (value.has_value())
         {
-            content->icon.customSize =
-            {
-                (float)value.value().width,
-                (float)value.value().height
-            };
+            content->icon.customSize = convert(value.value());
         }
         else content->icon.customSize.reset();
         

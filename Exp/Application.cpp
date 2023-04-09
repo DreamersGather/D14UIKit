@@ -2,6 +2,7 @@
 
 #include "Application.h"
 
+#include "Common.h"
 #include "Cursor.h"
 #include "Panel.h"
 
@@ -290,18 +291,14 @@ namespace d14uikit
         }
         else style = pimpl->uiobj->systemThemeStyle();
 
-        auto rgb =  uikit::color_utils::convert(style.color);
-        return { rgb.R, rgb.G, rgb.B };
+        return convert(style.color);
     }
 
     void Application::setThemeColor(const Color& value)
     {
         if (useSystemTheme()) setUseSystemTheme(false);
 
-        auto& style = pimpl->uiobj->customThemeStyle.value();
-
-        style.color = uikit::color_utils::convert(
-            uikit::color_utils::iRGB{ value.r, value.g, value.b });
+        pimpl->uiobj->customThemeStyle.value().color = convert(value);
 
         pimpl->uiobj->changeTheme(pimpl->uiobj->currThemeName());
     }

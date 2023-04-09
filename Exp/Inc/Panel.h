@@ -84,6 +84,8 @@ namespace d14uikit
 
         struct Callback
         {
+            std::function<void(Panel*)> onUpdate = {};
+
             std::function<void(Panel*, SizeEvent*)> onSize = {};
 
             std::function<void(Panel*, MoveEvent*)> onMove = {};
@@ -112,6 +114,8 @@ namespace d14uikit
         
     protected:
         std::unique_ptr<Callback> pcallback = {};
+
+        virtual void onUpdate();
 
         virtual void onSize(SizeEvent* event);
 

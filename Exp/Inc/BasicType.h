@@ -7,19 +7,19 @@ namespace d14uikit
         int offset = {}, count = {};
     };
 
-    struct Point
-    {
-        int x = {}, y = {};
-    };
-
     struct Size
     {
         int width = {}, height = {};
     };
 
+    struct Point
+    {
+        int x = {}, y = {};
+    };
+
     struct Rect
     {
-        int left = {}, top = {};
+        int left = {},  top = {};
         int right = {}, bottom = {};
     };
 

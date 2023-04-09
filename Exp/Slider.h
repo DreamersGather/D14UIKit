@@ -2,10 +2,9 @@
 
 #include "Common/Precompile.h"
 
+#include "Common.h"
 #include "Label.h"
 #include "Panel.h"
-
-#include "Inc/BasicType.h"
 
 #include "Common/MathUtils/Basic.h"
 #include "UIKit/Label.h"
@@ -180,42 +179,26 @@ void Type_Name::setVlabelRoundRaidus(int value)                                 
 Size Type_Name::vlabelRectSize() const                                                  \
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
-    auto& rectSize = appear.mainRect.geometry.size;                                     \
-    return                                                                              \
-    {                                                                                   \
-        math_utils::round(rectSize.width),                                              \
-        math_utils::round(rectSize.height)                                              \
-    };                                                                                  \
+    return convert(appear.mainRect.geometry.size);                                      \
 }                                                                                       \
                                                                                         \
 void Type_Name::setVlabelRectSize(const Size& value)                                    \
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
-    appear.mainRect.geometry.size =                                                     \
-    {                                                                                   \
-        (float)value.width, (float)value.height                                         \
-    };                                                                                  \
+    appear.mainRect.geometry.size = convert(value);                                     \
     pimpl->uiobj->loadValueLabelShadowBitmap();                                         \
 }                                                                                       \
                                                                                         \
 Size Type_Name::vlabelTipSize() const                                                   \
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
-    auto& tipSize = appear.sideTriangle.size;                                           \
-    return                                                                              \
-    {                                                                                   \
-        math_utils::round(tipSize.width),                                               \
-        math_utils::round(tipSize.height)                                               \
-    };                                                                                  \
+    return convert(appear.sideTriangle.size);                                           \
 }                                                                                       \
                                                                                         \
 void Type_Name::setVlabelTipSize(const Size& value)                                     \
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
-    appear.sideTriangle.size =                                                          \
-    {                                                                                   \
-        (float)value.width, (float)value.height                                         \
-    };                                                                                  \
+    appear.sideTriangle.size = convert(value);                                          \
     pimpl->uiobj->loadValueLabelShadowBitmap();                                         \
 }                                                                                       \
                                                                                         \
