@@ -12,6 +12,8 @@ namespace d14uikit
     {
         std::shared_ptr<d14engine::uikit::Window> uiobj = {};
 
+        Image* icon = nullptr;
+
         Panel* content = nullptr;
     };
 }

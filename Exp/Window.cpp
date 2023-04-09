@@ -2,7 +2,9 @@
 
 #include "Window.h"
 
+#include "Common.h"
 #include "DraggablePanel.h"
+#include "Image.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
 
@@ -100,6 +102,53 @@ namespace d14uikit
     void Window::setDecoBarHeight(int value)
     {
         pimpl->uiobj->setDecorativeBarHeight((float)value);
+    }
+
+    Image* Window::icon() const
+    {
+        return pimpl->icon;
+    }
+
+    void Window::setIcon(Image* icon)
+    {
+        pimpl->icon = icon;
+        auto& targetIcon = pimpl->uiobj->caption()->icon;
+        if (icon != nullptr && !icon->cpuRead())
+        {
+            targetIcon.bitmap = icon->getImpl()->bitmap;
+        }
+        else targetIcon.bitmap.Reset();
+
+        pimpl->uiobj->caption()->updateLayout();
+    }
+
+    Size Window::iconSize() const
+    {
+        auto& icon = pimpl->uiobj->caption()->icon;
+
+        D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
+        if (icon.customSize.has_value())
+        {
+            iconSize = icon.customSize.value();
+        }
+        else if (icon.bitmap != nullptr)
+        {
+            iconSize = icon.bitmap->GetSize();
+        }
+        return convert(iconSize);
+    }
+
+    void Window::setIconSize(const std::optional<Size>& value)
+    {
+        auto& icon = pimpl->uiobj->caption()->icon;
+
+        if (value.has_value())
+        {
+            icon.customSize = convert(value.value());
+        }
+        else icon.customSize.reset();
+
+        pimpl->uiobj->caption()->updateLayout();
     }
 
     const std::wstring& Window::title() const

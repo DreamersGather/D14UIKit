@@ -63,8 +63,8 @@ Panel::callback().onMove = [cap](Panel* p, MoveEvent* e)
 #define D14_onRestore(w, cap) \
 Window::callback().onRestore = [cap](Window* w)
 
-#define D14_onSelectedChange(cb, text, cap) \
-ComboBox::callback().onSelectedChange = [cap](ComboBox* cb, const std::wstring& text)
+#define D14_onSelectedChange(type, obj, text, cap) \
+type::callback().onSelectedChange = [cap](type* obj, const std::wstring& text)
 
 #define D14_onSize(p, e, cap) \
 Panel::callback().onSize = [cap](Panel* p, SizeEvent* e)

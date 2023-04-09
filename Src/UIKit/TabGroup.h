@@ -114,12 +114,11 @@ namespace d14engine::uikit
     public:
         const SharedPtr<PopupMenu>& previewPanel() const;
 
+        // Call these when the card-geometry-environment changes.
+        void updateCandidateTabInfo();
         void updatePreviewPanelItems();
 
     protected:
-        // Call this when the card-geometry-environment changes.
-        void updateCandidateTabInfo();
-
         D2D1_RECT_F cardBarAbsoluteRect() const;
 
         // Returns the cached value directly.

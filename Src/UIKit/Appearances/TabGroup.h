@@ -31,7 +31,8 @@ namespace d14engine::uikit::appearance
                 }
                 geometry = {};
 
-                // Call updateCandidateTabInfo after the card-geometry-environment changes.
+                // Call updateCandidateTabInfo/updatePreviewPanelItems
+                // after the card-geometry-environment changes.
                 struct Card
                 {
                     struct Main
