@@ -351,12 +351,12 @@ namespace d14uikit
         pimpl->clearType = value;
     }
 
-    bool Application::drawTextNatrualSymmetric() const
+    bool Application::textVertSmooth() const
     {
         return pimpl->drawTextNatrualSymmetric;
     }
 
-    void Application::setDrawTextNatrualSymmetric(bool value)
+    void Application::setTextVertSmooth(bool value)
     {
         if (pimpl->drawTextNatrualSymmetric != value)
         {

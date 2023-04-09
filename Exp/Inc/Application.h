@@ -76,7 +76,7 @@ namespace d14uikit
         bool clearType() const;
         void setClearType(bool value);
 
-        bool drawTextNatrualSymmetric() const;
-        void setDrawTextNatrualSymmetric(bool value);
+        bool textVertSmooth() const;
+        void setTextVertSmooth(bool value);
     };
 }
