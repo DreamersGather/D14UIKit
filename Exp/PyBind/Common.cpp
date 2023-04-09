@@ -34,8 +34,12 @@
 #include "OutlinedButton.h"
 #include "Panel.h"
 #include "PopupMenu.h"
+#include "RawTextBox.h"
+#include "RawTextEditor.h"
 #include "ResizablePanel.h"
 #include "ScrollView.h"
+#include "TextBox.h"
+#include "TextEditor.h"
 #include "ToggleButton.h"
 #include "TreeView.h"
 #include "TreeViewItem.h"
@@ -83,6 +87,10 @@ namespace d14uikit
             Py_InitHorzSlider(m);
             Py_InitLabel(m);
                 Py_InitLabelArea(m);
+                    Py_InitRawTextBox(m);
+                    Py_InitRawTextEditor(m);
+                    Py_InitTextBox(m);
+                    Py_InitTextEditor(m);
             Py_InitResizablePanel(m);
                 Py_InitConstraintLayout(m);
                 Py_InitGridLayout(m);

@@ -3,6 +3,7 @@
 #include "Button.h"
 
 #include "ClickablePanel.h"
+#include "Common.h"
 #include "Image.h"
 #include "Panel.h"
 #include "TextFormat.h"
@@ -68,24 +69,18 @@ namespace d14uikit
         {
             iconSize = icon.bitmap->GetSize();
         }
-        return
-        {
-            math_utils::round(iconSize.width),
-            math_utils::round(iconSize.height)
-        };
+        return convert(iconSize);
     }
 
     void Button::setIconSize(const std::optional<Size>& value)
     {
+        auto& icon = pimpl->uiobj->content()->icon;
+
         if (value.has_value())
         {
-            pimpl->uiobj->content()->icon.customSize =
-            {
-                (float)value.value().width,
-                (float)value.value().height
-            };
+            icon.customSize = convert(value.value());
         }
-        else pimpl->uiobj->content()->icon.customSize.reset();
+        else icon.customSize.reset();
 
         pimpl->uiobj->content()->updateLayout();
     }

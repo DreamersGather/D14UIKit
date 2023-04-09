@@ -8,6 +8,10 @@ namespace d14uikit
     class DllExport Label : public Panel
     {
         friend class HorzSlider;
+        friend class RawTextBox;
+        friend class RawTextEditor;
+        friend class TextBox;
+        friend class TextEditor;
         friend class VertSlider;
 
         _D14_UIKIT_PIMPL(Label)

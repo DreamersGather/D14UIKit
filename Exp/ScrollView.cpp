@@ -2,6 +2,7 @@
 
 #include "ScrollView.h"
 
+#include "Common.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
 
@@ -39,11 +40,7 @@ namespace d14uikit
         pimpl->uiobj->f_onStartThumbScrolling = [this]
         (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {
-            Point offset2 =
-            {
-                math_utils::round(offset.x),
-                math_utils::round(offset.y)
-            };
+            auto offset2 = convert(offset);
             onStartThumbScrolling(offset2);
             if (pcallback->onStartThumbScrolling)
             {
@@ -53,11 +50,7 @@ namespace d14uikit
         pimpl->uiobj->f_onEndThumbScrolling = [this]
         (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {
-            Point offset2 =
-            {
-                math_utils::round(offset.x),
-                math_utils::round(offset.y)
-            };
+            auto offset2 = convert(offset);
             onEndThumbScrolling(offset2);
             if (pcallback->onEndThumbScrolling)
             {
@@ -67,11 +60,7 @@ namespace d14uikit
         pimpl->uiobj->f_onViewportOffsetChange = [this]
         (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {
-            Point offset2 =
-            {
-                math_utils::round(offset.x),
-                math_utils::round(offset.y)
-            };
+            auto offset2 = convert(offset);
             onViewportOffsetChange(offset2);
             if (pcallback->onViewportOffsetChange)
             {
@@ -100,10 +89,7 @@ namespace d14uikit
         pimpl->uiobj->deltaPixelsPerScroll.vert = (float)value;
     }
 
-    Panel* ScrollView::content() const
-    {
-        return pimpl->content;
-    }
+    Panel* ScrollView::content() const { return pimpl->content; }
 
     void ScrollView::setContent(Panel* uiobj)
     {
@@ -117,17 +103,12 @@ namespace d14uikit
 
     Point ScrollView::viewportOffset() const
     {
-        auto& offset = pimpl->uiobj->viewportOffset();
-        return
-        {
-            math_utils::round(offset.x),
-            math_utils::round(offset.y)
-        };
+        return convert(pimpl->uiobj->viewportOffset());
     }
 
     void ScrollView::setViewportOffset(const Point& offset)
     {
-        pimpl->uiobj->setViewportOffset({ (float)offset.x, (float)offset.y });
+        pimpl->uiobj->setViewportOffset(convert(offset));
     }
 
     ScrollView::Callback& ScrollView::callback() const { return *pcallback; }

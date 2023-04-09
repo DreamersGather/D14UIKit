@@ -13,6 +13,7 @@ namespace d14uikit
     class ExPanel : public Panel
     {
     public:
+        using Panel::onUpdate;
         using Panel::onSize;
         using Panel::onMove;
         using Panel::onChangeTheme;
@@ -33,6 +34,10 @@ namespace d14uikit
     public:
         using PanelBase::PanelBase;
 
+        void onUpdate() override
+        {
+            PYBIND11_OVERRIDE(void, PanelBase, onUpdate, );
+        }
         void onSize(SizeEvent* e) override
         {
             PYBIND11_OVERRIDE(void, PanelBase, onSize, e);

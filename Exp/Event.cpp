@@ -2,6 +2,8 @@
 
 #include "Event.h"
 
+#include "Common.h"
+
 #include "Common/MathUtils/Basic.h"
 
 using namespace d14engine;
@@ -74,8 +76,7 @@ namespace d14uikit
 
     Size SizeEvent::size() const
     {
-        auto& sz = pimpl->uiobj->size;
-        return { math_utils::round(sz.width), math_utils::round(sz.height) };
+        return convert(pimpl->uiobj->size);
     }
 
     MoveEvent::MoveEvent() : MoveEvent(Passkey{})
@@ -97,8 +98,7 @@ namespace d14uikit
 
     Point MoveEvent::position() const
     {
-        auto& pt = pimpl->uiobj->position;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+        return convert(pimpl->uiobj->position);
     }
 
     MouseEvent::MouseEvent() : MouseEvent(Passkey{})
@@ -120,8 +120,7 @@ namespace d14uikit
 
     Point MouseEvent::cursorPoint() const
     {
-        auto& pt = pimpl->uiobj->cursorPoint;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+        return convert(pimpl->uiobj->cursorPoint);
     }
 
     MouseMoveEvent::MouseMoveEvent() : MouseMoveEvent(Passkey{})
@@ -145,8 +144,7 @@ namespace d14uikit
 
     Point MouseMoveEvent::lastCursorPoint() const
     {
-        auto& pt = pimpl->uiobj->lastCursorPoint;
-        return { math_utils::round(pt.x), math_utils::round(pt.y) };
+        return convert(pimpl->uiobj->lastCursorPoint);
     }
 
     MouseButtonEvent::MouseButtonEvent() : MouseButtonEvent(Passkey{})
