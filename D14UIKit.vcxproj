@@ -104,11 +104,11 @@
     </Link>
     <Manifest />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy generated library to Test environment.</Message>
+      <Message>Copy ===&gt; Test</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">
@@ -132,10 +132,12 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     </Link>
     <Manifest />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind</Command>
+      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
+cd $(SolutionDir)Test\PyBind
+stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy generated module to Test environment.</Message>
+      <Message>Copy ===&gt; Test/PyBind</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,11 +165,14 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
+      <Command>mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
+mkdir $(SolutionDir)Ver\cpp\lib &gt;&gt;nul 2&gt;nul
+copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp\include &gt;&gt;nul
+copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy generated library to Test environment.</Message>
+      <Message>Deploy ===&gt; Ver/cpp</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">
@@ -196,10 +201,13 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test</Command>
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind</Command>
+      <Command>mkdir $(SolutionDir)Ver\pkpy &gt;&gt;nul 2&gt;nul
+copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\pkpy &gt;&gt;nul
+cd $(SolutionDir)Ver\pkpy
+stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy generated module to Test environment.</Message>
+      <Message>Deploy ===&gt; Ver/pkpy</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
