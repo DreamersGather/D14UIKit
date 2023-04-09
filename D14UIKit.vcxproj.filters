@@ -1350,6 +1350,9 @@
     <ClInclude Include="Exp\PyBind\TabGroup.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Exp\Inc\AppEntry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Bin\Shaders\Letterbox.hlsl" />

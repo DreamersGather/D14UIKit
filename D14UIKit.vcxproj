@@ -1084,6 +1084,7 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     <ClInclude Include="Exp\GridLayout.h" />
     <ClInclude Include="Exp\HorzSlider.h" />
     <ClInclude Include="Exp\Image.h" />
+    <ClInclude Include="Exp\Inc\AppEntry.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
     <ClInclude Include="Exp\Inc\BasicType.h" />
     <ClInclude Include="Exp\Inc\Button.h" />
