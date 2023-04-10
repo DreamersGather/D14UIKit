@@ -185,7 +185,9 @@ mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp\lib &gt;&gt;nul 2&gt;nul
 copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp\include &gt;&gt;nul
 copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul</Command>
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
+cd $(SolutionDir)Ver &gt;&gt;nul
+powershell -c "Compress-Archive -Force -Path cpp -DestinationPath d14uikit_cpp.zip" &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -222,7 +224,9 @@ mkdir $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul 2&gt;nul
 copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul
 copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul</Command>
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul
+cd $(SolutionDir)Ver &gt;&gt;nul
+powershell -c "Compress-Archive -Force -Path cpp_d -DestinationPath d14uikit_cpp_d.zip" &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -253,13 +257,15 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul</Command
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
-cd $(SolutionDir)Test\PyBind
+cd $(SolutionDir)Test\PyBind &gt;&gt;nul
 stubgen -m D14UIKit -o . &gt;&gt;nul
 rmdir /S /Q $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
 copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\python &gt;&gt;nul
-cd $(SolutionDir)Ver\python
-stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
+cd $(SolutionDir)Ver\python &gt;&gt;nul
+stubgen -m D14UIKit -o . &gt;&gt;nul
+cd $(SolutionDir)Ver &gt;&gt;nul
+powershell -c "Compress-Archive -Force -Path python -DestinationPath d14uikit_python.zip" &gt;&gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
