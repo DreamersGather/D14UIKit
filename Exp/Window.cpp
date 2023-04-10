@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "Panel.h"
 #include "ResizablePanel.h"
+#include "TextFormat.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -160,6 +161,9 @@ namespace d14uikit
     {
         pimpl->uiobj->caption()->label()->setText(title);
     }
+
+    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(
+        Window, Title, label, pimpl->uiobj->caption())
 
     int Window::nonContentHeight() const
     {

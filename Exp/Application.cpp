@@ -315,10 +315,12 @@ namespace d14uikit
             auto& systemStyle = pimpl->uiobj->systemThemeStyle();
             pimpl->uiobj->customThemeStyle = systemStyle;
         }
+        else pimpl->uiobj->customThemeStyle.reset();
+
         pimpl->useSystemTheme = value;
         if (pimpl->useSystemTheme)
         {
-            pimpl->uiobj->changeTheme(pimpl->uiobj->currThemeName());
+            pimpl->uiobj->f_onSystemThemeStyleChange();
         }
     }
 

@@ -3,6 +3,7 @@
 #include "Window.h"
 
 #include "Callback.h"
+#include "TextFormat.h"
 
 namespace d14uikit
 {
@@ -31,6 +32,8 @@ namespace d14uikit
             "title",
             &Window::title,
             &Window::setTitle);
+
+        _D14_UIKIT_PYBIND_TEXT_FORMAT(Window, Title)
 
         i.def_property_readonly(
             "contentHeight",

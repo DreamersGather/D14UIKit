@@ -14,6 +14,8 @@ namespace d14uikit
 
         Image* icon = nullptr;
 
+        Font font = Font(L"Default/Normal/16");
+
         Panel* content = nullptr;
     };
 }

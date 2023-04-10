@@ -94,6 +94,22 @@ namespace d14uikit
     {
         uikit::Application::g_app->dxRenderer()->beginGpuCommand();
 
+        copyInFrame(dst, source);
+
+        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+    }
+
+    void Image::copy(const Point& dst, Image* source, const Rect& src)
+    {
+        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+
+        copyInFrame(dst, source, src);
+
+        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+    }
+
+    void Image::copyInFrame(const Rect& dst, const Pixel* source)
+    {
         D2D1_RECT_U dstRect =
         {
             (UINT)dst.left,  (UINT)dst.top,
@@ -103,14 +119,10 @@ namespace d14uikit
         // The pixel format of the bitmap is hardcoded as B8G8R8A8, so the pitch
         // (byte count of each scanline) is set to "4 * dst_width" directly.
         THROW_IF_FAILED(pimpl->bitmap->CopyFromMemory(&dstRect, source, pitch));
-
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
     }
 
-    void Image::copy(const Point& dst, Image* source, const Rect& src)
-    {
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
-        
+    void Image::copyInFrame(const Point& dst, Image* source, const Rect& src)
+    {        
         D2D1_RECT_U srcRect =
         {
             (UINT)src.left,  (UINT)src.top,
@@ -123,8 +135,6 @@ namespace d14uikit
         // This doesn't work if either the source or destination bitmap is mapped.
         THROW_IF_FAILED(pimpl->bitmap->CopyFromBitmap(
             &destPoint, source->pimpl->bitmap.Get(), &srcRect));
-
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
     }
 
     Pixel* Image::map()

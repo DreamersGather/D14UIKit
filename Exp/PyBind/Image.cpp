@@ -39,16 +39,31 @@ namespace d14uikit
             "path"_a,
             "cpuRead"_a = false);
 
-        i.def("copy", [](Image& self, const Rect& dst, const std::vector<Pixel>& source)
+#define COPY_LAMBDA (Image& self, const Rect& dst, const std::vector<Pixel>& source)
+#define COPY_OVERLOAD(Name) py::overload_cast<const Point&, Image*, const Rect&>(Name)
+
+        i.def("copy", []COPY_LAMBDA
         {
             self.copy(dst, source.data());
         },
         "dst"_a, "source"_a);
 
-        i.def("copy", py::overload_cast<const Point&, Image*, const Rect&>(&Image::copy),
+        i.def("copy", COPY_OVERLOAD(&Image::copy),
         "dst"_a, "source"_a, "src"_a);
 
-        i.def("data", [](Image& self) -> std::vector<Pixel> // Returns copied pixel 2d-array.
+        i.def("copyInFrame", []COPY_LAMBDA
+        {
+            self.copy(dst, source.data());
+        },
+        "dst"_a, "source"_a);
+
+        i.def("copyInFrame", COPY_OVERLOAD(&Image::copyInFrame),
+        "dst"_a, "source"_a, "src"_a);
+
+#undef COPY_LAMBDA
+#undef COPY_OVERLOAD
+
+        i.def("data", [](Image& self) -> std::vector<Pixel>
         {
             if (self.cpuRead())
             {
