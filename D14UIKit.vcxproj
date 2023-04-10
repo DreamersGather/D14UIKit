@@ -5,6 +5,10 @@
       <Configuration>DPyBind</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Rebug|x64">
+      <Configuration>Rebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="RPyBind|x64">
       <Configuration>RPyBind</Configuration>
       <Platform>x64</Platform>
@@ -46,6 +50,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -67,6 +78,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -79,6 +93,9 @@
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">
@@ -107,9 +124,7 @@
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copy ===&gt; Test</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">
     <ClCompile>
@@ -136,9 +151,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul</Command>
 cd $(SolutionDir)Test\PyBind
 stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copy ===&gt; Test/PyBind</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -165,15 +178,51 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
+mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp\lib &gt;&gt;nul 2&gt;nul
 copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp\include &gt;&gt;nul
 copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul</Command>
     </PostBuildEvent>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Manifest />
+    <Manifest />
+    <PostBuildEvent />
     <PostBuildEvent>
-      <Message>Deploy ===&gt; Ver/cpp</Message>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
+mkdir $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul 2&gt;nul
+mkdir $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul 2&gt;nul
+copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul
+copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul</Command>
     </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">
     <ClCompile>
@@ -201,50 +250,57 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul</Command>
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>mkdir $(SolutionDir)Ver\pkpy &gt;&gt;nul 2&gt;nul
-copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\pkpy &gt;&gt;nul
-cd $(SolutionDir)Ver\pkpy
+      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
+cd $(SolutionDir)Test\PyBind
+stubgen -m D14UIKit -o . &gt;&gt;nul
+mkdir $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
+copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\python &gt;&gt;nul
+cd $(SolutionDir)Ver\python
 stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Deploy ===&gt; Ver/pkpy</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Exp\Application.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ApplicationPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Button.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\CheckBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CheckBoxPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ClickablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ClickablePanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ComboBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ComboBoxItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Common.cpp" />
@@ -252,580 +308,707 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ConstraintLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ConstraintLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ConstraintLayoutPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ConstraintLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ConstraintLayoutPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Cursor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CursorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CursorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CursorPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CursorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CursorPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\DraggablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)DraggablePanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ElevatedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ElevatedButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Event.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)EventPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)EventPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)EventPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)EventPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)EventPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\FilledButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FilledButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\FlatButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FlatButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Font.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FontPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FontPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FontPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FontPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FontPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\GridLayout.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\HorzSlider.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Image.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ImagePrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ImagePrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ImagePrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Label.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\LabelArea.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAreaPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ListView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ListViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\MainWindow.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MainWindowPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\MenuItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\MenuSeparator.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuSeparatorPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\OnOffSwitch.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OnOffSwitchPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\OutlinedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OutlinedButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Panel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)PanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PopupMenu.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PopupMenuPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Application.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ApplicationBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\BasicType.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Button.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\CheckBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CheckBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ClickablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ClickablePanelBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ComboBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ComboBoxItem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Common.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CommonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CommonBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ConstraintLayout.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ConstraintLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ConstraintLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ConstraintLayoutBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ConstraintLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ConstraintLayoutBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Cursor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CursorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CursorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CursorBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CursorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CursorBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\DraggablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)DraggablePanelBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ElevatedButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ElevatedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ElevatedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ElevatedButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ElevatedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ElevatedButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Event.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)EventBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)EventBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)EventBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)EventBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)EventBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\FilledButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FilledButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FilledButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FilledButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FilledButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FilledButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\FlatButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FlatButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FlatButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FlatButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FlatButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FlatButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Font.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FontBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FontBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FontBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FontBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FontBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\GridLayout.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)GridLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)GridLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)GridLayoutBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)GridLayoutBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)GridLayoutBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\HorzSlider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Image.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImageBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ImageBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ImageBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ImageBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ImageBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Label.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\LabelArea.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAreaBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ListView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ListViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ListViewItem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ListViewItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\MainWindow.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MainWindowBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\MenuItem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\MenuSeparator.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuSeparatorBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\OnOffSwitch.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OnOffSwitchBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\OutlinedButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OutlinedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OutlinedButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OutlinedButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OutlinedButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Panel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)PanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PanelBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\PopupMenu.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PopupMenuBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\RawTextBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\RawTextEditor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ScrollView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScrollViewBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TabCaption.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabCaptionBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabCaptionBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabCaptionBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabCaptionBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabCaptionBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TabGroup.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabGroupBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabGroupBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabGroupBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabGroupBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabGroupBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TextBox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextBoxBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextBoxBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextBoxBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TextEditor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ToggleButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ToggleButtonBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TreeView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\TreeViewItem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\VertSlider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)VertSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)VertSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)VertSliderBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)VertSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)VertSliderBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ViewItem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ViewItemBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)WindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)WindowBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)WindowBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\__Test__.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\VirtualKeyCode.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)VirtualKeyCodeBinding</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\RawTextBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextBoxPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\RawTextEditor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ScrollView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TabCaption.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabCaptionPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabCaptionPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabCaptionPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabCaptionPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabCaptionPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TabGroup.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabGroupPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabGroupPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabGroupPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabGroupPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabGroupPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TextBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextBoxPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextBoxPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextBoxPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TextEditor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ToggleButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TreeView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\TreeViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\VertSlider.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)VertSliderPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ViewItemPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)WindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)WindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)WindowPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\Common\ResourcePack.cpp" />
@@ -842,6 +1025,7 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
     </ClCompile>
     <None Include="README.md" />
@@ -855,8 +1039,10 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Common/Precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">Common/Precompile.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">Common/Precompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Src\Common\RuntimeError.cpp" />
@@ -880,144 +1066,168 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\CheckBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)CheckBoxAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\ElevatedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ElevatedButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\FilledButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FilledButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\FlatButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FlatButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\Label.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\LabelArea.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LabelAreaAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\Layout.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)LayoutAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\MenuItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuItemAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\MenuSeparator.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)MenuSeparatorAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\OnOffSwitch.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OnOffSwitchAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\OutlinedButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)OutlinedButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\PopupMenu.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)PopupMenuAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\RawTextInput.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextBoxAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\ScrollView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScrollViewAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\Slider.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)SliderAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)SliderAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)SliderAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)SliderAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)SliderAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\TabCaption.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabCaptionAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\TabGroup.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TabGroupAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\TextInput.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextBoxAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\ToggleButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ToggleButtonAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\TreeViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TreeViewItemAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\ViewItem.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ViewItemAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\Window.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)WindowAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)WindowAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)WindowAppearance</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)WindowAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)WindowAppearance</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\UIKit\ColorUtils.cpp" />
@@ -1149,203 +1359,253 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     <ClInclude Include="Exp\PyBind\Application.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\BasicType.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Button.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Callback.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\CheckBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ClickablePanel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ComboBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ComboBoxItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Common.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ConstraintLayout.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Cursor.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\DraggablePanel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ElevatedButton.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Event.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\FilledButton.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\FlatButton.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Font.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\GridLayout.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\HorzSlider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Image.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Label.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\LabelArea.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ListView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ListViewItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\MainWindow.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\MenuItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\MenuSeparator.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\OnOffSwitch.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\OutlinedButton.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Panel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\PopupMenu.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\RawTextBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\RawTextEditor.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\RawTextInput.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ResizablePanel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ScrollView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Slider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TabCaption.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TabGroup.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TextBox.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TextEditor.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TextFormat.h" />
     <ClInclude Include="Exp\PyBind\TextInput.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ToggleButton.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TreeView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\TreeViewItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\VertSlider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\ViewItem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\Window.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\__Test__.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\VirtualKeyCode.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\RawTextBox.h" />
     <ClInclude Include="Exp\RawTextEditor.h" />
