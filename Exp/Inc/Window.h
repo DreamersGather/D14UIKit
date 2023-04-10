@@ -2,6 +2,7 @@
 
 #include "DraggablePanel.h"
 #include "ResizablePanel.h"
+#include "TextFormat.h"
 
 namespace d14uikit
 {
@@ -25,6 +26,8 @@ namespace d14uikit
 
         const std::wstring& title() const;
         void setTitle(const std::wstring& title);
+
+        _D14_UIKIT_TEXT_FORMAT_DECL_CONCRETE(Title)
 
         int contentHeight() const;
         int nonContentHeight() const;

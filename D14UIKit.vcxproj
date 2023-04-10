@@ -180,6 +180,7 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
+rmdir /S /Q $(SolutionDir)Ver\cpp &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp\lib &gt;&gt;nul 2&gt;nul
 copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp\include &gt;&gt;nul
@@ -216,6 +217,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul</Command>
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
+rmdir /S /Q $(SolutionDir)Ver\cpp_d &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul 2&gt;nul
 copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul
@@ -253,6 +255,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul</Command
       <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
 cd $(SolutionDir)Test\PyBind
 stubgen -m D14UIKit -o . &gt;&gt;nul
+rmdir /S /Q $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
 mkdir $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
 copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\python &gt;&gt;nul
 cd $(SolutionDir)Ver\python

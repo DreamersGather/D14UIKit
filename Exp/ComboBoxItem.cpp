@@ -26,6 +26,7 @@ namespace d14uikit
         Panel::initialize();
         ViewItem::initialize();
         MenuItem::initialize();
+        ComboBoxItem::initialize();
     }
 
     ComboBoxItem::ComboBoxItem(Passkey)

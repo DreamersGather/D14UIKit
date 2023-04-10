@@ -29,6 +29,9 @@ namespace d14uikit
         void copy(const Rect& dst, const Pixel* source);
         void copy(const Point& dst, Image* source, const Rect& src);
 
+        void copyInFrame(const Rect& dst, const Pixel* source);
+        void copyInFrame(const Point& dst, Image* source, const Rect& src);
+
         Pixel* map(); void unmap(); // Set cpu-read before using!
     };
 }
