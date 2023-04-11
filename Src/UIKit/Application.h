@@ -127,20 +127,20 @@ namespace d14engine::uikit
     private:
         SharedPtr<renderer::Renderer::CommandLayer> m_uiCmdLayer = {};
 
-        using UIObjectSet = std::unordered_set<SharedPtr<Panel>>;
+        using UIObjectSet = ISortable<Panel>::ShrdPrioritySet;
 
         UIObjectSet m_uiObjects = {};
 
-        using UIObjectPrioritySet = ISortable<Panel>::WeakPrioritySet;
+        using UIObjectTempSet = ISortable<Panel>::WeakPrioritySet;
 
-        UIObjectPrioritySet m_hitUIObjects = {};
+        UIObjectTempSet m_hitUIObjects = {};
         
         // The pinned UI objects keep receiving UI events while not hitting.
         // 
         // Introduce the diff-pinned UI objects to avoid the hit UI objects
         // receiving the same event repeatedly (Diff-pinned = Hit - Pinned).
 
-        UIObjectPrioritySet m_pinnedUIObjects = {}, m_diffPinnedUIObjects = {};
+        UIObjectTempSet m_pinnedUIObjects = {}, m_diffPinnedUIObjects = {};
 
     public:
         constexpr static int g_uiCmdLayerPriority = 200;

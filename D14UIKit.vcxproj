@@ -121,8 +121,8 @@
     </Link>
     <Manifest />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul</Command>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -147,9 +147,9 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul</Command>
     </Link>
     <Manifest />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
-cd $(SolutionDir)Test\PyBind
-stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
+      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+cd $(SolutionDir)Test\PyBind &gt;nul
+stubgen -m D14UIKit -o . &gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -178,16 +178,8 @@ stubgen -m D14UIKit -o . &gt;&gt;nul</Command>
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
-rmdir /S /Q $(SolutionDir)Ver\cpp &gt;&gt;nul 2&gt;nul
-mkdir $(SolutionDir)Ver\cpp\include &gt;&gt;nul 2&gt;nul
-mkdir $(SolutionDir)Ver\cpp\lib &gt;&gt;nul 2&gt;nul
-copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp\include &gt;&gt;nul
-copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp\lib &gt;&gt;nul
-cd $(SolutionDir)Ver &gt;&gt;nul
-powershell -c "Compress-Archive -Force -Path cpp -DestinationPath d14uikit_cpp.zip" &gt;&gt;nul</Command>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -217,16 +209,8 @@ powershell -c "Compress-Archive -Force -Path cpp -DestinationPath d14uikit_cpp.z
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;&gt;nul
-rmdir /S /Q $(SolutionDir)Ver\cpp_d &gt;&gt;nul 2&gt;nul
-mkdir $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul 2&gt;nul
-mkdir $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul 2&gt;nul
-copy $(SolutionDir)Exp\Inc\* $(SolutionDir)Ver\cpp_d\include &gt;&gt;nul
-copy $(OutDir)$(TargetName).dll $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Ver\cpp_d\lib &gt;&gt;nul
-cd $(SolutionDir)Ver &gt;&gt;nul
-powershell -c "Compress-Archive -Force -Path cpp_d -DestinationPath d14uikit_cpp_d.zip" &gt;&gt;nul</Command>
+      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -256,16 +240,9 @@ powershell -c "Compress-Archive -Force -Path cpp_d -DestinationPath d14uikit_cpp
     <Manifest />
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;&gt;nul
-cd $(SolutionDir)Test\PyBind &gt;&gt;nul
-stubgen -m D14UIKit -o . &gt;&gt;nul
-rmdir /S /Q $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
-mkdir $(SolutionDir)Ver\python &gt;&gt;nul 2&gt;nul
-copy $(OutDir)$(TargetName).pyd $(SolutionDir)Ver\python &gt;&gt;nul
-cd $(SolutionDir)Ver\python &gt;&gt;nul
-stubgen -m D14UIKit -o . &gt;&gt;nul
-cd $(SolutionDir)Ver &gt;&gt;nul
-powershell -c "Compress-Archive -Force -Path python -DestinationPath d14uikit_python.zip" &gt;&gt;nul</Command>
+      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+cd $(SolutionDir)Test\PyBind &gt;nul
+stubgen -m D14UIKit -o . &gt;nul</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -1037,6 +1014,9 @@ powershell -c "Compress-Archive -Force -Path python -DestinationPath d14uikit_py
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
     </ClCompile>
+    <None Include="package.ps1">
+      <FileType>Document</FileType>
+    </None>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

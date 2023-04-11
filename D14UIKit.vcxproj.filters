@@ -1363,6 +1363,9 @@
     <None Include="Bin\Shaders\PS" />
     <None Include="Bin\Shaders\VS" />
     <None Include="README.md" />
+    <None Include="package.ps1">
+      <Filter>源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
