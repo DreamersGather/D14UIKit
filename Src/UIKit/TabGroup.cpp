@@ -312,7 +312,16 @@ do { \
 
     void TabGroup::swapTab(TabIndexParam tabIndex1, TabIndexParam tabIndex2)
     {
-        std::swap(*tabIndex1.iterator, *tabIndex2.iterator);
+        if (tabIndex1 != tabIndex2)
+        {
+            std::swap(*tabIndex1.iterator, *tabIndex2.iterator);
+
+            if (m_currActiveCardTabIndex == tabIndex1 ||
+                m_currActiveCardTabIndex == tabIndex2)
+            {
+                onSelectedTabIndexChange(m_currActiveCardTabIndex);
+            }
+        }
     }
 
     TabGroup::CardState TabGroup::getCardState(TabIndexParam tabIndex) const

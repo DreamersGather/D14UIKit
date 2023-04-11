@@ -313,9 +313,12 @@ namespace d14engine::uikit
             auto itemIndex = viewportOffsetToItemIndex(
                 m_viewportOffset.y + absoluteToSelfCoord(e.cursorPoint).y);
 
-            if (itemIndex.valid() && (*itemIndex)->isTriggerItem)
+            if (itemIndex.valid())
             {
-                onTriggerMenuItem(itemIndex);
+                if ((*itemIndex)->m_enabled && (*itemIndex)->isTriggerItem)
+                {
+                    onTriggerMenuItem(itemIndex);
+                }
             }
         }
     }

@@ -150,14 +150,16 @@ namespace d14engine::uikit
             {
                 for (ItemIndex itemIndex = range.first; itemIndex <= range.last; ++itemIndex)
                 {
+                    auto value = (*itemIndex)->m_currState.ancestorUnfolded();
+
                     // When folding a tree view item, we set its height as
                     // zero to hide the content, but its rect, however, is
                     // still within the scope of the visible area, so we must
                     // make sure the item is not belonging to any folded item
                     // before showing it.
 
-                    (*itemIndex)->setVisible((*itemIndex)->m_currState.ancestorUnfolded());
-                    (*itemIndex)->setEnabled((*itemIndex)->m_currState.ancestorUnfolded());
+                    (*itemIndex)->setVisible(value);
+                    (*itemIndex)->appEventReactability.hitTest = value;
                 }
             }
             else // It is always safe to deactivate an item.
@@ -165,7 +167,7 @@ namespace d14engine::uikit
                 for (ItemIndex itemIndex = range.first; itemIndex <= range.last; ++itemIndex)
                 {
                     (*itemIndex)->setVisible(false);
-                    (*itemIndex)->setEnabled(false);
+                    (*itemIndex)->appEventReactability.hitTest = false;
                 }
             }
         }

@@ -111,7 +111,7 @@ namespace d14engine::uikit
             for (auto& item : items)
             {
                 item->setVisible(false);
-                item->setEnabled(false);
+                item->appEventReactability.hitTest = false;
 
                 ConstraintLayout::GeometryInfo info = {};
 
@@ -455,7 +455,7 @@ do { \
                 for (auto itemIndex = range.first; itemIndex <= range.last; ++itemIndex)
                 {
                     (*itemIndex)->setVisible(value);
-                    (*itemIndex)->setEnabled(value);
+                    (*itemIndex)->appEventReactability.hitTest = value;
                 }
             }
         }

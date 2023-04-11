@@ -356,7 +356,7 @@ namespace d14engine::uikit
             }
             else // Deliver mouse-move event normally.
             {
-                UIObjectPrioritySet currHitUIObjects = {};
+                UIObjectTempSet currHitUIObjects = {};
                 for (auto& uiobj : app->m_uiObjects)
                 {
                     if (uiobj->appEventReactability.hitTest && uiobj->isHit(cursorPoint))

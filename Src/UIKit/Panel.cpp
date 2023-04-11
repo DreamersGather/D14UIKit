@@ -390,7 +390,7 @@ namespace d14engine::uikit
             m_skipDeliverNextMouseMoveEventToChildren = false;
             return;
         }
-        ChildObjectPrioritySet currHitChildren = {};
+        ChildObjectTempSet currHitChildren = {};
 
         if (!m_skipUpdateChildrenHitStatesInMouseMoveEvent)
         {

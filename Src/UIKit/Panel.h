@@ -414,15 +414,15 @@ namespace d14engine::uikit
 
         WeakPtr<Panel> m_parent = {};
 
-        using ChildObjectSet = std::unordered_set<SharedPtr<Panel>>;
+        using ChildObjectSet = ISortable<Panel>::ShrdPrioritySet;
 
         ChildObjectSet m_children = {};
 
-        using ChildObjectPrioritySet = ISortable<Panel>::WeakPrioritySet;
+        using ChildObjectTempSet = ISortable<Panel>::WeakPrioritySet;
 
-        ChildObjectPrioritySet m_hitChildren = {};
+        ChildObjectTempSet m_hitChildren = {};
 
-        ChildObjectPrioritySet m_pinnedChildren = {}, m_diffPinnedChildren = {};
+        ChildObjectTempSet m_pinnedChildren = {}, m_diffPinnedChildren = {};
 
     public:
         virtual void registerDrawObjects();
