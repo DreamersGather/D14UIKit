@@ -10,10 +10,10 @@
 using namespace d14engine;
 
 #define INIT_DIST_FIELD(Dst, Src, F_1, F_2) \
-    if (geoInfo.F_1.To##F_2.has_value()) \
+    if (Src.F_1.To##F_2.has_value()) \
     { \
-        info.F_1.To##F_2 = \
-        (float)geoInfo.F_1.To##F_2.value(); \
+        Dst.F_1.To##F_2 = \
+        (float)Src.F_1.To##F_2.value(); \
     }
 #define CONVERT_GEO_INFO(Dst_Info, Src_Info) do { \
     Dst_Info.keepWidth = Src_Info.keepWidth; \

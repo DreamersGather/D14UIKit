@@ -78,8 +78,8 @@ namespace d14engine::uikit
             float leftOffset = m_horzSpacing + geoInfo.spacing.left;
             float topOffset  = m_vertSpacing + geoInfo.spacing.top ;
 
-            float horzSpacing = 2.0f * (m_horzSpacing + geoInfo.spacing.left + geoInfo.spacing.right);
-            float vertSpacing = 2.0f * (m_vertSpacing + geoInfo.spacing.top + geoInfo.spacing.bottom);
+            float horzSpacing = 2.0f * m_horzSpacing + geoInfo.spacing.left + geoInfo.spacing.right;
+            float vertSpacing = 2.0f * m_vertSpacing + geoInfo.spacing.top + geoInfo.spacing.bottom;
 
             elem->transform
             (
