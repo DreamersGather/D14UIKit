@@ -84,6 +84,9 @@ ScrollView::callback().onStartThumbScrolling = [cap](ScrollView* sv, const D2D1_
 #define D14_onStateChange(type, obj, state, cap) \
 type::callback().onStateChange = [cap](type* obj, type::State state)
 
+#define D14_onTextChange(type, obj, text, cap) \
+type::callback().onTextChange = [cap](type* obj, const std::wstring& text)
+
 #define D14_onTriggerMenuItem(menu, text, cap) \
 PopupMenu::callback().onTriggerMenuItem = [cap](PopupMenu* menu, const std::wstring& text)
 
