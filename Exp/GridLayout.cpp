@@ -12,13 +12,13 @@
 using namespace d14engine;
 
 #define CONVERT_GEO_INFO(Dst_Info, Src_Info) do { \
-    info.isFixedSize = geoInfo.fixedSize; \
-    info.axis.x = { (size_t)geoInfo.x.offset, (size_t)geoInfo.x.count }; \
-    info.axis.y = { (size_t)geoInfo.y.offset, (size_t)geoInfo.y.count }; \
-    info.spacing = \
+    Dst_Info.isFixedSize = Src_Info.fixedSize; \
+    Dst_Info.axis.x = { (size_t)Src_Info.x.offset, (size_t)Src_Info.x.count }; \
+    Dst_Info.axis.y = { (size_t)Src_Info.y.offset, (size_t)Src_Info.y.count }; \
+    Dst_Info.spacing = \
     { \
-        (float)geoInfo.spacing.left,  (float)geoInfo.spacing.top, \
-        (float)geoInfo.spacing.right, (float)geoInfo.spacing.bottom \
+        (float)Src_Info.spacing.left,  (float)Src_Info.spacing.top, \
+        (float)Src_Info.spacing.right, (float)Src_Info.spacing.bottom \
     }; \
 } while (0)
 
