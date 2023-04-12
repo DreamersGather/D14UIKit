@@ -10,6 +10,8 @@
 
 #define _D14_UIKIT_PYBIND_RAW_TEXT_INPUT(Type_Name)                                     \
                                                                                         \
+i.def_property("editable", &Type_Name::editable, &Type_Name::setEditable);              \
+                                                                                        \
 i.def_property("textRect", &Type_Name::textRect, &Type_Name::setTextRect);              \
                                                                                         \
 i.def_property_readonly("placeholder", &Type_Name::placeholder);                        \

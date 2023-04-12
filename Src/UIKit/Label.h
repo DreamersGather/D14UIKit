@@ -21,7 +21,7 @@ namespace d14engine::uikit
 
     public:
         const Wstring& text() const;
-        void setText(WstrParam text);
+        virtual void setText(WstrParam text);
 
         void setTextFormat(IDWriteTextFormat* textFormat);
 

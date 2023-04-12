@@ -9,6 +9,9 @@ namespace d14uikit { class Label; }
                                                                                         \
 Type_Name();                                                                            \
                                                                                         \
+bool editable() const;                                                                  \
+void setEditable(bool value);                                                           \
+                                                                                        \
 Rect textRect() const;                                                                  \
 void setTextRect(const Rect& value);                                                    \
                                                                                         \

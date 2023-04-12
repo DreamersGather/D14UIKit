@@ -57,6 +57,16 @@ void Type_Name::initialize()                                                    
     }                                                                                   \
 }                                                                                       \
                                                                                         \
+bool Type_Name::editable() const                                                        \
+{                                                                                       \
+    return pimpl->uiobj->editable;                                                      \
+}                                                                                       \
+                                                                                        \
+void Type_Name::setEditable(bool value)                                                 \
+{                                                                                       \
+    pimpl->uiobj->editable = value;                                                     \
+}                                                                                       \
+                                                                                        \
 Rect Type_Name::textRect() const                                                        \
 {                                                                                       \
     return convert(pimpl->uiobj->visibleTextRect());                                    \
