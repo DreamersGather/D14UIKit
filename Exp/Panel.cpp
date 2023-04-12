@@ -9,6 +9,7 @@
 #include "Common/MathUtils/Basic.h"
 #include "Common/MathUtils/2D.h"
 
+#include "UIKit/Application.h"
 #include "UIKit/ColorUtils.h"
 #include "UIKit/Panel.h"
 #include "UIKit/ResourceUtils.h"
@@ -359,6 +360,19 @@ namespace d14uikit
         {
             pimpl->uiobj->unregisterDrawObjects();
             pimpl->uiobj->unregisterApplicationEvents();
+        }
+    }
+
+    void Panel::setFocused(bool value)
+    {
+        auto app = uikit::Application::g_app;
+        if (value)
+        {
+            app->focusUIObject(pimpl->uiobj);
+        }
+        else if (pimpl->uiobj->isFocused())
+        {
+            app->focusUIObject(nullptr);
         }
     }
 

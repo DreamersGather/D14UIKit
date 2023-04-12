@@ -69,6 +69,16 @@ namespace d14engine::uikit
         else return in.substr(0, lineBreakPos);
     }
 
+    void RawTextInput::setText(WstrParam text)
+    {
+        if (text != m_text)
+        {
+            LabelArea::setText(text);
+
+            onTextChange(m_text);
+        }
+    }
+
     const D2D1_RECT_F& RawTextInput::visibleTextRect() const
     {
         return m_visibleTextRect;
@@ -343,23 +353,26 @@ namespace d14engine::uikit
             {
             case VK_BACK:
             {
-                if (m_hiliteRange.count > 0) // Remove the hilite text.
+                if (editable)
                 {
-                    eraseTextFragment(m_hiliteRange);
+                    if (m_hiliteRange.count > 0) // Remove the hilite text.
+                    {
+                        eraseTextFragment(m_hiliteRange);
 
-                    setIndicatorPosition(m_hiliteRange.offset);
+                        setIndicatorPosition(m_hiliteRange.offset);
 
-                    setHiliteRange({ 0, 0 });
+                        setHiliteRange({ 0, 0 });
 
-                    onTextChange(m_text);
-                }
-                else if (m_indicatorCharacterOffset > 0) // Remove single character.
-                {
-                    eraseTextFragment({ m_indicatorCharacterOffset - 1, 1 });
+                        onTextChange(m_text);
+                    }
+                    else if (m_indicatorCharacterOffset > 0) // Remove single character.
+                    {
+                        eraseTextFragment({ m_indicatorCharacterOffset - 1, 1 });
 
-                    setIndicatorPosition(m_indicatorCharacterOffset - 1);
+                        setIndicatorPosition(m_indicatorCharacterOffset - 1);
 
-                    onTextChange(m_text);
+                        onTextChange(m_text);
+                    }
                 }
                 break;
             }
@@ -367,7 +380,10 @@ namespace d14engine::uikit
             {
                 if (multiline)
                 {
-                    changeCandidateText(L"\n");
+                    if (editable)
+                    {
+                        changeCandidateText(L"\n");
+                    }
                     break;
                 }
                 // fallthrough
@@ -391,35 +407,54 @@ namespace d14engine::uikit
             }
             case VK_LEFT:
             {
-                setHiliteRange({ 0, 0 });
-                auto intOffset = (int)m_indicatorCharacterOffset;
-                auto offset = (size_t)std::max(intOffset - 1, 0);
-                setIndicatorPosition(offset); // avoid underflow
+                if (m_hiliteRange.count == 0)
+                {
+                    auto intOffset = (int)m_indicatorCharacterOffset;
+                    auto offset = (size_t)std::max(intOffset - 1, 0);
+                    setIndicatorPosition(offset); // avoid underflow
+                }
+                else // move to hilite range leftmost
+                {
+                    setIndicatorPosition(m_hiliteRange.offset);
+
+                    setHiliteRange({ 0, 0 });
+                }
                 break;
             }
             case VK_RIGHT:
             {
-                setHiliteRange({ 0, 0 });
-                setIndicatorPosition(m_indicatorCharacterOffset + 1);
+                if (m_hiliteRange.count == 0)
+                {
+                    setIndicatorPosition(m_indicatorCharacterOffset + 1);
+                }
+                else // move to hilite range rightmost
+                {
+                    setIndicatorPosition(m_hiliteRange.offset + m_hiliteRange.count);
+
+                    setHiliteRange({ 0, 0 });
+                }
                 break;
             }
             case VK_DELETE:
             {
-                if (m_hiliteRange.count > 0) // Remove hilite text.
+                if (editable)
                 {
-                    eraseTextFragment(m_hiliteRange);
+                    if (m_hiliteRange.count > 0) // Remove hilite text.
+                    {
+                        eraseTextFragment(m_hiliteRange);
 
-                    setIndicatorPosition(m_hiliteRange.offset);
+                        setIndicatorPosition(m_hiliteRange.offset);
 
-                    setHiliteRange({ 0, 0 });
+                        setHiliteRange({ 0, 0 });
 
-                    onTextChange(m_text);
-                }
-                else if (m_indicatorCharacterOffset >= 0 && m_text.size() > 0)
-                {
-                    eraseTextFragment({ m_indicatorCharacterOffset, 1 });
+                        onTextChange(m_text);
+                    }
+                    else if (m_indicatorCharacterOffset >= 0 && m_text.size() > 0)
+                    {
+                        eraseTextFragment({ m_indicatorCharacterOffset, 1 });
 
-                    onTextChange(m_text);
+                        onTextChange(m_text);
+                    }
                 }
                 break;
             }
@@ -427,11 +462,14 @@ namespace d14engine::uikit
             {
                 if (e.CTRL())
                 {
-                    switch (e.vkey)
+                    if (editable)
                     {
-                    case 'X': performCommandCtrlX(); break;
-                    case 'V': performCommandCtrlV(); break;
-                    default: break;
+                        switch (e.vkey)
+                        {
+                        case 'X': performCommandCtrlX(); break;
+                        case 'V': performCommandCtrlV(); break;
+                        default: break;
+                        }
                     }
                 }
                 break;
@@ -459,7 +497,13 @@ namespace d14engine::uikit
     {
         TextInputObject::onInputStringHelper(str);
 
-        // Discard the unprintable (invisible) control/escape characters.
-        if (str.size() != 1 || str[0] >= L' ') changeCandidateText(str);
+        if (editable)
+        {
+            // Discard the unprintable characters.
+            if (str.size() != 1 || str[0] >= L' ')
+            {
+                changeCandidateText(str);
+            }
+        }
     }
 }

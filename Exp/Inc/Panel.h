@@ -63,6 +63,7 @@ namespace d14uikit
         void setRoundRadius(int value);
 
         void setGlobal(bool value);
+        void setFocused(bool value);
 
         Panel* parent() const;
         void setParent(Panel* uiobj);

@@ -98,6 +98,11 @@ namespace d14uikit
             &Panel::setGlobal,
             "value"_a);
 
+        i.def(
+            "setFocused",
+            &Panel::setFocused,
+            "value_a");
+
         i.def_property(
             "parent",
             &Panel::parent,
