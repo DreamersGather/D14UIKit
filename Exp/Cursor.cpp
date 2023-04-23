@@ -27,6 +27,16 @@ namespace d14uikit
 
     void Cursor::initialize() { }
 
+    bool Cursor::useSystemIcons() const
+    {
+        return pimpl->uiobj->useSystemIcons;
+    }
+
+    void Cursor::setUseSystemIcons(bool value)
+    {
+        pimpl->uiobj->useSystemIcons = value;
+    }
+
     void Cursor::setIcon(StaticIconIndex index)
     {
         pimpl->uiobj->setIcon(
