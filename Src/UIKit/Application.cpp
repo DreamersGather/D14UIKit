@@ -292,11 +292,11 @@ namespace d14engine::uikit
         {
             if (app != nullptr && LOWORD(lParam) == HTCLIENT)
             {
-                // Take over cursor drawing from GDI.
                 if (app->m_cursor->useSystemIcons)
                 {
                     app->m_cursor->setSystemIcon();
                 }
+                else SetCursor(nullptr); // Take over cursor drawing from GDI.
                 return 0;
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
