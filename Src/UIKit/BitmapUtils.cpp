@@ -6,6 +6,7 @@
 #include "Common/ResourcePack.h"
 
 #include "UIKit/Application.h"
+#include "UIKit/PlatformUtils.h"
 
 namespace d14engine::uikit::bitmap_utils
 {
@@ -25,7 +26,7 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadBitmap(UINT width, UINT height, BYTE* data, D2D1_BITMAP_OPTIONS options)
     {
-        FLOAT dpi = (FLOAT)GetDpiForWindow(Application::g_app->dxRenderer()->window().ptr);
+        auto dpi = platform_utils::dpi();
 
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (

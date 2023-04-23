@@ -5,6 +5,7 @@
 #include "Common/MathUtils/2D.h"
 
 #include "UIKit/Application.h"
+#include "UIKit/BitmapObject.h"
 #include "UIKit/BitmapUtils.h"
 #include "UIKit/FileSystemUtils.h"
 
@@ -171,6 +172,54 @@ namespace d14engine::uikit
         m_selectedIconID.emplace<g_dynamicIconSeat>(name);
     }
 
+    void Cursor::setSystemIcon()
+    {
+#define SET_CURSOR(Icon_Name) SetCursor(LoadCursor(nullptr, Icon_Name))
+
+        if (m_selectedIconID.index() == g_staticIconSeat)
+        {
+            auto& iconID0 = std::get<g_staticIconSeat>(m_selectedIconID);
+            if (iconID0.index() == g_basicIconSeat)
+            {
+                auto& iconID = std::get<g_basicIconSeat>(iconID0);
+                switch (iconID)
+                {
+                case Alternate: SET_CURSOR(IDC_UPARROW); break;
+                case Arrow:     SET_CURSOR(IDC_ARROW); break;
+                case BackDiag:  SET_CURSOR(IDC_SIZENESW); break;
+                case Beam:      SET_CURSOR(IDC_IBEAM); break;
+                case Hand:      SET_CURSOR(IDC_HAND); break;
+                case Help:      SET_CURSOR(IDC_HELP); break;
+                case HorzSize:  SET_CURSOR(IDC_SIZEWE); break;
+                case MainDiag:  SET_CURSOR(IDC_SIZENWSE); break;
+                case Move:      SET_CURSOR(IDC_SIZEALL); break;
+                case Pen:       SET_CURSOR(IDC_ARROW); break;
+                case Person:    SET_CURSOR(IDC_PERSON); break;
+                case Pin:       SET_CURSOR(IDC_PIN); break;
+                case Select:    SET_CURSOR(IDC_CROSS); break;
+                case Stop:      SET_CURSOR(IDC_NO); break;
+                case VertSize:  SET_CURSOR(IDC_SIZENS); break;
+                default:        SetCursor(nullptr); break;
+                }
+            }
+        }
+        else if (m_selectedIconID.index() == g_dynamicIconSeat)
+        {
+            auto& iconID0 = std::get<g_dynamicIconSeat>(m_selectedIconID);
+            if (iconID0.index() == g_basicIconSeat)
+            {
+                auto& iconID = std::get<g_basicIconSeat>(iconID0);
+                switch (iconID)
+                {
+                case Busy:      SET_CURSOR(IDC_WAIT); break;
+                case Working:   SET_CURSOR(IDC_APPSTARTING); break;
+                default:        SetCursor(nullptr); break;
+                }
+            }
+        }
+#undef SET_CURSOR
+    }
+
     Cursor::StaticIcon& Cursor::getCurrentSelectedStaticIcon()
     {
         auto& iconID = std::get<g_staticIconSeat>(m_selectedIconID);
@@ -220,7 +269,12 @@ namespace d14engine::uikit
             auto rect = math_utils::offset(m_absoluteRect, icon.displayOffset);
 
             rect = math_utils::roundf(rect);
-            rndr->d2d1DeviceContext()->DrawBitmap(icon.bitmap.Get(), rect);
+            if (!useSystemIcons)
+            {
+                rndr->d2d1DeviceContext()->DrawBitmap(
+                    icon.bitmap.Get(), rect, icon.bitmapOpacity,
+                    BitmapObject::g_interpolationMode);
+            }
         }
         else if (m_selectedIconID.index() == g_dynamicIconSeat)
         {
@@ -228,7 +282,7 @@ namespace d14engine::uikit
             auto rect = math_utils::offset(m_absoluteRect, icon.displayOffset);
 
             icon.bitmap.rect = math_utils::roundf(rect);
-            icon.bitmap.draw(rndr);
+            if (!useSystemIcons) icon.bitmap.draw(rndr);
         }
     }
 }

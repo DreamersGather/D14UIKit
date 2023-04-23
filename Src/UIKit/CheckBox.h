@@ -20,6 +20,16 @@ namespace d14engine::uikit
             float roundRadius = 4.0f,
             const D2D1_RECT_F& rect = { 0.0f, 0.0f, 24.0f, 24.0f });
 
+        void onInitializeFinish() override;
+
+        struct IconChecked
+        {
+            ComPtr<ID2D1StrokeStyle> strokeStyle = {};
+        }
+        iconChecked = {};
+
+        void loadIconCheckedStrokeStyle();
+
         _D14_SET_APPEARANCE_GETTER(CheckBox)
 
         void setEnabled(bool value) override;

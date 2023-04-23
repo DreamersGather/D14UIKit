@@ -447,7 +447,7 @@ namespace d14engine::uikit
     {
         ViewItem::onSizeHelper(e);
 
-        contentMask.loadMaskBitmap(math_utils::roundu(e.size));
+        contentMask.loadBitmap(math_utils::roundu(e.size));
 
         m_layout->transform(selfCoordRect());
     }

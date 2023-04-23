@@ -430,18 +430,18 @@ namespace d14engine::uikit
         if (associatedTabGroup.expired())
         {
             // Shape of Shadow
-            shadow.beginShadowDraw(rndr->d2d1DeviceContext());
+            shadow.beginDraw(rndr->d2d1DeviceContext());
             {
                 rndr->d2d1DeviceContext()->Clear(D2D1::ColorF{ 0x000000, 1.0f });
             }
-            shadow.endShadowDraw(rndr->d2d1DeviceContext());
+            shadow.endDraw(rndr->d2d1DeviceContext());
         }
         // Content on Mask
         auto maskDrawTrans = D2D1::Matrix3x2F::Translation
         (
             -m_absoluteRect.left, -m_absoluteRect.top
         );
-        mask.beginMaskDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
+        mask.beginDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
         {
             // Background
             {
@@ -587,7 +587,7 @@ namespace d14engine::uikit
             // Children
             Panel::drawChildrenObjects(rndr);
         }
-        mask.endMaskDraw(rndr->d2d1DeviceContext());
+        mask.endDraw(rndr->d2d1DeviceContext());
     }
 
     void Window::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
@@ -600,7 +600,7 @@ namespace d14engine::uikit
             shadow.color = shadowSetting.color;
             shadow.standardDeviation = shadowSetting.standardDeviation;
 
-            shadow.configShadowEffectInput(resource_utils::g_shadowEffect.Get());
+            shadow.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             rndr->d2d1DeviceContext()->DrawImage(
                 resource_utils::g_shadowEffect.Get(),
@@ -612,7 +612,8 @@ namespace d14engine::uikit
                 mask.opacity : getAppearance().maskOpacityWhenDragAboveTabGroup;
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                mask.bitmap.Get(), math_utils::roundf(m_absoluteRect), maskOpacity);
+                mask.bitmap.Get(), math_utils::roundf(m_absoluteRect),
+                maskOpacity, mask.getInterpolationMode());
         }
     }
 
@@ -629,8 +630,8 @@ namespace d14engine::uikit
 
         auto bitmapSize = math_utils::roundu(e.size);
 
-        mask.loadMaskBitmap(bitmapSize);
-        shadow.loadShadowBitmap(bitmapSize);
+        mask.loadBitmap(bitmapSize);
+        shadow.loadBitmap(bitmapSize);
 
         m_caption->transform(captionIconLabelSelfcoordRect());
         if (m_centerUIObject) m_centerUIObject->transform(clientAreaSelfcoordRect());

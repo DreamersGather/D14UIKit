@@ -162,11 +162,11 @@ namespace d14engine::uikit
             (
                 -m_absoluteRect.left, -m_absoluteRect.top
             );
-            contentMask.beginMaskDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
+            contentMask.beginDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
             {
                 m_content->onRendererDrawD2d1Object(rndr);
             }
-            contentMask.endMaskDraw(rndr->d2d1DeviceContext());
+            contentMask.endDraw(rndr->d2d1DeviceContext());
         }
     }
 
@@ -184,7 +184,8 @@ namespace d14engine::uikit
         if (m_content && m_content->isD2d1ObjectVisible())
         {
             rndr->d2d1DeviceContext()->DrawBitmap(
-                contentMask.bitmap.Get(), math_utils::roundf(m_absoluteRect));
+                contentMask.bitmap.Get(), math_utils::roundf(m_absoluteRect),
+                contentMask.opacity, contentMask.getInterpolationMode());
         }
         // Outline
         resource_utils::g_solidColorBrush->SetColor(setting.stroke.color);
@@ -218,7 +219,7 @@ namespace d14engine::uikit
     {
         Panel::onSizeHelper(e);
 
-        contentMask.loadMaskBitmap(math_utils::roundu(e.size));
+        contentMask.loadBitmap(math_utils::roundu(e.size));
 
         if (m_content) m_content->transform(selfCoordRect());
     }

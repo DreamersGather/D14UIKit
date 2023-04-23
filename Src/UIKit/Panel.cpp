@@ -7,6 +7,7 @@
 #include "Common/MathUtils/Basic.h"
 
 #include "UIKit/Application.h"
+#include "UIKit/BitmapObject.h"
 
 using namespace d14engine::renderer;
 
@@ -715,7 +716,8 @@ namespace d14engine::uikit
         if (bitmap)
         {
             rndr->d2d1DeviceContext()->DrawBitmap( // round to fit pixel size
-                bitmap.Get(), math_utils::roundf(m_absoluteRect), bitmapOpacity);
+                bitmap.Get(), math_utils::roundf(m_absoluteRect),
+                bitmapOpacity, BitmapObject::g_interpolationMode);
         }
     }
 

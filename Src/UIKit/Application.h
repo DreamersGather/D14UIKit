@@ -22,6 +22,8 @@ namespace d14engine::uikit
             Wstring binaryPath = L"Bin/";
             Wstring libraryPath = L"Lib/";
 
+            Optional<float> dpi = std::nullopt;
+
             bool showCentered = true;
             bool showMaximized = false;
             bool showFullscreen = false;

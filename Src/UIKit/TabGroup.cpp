@@ -46,7 +46,7 @@ namespace d14engine::uikit
         auto& setting = getAppearance().
             tabBar.card.main[(size_t)CardState::Active];
 
-        activeCardShadow.loadShadowBitmap(
+        activeCardShadow.loadBitmap(
             math_utils::roundu(setting.geometry.size));
     }
 
@@ -614,7 +614,7 @@ do { \
                 m_currActiveCardTabIndex->content->onRendererDrawD2d1Layer(rndr);
             }
             // Active-Card Shadow
-            activeCardShadow.beginShadowDraw(rndr->d2d1DeviceContext());
+            activeCardShadow.beginDraw(rndr->d2d1DeviceContext());
             {
                 auto& setting = getAppearance().tabBar.card.main[(size_t)CardState::Active];
 
@@ -685,7 +685,7 @@ do { \
 
                 rndr->d2d1DeviceContext()->FillGeometry(pathGeo.Get(), resource_utils::g_solidColorBrush.Get());
             }
-            activeCardShadow.endShadowDraw(rndr->d2d1DeviceContext());
+            activeCardShadow.endDraw(rndr->d2d1DeviceContext());
         }
     }
 
@@ -731,7 +731,7 @@ do { \
             // Shadow
             activeCardShadow.color = getAppearance().tabBar.card.activeShadowColor;
 
-            activeCardShadow.configShadowEffectInput(resource_utils::g_shadowEffect.Get());
+            activeCardShadow.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             auto shadowPosition = math_utils::roundf(math_utils::leftTop(cardAbsoluteRect(m_currActiveCardTabIndex)));
 
@@ -741,7 +741,8 @@ do { \
             auto& setting = getAppearance().tabBar.card.main[(size_t)CardState::Active];
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                activeCardShadow.bitmap.Get(), cardAbsoluteRect(m_currActiveCardTabIndex), setting.background.opacity);
+                activeCardShadow.bitmap.Get(), cardAbsoluteRect(m_currActiveCardTabIndex),
+                setting.background.opacity, activeCardShadow.getInterpolationMode());
         }
         // Background
         {
