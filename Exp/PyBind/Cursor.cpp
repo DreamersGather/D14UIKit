@@ -37,6 +37,11 @@ namespace d14uikit
             .value("Working",   Cursor::Working)
             .export_values();
 
+        i.def_property(
+            "useSystemIcons",
+            &Cursor::useSystemIcons,
+            &Cursor::setUseSystemIcons);
+
         i.def("setIcon", py::overload_cast<
               Cursor::StaticIconIndex>(&Cursor::setIcon),
               "index"_a);

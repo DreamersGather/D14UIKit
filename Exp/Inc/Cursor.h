@@ -59,6 +59,9 @@ namespace d14uikit
 
 #undef SET_STATIC
 #undef SET_DYNAMIC
+
+        bool useSystemIcons() const;
+        void setUseSystemIcons(bool value);
         
         void setIcon(StaticIconIndex index);
         void setIcon(DynamicIconIndex index);
