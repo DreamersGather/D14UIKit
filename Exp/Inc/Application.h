@@ -78,5 +78,8 @@ namespace d14uikit
 
         bool textVertSmooth() const;
         void setTextVertSmooth(bool value);
+
+        bool bmpQualityInterp() const;
+        void setBmpQualityInterp(bool value);
     };
 }

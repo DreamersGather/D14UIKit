@@ -127,5 +127,10 @@ namespace d14uikit
             "textVertSmooth",
             &Application::textVertSmooth,
             &Application::setTextVertSmooth);
+
+        i.def_property(
+            "bmpQualityInterp",
+            &Application::bmpQualityInterp,
+            &Application::setBmpQualityInterp);
     }
 }
