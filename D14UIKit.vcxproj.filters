@@ -550,6 +550,12 @@
     <ClCompile Include="Exp\PyBind\TabGroup.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UIKit\BitmapObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\PlatformUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -1351,6 +1357,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\Inc\AppEntry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\BitmapObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\PlatformUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

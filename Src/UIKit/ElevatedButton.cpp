@@ -36,7 +36,7 @@ namespace d14engine::uikit
     {
         FilledButton::onRendererDrawD2d1LayerHelper(rndr);
 
-        shadow.beginShadowDraw(rndr->d2d1DeviceContext());
+        shadow.beginDraw(rndr->d2d1DeviceContext());
         {
             auto& shadowSetting = getAppearance().shadow;
 
@@ -50,7 +50,7 @@ namespace d14engine::uikit
             rndr->d2d1DeviceContext()->FillRoundedRectangle(
                 roundedRect, resource_utils::g_solidColorBrush.Get());
         }
-        shadow.endShadowDraw(rndr->d2d1DeviceContext());
+        shadow.endDraw(rndr->d2d1DeviceContext());
     }
 
     void ElevatedButton::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
@@ -61,7 +61,7 @@ namespace d14engine::uikit
         shadow.color = shadowSetting.color[(size_t)m_currState];
         shadow.standardDeviation = shadowSetting.standardDeviation;
 
-        shadow.configShadowEffectInput(
+        shadow.configEffectInput(
             resource_utils::g_shadowEffect.Get());
 
         rndr->d2d1DeviceContext()->DrawImage(
@@ -76,7 +76,7 @@ namespace d14engine::uikit
     {
         FilledButton::onSizeHelper(e);
 
-        shadow.loadShadowBitmap(math_utils::roundu(e.size));
+        shadow.loadBitmap(math_utils::roundu(e.size));
     }
 
     void ElevatedButton::onChangeThemeHelper(WstrParam themeName)

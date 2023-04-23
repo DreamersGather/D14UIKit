@@ -14,7 +14,7 @@ namespace d14engine::uikit
         auto bitmapWidth = math_utils::round<UINT>(rectSize.width);
         auto bitmapHeight = math_utils::round<UINT>(rectSize.height + trngSize.height);
 
-        valueLabelShadow.loadShadowBitmap(bitmapWidth, bitmapHeight);
+        valueLabelShadow.loadBitmap(bitmapWidth, bitmapHeight);
     }
 
     D2D1_RECT_F HorzSlider::thumbAreaExtendedRect(const D2D1_RECT_F& flatRect) const

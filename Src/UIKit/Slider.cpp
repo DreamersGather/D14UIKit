@@ -85,7 +85,7 @@ namespace d14engine::uikit
     {
         auto& geoSetting = getAppearance().handle.geometry;
 
-        handleShadow.loadShadowBitmap(math_utils::roundu(geoSetting.size));
+        handleShadow.loadBitmap(math_utils::roundu(geoSetting.size));
     }
 
     bool Slider::setValue(float value)
@@ -137,7 +137,7 @@ namespace d14engine::uikit
     void Slider::onRendererDrawD2d1LayerHelper(Renderer* rndr)
     {
         // Handle Shadow
-        handleShadow.beginShadowDraw(rndr->d2d1DeviceContext());
+        handleShadow.beginDraw(rndr->d2d1DeviceContext());
         {
             auto& geoSetting = getAppearance().handle.geometry;
 
@@ -152,12 +152,12 @@ namespace d14engine::uikit
             },
             resource_utils::g_solidColorBrush.Get());
         }
-        handleShadow.endShadowDraw(rndr->d2d1DeviceContext());
+        handleShadow.endDraw(rndr->d2d1DeviceContext());
 
         // Value Label Shadow
         if (m_valueLabel->isD2d1ObjectVisible())
         {
-            valueLabelShadow.beginShadowDraw(rndr->d2d1DeviceContext());
+            valueLabelShadow.beginDraw(rndr->d2d1DeviceContext());
             {
                 auto& setting = getAppearance().valueLabel;
 
@@ -200,7 +200,7 @@ namespace d14engine::uikit
                 rndr->d2d1DeviceContext()->FillGeometry(
                     pathGeo.Get(), resource_utils::g_solidColorBrush.Get());
             }
-            valueLabelShadow.endShadowDraw(rndr->d2d1DeviceContext());
+            valueLabelShadow.endDraw(rndr->d2d1DeviceContext());
         }
     }
 
@@ -236,7 +236,7 @@ namespace d14engine::uikit
             auto& shadow = getAppearance().handle.shadow;
             handleShadow.color = m_enabled ? shadow.color : shadow.secondaryColor;
 
-            handleShadow.configShadowEffectInput(resource_utils::g_shadowEffect.Get());
+            handleShadow.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             rndr->d2d1DeviceContext()->DrawImage(
                 resource_utils::g_shadowEffect.Get(), math_utils::leftTop(handleAbsoluteRect()));
@@ -269,7 +269,7 @@ namespace d14engine::uikit
             valueLabelShadow.color = shadowSetting.color;
             valueLabelShadow.standardDeviation = shadowSetting.standardDeviation;
 
-            valueLabelShadow.configShadowEffectInput(resource_utils::g_shadowEffect.Get());
+            valueLabelShadow.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             auto targetOffset = math_utils::roundf(math_utils::leftTop(vlblRect));
 
@@ -278,7 +278,9 @@ namespace d14engine::uikit
             // Entity
             auto destinationRect = math_utils::roundf(vlblRect);
 
-            rndr->d2d1DeviceContext()->DrawBitmap(valueLabelShadow.bitmap.Get(), destinationRect, 1.0f);
+            rndr->d2d1DeviceContext()->DrawBitmap(
+                valueLabelShadow.bitmap.Get(), destinationRect,
+                valueLabelShadow.opacity, valueLabelShadow.getInterpolationMode());
 
             // Text
             m_valueLabel->onRendererDrawD2d1Object(rndr);

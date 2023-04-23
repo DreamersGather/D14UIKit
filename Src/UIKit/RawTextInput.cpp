@@ -94,7 +94,7 @@ namespace d14engine::uikit
         THROW_IF_FAILED(m_textLayout->SetMaxWidth(maskWidth));
         THROW_IF_FAILED(m_textLayout->SetMaxHeight(maskHeight));
 
-        m_visibleTextMask.loadMaskBitmap(
+        m_visibleTextMask.loadBitmap(
             math_utils::round<UINT>(maskWidth),
             math_utils::round<UINT>(maskHeight));
 
@@ -244,7 +244,7 @@ namespace d14engine::uikit
         m_visibleTextMask.color = Label::getAppearance().background.color;
         m_visibleTextMask.color.a = Label::getAppearance().background.opacity;
         
-        m_visibleTextMask.beginMaskDraw(rndr->d2d1DeviceContext());
+        m_visibleTextMask.beginDraw(rndr->d2d1DeviceContext());
         {
             // Placeholder
             if (m_placeholder->isD2d1ObjectVisible() && m_text.empty())
@@ -266,9 +266,9 @@ namespace d14engine::uikit
             rndr->d2d1DeviceContext()->SetTransform(textContentTrans);
 
             // The indicator is drawn above the visible text mask.
-            drawHiliteRange(rndr); drawText(rndr); /** drawIndicator(rndr); **/
+            drawHiliteRange(rndr); drawText(rndr); /* drawIndicator(rndr); */
         }
-        m_visibleTextMask.endMaskDraw(rndr->d2d1DeviceContext());
+        m_visibleTextMask.endDraw(rndr->d2d1DeviceContext());
     }
 
     void RawTextInput::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
@@ -279,7 +279,8 @@ namespace d14engine::uikit
         auto dstRect = math_utils::roundf(selfCoordToAbsolute(m_visibleTextRect));
 
         rndr->d2d1DeviceContext()->DrawBitmap(
-            m_visibleTextMask.bitmap.Get(),  dstRect,  m_visibleTextMask.opacity);
+            m_visibleTextMask.bitmap.Get(), dstRect,
+            m_visibleTextMask.opacity, m_visibleTextMask.getInterpolationMode());
 
         // Indicator(|)
         D2D1_MATRIX_3X2_F originalTrans = {};
@@ -296,7 +297,7 @@ namespace d14engine::uikit
             (
                 m_textContentOffset, math_utils::size(m_visibleTextRect)
             );
-            drawIndicator(rndr);
+            drawIndicator(rndr); // Vertical Line Caret
         }
         rndr->d2d1DeviceContext()->SetTransform(originalTrans);
 

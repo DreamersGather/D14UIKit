@@ -201,7 +201,7 @@ namespace d14engine::uikit
         WaterfallView::onRendererDrawD2d1LayerHelper(rndr);
 
         // Shape of Shadow
-        shadow.beginShadowDraw(rndr->d2d1DeviceContext());
+        shadow.beginDraw(rndr->d2d1DeviceContext());
         {
             resource_utils::g_solidColorBrush->SetOpacity(1.0f);
 
@@ -214,7 +214,7 @@ namespace d14engine::uikit
             },
             resource_utils::g_solidColorBrush.Get());
         }
-        shadow.endShadowDraw(rndr->d2d1DeviceContext());
+        shadow.endDraw(rndr->d2d1DeviceContext());
     }
 
     void PopupMenu::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
@@ -226,7 +226,7 @@ namespace d14engine::uikit
         shadow.color = shadowSetting.color;
         shadow.standardDeviation = shadowSetting.standardDeviation;
 
-        shadow.configShadowEffectInput(resource_utils::g_shadowEffect.Get());
+        shadow.configEffectInput(resource_utils::g_shadowEffect.Get());
 
         auto leftTop = absolutePosition();
         auto shadowLeftTop = math_utils::increaseY(leftTop, -geoSetting.extension);
@@ -255,7 +255,7 @@ namespace d14engine::uikit
     {
         WaterfallView::onSizeHelper(e);
 
-        shadow.loadShadowBitmap(math_utils::roundu(extendedSize(e.size)));
+        shadow.loadBitmap(math_utils::roundu(extendedSize(e.size)));
     }
 
     void PopupMenu::onChangeThemeHelper(WstrParam themeName)

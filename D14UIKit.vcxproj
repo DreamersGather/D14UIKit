@@ -1219,6 +1219,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)WindowAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)WindowAppearance</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Src\UIKit\BitmapObject.cpp" />
     <ClCompile Include="Src\UIKit\ColorUtils.cpp" />
     <ClCompile Include="Src\UIKit\Application.cpp" />
     <ClCompile Include="Src\UIKit\BitmapUtils.cpp" />
@@ -1228,6 +1229,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClCompile Include="Src\UIKit\LabelArea.cpp" />
     <ClCompile Include="Src\UIKit\MenuItem.cpp" />
     <ClCompile Include="Src\UIKit\MenuSeparator.cpp" />
+    <ClCompile Include="Src\UIKit\PlatformUtils.cpp" />
     <ClCompile Include="Src\UIKit\PopupMenu.cpp" />
     <ClCompile Include="Src\UIKit\RawTextInput.cpp" />
     <ClCompile Include="Src\UIKit\TabCaption.cpp" />
@@ -1677,6 +1679,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\UIKit\Appearances\Window.h" />
     <ClInclude Include="Src\UIKit\AppEntry.h" />
     <ClInclude Include="Src\UIKit\Application.h" />
+    <ClInclude Include="Src\UIKit\BitmapObject.h" />
     <ClInclude Include="Src\UIKit\BitmapUtils.h" />
     <ClInclude Include="Src\UIKit\Button.h" />
     <ClInclude Include="Src\UIKit\ColorUtils.h" />
@@ -1684,6 +1687,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\UIKit\IconLabel2.h" />
     <ClInclude Include="Src\UIKit\LabelArea.h" />
     <ClInclude Include="Src\UIKit\MenuSeparator.h" />
+    <ClInclude Include="Src\UIKit\PlatformUtils.h" />
     <ClInclude Include="Src\UIKit\RawTextEditor.h" />
     <ClInclude Include="Src\UIKit\RawTextInput.h" />
     <ClInclude Include="Src\UIKit\TabCaption.h" />

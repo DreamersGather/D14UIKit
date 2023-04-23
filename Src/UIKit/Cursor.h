@@ -49,6 +49,7 @@ namespace d14engine::uikit
         {
             D2D1_POINT_2F displayOffset = {};
             ComPtr<ID2D1Bitmap1> bitmap = {};
+            float bitmapOpacity = 1.0f;
         };
         struct DynamicIcon
         {
@@ -73,6 +74,8 @@ namespace d14engine::uikit
         void registerDrawObjects() override;
 
     public:
+        bool useSystemIcons = true;
+
         static BasicIconThemeMap loadBasicIcons();
 
     protected:
@@ -129,6 +132,8 @@ namespace d14engine::uikit
 
         void setIcon(DynamicIconIndex index);
         void setDynamicIcon(WstrParam name);
+
+        void setSystemIcon();
 
     protected:
         StaticIcon& getCurrentSelectedStaticIcon();

@@ -2,9 +2,11 @@
 
 #include "Common/Precompile.h"
 
+#include "UIKit/BitmapObject.h"
+
 namespace d14engine::uikit
 {
-    struct ShadowStyle
+    struct ShadowStyle : BitmapObject
     {
         ShadowStyle(UINT bitmapWidth = 0, UINT bitmapHeight = 0);
 
@@ -18,16 +20,14 @@ namespace d14engine::uikit
 
         D2D1_SHADOW_OPTIMIZATION optimization = D2D1_SHADOW_OPTIMIZATION_BALANCED;
 
-        ComPtr<ID2D1Bitmap1> bitmap = {};
+        void loadBitmap(UINT width, UINT height);
 
-        void loadShadowBitmap(UINT width, UINT height);
+        void loadBitmap(const D2D1_SIZE_U& size);
 
-        void loadShadowBitmap(const D2D1_SIZE_U& size);
+        void beginDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform = D2D1::Matrix3x2F::Identity());
 
-        void beginShadowDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform = D2D1::Matrix3x2F::Identity());
+        void endDraw(ID2D1DeviceContext* context);
 
-        void endShadowDraw(ID2D1DeviceContext* context);
-
-        void configShadowEffectInput(ID2D1Effect* effect);
+        void configEffectInput(ID2D1Effect* effect);
     };
 }

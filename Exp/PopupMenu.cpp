@@ -65,7 +65,7 @@ namespace d14uikit
         geoSetting.extension = geoSetting.roundRadius = (float)value;
 
         auto sz = pimpl->uiobj->extendedSize(pimpl->uiobj->size());
-        pimpl->uiobj->shadow.loadShadowBitmap(math_utils::roundu(sz));
+        pimpl->uiobj->shadow.loadBitmap(math_utils::roundu(sz));
     }
 
     void PopupMenu::insertItem(const std::list<MenuItem*>& items, int index)

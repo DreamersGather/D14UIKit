@@ -2,10 +2,12 @@
 
 #include "UIKit/CheckBox.h"
 
+#include "Common/DirectXError.h"
 #include "Common/MathUtils/2D.h"
 
 #include "Renderer/Renderer.h"
 
+#include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine::renderer;
@@ -26,6 +28,31 @@ namespace d14engine::uikit
         m_currState.flag = UNCHECKED;
 
         enableTripleState(isTripleState);
+    }
+
+    void CheckBox::onInitializeFinish()
+    {
+        ClickablePanel::onInitializeFinish();
+
+        loadIconCheckedStrokeStyle();
+    }
+
+    void CheckBox::loadIconCheckedStrokeStyle()
+    {
+        auto factory = Application::g_app->dxRenderer()->d2d1Factory();
+
+        auto properties = D2D1::StrokeStyleProperties
+        (
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_FLAT,
+            D2D1_LINE_JOIN_MITER,
+            10.0f, // miterLimit
+            D2D1_DASH_STYLE_SOLID,
+            0.0f   // dashOffset
+        );
+        THROW_IF_FAILED(factory->CreateStrokeStyle(
+            properties, nullptr, 0, &iconChecked.strokeStyle));
     }
 
     void CheckBox::setEnabled(bool value)
@@ -123,12 +150,14 @@ namespace d14engine::uikit
             rndr->d2d1DeviceContext()->DrawLine(
                 math_utils::offset(iconLeftTop, geoSetting.tickLine0.point0),
                 math_utils::offset(iconLeftTop, geoSetting.tickLine0.point1),
-                resource_utils::g_solidColorBrush.Get(), geoSetting.strokeWidth);
+                resource_utils::g_solidColorBrush.Get(),
+                geoSetting.strokeWidth, iconChecked.strokeStyle.Get());
 
             rndr->d2d1DeviceContext()->DrawLine(
                 math_utils::offset(iconLeftTop, geoSetting.tickLine1.point0),
                 math_utils::offset(iconLeftTop, geoSetting.tickLine1.point1),
-                resource_utils::g_solidColorBrush.Get(), geoSetting.strokeWidth);
+                resource_utils::g_solidColorBrush.Get(),
+                geoSetting.strokeWidth, iconChecked.strokeStyle.Get());
         }
         // Outline
         resource_utils::g_solidColorBrush->SetColor(setting.stroke.color);

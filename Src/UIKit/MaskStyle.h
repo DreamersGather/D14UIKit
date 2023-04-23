@@ -2,9 +2,11 @@
 
 #include "Common/Precompile.h"
 
+#include "UIKit/BitmapObject.h"
+
 namespace d14engine::uikit
 {
-    struct MaskStyle
+    struct MaskStyle : BitmapObject
     {
         MaskStyle(UINT bitmapWidth = 0, UINT bitmapHeight = 0);
 
@@ -13,16 +15,13 @@ namespace d14engine::uikit
             MaskStyle(size.width, size.height) { }
 
         D2D1_COLOR_F color = D2D1::ColorF{ 0x000000, 0.0f };
-        float opacity = 1.0f;
 
-        ComPtr<ID2D1Bitmap1> bitmap = {};
+        void loadBitmap(UINT width, UINT height);
 
-        void loadMaskBitmap(UINT width, UINT height);
+        void loadBitmap(const D2D1_SIZE_U& size);
 
-        void loadMaskBitmap(const D2D1_SIZE_U& size);
+        void beginDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform = D2D1::Matrix3x2F::Identity());
 
-        void beginMaskDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform = D2D1::Matrix3x2F::Identity());
-
-        void endMaskDraw(ID2D1DeviceContext* context);
+        void endDraw(ID2D1DeviceContext* context);
     };
 }

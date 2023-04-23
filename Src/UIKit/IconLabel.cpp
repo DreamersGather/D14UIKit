@@ -8,6 +8,7 @@
 
 #include "Renderer/Renderer.h"
 
+#include "UIKit/BitmapObject.h"
 #include "UIKit/Label.h"
 #include "UIKit/ResourceUtils.h"
 
@@ -314,7 +315,8 @@ namespace d14engine::uikit
             auto rect = math_utils::roundf(selfCoordToAbsolute(icon.rect));
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                icon.bitmap.Get(), rect, icon.bitmapOpacity);
+                icon.bitmap.Get(), rect, icon.bitmapOpacity,
+                BitmapObject::g_interpolationMode);
         }
     }
 }

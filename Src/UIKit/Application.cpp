@@ -11,6 +11,7 @@
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/BitmapUtils.h"
 #include "UIKit/Cursor.h"
+#include "UIKit/PlatformUtils.h"
 #include "UIKit/ResourceUtils.h"
 #include "UIKit/TextInputObject.h"
 
@@ -31,7 +32,7 @@ namespace d14engine::uikit
 
         SetDllDirectory(info.libraryPath.c_str());
 
-        SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+        SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
         initWin32Window();
 
@@ -59,7 +60,6 @@ namespace d14engine::uikit
         RECT workAreaRect = {};
         SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 
-        // Note these parameters have not been adjusted with DPI.
         auto workAreaWidth = math_utils::width(workAreaRect);
         auto workAreaHeight = math_utils::height(workAreaRect);
 
@@ -70,24 +70,29 @@ namespace d14engine::uikit
         }
         else if (createInfo.win32WindowRect.has_value())
         {
+            auto srcrc = platform_utils::scaledByDpi(createInfo.win32WindowRect.value());
+
             if (createInfo.showCentered)
             {
                 wndrect = math_utils::centered(
                     { 0, 0, workAreaWidth, workAreaHeight },
-                    math_utils::size(createInfo.win32WindowRect.value()));
+                    math_utils::size(srcrc));
             }
             else wndrect = createInfo.win32WindowRect.value();
         }
         else // Display in the default rectangle area (800 x 600).
         {
-            wndrect = math_utils::centered({ 0, 0, workAreaWidth, workAreaHeight }, { 800, 600 });
+            wndrect = math_utils::centered(
+                { 0, 0, workAreaWidth, workAreaHeight },
+                platform_utils::scaledByDpi(SIZE{ 800, 600 }));
         }
 
         DWORD dwStyle = WS_POPUP;
         // Prevent DWM from drawing the window again.
         DWORD dwExStyle =  WS_EX_NOREDIRECTIONBITMAP;
 
-        AdjustWindowRectExForDpi(&wndrect, dwStyle, FALSE, dwExStyle, GetDpiForSystem());
+        auto dpi = (UINT)platform_utils::dpi();
+        AdjustWindowRectExForDpi(&wndrect, dwStyle, FALSE, dwExStyle, dpi);
 
         THROW_IF_NULL(m_win32Window = CreateWindowEx(
             dwExStyle,
@@ -110,7 +115,8 @@ namespace d14engine::uikit
     {
         m_renderer = std::make_unique<Renderer>(m_win32Window);
 
-        m_uiCmdLayer = std::make_shared<Renderer::CommandLayer>(m_renderer->d3d12Device());
+        auto device = m_renderer->d3d12Device();
+        m_uiCmdLayer = std::make_shared<Renderer::CommandLayer>(device);
 
         m_uiCmdLayer->setPriority(g_uiCmdLayerPriority);
         m_renderer->cmdLayers.insert(m_uiCmdLayer);
@@ -120,6 +126,11 @@ namespace d14engine::uikit
         m_renderer->skipUpdating = true;
         m_renderer->timer()->stop();
         // We will restart the timer when playing animation.
+
+        auto dpi = platform_utils::dpi();
+        m_renderer->d2d1DeviceContext()->SetDpi(dpi, dpi);
+
+        m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
     }
 
     void Application::initMiscComponents()
@@ -279,9 +290,13 @@ namespace d14engine::uikit
         }
         case WM_SETCURSOR:
         {
-            if (LOWORD(lParam) == HTCLIENT)
+            if (app != nullptr && LOWORD(lParam) == HTCLIENT)
             {
-                SetCursor(nullptr); // Take over cursor drawing from GDI.
+                // Take over cursor drawing from GDI.
+                if (app->m_cursor->useSystemIcons)
+                {
+                    app->m_cursor->setSystemIcon();
+                }
                 return 0;
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
@@ -293,7 +308,7 @@ namespace d14engine::uikit
                 POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
                 ScreenToClient(hwnd, &pt);
 
-                return app->handleWin32NCHITTESTMessage(pt);
+                return app->handleWin32NCHITTESTMessage(platform_utils::restoredByDpi(pt));
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
         }
@@ -315,7 +330,8 @@ namespace d14engine::uikit
 
             if (app != nullptr && app->win32WindowSettings.geometry.minTrackSize.has_value())
             {
-                pMinMaxInfo->ptMinTrackSize = app->win32WindowSettings.geometry.minTrackSize.value();
+                auto& minSize = app->win32WindowSettings.geometry.minTrackSize.value();
+                pMinMaxInfo->ptMinTrackSize = platform_utils::scaledByDpi(minSize);
             }
             return 0;
         }
@@ -324,10 +340,16 @@ namespace d14engine::uikit
             if (app == nullptr) return 0;
             app->m_isHandlingSensitiveUIEvent = true;
 
+            auto rawCursorPoint =
+            platform_utils::restoredByDpi(POINT
+            {
+                GET_X_LPARAM(lParam),
+                GET_Y_LPARAM(lParam)
+            });
             D2D1_POINT_2F cursorPoint =
             {
-                (float)GET_X_LPARAM(lParam),
-                (float)GET_Y_LPARAM(lParam)
+                (float)rawCursorPoint.x,
+                (float)rawCursorPoint.y
             };
             if (!app->isTriggerDraggingWin32Window)
             {
@@ -456,7 +478,10 @@ namespace d14engine::uikit
             // The cursor will be hidden if moves out of the Win32 window,
             // so we need to show it explicitly in every mouse-move event.
             app->m_cursor->setVisible(true);
-
+            if (app->m_cursor->useSystemIcons)
+            {
+                app->m_cursor->setSystemIcon();
+            }
             InvalidateRect(hwnd, nullptr, FALSE);
 
             app->m_isHandlingSensitiveUIEvent = false;
@@ -470,6 +495,8 @@ namespace d14engine::uikit
             POINT screenCursorPoint = {};
             GetCursorPos(&screenCursorPoint);
             ScreenToClient(hwnd, &screenCursorPoint);
+
+            screenCursorPoint = platform_utils::restoredByDpi(screenCursorPoint);
 
             MouseMoveEvent e = {};
             e.cursorPoint =
@@ -525,8 +552,14 @@ namespace d14engine::uikit
             }
             else ReleaseCapture();
 
+            auto rawCursorPoint =
+            platform_utils::restoredByDpi(POINT
+            {
+                GET_X_LPARAM(lParam),
+                GET_Y_LPARAM(lParam)
+            });
             MouseButtonEvent e = {};
-            e.cursorPoint = { (float)GET_X_LPARAM(lParam), (float)GET_Y_LPARAM(lParam) };
+            e.cursorPoint = { (float)rawCursorPoint.x, (float)rawCursorPoint.y };
             e.state.flag = MouseButtonEvent::State::FLAG_MAP.at(message);
 
             if (!app->m_currFocusedUIObject.expired() &&
@@ -577,13 +610,16 @@ namespace d14engine::uikit
             if (app == nullptr) return 0;
             app->m_isHandlingSensitiveUIEvent = true;
 
-            MouseWheelEvent e = {};
             POINT screenCursorPoint =
             {
                 GET_X_LPARAM(lParam),
                 GET_Y_LPARAM(lParam)
             };
             ScreenToClient(hwnd, &screenCursorPoint);
+
+            screenCursorPoint = platform_utils::restoredByDpi(screenCursorPoint);
+
+            MouseWheelEvent e = {};
             e.cursorPoint =
             {
                 (float)screenCursorPoint.x,
@@ -696,7 +732,16 @@ namespace d14engine::uikit
                     HIMC himc = ImmGetContext(hwnd);
                     if (himc)
                     {
-                        ImmSetCompositionWindow(himc, &form.value());
+                        auto& fval = form.value();
+                        if (fval.dwStyle == CFS_RECT)
+                        {
+                            fval.rcArea = platform_utils::scaledByDpi(fval.rcArea);
+                        }
+                        else if (fval.dwStyle == CFS_POINT)
+                        {
+                            fval.ptCurrentPos = platform_utils::scaledByDpi(fval.ptCurrentPos);
+                        }
+                        ImmSetCompositionWindow(himc, &fval);
                     }
                     ImmReleaseContext(hwnd, himc);
                 }
@@ -710,14 +755,14 @@ namespace d14engine::uikit
                 HIMC himc = ImmGetContext(hwnd);
                 if (himc)
                 {
-                    auto nSize = ImmGetCompositionStringW(himc, GCS_RESULTSTR, nullptr, 0);
+                    auto nSize = ImmGetCompositionString(himc, GCS_RESULTSTR, nullptr, 0);
                     if (nSize > 0)
                     {
                         // The null-terminated needs an extra character space.
                         auto hLocal = LocalAlloc(LPTR, nSize + sizeof(WCHAR));
                         if (hLocal)
                         {
-                            ImmGetCompositionStringW(himc, GCS_RESULTSTR, hLocal, nSize);
+                            ImmGetCompositionString(himc, GCS_RESULTSTR, hLocal, nSize);
 
                             if (app != nullptr)
                             {
@@ -793,7 +838,8 @@ namespace d14engine::uikit
 
             RECT clntRect = {};
             GetClientRect(m_win32Window, &clntRect);
-            auto clntSize = math_utils::size(clntRect);
+            auto rawClntSize = math_utils::size(clntRect);
+            auto clntSize = platform_utils::restoredByDpi(rawClntSize);
 
             if (pt.x <= frmWidth && pt.y <= frmWidth)
             {
@@ -1069,8 +1115,12 @@ namespace d14engine::uikit
         {
             sendNextImmediateMouseMoveEvent = false;
 
+            POINT screenCursorPoint = {};
+            GetCursorPos(&screenCursorPoint);
+            ScreenToClient(m_win32Window, &screenCursorPoint);
+
             SendMessage(m_win32Window, WM_MOUSEMOVE, 0,
-                MAKELPARAM(m_lastCursorPoint.x, m_lastCursorPoint.y));
+                MAKELPARAM(screenCursorPoint.x, screenCursorPoint.y));
         }
     }
 

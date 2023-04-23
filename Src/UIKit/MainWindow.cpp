@@ -7,6 +7,7 @@
 
 #include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
+#include "UIKit/PlatformUtils.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine::renderer;
@@ -27,9 +28,10 @@ namespace d14engine::uikit
 
         auto& callback = Application::g_app->win32WindowSettings.callback;
         callback.f_onClientAreaSize = [this]
-        (const SIZE& sz)
+        (const SIZE& pixSize)
         {
-            resize((float)sz.cx, (float)sz.cy);
+            auto dipSize = platform_utils::restoredByDpi(pixSize);
+            resize((float)dipSize.cx, (float)dipSize.cy);
         };
         callback.f_onRestoreFromMinimized = [this]
         {
@@ -54,7 +56,11 @@ namespace d14engine::uikit
 
         RECT wndrect = {};
         GetClientRect(Application::g_app->win32Window(), &wndrect);
-        resize((float)math_utils::width(wndrect), (float)math_utils::height(wndrect));
+
+        auto pixSize = math_utils::size(wndrect);
+        auto dipSize = platform_utils::restoredByDpi(pixSize);
+
+        resize((float)dipSize.cx, (float)dipSize.cy);
     }
 
     void MainWindow::setDisplayState(DisplayState state)
@@ -71,7 +77,9 @@ namespace d14engine::uikit
             RECT wndrect = {};
             ShowWindow(Application::g_app->win32Window(), SW_NORMAL);
             GetClientRect(Application::g_app->win32Window(), &wndrect);
-            resize((float)math_utils::width(wndrect), (float)math_utils::height(wndrect));
+            auto pixSize = math_utils::size(wndrect);
+            auto dipSize = platform_utils::restoredByDpi(pixSize);
+            resize((float)dipSize.cx, (float)dipSize.cy);
             break;
         }
         case DisplayState::Minimized:
@@ -89,7 +97,9 @@ namespace d14engine::uikit
             RECT wndrect = {};
             ShowWindow(Application::g_app->win32Window(), SW_MAXIMIZE);
             GetClientRect(Application::g_app->win32Window(), &wndrect);
-            resize((float)math_utils::width(wndrect), (float)math_utils::height(wndrect));
+            auto pixSize = math_utils::size(wndrect);
+            auto dipSize = platform_utils::restoredByDpi(pixSize);
+            resize((float)dipSize.cx, (float)dipSize.cy);
             break;
         }
         default: break;
@@ -105,7 +115,8 @@ namespace d14engine::uikit
     {
         if (SUCCEEDED(DwmSetWindowAttribute(
             Application::g_app->win32Window(),
-            DWMWA_WINDOW_CORNER_PREFERENCE, &state, sizeof(state))))
+            DWMWA_WINDOW_CORNER_PREFERENCE,
+            &state, sizeof(CornerState))))
         {
             m_cornerState = state;
         }
