@@ -9,6 +9,7 @@
 #include "Renderer/TickTimer.h"
 
 #include "UIKit/Application.h"
+#include "UIKit/BitmapObject.h"
 #include "UIKit/ColorUtils.h"
 #include "UIKit/Cursor.h"
 #include "UIKit/ResourceUtils.h"
@@ -372,5 +373,21 @@ namespace d14uikit
             pimpl->uiobj->dxRenderer()->setTextRenderingMode(mode);
         }
         pimpl->drawTextNatrualSymmetric = value;
+    }
+
+    bool Application::bmpQualityInterp() const
+    {
+        auto& mode = uikit::BitmapObject::g_interpolationMode;
+        return mode == D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC;
+    }
+
+    void Application::setBmpQualityInterp(bool value)
+    {
+        auto& mode = uikit::BitmapObject::g_interpolationMode;
+        if (value)
+        {
+            mode = D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC;
+        }
+        else mode = D2D1_INTERPOLATION_MODE_LINEAR;
     }
 }
