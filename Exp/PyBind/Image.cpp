@@ -33,11 +33,30 @@ namespace d14uikit
             &Image::height,
             &Image::setHeight);
 
+        py::enum_<Image::Format>(i, "Format")
+            .value("Adng",  Image::Adng)
+            .value("Bmp",   Image::Bmp)
+            .value("Png",   Image::Png)
+            .value("Ico",   Image::Ico)
+            .value("Jpeg",  Image::Jpeg)
+            .value("Tiff",  Image::Tiff)
+            .value("Gif",   Image::Gif)
+            .value("Wmp",   Image::Wmp)
+            .value("Heif",  Image::Heif)
+            .value("Webp",  Image::Webp)
+            .export_values();
+
         i.def(
             "load",
             &Image::load,
             "path"_a,
             "cpuRead"_a = false);
+
+        i.def(
+            "save",
+            &Image::save,
+            "path"_a,
+            "format"_a = Image::Png);
 
 #define COPY_LAMBDA (Image& self, const Rect& dst, const std::vector<Pixel>& source)
 #define COPY_OVERLOAD(Name) py::overload_cast<const Point&, Image*, const Rect&>(Name)

@@ -103,6 +103,8 @@ namespace d14engine::uikit
     public:
         renderer::Renderer* dxRenderer() const;
 
+        ComPtr<ID2D1Bitmap1> screenshot() const;
+
     private:
         // Indicates how many UI objects are playing animations.
         int m_animationCount = 0;

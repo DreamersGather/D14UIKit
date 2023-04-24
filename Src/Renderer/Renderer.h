@@ -22,6 +22,8 @@ namespace d14engine::renderer
             // Def-resources (shader etc.) are loaded from this path.
             Wstring binaryPath = L"Bin/";
 
+            Optional<float> dpi = std::nullopt;
+
             bool fullscreen = false;
 
             // Select GPU device.  Set as 0 to use the default one.
@@ -341,7 +343,7 @@ namespace d14engine::renderer
 #pragma region Graphics Resources
 
     public:
-        constexpr static DXGI_FORMAT g_renderTargetFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+        constexpr static DXGI_FORMAT g_renderTargetFormat = DXGI_FORMAT_B8G8R8A8_UNORM;
         constexpr static DXGI_FORMAT g_depthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
     private:
@@ -375,6 +377,7 @@ namespace d14engine::renderer
         BackBufferArray m_backBuffers = {};
 
         ComPtr<ID3D12Resource> m_sceneBuffer = {};
+        ComPtr<ID3D12Resource> m_stageBuffer = {};
 
         ComPtr<ID3D11Resource> m_wrappedBuffer = {};
 
@@ -390,6 +393,8 @@ namespace d14engine::renderer
         UINT getSceneHeight() const;
 
         ID3D12Resource* sceneBuffer() const;
+        ID3D12Resource* stageBuffer() const;
+
         D3D12_CPU_DESCRIPTOR_HANDLE sceneRtvHandle() const;
         D3D12_CPU_DESCRIPTOR_HANDLE sceneSrvhandle() const;
 
@@ -401,10 +406,11 @@ namespace d14engine::renderer
         void createBackBuffers();
 
         void createSceneBuffer();
+        void createStageBuffer();
 
         void createWrappedBuffer();
 
-        void releaseWrappedReferences();
+        void releaseInterpObject();
 
 #pragma endregion
 

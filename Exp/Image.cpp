@@ -90,6 +90,28 @@ namespace d14uikit
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
     }
 
+    void Image::save(const std::wstring& path, Format format)
+    {
+        uikit::Application::g_app->dxRenderer()->waitGpuCommand();
+
+        GUID formatID = {};
+        switch (format)
+        {
+        case Adng: formatID = GUID_ContainerFormatAdng; break;
+        case Bmp: formatID = GUID_ContainerFormatBmp; break;
+        case Png: formatID = GUID_ContainerFormatPng; break;
+        case Ico: formatID = GUID_ContainerFormatIco; break;
+        case Jpeg: formatID = GUID_ContainerFormatJpeg; break;
+        case Tiff: formatID = GUID_ContainerFormatTiff; break;
+        case Gif: formatID = GUID_ContainerFormatGif; break;
+        case Wmp: formatID = GUID_ContainerFormatWmp; break;
+        case Heif: formatID = GUID_ContainerFormatHeif; break;
+        case Webp: formatID = GUID_ContainerFormatWebp; break;
+        default: formatID = GUID_ContainerFormatPng; break;
+        }
+        uikit::bitmap_utils::saveBitmap(pimpl->bitmap.Get(), path, formatID);
+    }
+
     void Image::copy(const Rect& dst, const Pixel* source)
     {
         uikit::Application::g_app->dxRenderer()->beginGpuCommand();

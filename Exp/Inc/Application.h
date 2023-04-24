@@ -7,6 +7,7 @@
 namespace d14uikit
 {
     class Cursor;
+    class Image;
 
     class DllExport Application : public NonCopyable
     {
@@ -18,6 +19,7 @@ namespace d14uikit
 
         static Application* app();
 
+        std::unique_ptr<Image> capture() const;
         Cursor* cursor() const;
 
         int run();

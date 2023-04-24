@@ -2,6 +2,7 @@
 
 #include "UIKit/Application.h"
 
+#include "Common/CppLangUtils/FinalAction.h"
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/GDI.h"
@@ -113,7 +114,10 @@ namespace d14engine::uikit
 
     void Application::initMainRenderer()
     {
-        m_renderer = std::make_unique<Renderer>(m_win32Window);
+        auto dpi = platform_utils::dpi();
+
+        Renderer::CreateInfo info = { .dpi = dpi };
+        m_renderer = std::make_unique<Renderer>(m_win32Window, info);
 
         auto device = m_renderer->d3d12Device();
         m_uiCmdLayer = std::make_shared<Renderer::CommandLayer>(device);
@@ -127,9 +131,7 @@ namespace d14engine::uikit
         m_renderer->timer()->stop();
         // We will restart the timer when playing animation.
 
-        auto dpi = platform_utils::dpi();
         m_renderer->d2d1DeviceContext()->SetDpi(dpi, dpi);
-
         m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
     }
 
@@ -880,6 +882,21 @@ namespace d14engine::uikit
     renderer::Renderer* Application::dxRenderer() const
     {
         return m_renderer.get();
+    }
+
+    ComPtr<ID2D1Bitmap1> Application::screenshot() const
+    {
+        auto unmap = cpp_lang_utils::finally([this]()
+        {
+            m_renderer->stageBuffer()->Unmap(0, nullptr);
+        });
+        m_renderer->waitGpuCommand();
+
+        BYTE* mapped = nullptr;
+        THROW_IF_FAILED(m_renderer->stageBuffer()->Map(0, nullptr, (void**)&mapped));
+
+        auto pixSize = m_renderer->d2d1RenderTarget()->GetPixelSize();
+        return bitmap_utils::loadBitmap(pixSize.width, pixSize.height, mapped);
     }
 
     int Application::animationCount() const

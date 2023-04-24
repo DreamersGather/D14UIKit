@@ -64,6 +64,7 @@ namespace d14engine::renderer
         void present();
 
     private:
+        void copySceneToStageBuffer();
         void copySceneToBackBuffer();
         void postSceneToBackBuffer();
     };

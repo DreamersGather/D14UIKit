@@ -8,6 +8,8 @@ namespace d14uikit
 {
     class DllExport Image : public NonCopyable
     {
+        friend class Application;
+
         _D14_UIKIT_PIMPL(Image)
 
         Image(int width, int height, bool cpuRead = false);
@@ -24,7 +26,36 @@ namespace d14uikit
         int height() const;
         void setHeight(int value);
 
+        enum class Format
+        {
+            Adng,
+            Bmp,
+            Png,
+            Ico,
+            Jpeg,
+            Tiff,
+            Gif,
+            Wmp,
+            Heif,
+            Webp
+        };
+#define SET_FORMAT(Name) constexpr static auto Name = Format::Name
+
+        SET_FORMAT(Adng);
+        SET_FORMAT(Bmp);
+        SET_FORMAT(Png);
+        SET_FORMAT(Ico);
+        SET_FORMAT(Jpeg);
+        SET_FORMAT(Tiff);
+        SET_FORMAT(Gif);
+        SET_FORMAT(Wmp);
+        SET_FORMAT(Heif);
+        SET_FORMAT(Webp);
+
+#undef SET_FORMAT
+
         void load(const std::wstring& path, bool cpuRead = false);
+        void save(const std::wstring& path, Format format = Png);
 
         void copy(const Rect& dst, const Pixel* source);
         void copy(const Point& dst, Image* source, const Rect& src);
