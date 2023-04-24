@@ -88,7 +88,7 @@ namespace d14uikit
 
     std::unique_ptr<Image> Application::capture() const
     {
-        std::unique_ptr<Image> screenshot(new Image(0, 0));
+        std::unique_ptr<Image> screenshot(new Image(Image::Passkey{}));
         screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
         return screenshot;
     }
