@@ -4,6 +4,7 @@
 
 #include "Common.h"
 #include "Cursor.h"
+#include "Image.h"
 #include "Panel.h"
 
 #include "Renderer/TickTimer.h"
@@ -83,6 +84,13 @@ namespace d14uikit
     Application* Application::app()
     {
         return Impl::app;
+    }
+
+    std::unique_ptr<Image> Application::capture() const
+    {
+        std::unique_ptr<Image> screenshot(new Image(0, 0));
+        screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
+        return screenshot;
     }
 
     Cursor* Application::cursor() const

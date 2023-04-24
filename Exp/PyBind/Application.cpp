@@ -4,6 +4,7 @@
 
 #include "Inc/Application.h"
 #include "Inc/Cursor.h"
+#include "Inc/Image.h"
 
 namespace d14uikit
 {
@@ -21,6 +22,10 @@ namespace d14uikit
             {
                 return Application::app();
             });
+
+        i.def(
+            "capture",
+            &Application::capture);
 
         i.def_property_readonly(
             "cursor",

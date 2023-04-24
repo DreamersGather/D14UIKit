@@ -10,7 +10,7 @@
 
 namespace d14engine::uikit::bitmap_utils
 {
-    ComPtr<IWICImagingFactory> g_imageFactory = {};
+    ComPtr<IWICImagingFactory2> g_imageFactory = {};
 
     void initialize()
     {
@@ -92,6 +92,8 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadPackedBitmap(WstrParam resName, WstrParam resType, D2D1_BITMAP_OPTIONS options)
     {
+        // Create stream from memory.
+
         auto src = loadResource(resName, resType);
 
         HGLOBAL	mem = GlobalAlloc(GMEM_MOVEABLE, src.size);
@@ -99,13 +101,13 @@ namespace d14engine::uikit::bitmap_utils
 
         LPVOID dst = GlobalLock(mem);
         THROW_IF_NULL(dst);
-
         memcpy(dst, src.data, src.size);
-
         GlobalUnlock(mem);
 
         ComPtr<IStream> stream;
         THROW_IF_FAILED(CreateStreamOnHGlobal(mem, FALSE, &stream));
+
+        // Create bitmap from stream.
 
         ComPtr<IWICBitmapDecoder> decoder;
         THROW_IF_FAILED(g_imageFactory->CreateDecoderFromStream(
@@ -143,5 +145,48 @@ namespace d14engine::uikit::bitmap_utils
             /* bitmap           */ &bitmap
         ));
         return bitmap;
+    }
+
+    void saveBitmap(ID2D1Bitmap1* bitmap, WstrParam imageFile, const GUID& format)
+    {
+        // Create file and stream.
+
+        ComPtr<IWICStream> stream;
+        THROW_IF_FAILED(g_imageFactory->CreateStream(&stream));
+
+        THROW_IF_FAILED(stream->InitializeFromFilename(imageFile.c_str(), GENERIC_WRITE));
+
+        // Export image to stream.
+
+        ComPtr<IWICBitmapEncoder> bitmapEncoder;
+        THROW_IF_FAILED(g_imageFactory->CreateEncoder(format, nullptr, &bitmapEncoder));
+
+        THROW_IF_FAILED(bitmapEncoder->Initialize(stream.Get(), WICBitmapEncoderNoCache));
+
+        ComPtr<IWICBitmapFrameEncode> frameEncode;
+        THROW_IF_FAILED(bitmapEncoder->CreateNewFrame(&frameEncode, nullptr));
+
+        THROW_IF_FAILED(frameEncode->Initialize(nullptr));
+
+        auto device = Application::g_app->dxRenderer()->d2d1Device();
+
+        ComPtr<IWICImageEncoder> imageEncoder;
+        THROW_IF_FAILED(g_imageFactory->CreateImageEncoder(device, &imageEncoder));
+
+        WICImageParameters imageParams = {};
+        imageParams.PixelFormat = bitmap->GetPixelFormat();
+        bitmap->GetDpi(&imageParams.DpiX, &imageParams.DpiY);
+        imageParams.Top = 0.0f;
+        imageParams.Left = 0.0f;
+        auto pixSize = bitmap->GetPixelSize();
+        imageParams.PixelWidth = pixSize.width;
+        imageParams.PixelHeight = pixSize.height;
+
+        THROW_IF_FAILED(imageEncoder->WriteFrame(bitmap, frameEncode.Get(), &imageParams));
+
+        THROW_IF_FAILED(frameEncode->Commit());
+        THROW_IF_FAILED(bitmapEncoder->Commit());
+
+        THROW_IF_FAILED(stream->Commit(STGC_DEFAULT));
     }
 }

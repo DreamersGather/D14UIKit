@@ -5,6 +5,8 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/TickTimer.h"
 
+#include "UIKit/BitmapObject.h"
+
 using namespace d14engine::renderer;
 
 namespace d14engine::uikit::animation_utils
@@ -52,7 +54,9 @@ namespace d14engine::uikit::animation_utils
     {
         if (visible && m_currFrameIndex >= 0 && m_currFrameIndex < frames.size())
         {
-            rndr->d2d1DeviceContext()->DrawBitmap(frames[m_currFrameIndex].Get(), rect, opacity);
+            rndr->d2d1DeviceContext()->DrawBitmap(
+                frames[m_currFrameIndex].Get(), rect,
+                opacity, BitmapObject::g_interpolationMode);
         }
     }
 }
