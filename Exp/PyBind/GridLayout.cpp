@@ -16,16 +16,6 @@ namespace d14uikit
         i.def(py::init());
 
         i.def_property(
-            "horzSpacing",
-            &GridLayout::horzSpacing,
-            &GridLayout::setHorzSpacing);
-
-        i.def_property(
-            "vertSpacing",
-            &GridLayout::vertSpacing,
-            &GridLayout::setVertCellCount);
-
-        i.def_property(
             "horzCellCount",
             &GridLayout::horzCellCount,
             &GridLayout::setHorzCellCount);
@@ -33,6 +23,26 @@ namespace d14uikit
         i.def_property(
             "vertCellCount",
             &GridLayout::vertCellCount,
+            &GridLayout::setVertCellCount);
+
+        i.def_property(
+            "horzMargin",
+            &GridLayout::horzMargin,
+            &GridLayout::setHorzMargin);
+
+        i.def_property(
+            "horzSpacing",
+            &GridLayout::horzSpacing,
+            &GridLayout::setHorzSpacing);
+
+        i.def_property(
+            "vertMargin",
+            &GridLayout::vertMargin,
+            &GridLayout::setVertMargin);
+
+        i.def_property(
+            "vertSpacing",
+            &GridLayout::vertSpacing,
             &GridLayout::setVertCellCount);
 
         // Geometry Info

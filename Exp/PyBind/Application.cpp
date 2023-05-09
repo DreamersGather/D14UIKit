@@ -12,9 +12,11 @@ namespace d14uikit
     {
         py::class_<Application> i(m, "Application");
 
-        i.def(
-            py::init<const std::wstring&>(),
-            "name"_a = L"D14UIKit");
+        i.def(py::init<
+            const std::wstring&,
+            const std::optional<float>&>(),
+            "name"_a = L"D14UIKit",
+            "dpi"_a = std::nullopt);
 
         i.def_property_readonly_static(
             "app",

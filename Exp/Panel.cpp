@@ -35,7 +35,7 @@ namespace d14uikit
 
     void Panel::initialize()
     {
-        pimpl->uiobj->f_onRendererUpdateObject2D = [this]
+        pimpl->uiobj->f_onRendererUpdateObject2DAfter = [this]
         (uikit::Panel* p, Renderer* rndr)
         {
             onUpdate();

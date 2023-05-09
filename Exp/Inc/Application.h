@@ -13,7 +13,9 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL(Application)
 
-        explicit Application(const std::wstring& name = L"D14UIKit");
+        explicit Application(
+            const std::wstring& name = L"D14UIKit",
+            const std::optional<float>& dpi = std::nullopt);
 
         virtual ~Application();
 

@@ -21,12 +21,16 @@ namespace d14uikit
 {
     Application* Application::Impl::app = nullptr;
 
-    Application::Application(const std::wstring& name)
+    Application::Application(
+        const std::wstring& name,
+        const std::optional<float>& dpi)
         :
         Application(Passkey{})
     {
+        using CreateInfo = uikit::Application::CreateInfo;
+
         pimpl->uiobj = std::make_shared<uikit::Application>(
-            0, nullptr, uikit::Application::CreateInfo{ .name = name });
+            0, nullptr, CreateInfo{ .name = name, .dpi = dpi });
 
         initialize();
     }
