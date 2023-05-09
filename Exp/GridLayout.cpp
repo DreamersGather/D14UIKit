@@ -46,26 +46,6 @@ namespace d14uikit
 
     void GridLayout::initialize() { }
 
-    int GridLayout::horzSpacing() const
-    {
-        return math_utils::round(pimpl->uiobj->horzSpacing());
-    }
-
-    void GridLayout::setHorzSpacing(int value)
-    {
-        pimpl->uiobj->setSpacing((float)value, pimpl->uiobj->vertSpacing());
-    }
-
-    int GridLayout::vertSpacing() const
-    {
-        return math_utils::round(pimpl->uiobj->vertSpacing());
-    }
-
-    void GridLayout::setVertSpacing(int value)
-    {
-        pimpl->uiobj->setSpacing(pimpl->uiobj->horzSpacing(), (float)value);
-    }
-
     int GridLayout::horzCellCount() const
     {
         return (int)pimpl->uiobj->horzCellCount();
@@ -84,6 +64,46 @@ namespace d14uikit
     void GridLayout::setVertCellCount(int value)
     {
         pimpl->uiobj->setCellCount(pimpl->uiobj->horzCellCount(), value);
+    }
+
+    int GridLayout::horzMargin() const
+    {
+        return math_utils::round(pimpl->uiobj->horzMargin()); 
+    }
+
+    void GridLayout::setHorzMargin(int value)
+    {
+        pimpl->uiobj->setMargin((float)value, pimpl->uiobj->vertMargin());
+    }
+
+    int GridLayout::horzSpacing() const
+    {
+        return math_utils::round(pimpl->uiobj->horzSpacing());
+    }
+
+    void GridLayout::setHorzSpacing(int value)
+    {
+        pimpl->uiobj->setSpacing((float)value, pimpl->uiobj->vertSpacing());
+    }
+
+    int GridLayout::vertMargin() const
+    {
+        return math_utils::round(pimpl->uiobj->vertMargin()); 
+    }
+
+    void GridLayout::setVertMargin(int value)
+    {
+        pimpl->uiobj->setMargin(pimpl->uiobj->horzMargin(), (float)value);
+    }
+
+    int GridLayout::vertSpacing() const
+    {
+        return math_utils::round(pimpl->uiobj->vertSpacing());
+    }
+
+    void GridLayout::setVertSpacing(int value)
+    {
+        pimpl->uiobj->setSpacing(pimpl->uiobj->horzSpacing(), (float)value);
     }
 
     void GridLayout::addElement(Panel* elem, const GeoInfo& geoInfo)

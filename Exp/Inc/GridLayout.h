@@ -10,17 +10,23 @@ namespace d14uikit
 
         GridLayout();
 
-        int horzSpacing() const;
-        void setHorzSpacing(int value);
-
-        int vertSpacing() const;
-        void setVertSpacing(int value);
-
         int horzCellCount() const;
         void setHorzCellCount(int value);
 
         int vertCellCount() const;
         void setVertCellCount(int value);
+
+        int horzMargin() const;
+        void setHorzMargin(int value);
+
+        int horzSpacing() const;
+        void setHorzSpacing(int value);
+
+        int vertMargin() const;
+        void setVertMargin(int value);
+
+        int vertSpacing() const;
+        void setVertSpacing(int value);
 
         struct GeoInfo
         {

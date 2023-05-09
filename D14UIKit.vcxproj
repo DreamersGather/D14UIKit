@@ -1007,6 +1007,10 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <None Include="Bin\Shaders\VS" />
     <None Include="LICENSE" />
     <None Include="comment.html" />
+    <ClCompile Include="Src\Renderer\GraphUtils\Resource.cpp" />
+    <ClCompile Include="Src\Renderer\Interfaces\DrawLayer.cpp" />
+    <ClCompile Include="Src\Renderer\Interfaces\DrawObject.cpp" />
+    <ClCompile Include="Src\Renderer\Interfaces\DrawObject2D.cpp" />
     <ClCompile Include="Src\UIKit\Appearances\ComboBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
@@ -1635,6 +1639,10 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\Renderer\GraphUtils\Barrier.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\ParamHelper.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\PSO.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\Resource.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\DrawLayer.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\DrawObject.h" />
+    <ClInclude Include="Src\Renderer\Interfaces\DrawObject2D.h" />
     <ClInclude Include="Src\Renderer\Interfaces\ICamera.h" />
     <ClInclude Include="Src\Renderer\Interfaces\IDrawLayer.h" />
     <ClInclude Include="Src\Renderer\Interfaces\IDrawObject.h" />
