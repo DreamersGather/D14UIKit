@@ -57,19 +57,19 @@ namespace d14engine::uikit::appearance
                 {
                     // Foled
                     {
-                        { { 9.0f, 8.0f }, { 17.0f, 16.0f } }, // line 0
-                        { { 17.0f, 15.0f }, { 9.0f, 23.0f } } // line 1
+                        { { 8.0f, 7.0f }, { 16.0f, 15.0f } }, // line 0
+                        { { 16.0f, 15.0f }, { 8.0f, 23.0f } } // line 1
                     },
                     // Unfolded
                     {
-                        { { 5.0f, 11.0f }, { 13.0f, 19.0f } }, // line 0
-                        { { 12.0f, 19.0f }, { 20.0f, 11.0f } } // line 1
+                        { { 5.0f, 11.0f }, { 12.0f, 19.0f } }, // line 0
+                        { { 12.0f, 19.0f }, { 19.0f, 11.0f } } // line 1
                     }
                 };
 
                 SolidStyle background = {};
 
-                float strokeWidth = 1.0f;
+                float strokeWidth = 2.0f;
             }
             arrow = {};
 

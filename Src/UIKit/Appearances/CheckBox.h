@@ -61,7 +61,7 @@ namespace d14engine::uikit::appearance
                             D2D1_POINT_2F point0 = {}, point1 = {};
                         }
                         tickLine0 = { { 5.0f, 12.0f }, { 10.0f, 17.0f } },
-                        tickLine1 = { { 10.0f, 17.0f }, { 19.0f, 8.0f } };
+                        tickLine1 = { { 10.0f, 17.0f }, { 19.0f, 7.0f } };
 
                         float strokeWidth = 2.0f;
                     }

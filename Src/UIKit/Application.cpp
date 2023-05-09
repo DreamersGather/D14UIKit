@@ -7,6 +7,7 @@
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/GDI.h"
 
+#include "Renderer/GraphUtils/Resource.h"
 #include "Renderer/TickTimer.h"
 
 #include "UIKit/Appearances/Appearance.h"
@@ -879,21 +880,24 @@ namespace d14engine::uikit
         return HTCLIENT;
     }
 
-    renderer::Renderer* Application::dxRenderer() const
+    Renderer* Application::dxRenderer() const
     {
         return m_renderer.get();
     }
 
     ComPtr<ID2D1Bitmap1> Application::screenshot() const
     {
-        auto unmap = cpp_lang_utils::finally([this]()
-        {
-            m_renderer->stageBuffer()->Unmap(0, nullptr);
-        });
-        m_renderer->waitGpuCommand();
+        m_renderer->beginGpuCommand();
+
+        auto texture = m_renderer->sceneBuffer();
+        auto staging = graph_utils::capture(texture, m_renderer->cmdList());
+
+        m_renderer->endGpuCommand();
+
+        auto unmap = cpp_lang_utils::finally([&]() { staging->Unmap(0, nullptr); });
 
         BYTE* mapped = nullptr;
-        THROW_IF_FAILED(m_renderer->stageBuffer()->Map(0, nullptr, (void**)&mapped));
+        THROW_IF_FAILED(staging->Map(0, nullptr, (void**)&mapped));
 
         auto pixSize = m_renderer->d2d1RenderTarget()->GetPixelSize();
         return bitmap_utils::loadBitmap(pixSize.width, pixSize.height, mapped);
@@ -935,7 +939,7 @@ namespace d14engine::uikit
         uiobj->setUIObjectPriority(--m_topmostPriority.uiObject);
     }
 
-    const SharedPtr<renderer::Renderer::CommandLayer>& Application::uiCmdLayer() const
+    const SharedPtr<Renderer::CommandLayer>& Application::uiCmdLayer() const
     {
         return m_uiCmdLayer;
     }

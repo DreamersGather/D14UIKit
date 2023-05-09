@@ -5,6 +5,7 @@
 #include "Common/MathUtils/3D.h"
 
 #include "Renderer/FrameResource.h"
+#include "Renderer/Interfaces/DrawObject.h"
 #include "Renderer/Interfaces/ICamera.h"
 
 namespace d14engine::renderer
@@ -12,67 +13,42 @@ namespace d14engine::renderer
     struct ConstantBuffer;
     struct Renderer;
 
-    struct Camera : ICamera
+    struct Camera : ICamera, DrawObject
     {
-        explicit Camera(Renderer* rndr);
+        explicit Camera(ID3D12Device* device);
 
-    public:
-        // IDrawObject
-        bool isD3d12ObjectVisible() const override;
+        // prevent std::unique_ptr from generating default deleter
+        virtual ~Camera() = default;
 
-        void setD3d12ObjectVisible(bool value) override;
-
-        void onRendererUpdateObject(Renderer* rndr) override;
-
-        void onRendererDrawD3d12Object(Renderer* rndr) override;
-
-        // ICamera
         Viewport viewport() const override;
 
         Scissors scissors() const override;
 
         void onViewResize(UINT viewWidth, UINT viewHeight) override;
 
-    protected:
-        bool m_visible = true;
+        void onRendererUpdateObjectHelper(Renderer* rndr) override;
 
-        XMFLOAT3 m_position = { 0.0f, 0.0f, 0.0f };
-
-        XMFLOAT3 m_right = { 1.0f, 0.0f, 0.0f };
-        XMFLOAT3 m_up = { 0.0f, 1.0f, 0.0f };
-        XMFLOAT3 m_look = { 0.0f, 0.0f, 1.0f };
+        void onRendererDrawD3d12ObjectHelper(Renderer* rndr) override;
 
     public:
-        XMVECTOR XM_CALLCONV position() const;
-        void XM_CALLCONV setPosition(FXMVECTOR pos);
+        XMFLOAT3 eyePos = { 0.0f, 0.0f, 0.0f };
+        XMFLOAT3 eyeDir = { 0.0f, 0.0f, 1.0f };
 
-        XMVECTOR XM_CALLCONV right() const;
-        XMVECTOR XM_CALLCONV up() const;
-        XMVECTOR XM_CALLCONV look() const;
-        void XM_CALLCONV setView(FXMVECTOR right, FXMVECTOR up, FXMVECTOR look);
+        XMFLOAT3 up = { 0.0f, 1.0f, 0.0f };
 
     protected:
         Viewport m_viewport = {};
         Scissors m_scissors = {};
 
-        float m_fovAngleY = XM_PIDIV4; // in radians
-
-        Optional<float> m_aspectRatio = {};
-
-        float m_nearZ = 1.0f, m_farZ = 1000.0f;
-
     public:
-        float fovAngleY() const;
-        void setFovAngleY(float rad);
+        float fovAngleY = XM_PIDIV4; // in radians
 
-        Optional<float> aspectRatio() const;
-        void setAspectRatio(OptParam<float> value);
+        Optional<float> aspectRatio = {};
 
-        // Returns Viewport-Width / Viewport-Height if m_aspectRatio is empty.
+        // Returns Viewport-Width / Viewport-Height if aspectRatio is empty.
         float getAspectRatio() const;
 
-        float nearZ() const; float farZ() const;
-        void setNearFarZ(float nearZ, float farZ);
+        float nearZ = 1.0f, farZ = 1000.0f;
 
     protected:
         struct Data
@@ -86,7 +62,6 @@ namespace d14engine::renderer
         XMMATRIX XM_CALLCONV viewMatrix() const;
         XMMATRIX XM_CALLCONV projMatrix() const;
 
-    protected:
         void updateViewMatrix();
         void updateProjMatrix();
 

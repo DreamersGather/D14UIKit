@@ -84,20 +84,24 @@ namespace d14engine::uikit
 
     void Panel::onRendererUpdateObject2D(Renderer* rndr)
     {
+        if (f_onRendererUpdateObject2DBefore) f_onRendererUpdateObject2DBefore(this, rndr);
+
         if (!m_takeOverChildrenUpdating) updateChildrenObjects(rndr);
 
         onRendererUpdateObject2DHelper(rndr);
 
-        if (f_onRendererUpdateObject2D) f_onRendererUpdateObject2D(this, rndr);
+        if (f_onRendererUpdateObject2DAfter) f_onRendererUpdateObject2DAfter(this, rndr);
     }
 
     void Panel::onRendererDrawD2d1Layer(Renderer* rndr)
     {
+        if (f_onRendererDrawD2d1LayerBefore) f_onRendererDrawD2d1LayerBefore(this, rndr);
+
         if (!m_takeOverChildrenDrawing) drawChildrenLayers(rndr);
 
         onRendererDrawD2d1LayerHelper(rndr);
 
-        if (f_onRendererDrawD2d1Layer) f_onRendererDrawD2d1Layer(this, rndr);
+        if (f_onRendererDrawD2d1LayerAfter) f_onRendererDrawD2d1LayerAfter(this, rndr);
     }
 
     void Panel::onRendererDrawD2d1Object(Renderer* rndr)

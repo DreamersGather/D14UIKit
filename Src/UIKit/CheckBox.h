@@ -22,13 +22,13 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
-        struct IconChecked
+        struct CheckedIcon
         {
             ComPtr<ID2D1StrokeStyle> strokeStyle = {};
         }
-        iconChecked = {};
+        checkedIcon = {};
 
-        void loadIconCheckedStrokeStyle();
+        void loadCheckedIconStrokeStyle();
 
         _D14_SET_APPEARANCE_GETTER(CheckBox)
 
