@@ -36,8 +36,8 @@ namespace d14engine::uikit
 
         auto properties = D2D1::StrokeStyleProperties
         (
-            D2D1_CAP_STYLE_FLAT,
-            D2D1_CAP_STYLE_FLAT,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
             D2D1_CAP_STYLE_ROUND,
             D2D1_LINE_JOIN_MITER,
             10.0f, // miterLimit

@@ -25,7 +25,8 @@ namespace d14engine
     public:
         const ISortable<T>* id() const { return this; }
 
-        const PT& priority() const { return m_priority; }
+        PT priority() const { return m_priority; }
+        void setPriority(PT value) { m_priority = value; }
         
         struct RawAscending
         {

@@ -3,10 +3,12 @@
 #include "UIKit/TreeViewItem.h"
 
 #include "Common/CppLangUtils/PointerEquality.h"
+#include "Common/DirectXError.h"
 #include "Common/MathUtils/2D.h"
 
 #include "Renderer/Renderer.h"
 
+#include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
 #include "UIKit/ResourceUtils.h"
 #include "UIKit/TreeView.h"
@@ -36,6 +38,8 @@ namespace d14engine::uikit
     {
         ViewItem::onInitializeFinish();
 
+        loadArrowIconStrokeStyle();
+
         addUIObject(m_layout);
 
         m_layout->transform(selfCoordRect());
@@ -53,6 +57,24 @@ namespace d14engine::uikit
             removeUIObject(m_content);
         }
         m_content = m_layout;
+    }
+
+    void TreeViewItem::loadArrowIconStrokeStyle()
+    {
+        auto factory = Application::g_app->dxRenderer()->d2d1Factory();
+
+        auto properties = D2D1::StrokeStyleProperties
+        (
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_LINE_JOIN_MITER,
+            10.0f, // miterLimit
+            D2D1_DASH_STYLE_SOLID,
+            0.0f   // dashOffset
+        );
+        THROW_IF_FAILED(factory->CreateStrokeStyle(
+            properties, nullptr, 0, &arrowIcon.strokeStyle));
     }
 
     WeakPtr<Panel> TreeViewItem::content() const
@@ -434,12 +456,14 @@ namespace d14engine::uikit
             rndr->d2d1DeviceContext()->DrawLine(
                 math_utils::offset(arrowLeftTop, geoSetting.line0.point0),
                 math_utils::offset(arrowLeftTop, geoSetting.line0.point1),
-                resource_utils::g_solidColorBrush.Get(), setting.strokeWidth);
+                resource_utils::g_solidColorBrush.Get(),
+                setting.strokeWidth, arrowIcon.strokeStyle.Get());
 
             rndr->d2d1DeviceContext()->DrawLine(
                 math_utils::offset(arrowLeftTop, geoSetting.line1.point0),
                 math_utils::offset(arrowLeftTop, geoSetting.line1.point1),
-                resource_utils::g_solidColorBrush.Get(), setting.strokeWidth);
+                resource_utils::g_solidColorBrush.Get(),
+                setting.strokeWidth, arrowIcon.strokeStyle.Get());
         }
     }
 

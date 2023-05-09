@@ -501,14 +501,16 @@ do { \
     {
         auto& setting = getAppearance().tabBar.separator.geometry;
 
-        return math_utils::rect(math_utils::offset(math_utils::rightTop(cardAbsoluteRect(tabIndex)), setting.offset), setting.size);
+        return math_utils::rect(math_utils::offset(
+            math_utils::rightTop(cardAbsoluteRect(tabIndex)), setting.offset), setting.size);
     }
 
     D2D1_RECT_F TabGroup::moreCardsIconAbsoluteRect() const
     {
         auto& setting = getAppearance().tabBar.moreCards.control.icon.geometry.topRect;
 
-        return math_utils::rect(math_utils::offset(math_utils::leftTop(moreCardsButtonAbsoluteRect()), setting.offset), setting.size);
+        return math_utils::rect(math_utils::offset(
+            math_utils::leftTop(moreCardsButtonAbsoluteRect()), setting.offset), setting.size);
     }
 
     math_utils::Triangle2D TabGroup::moreCardsIconAbsoluteTriangle() const
@@ -527,7 +529,8 @@ do { \
     {
         auto& setting = getAppearance().tabBar.moreCards.control.button.geometry;
 
-        return math_utils::rect(math_utils::offset(math_utils::rightTop(cardBarAbsoluteRect()), setting.offset), setting.size);
+        return math_utils::rect(math_utils::offset(
+            math_utils::rightTop(cardBarAbsoluteRect()), setting.offset), setting.size);
     }
 
     SharedPtr<Window> TabGroup::promoteTabToWindow(size_t index)

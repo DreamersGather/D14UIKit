@@ -34,10 +34,10 @@ namespace d14engine::uikit
     {
         ClickablePanel::onInitializeFinish();
 
-        loadIconCheckedStrokeStyle();
+        loadCheckedIconStrokeStyle();
     }
 
-    void CheckBox::loadIconCheckedStrokeStyle()
+    void CheckBox::loadCheckedIconStrokeStyle()
     {
         auto factory = Application::g_app->dxRenderer()->d2d1Factory();
 
@@ -45,14 +45,14 @@ namespace d14engine::uikit
         (
             D2D1_CAP_STYLE_ROUND,
             D2D1_CAP_STYLE_ROUND,
-            D2D1_CAP_STYLE_FLAT,
+            D2D1_CAP_STYLE_ROUND,
             D2D1_LINE_JOIN_MITER,
             10.0f, // miterLimit
             D2D1_DASH_STYLE_SOLID,
             0.0f   // dashOffset
         );
         THROW_IF_FAILED(factory->CreateStrokeStyle(
-            properties, nullptr, 0, &iconChecked.strokeStyle));
+            properties, nullptr, 0, &checkedIcon.strokeStyle));
     }
 
     void CheckBox::setEnabled(bool value)
@@ -151,13 +151,13 @@ namespace d14engine::uikit
                 math_utils::offset(iconLeftTop, geoSetting.tickLine0.point0),
                 math_utils::offset(iconLeftTop, geoSetting.tickLine0.point1),
                 resource_utils::g_solidColorBrush.Get(),
-                geoSetting.strokeWidth, iconChecked.strokeStyle.Get());
+                geoSetting.strokeWidth, checkedIcon.strokeStyle.Get());
 
             rndr->d2d1DeviceContext()->DrawLine(
                 math_utils::offset(iconLeftTop, geoSetting.tickLine1.point0),
                 math_utils::offset(iconLeftTop, geoSetting.tickLine1.point1),
                 resource_utils::g_solidColorBrush.Get(),
-                geoSetting.strokeWidth, iconChecked.strokeStyle.Get());
+                geoSetting.strokeWidth, checkedIcon.strokeStyle.Get());
         }
         // Outline
         resource_utils::g_solidColorBrush->SetColor(setting.stroke.color);

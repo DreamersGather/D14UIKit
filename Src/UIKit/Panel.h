@@ -55,12 +55,8 @@ namespace d14engine::uikit
         return uiobj;
     }
 
-    struct Panel
-        :
-        std::enable_shared_from_this<Panel>,
-        cpp_lang_utils::NonCopyable,
-        renderer::IDrawObject2D,
-        ISortable<Panel>
+    struct Panel : cpp_lang_utils::NonCopyable, renderer::IDrawObject2D,
+                   std::enable_shared_from_this<Panel>, ISortable<Panel>
     {
         friend struct Application;
 
@@ -90,16 +86,21 @@ namespace d14engine::uikit
 
         void onRendererUpdateObject2D(renderer::Renderer* rndr) override;
 
-        Function<void(Panel*, renderer::Renderer*)> f_onRendererUpdateObject2D = {};
+        Function<void(Panel*, renderer::Renderer*)>
+            f_onRendererUpdateObject2DBefore = {},
+            f_onRendererUpdateObject2DAfter = {};
 
         void onRendererDrawD2d1Layer(renderer::Renderer* rndr) override;
 
-        Function<void(Panel*, renderer::Renderer*)> f_onRendererDrawD2d1Layer = {};
+        Function<void(Panel*, renderer::Renderer*)>
+            f_onRendererDrawD2d1LayerBefore = {},
+            f_onRendererDrawD2d1LayerAfter = {};
 
         void onRendererDrawD2d1Object(renderer::Renderer* rndr) override;
 
         Function<void(Panel*, renderer::Renderer*)>
-            f_onRendererDrawD2d1ObjectBefore = {}, f_onRendererDrawD2d1ObjectAfter = {};
+            f_onRendererDrawD2d1ObjectBefore = {},
+            f_onRendererDrawD2d1ObjectAfter = {};
 
     protected:
         // Introduce onXxxHelper to solve the inheritance conflicts of
@@ -270,13 +271,13 @@ namespace d14engine::uikit
         // Introduce onXxxHelper to solve the inheritance conflicts of
         // the "override", "before" and "after" event callback lambdas.
         // 
-        // |----------|----------------------------------------|---------------------------------------------|
+        // *----------*----------------------------------------*---------------------------------------------*
         // | Class    | onSize                                 | onSizeHelper                                |
-        // |----------|----------------------------------------|---------------------------------------------|
+        // *----------*----------------------------------------*---------------------------------------------*
         // | Panel    | "before" ; Call Panel's onSizeHelper   | Panel's works                               |
-        // |----------|----------------------------------------|---------------------------------------------|
+        // *----------*----------------------------------------*---------------------------------------------*
         // | Window   | "before" ; Call Window's onSizeHelper  | Call Panel's onSizeHelper ; Window's works  |
-        // |----------|----------------------------------------|---------------------------------------------|
+        // *----------*----------------------------------------*---------------------------------------------*
         // 
         // To sum up, do the actual works in onXxxHelper methods and wrap them into onXxx methods.
 

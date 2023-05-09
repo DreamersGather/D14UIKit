@@ -94,8 +94,8 @@ namespace d14engine::renderer
             // Create quadrangle vertex buffer.
             Vertex quad[] =
             {
-                /* Top Left     */ { { -1.0f, +1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f } },
-                /* Top Right    */ { { +1.0f, +1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
+                /* Top    Left  */ { { -1.0f, +1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f } },
+                /* Top    Right */ { { +1.0f, +1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
                 /* Bottom Left  */ { { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
                 /* Bottom Right */ { { +1.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } }
             };
@@ -150,10 +150,8 @@ namespace d14engine::renderer
     {
         auto& cmdAlloc = m_cmdAllocs.at(rndr->currFrameIndex());
 
-        cmdAlloc->Reset();
-        rndr->cmdList()->Reset(cmdAlloc.Get(), nullptr);
-
-        copySceneToStageBuffer();
+        THROW_IF_FAILED(cmdAlloc->Reset());
+        THROW_IF_FAILED(rndr->cmdList()->Reset(cmdAlloc.Get(), nullptr));
 
         if (m_enabled)
         {
@@ -162,41 +160,6 @@ namespace d14engine::renderer
         else copySceneToBackBuffer();
 
         rndr->submitCmdList();
-    }
-
-    void Letterbox::copySceneToStageBuffer()
-    {
-        auto barrier = CD3DX12_RESOURCE_BARRIER::Transition
-        (
-            rndr->sceneBuffer(),
-            D3D12_RESOURCE_STATE_COMMON,
-            D3D12_RESOURCE_STATE_COPY_SOURCE
-        );
-        rndr->cmdList()->ResourceBarrier(1, &barrier);
-
-        auto sceneDesc = rndr->sceneBuffer()->GetDesc();
-
-        D3D12_PLACED_SUBRESOURCE_FOOTPRINT footprint = {};
-        footprint.Footprint.Format = Renderer::g_renderTargetFormat;
-
-        auto sceneWidth = rndr->getSceneWidth();
-        auto sceneHeight = rndr->getSceneHeight();
-
-        footprint.Footprint.Width = sceneWidth;
-        footprint.Footprint.Height = sceneHeight;
-
-        // The scene buffer is always created with the format of B8G8R8A8.
-        footprint.Footprint.RowPitch = 4 * sceneWidth;
-
-        footprint.Footprint.Depth = 1;
-        
-        CD3DX12_TEXTURE_COPY_LOCATION dst(rndr->stageBuffer(), footprint);
-        CD3DX12_TEXTURE_COPY_LOCATION src(rndr->sceneBuffer());
-
-        rndr->cmdList()->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
-
-        graph_utils::revertBarrier(1, &barrier);
-        rndr->cmdList()->ResourceBarrier(1, &barrier);
     }
 
     void Letterbox::copySceneToBackBuffer()

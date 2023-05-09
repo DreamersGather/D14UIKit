@@ -3,8 +3,10 @@
 #include "UIKit/ComboBox.h"
 
 #include "Common/CppLangUtils/PointerEquality.h"
+#include "Common/DirectXError.h"
 #include "Common/MathUtils/2D.h"
 
+#include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
 #include "UIKit/PopupMenu.h"
@@ -39,8 +41,28 @@ namespace d14engine::uikit
     {
         FlatButton::onInitializeFinish();
 
+        loadArrowIconStrokeStyle();
+
         m_dropDownMenu->resize(width(), m_dropDownMenu->height());
         m_dropDownMenu->move(m_absoluteRect.left, m_absoluteRect.bottom);
+    }
+
+    void ComboBox::loadArrowIconStrokeStyle()
+    {
+        auto factory = Application::g_app->dxRenderer()->d2d1Factory();
+
+        auto properties = D2D1::StrokeStyleProperties
+        (
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_CAP_STYLE_ROUND,
+            D2D1_LINE_JOIN_MITER,
+            10.0f, // miterLimit
+            D2D1_DASH_STYLE_SOLID,
+            0.0f   // dashOffset
+        );
+        THROW_IF_FAILED(factory->CreateStrokeStyle(
+            properties, nullptr, 0, &arrowIcon.strokeStyle));
     }
 
     void ComboBox::onSelectedChange(IconLabel* content)
@@ -124,12 +146,14 @@ namespace d14engine::uikit
         rndr->d2d1DeviceContext()->DrawLine(
             math_utils::offset(arrowOrigin, arrowGeometry.line0.point0),
             math_utils::offset(arrowOrigin, arrowGeometry.line0.point1),
-            resource_utils::g_solidColorBrush.Get(), arrowSetting.strokeWidth);
+            resource_utils::g_solidColorBrush.Get(),
+            arrowSetting.strokeWidth, arrowIcon.strokeStyle.Get());
 
         rndr->d2d1DeviceContext()->DrawLine(
             math_utils::offset(arrowOrigin, arrowGeometry.line1.point0),
             math_utils::offset(arrowOrigin, arrowGeometry.line1.point1),
-            resource_utils::g_solidColorBrush.Get(), arrowSetting.strokeWidth);
+            resource_utils::g_solidColorBrush.Get(),
+            arrowSetting.strokeWidth, arrowIcon.strokeStyle.Get());
     }
 
     void ComboBox::onSizeHelper(SizeEvent& e)

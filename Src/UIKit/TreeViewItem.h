@@ -25,6 +25,14 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
+        struct ArrowIcon
+        {
+            ComPtr<ID2D1StrokeStyle> strokeStyle = {};
+        }
+        arrowIcon = {};
+
+        void loadArrowIconStrokeStyle();
+
         _D14_SET_APPEARANCE_GETTER(TreeViewItem)
 
     protected:

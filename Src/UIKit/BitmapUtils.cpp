@@ -5,8 +5,12 @@
 #include "Common/DirectXError.h"
 #include "Common/ResourcePack.h"
 
+#include "Renderer/Renderer.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/PlatformUtils.h"
+
+using namespace d14engine::renderer;
 
 namespace d14engine::uikit::bitmap_utils
 {
@@ -31,12 +35,12 @@ namespace d14engine::uikit::bitmap_utils
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
             /* bitmapOptions */ options,
-            /* pixelFormat   */ D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
+            /* pixelFormat   */ D2D1::PixelFormat(Renderer::g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
             /* dpiX          */ dpi,
             /* dpiY          */ dpi
         );
         ComPtr<ID2D1Bitmap1> bitmap;
-        // Hardcode the pixel format as B8G8R8A8 for simplicity, so the pitch
+        // Hardcode the pixel format as R8G8B8A8 for simplicity, so the pitch
         // (byte count of each scanline) is set to "4 * width" directly.
         THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmap
         (
@@ -67,7 +71,7 @@ namespace d14engine::uikit::bitmap_utils
 
         THROW_IF_FAILED(formatConverter->Initialize(
             frameDecode.Get(),
-            GUID_WICPixelFormat32bppPBGRA,
+            GUID_WICPixelFormat32bppPRGBA,
             WICBitmapDitherTypeNone,
             nullptr,
             0.0f,
@@ -76,7 +80,7 @@ namespace d14engine::uikit::bitmap_utils
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
             /* bitmapOptions */ options,
-            /* pixelFormat   */ D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_UNKNOWN),
+            /* pixelFormat   */ D2D1::PixelFormat(Renderer::g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
             /* dpiX          */ 0.0f,
             /* dpiY          */ 0.0f
         );
@@ -124,7 +128,7 @@ namespace d14engine::uikit::bitmap_utils
 
         THROW_IF_FAILED(formatConverter->Initialize(
             frameDecode.Get(),
-            GUID_WICPixelFormat32bppPBGRA,
+            GUID_WICPixelFormat32bppPRGBA,
             WICBitmapDitherTypeNone,
             nullptr,
             0.0f,
@@ -133,7 +137,7 @@ namespace d14engine::uikit::bitmap_utils
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
             /* bitmapOptions */ options,
-            /* pixelFormat   */ D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_UNKNOWN),
+            /* pixelFormat   */ D2D1::PixelFormat(Renderer::g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
             /* dpiX          */ 0.0f,
             /* dpiY          */ 0.0f
         );

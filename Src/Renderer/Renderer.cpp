@@ -187,7 +187,7 @@ namespace d14engine::renderer
 
         flushCmdQueue();
         resetCmdList();
-        releaseInterpObject();
+        clearInterpStates();
 
         resizeSwapChain();
         // The back buffer index will be reset after the swap chain resized.
@@ -195,7 +195,6 @@ namespace d14engine::renderer
 
         createBackBuffers();
         createSceneBuffer();
-        createStageBuffer();
         createWrappedBuffer();
 
         submitCmdList();
@@ -413,7 +412,7 @@ namespace d14engine::renderer
         setting.allowTearing = createInfo.allowTearing;
     }
 
-    UINT Renderer::D3D12DeviceInfo::Feature::queryMsaaQualityLevel(UINT sampleCount) const
+    Optional<UINT> Renderer::D3D12DeviceInfo::Feature::queryMsaaQualityLevel(UINT sampleCount) const
     {
         D3D12DeviceInfo* info = m_master;
         THROW_IF_NULL(info);
@@ -422,16 +421,16 @@ namespace d14engine::renderer
         THROW_IF_NULL(rndr);
 
         D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS msaaInfo = {};
-        msaaInfo.Format = Renderer::g_renderTargetFormat;
+        msaaInfo.Format = g_renderTargetFormat;
         msaaInfo.SampleCount = sampleCount;
         msaaInfo.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
         msaaInfo.NumQualityLevels = 0;
 
-        HRESULT hr = rndr->m_d3d12Device->CheckFeatureSupport(
-            D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &msaaInfo, sizeof(msaaInfo));
+        THROW_IF_FAILED(rndr->m_d3d12Device->CheckFeatureSupport(
+            D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &msaaInfo, sizeof(msaaInfo)));
 
-        // The actual level == The queried level - 1
-        return SUCCEEDED(hr) ? msaaInfo.NumQualityLevels - 1 : 0;
+        if (msaaInfo.NumQualityLevels == 0) return std::nullopt;
+        else return msaaInfo.NumQualityLevels - 1; // max-level == level-count - 1
     }
 
     bool Renderer::D3D12DeviceInfo::Setting::resolutionScaling() const
@@ -566,19 +565,20 @@ namespace d14engine::renderer
 
     void Renderer::queryRootSignatureFeature()
     {
-        D3D_ROOT_SIGNATURE_VERSION version = {};
+        D3D12_FEATURE_DATA_ROOT_SIGNATURE rootSigInfo = {};
+        rootSigInfo.HighestVersion = D3D_ROOT_SIGNATURE_VERSION_1_0;
 
-        HRESULT hr = m_d3d12Device->CheckFeatureSupport(
-            D3D12_FEATURE_ROOT_SIGNATURE, &version, sizeof(version));
+        THROW_IF_FAILED(m_d3d12Device->CheckFeatureSupport(
+            D3D12_FEATURE_ROOT_SIGNATURE,
+            &rootSigInfo, sizeof(rootSigInfo)));
 
-        m_d3d12DeviceInfo.feature.rootSignature.HighestVersion =
-            SUCCEEDED(hr) ? version : D3D_ROOT_SIGNATURE_VERSION_1_0;
+        auto& feature = m_d3d12DeviceInfo.feature.rootSignature;
+        feature.HighestVersion = rootSigInfo.HighestVersion;
     }
 
     void Renderer::checkD3d12DeviceConfigs()
     {
         checkDisplayModeConfig();
-        checkTearingConfig();
     }
 
     void Renderer::checkDisplayModeConfig()
@@ -924,11 +924,6 @@ namespace d14engine::renderer
         return m_sceneBuffer.Get();
     }
 
-    ID3D12Resource* Renderer::stageBuffer() const
-    {
-        return m_stageBuffer.Get();;
-    }
-
     D3D12_CPU_DESCRIPTOR_HANDLE Renderer::sceneRtvHandle() const
     {
         return getRtvHandle((UINT)m_backBuffers.size());
@@ -967,13 +962,11 @@ namespace d14engine::renderer
     {
         D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D
         (
-            /* format        */ g_renderTargetFormat,
-            /* width         */ getSceneWidth(),
-            /* height        */ getSceneHeight(),
-            /* arraySize     */ 1,
-            /* mipLevels     */ 1,
-            /* sampleCount   */ 1,
-            /* sampleQuality */ 0
+            /* format    */ g_renderTargetFormat,
+            /* width     */ getSceneWidth(),
+            /* height    */ getSceneHeight(),
+            /* arraySize */ 1,
+            /* mipLevels */ 1
         );
         desc.Flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 
@@ -997,45 +990,6 @@ namespace d14engine::renderer
         }
     }
 
-    void Renderer::createStageBuffer()
-    {
-        auto sceneDesc = m_sceneBuffer->GetDesc();
-
-        UINT numRows = 0;
-        UINT64 rowSizeInBytes = 0;
-        UINT64 totalBytes = 0;
-
-        m_d3d12Device->GetCopyableFootprints(
-            /* pResourceDesc    */ &sceneDesc,
-            /* FirstSubresource */ 0,
-            /* NumSubresources  */ 1,
-            /* BaseOffset       */ 0,
-            /* pLayouts         */ nullptr,
-            /* pNumRows         */ &numRows,
-            /* pRowSizeInBytes  */ &rowSizeInBytes,
-            /* pTotalBytes      */ &totalBytes);
-
-        // Readback resources must be buffers.
-        D3D12_RESOURCE_DESC desc = {};
-        desc.DepthOrArraySize = 1;
-        desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-        desc.Flags = D3D12_RESOURCE_FLAG_NONE;
-        desc.Format = DXGI_FORMAT_UNKNOWN;
-        desc.Height = 1;
-        desc.Width = totalBytes;
-        desc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-        desc.MipLevels = 1;
-        desc.SampleDesc.Count = 1;
-
-        THROW_IF_FAILED(m_d3d12Device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK),
-            D3D12_HEAP_FLAG_NONE,
-            &desc,
-            D3D12_RESOURCE_STATE_COPY_DEST,
-            nullptr,
-            IID_PPV_ARGS(&m_stageBuffer)));
-    }
-
     void Renderer::createWrappedBuffer()
     {
         auto dpi = createInfo.dpi.has_value() ? createInfo.dpi.value() : (FLOAT)GetDpiForWindow(m_window.ptr);
@@ -1043,7 +997,7 @@ namespace d14engine::renderer
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
             /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-            /* pixelFormat   */ D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED),
+            /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
             /* dpiX          */ dpi,
             /* dpiY          */ dpi
         );
@@ -1063,11 +1017,8 @@ namespace d14engine::renderer
         THROW_IF_FAILED(m_d2d1DeviceContext->CreateBitmapFromDxgiSurface(surface.Get(), &props, &m_d2d1RenderTarget));
     }
 
-    void Renderer::releaseInterpObject()
+    void Renderer::clearInterpStates()
     {
-        m_d2d1RenderTarget.Reset();
-        m_wrappedBuffer.Reset();
-
         m_d2d1DeviceContext->SetTarget(nullptr);
 
         m_d3d11DeviceContext->ClearState();
@@ -1118,6 +1069,7 @@ namespace d14engine::renderer
 
     void Renderer::waitGpuCommand()
     {
+        m_d3d11DeviceContext->Flush();
         flushCmdQueue();
     }
 
@@ -1212,7 +1164,7 @@ namespace d14engine::renderer
 
         flushCmdQueue();
         resetCmdList();
-        releaseInterpObject();
+        clearInterpStates();
 
         createSceneBuffer();
         createWrappedBuffer();

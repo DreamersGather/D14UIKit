@@ -459,7 +459,7 @@ namespace d14engine::uikit
 
         D2D1_POINT_2F nextOffset = m_viewportOffset;
 
-        if (e.keyState.CTRL)
+        if (e.keyState.SHIFT)
         {
             nextOffset.x -= e.deltaCount * deltaPixelsPerScroll.horz;
         }

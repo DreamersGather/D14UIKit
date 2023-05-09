@@ -2,11 +2,9 @@
 
 #include "Common/Precompile.h"
 
-#include "Renderer/Interfaces/IDrawObject.h"
-
 namespace d14engine::renderer
 {
-    struct ICamera : IDrawObject
+    struct ICamera
     {
         using Viewport = D3D12_VIEWPORT;
         using Scissors = D3D12_RECT;
