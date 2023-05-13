@@ -1,9 +1,10 @@
 ﻿#include "Application.h"
+#include "Callback.h"
 #include "MainWindow.h"
 
 using namespace d14uikit;
 
-#define DEMO_NAME L"DemoTemplate"
+#define DEMO_NAME L"AdvancedCallback"
 
 int main(int argc, char* argv[])
 {
@@ -17,6 +18,8 @@ int main(int argc, char* argv[])
     //------------------------------------------- Initialize UI objects.
 
     MainWindow mwnd(DEMO_NAME);
+    Panel clntArea;
+    mwnd.setContent(&clntArea);
 
     //------------------------------------------- Set UI event callacks.
 

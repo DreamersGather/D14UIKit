@@ -114,11 +114,11 @@ namespace d14engine::renderer
         // Try to query the size of current output screen from the swap chain.
         try
         {
-            ComPtr<IDXGIOutput> currOutput;
-            THROW_IF_FAILED(rndr->m_swapChain->GetContainingOutput(&currOutput));
+            ComPtr<IDXGIOutput> output;
+            THROW_IF_FAILED(rndr->m_swapChain->GetContainingOutput(&output));
 
             DXGI_OUTPUT_DESC outputDesc;
-            THROW_IF_FAILED(currOutput->GetDesc(&outputDesc));
+            THROW_IF_FAILED(output->GetDesc(&outputDesc));
 
             fullRect = outputDesc.DesktopCoordinates;
         }
@@ -127,7 +127,7 @@ namespace d14engine::renderer
             DEVMODE devMode = {};
             devMode.dmSize = sizeof(DEVMODE);
 
-            EnumDisplaySettingsW(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
+            EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
 
             fullRect =
             {

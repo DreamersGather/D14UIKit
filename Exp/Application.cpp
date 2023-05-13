@@ -90,26 +90,54 @@ namespace d14uikit
         return Impl::app;
     }
 
-    std::unique_ptr<Image> Application::capture() const
-    {
-        std::unique_ptr<Image> screenshot(new Image(Image::Passkey{}));
-        screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
-        return screenshot;
-    }
-
     Cursor* Application::cursor() const
     {
         return pimpl->cursor.get();
     }
 
-    int Application::run()
+    int Application::run() const
     {
         return pimpl->uiobj->run();
     }
 
-    void Application::exit()
+    void Application::exit() const
     {
         pimpl->uiobj->exit();
+    }
+
+    bool Application::visible() const
+    {
+        return IsWindowVisible(pimpl->uiobj->win32Window());
+    }
+
+    void Application::setVisible(bool value)
+    {
+        auto showFlag = value ? SW_SHOW : SW_HIDE;
+        ShowWindow(pimpl->uiobj->win32Window(), showFlag);
+    }
+
+    bool Application::minimized() const
+    {
+        return IsMinimized(pimpl->uiobj->win32Window());
+    }
+
+    void Application::setMinimized(bool value)
+    {
+        if (!value && !minimized()) return;
+        auto showFlag = value ? SW_MINIMIZE : SW_NORMAL;
+        ShowWindow(pimpl->uiobj->win32Window(), showFlag);
+    }
+
+    bool Application::maximized() const
+    {
+        return IsMaximized(pimpl->uiobj->win32Window());
+    }
+
+    void Application::setMaximized(bool value)
+    {
+        if (!value && !maximized()) return;
+        auto showFlag = value ? SW_MAXIMIZE : SW_NORMAL;
+        ShowWindow(pimpl->uiobj->win32Window(), showFlag);
     }
 
     Size Application::size() const
@@ -401,5 +429,12 @@ namespace d14uikit
             mode = D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC;
         }
         else mode = D2D1_INTERPOLATION_MODE_LINEAR;
+    }
+
+    std::unique_ptr<Image> Application::capture() const
+    {
+        std::unique_ptr<Image> screenshot(new Image(Image::Passkey{}));
+        screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
+        return screenshot;
     }
 }

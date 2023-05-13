@@ -2,6 +2,7 @@
 
 #include "Label.h"
 
+#include "Common.h"
 #include "Font.h"
 #include "Panel.h"
 
@@ -32,6 +33,54 @@ namespace d14uikit
         pimpl(std::make_shared<Impl>()) { }
 
     void Label::initialize() { }
+
+    Color Label::frgnColor() const
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        return convert(appear.foreground.color);
+    }
+
+    void Label::setFrgnColor(const Color& value)
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        appear.foreground.color = convert(value);
+    }
+
+    float Label::frgnOpacity() const
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        return appear.foreground.opacity;
+    }
+
+    void Label::setFrgnOpacity(float value)
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        appear.foreground.opacity = value;
+    }
+
+    Color Label::bkgnColor() const
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        return convert(appear.background.color);
+    }
+
+    void Label::setBkgnColor(const Color& value)
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        appear.background.color = convert(value);
+    }
+
+    float Label::bkgnOpacity() const
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        return appear.background.opacity;
+    }
+
+    void Label::setBkgnOpacity(float value)
+    {
+        auto& appear = pimpl->uiobj->getAppearance();
+        appear.background.opacity = value;
+    }
 
     const std::wstring& Label::text() const
     {

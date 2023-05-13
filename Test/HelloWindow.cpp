@@ -3,16 +3,11 @@
 
 using namespace d14uikit;
 
-#define DEMO_NAME L"DemoTemplate"
+#define DEMO_NAME L"HelloWindow"
 
-int main(int argc, char* argv[])
+int main()
 {
-    float dpi = 96.0f;
-    if (argc >= 2 && strcmp(argv[1], "HighDPI"))
-    {
-        dpi = 192.0f;
-    }
-    Application app(DEMO_NAME, dpi);
+    Application app(DEMO_NAME);
 
     //------------------------------------------- Initialize UI objects.
 

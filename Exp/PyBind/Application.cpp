@@ -25,10 +25,6 @@ namespace d14uikit
                 return Application::app();
             });
 
-        i.def(
-            "capture",
-            &Application::capture);
-
         i.def_property_readonly(
             "cursor",
             &Application::cursor);
@@ -40,6 +36,21 @@ namespace d14uikit
         i.def(
             "exit",
             &Application::exit);
+
+        i.def_property(
+            "visible",
+            &Application::visible,
+            &Application::setVisible);
+
+        i.def_property(
+            "minimized",
+            &Application::minimized,
+            &Application::setMinimized);
+
+        i.def_property(
+            "maximized",
+            &Application::maximized,
+            &Application::setMaximized);
 
         i.def_property(
             "size",
@@ -139,5 +150,9 @@ namespace d14uikit
             "bmpQualityInterp",
             &Application::bmpQualityInterp,
             &Application::setBmpQualityInterp);
+
+        i.def(
+            "capture",
+            &Application::capture);
     }
 }

@@ -74,12 +74,17 @@ namespace d14engine::uikit
             isDraggable = true;
             m_originalDisplayState = DisplayState::Normal;
 
+            auto hwnd = Application::g_app->win32Window();
+
             RECT wndrect = {};
-            ShowWindow(Application::g_app->win32Window(), SW_NORMAL);
-            GetClientRect(Application::g_app->win32Window(), &wndrect);
+            GetClientRect(hwnd, &wndrect);
+
             auto pixSize = math_utils::size(wndrect);
             auto dipSize = platform_utils::restoredByDpi(pixSize);
+
             resize((float)dipSize.cx, (float)dipSize.cy);
+
+            ShowWindow(hwnd, SW_NORMAL);
             break;
         }
         case DisplayState::Minimized:
@@ -94,12 +99,17 @@ namespace d14engine::uikit
             isDraggable = false;
             m_originalDisplayState = DisplayState::Maximized;
 
+            auto hwnd = Application::g_app->win32Window();
+
             RECT wndrect = {};
-            ShowWindow(Application::g_app->win32Window(), SW_MAXIMIZE);
-            GetClientRect(Application::g_app->win32Window(), &wndrect);
+            GetClientRect(hwnd, &wndrect);
+
             auto pixSize = math_utils::size(wndrect);
             auto dipSize = platform_utils::restoredByDpi(pixSize);
+
             resize((float)dipSize.cx, (float)dipSize.cy);
+
+            ShowWindow(hwnd, SW_MAXIMIZE);
             break;
         }
         default: break;

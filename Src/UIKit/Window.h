@@ -181,7 +181,8 @@ namespace d14engine::uikit
         bool respondSetForegroundEvent = true;
 
     protected:
-        using RegisteredTabGroupSet = std::set<WeakPtr<TabGroup>, std::owner_less<WeakPtr<TabGroup>>>;
+        using RegisteredTabGroupSet = std::set<
+            WeakPtr<TabGroup>, std::owner_less<WeakPtr<TabGroup>>>;
 
         // Only the registered tab-groups can be associated with the window.
         RegisteredTabGroupSet m_registeredTabGroups = {};

@@ -1236,6 +1236,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClCompile Include="Src\UIKit\PlatformUtils.cpp" />
     <ClCompile Include="Src\UIKit\PopupMenu.cpp" />
     <ClCompile Include="Src\UIKit\RawTextInput.cpp" />
+    <ClCompile Include="Src\UIKit\ScenePanel.cpp" />
     <ClCompile Include="Src\UIKit\TabCaption.cpp" />
     <ClCompile Include="Src\UIKit\CheckBox.cpp" />
     <ClCompile Include="Src\UIKit\ClickablePanel.cpp" />
@@ -1698,6 +1699,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\UIKit\PlatformUtils.h" />
     <ClInclude Include="Src\UIKit\RawTextEditor.h" />
     <ClInclude Include="Src\UIKit\RawTextInput.h" />
+    <ClInclude Include="Src\UIKit\ScenePanel.h" />
     <ClInclude Include="Src\UIKit\TabCaption.h" />
     <ClInclude Include="Src\UIKit\TextBox.h" />
     <ClInclude Include="Src\UIKit\CheckBox.h" />
