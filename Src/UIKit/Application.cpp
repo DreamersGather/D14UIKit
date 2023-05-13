@@ -159,6 +159,8 @@ namespace d14engine::uikit
     {
         if (onLaunch) onLaunch(this);
 
+        m_renderer->renderNextFrame();
+
         if (createInfo.showFullscreen)
         {
             m_renderer->window().enterFullscreenMode();

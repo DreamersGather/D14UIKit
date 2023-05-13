@@ -60,8 +60,8 @@ namespace d14uikit
             "familyName"_a,
             "size"_a,
             "localeName"_a,
-            "weight"_a,
-            "style"_a,
-            "stretch"_a);
+            "weight"_a = Font::Regular,
+            "style"_a = Font::Normal,
+            "stretch"_a = Font::Medium);
     }
 }

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c2e17895-e0a5-490c-815a-800fe0801aa6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DemoTemplate.py</StartupFile>
+    <StartupFile>ModernTheme.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,7 +24,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AdvancedCallback.py" />
+    <Compile Include="BasicCallback.py" />
     <Compile Include="DemoTemplate.py" />
+    <Compile Include="HelloWindow.py" />
+    <Compile Include="HelloWindowDPI.py" />
+    <Compile Include="ModernTheme.py" />
+    <Compile Include="ObjectOriented.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

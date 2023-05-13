@@ -18,6 +18,18 @@ namespace d14uikit
 
         explicit Label(const std::wstring& text = {});
 
+        Color frgnColor() const;
+        void setFrgnColor(const Color& value);
+
+        float frgnOpacity() const;
+        void setFrgnOpacity(float value);
+
+        Color bkgnColor() const;
+        void setBkgnColor(const Color& value);
+
+        float bkgnOpacity() const;
+        void setBkgnOpacity(float value);
+
         const std::wstring& text() const;
         void setText(const std::wstring& text);
 

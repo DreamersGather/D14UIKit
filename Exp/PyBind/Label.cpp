@@ -14,6 +14,26 @@ namespace d14uikit
 
         i.def(py::init<const std::wstring&>(), "text"_a = L"");
 
+        i.def_property(
+            "bkgnColor",
+            &Label::bkgnColor,
+            &Label::setBkgnColor);
+
+        i.def_property(
+            "bkgnOpacity",
+            &Label::bkgnOpacity,
+            &Label::setBkgnOpacity);
+
+        i.def_property(
+            "frgnColor",
+            &Label::frgnColor,
+            &Label::setFrgnColor);
+
+        i.def_property(
+            "frgnOpacity",
+            &Label::frgnOpacity,
+            &Label::setFrgnOpacity);
+
         i.def_property("text", &Label::text, &Label::setText);
 
         i.def_property("font", &Label::font, &Label::setFont);

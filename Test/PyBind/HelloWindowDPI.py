@@ -2,7 +2,7 @@
 
 from D14UIKit import *
 
-DEMO_NAME = 'DemoTemplate'
+DEMO_NAME = 'HelloWindowDPI'
 
 if __name__ == '__main__':
     dpi = 96.0

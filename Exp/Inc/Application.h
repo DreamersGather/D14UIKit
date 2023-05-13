@@ -21,11 +21,19 @@ namespace d14uikit
 
         static Application* app();
 
-        std::unique_ptr<Image> capture() const;
         Cursor* cursor() const;
 
-        int run();
-        void exit();
+        int run() const;
+        void exit() const;
+
+        bool visible() const;
+        void setVisible(bool value);
+
+        bool minimized() const;
+        void setMinimized(bool value);
+
+        bool maximized() const;
+        void setMaximized(bool value);
 
         Size size() const;
         void setSize(const Size& value);
@@ -85,5 +93,7 @@ namespace d14uikit
 
         bool bmpQualityInterp() const;
         void setBmpQualityInterp(bool value);
+
+        std::unique_ptr<Image> capture() const;
     };
 }

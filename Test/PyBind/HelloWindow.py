@@ -1,15 +1,10 @@
-﻿from sys import argv
+﻿from D14UIKit import *
 
-from D14UIKit import *
-
-DEMO_NAME = 'DemoTemplate'
+DEMO_NAME = 'HelloWindow'
 
 if __name__ == '__main__':
-    dpi = 96.0
-    if len(argv) >= 2:
-        dpi = 192.0
 
-    app = Application(DEMO_NAME, dpi)
+    app = Application(DEMO_NAME)
 
     #------------------------------------------- Initialize UI objects.
 

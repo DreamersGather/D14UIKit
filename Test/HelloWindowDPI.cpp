@@ -3,7 +3,7 @@
 
 using namespace d14uikit;
 
-#define DEMO_NAME L"DemoTemplate"
+#define DEMO_NAME L"HelloWindowDPI"
 
 int main(int argc, char* argv[])
 {
