@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c2e17895-e0a5-490c-815a-800fe0801aa6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ModernTheme.py</StartupFile>
+    <StartupFile>ObjectOriented.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -29,6 +29,7 @@
     <Compile Include="DemoTemplate.py" />
     <Compile Include="HelloWindow.py" />
     <Compile Include="HelloWindowDPI.py" />
+    <Compile Include="LayoutControl.py" />
     <Compile Include="ModernTheme.py" />
     <Compile Include="ObjectOriented.py" />
   </ItemGroup>

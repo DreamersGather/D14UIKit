@@ -130,8 +130,11 @@ namespace d14engine::uikit
 
     void GridLayout::onSizeHelper(SizeEvent& e)
     {
-        Layout::onSizeHelper(e);
-
+        // We must call this method before
+        // Layout::onSizeHelper since updateAllElements
+        // depends on the updated geometry information.
         updateCellDeltaInfo();
+
+        Layout::onSizeHelper(e);
     }
 }
