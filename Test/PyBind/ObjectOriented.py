@@ -49,7 +49,7 @@ if __name__ == '__main__':
     # If the rectangle area size does not match the image size,
     # an automatical bitmap resampling will be performed.
     imgArea.size = img.size
-    imgArea.position = Point(0, 0)
+    imgArea.position = Point(20, 0)
     imgArea.image = img
 
     # Label, i.e. so-called TextPanel, is used to display
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     textArea.size = Size(200, 100)
     textArea.position = Point(400, 100)
     textArea.outlineWidth = 5
-    textArea.outlineColor = Color(0, 0, 0)
-    textArea.outlineOpacity = 1.0
+    textArea.outlineColor = Color(255, 0, 0)
+    textArea.outlineOpacity = 0.5
     textArea.text = 'This is a label'
     textArea.horzAlign = Label.HCenter
 
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # the library only loads some limited default fonts when
     # initialized, so we must load the specific fonts manually.
     Font.load("MyFont", "Times New Roman", 20, "en-us", \
-              Font.Regular, Font.Italic, Font.Medium)
+              Font.ExtraBold, Font.Italic, Font.Expanded)
 
     # To create a font object, we actually query and load it from
     # the global font map maintained by the library.
@@ -79,8 +79,7 @@ if __name__ == '__main__':
     busyArea.parent = clntArea
     busyArea.size = Size(760, 240)
     busyArea.position = Point(20, 300)
-    busyArea.frgnOpacity = 0.5
-    busyArea.bkgnColor = Color(0, 0, 0)
+    busyArea.bkgnColor = Color(128, 128, 128)
     busyArea.bkgnOpacity = 0.5
     busyArea.text = 'Try moving cursor in this area'
     busyArea.horzAlign = Label.HCenter
@@ -91,11 +90,11 @@ if __name__ == '__main__':
 
     #------------------------------------------- Set UI event callacks.
 
-    # The event callback of Panel is also an object (i.e. functor).
-    # Thus, we can assign a lambda or a function as the callback.
     def setBusyCursor(p, e):
         cursor = Application.app.cursor
         cursor.setIcon(Cursor.Busy)
+    # The event callback of Panel is also an object (i.e. functor).
+    # Thus, we can assign a lambda or a function as the callback.
     busyArea.f_onMouseMove = setBusyCursor
 
     exit(app.run())

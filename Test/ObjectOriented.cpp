@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
     // If the rectangle area size does not match the image size,
     // an automatical bitmap resampling will be performed.
     imgArea.setSize(img.size());
-    imgArea.setPosition({ 0, 0 });
+    imgArea.setPosition({ 20, 0 });
     imgArea.setImage(&img);
 
     // Label, i.e. so-called TextPanel, is used to display
@@ -66,8 +66,8 @@ int main(int argc, char* argv[])
     textArea.setSize({ 200, 100 });
     textArea.setPosition({ 400, 100 });
     textArea.setOutlineWidth(5);
-    textArea.setOutlineColor({ 0, 0, 0 });
-    textArea.setOutlineOpacity(1.0f);
+    textArea.setOutlineColor({ 255, 0, 0 });
+    textArea.setOutlineOpacity(0.5);
     textArea.setText(L"This is a label");
     textArea.setHorzAlign(Label::HCenter);
 
@@ -81,9 +81,9 @@ int main(int argc, char* argv[])
         L"Times New Roman",
         20,
         L"en-us",
-        Font::Regular,
+        Font::ExtraBold,
         Font::Italic,
-        Font::Medium);
+        Font::Expanded);
 
     // To create a font object, we actually query and load it from
     // the global font map maintained by the library.
@@ -93,8 +93,7 @@ int main(int argc, char* argv[])
     busyArea.setParent(&clntArea);
     busyArea.setSize({ 760, 240 });
     busyArea.setPosition({ 20, 300 });
-    busyArea.setFrgnOpacity(0.5f);
-    busyArea.setBkgnColor({ 0, 0, 0 });
+    busyArea.setBkgnColor({ 128, 128, 128 });
     busyArea.setBkgnOpacity(0.5f);
     busyArea.setText(L"Try moving cursor in this area");
     busyArea.setHorzAlign(Label::HCenter);
@@ -105,13 +104,13 @@ int main(int argc, char* argv[])
 
     //------------------------------------------- Set UI event callacks.
 
-    // The event callback of Panel is also an object (i.e. functor).
-    // Thus, we can assign a lambda or a function as the callback.
     auto setBusyCursor = [](Panel* p, MouseMoveEvent* e)
     {
         auto cursor = Application::app()->cursor();
         cursor->setIcon(Cursor::Busy);
     };
+    // The event callback of Panel is also an object (i.e. functor).
+    // Thus, we can assign a lambda or a function as the callback.
     busyArea.callback().onMouseMove = setBusyCursor;
 
     return app.run();
