@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c2e17895-e0a5-490c-815a-800fe0801aa6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ObjectOriented.py</StartupFile>
+    <StartupFile>HelloWindowDPI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
