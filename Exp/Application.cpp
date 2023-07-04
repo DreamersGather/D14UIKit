@@ -151,7 +151,7 @@ namespace d14uikit
     {
         SetWindowPos(
             pimpl->uiobj->win32Window(),
-            HWND_TOPMOST,
+            HWND_TOP,
             0, // nomove
             0, // nomove
             value.width,
@@ -190,7 +190,7 @@ namespace d14uikit
     {
         SetWindowPos(
             pimpl->uiobj->win32Window(),
-            HWND_TOPMOST,
+            HWND_TOP,
             value.x,
             value.y,
             0, // nosize
