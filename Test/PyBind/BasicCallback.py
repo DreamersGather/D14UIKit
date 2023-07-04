@@ -45,6 +45,9 @@ if __name__ == '__main__':
     titleInput.f_onTextChange = changeMwndTitle
 
     def restoreMwndTitle(clkp, e):
+        # If we update mwnd before titleInput,
+        # onTextChange callback will overwrite
+        # the window title as empty at the end.
         titleInput.text = ''
         mwnd.title = DEMO_NAME
     restoreButton.f_onMouseButtonRelease = restoreMwndTitle
