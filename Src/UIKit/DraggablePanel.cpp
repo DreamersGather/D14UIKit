@@ -105,7 +105,7 @@ namespace d14engine::uikit
                 int X = screenCursorPoint.x - draggingPoint.x;
                 int Y = screenCursorPoint.y - draggingPoint.y;
 
-                SetWindowPos(hwnd, nullptr, X, Y, 0, 0, SWP_NOSIZE);
+                SetWindowPos(hwnd, HWND_TOP, X, Y, 0, 0, SWP_NOSIZE);
                 break;
             }
             default: break;

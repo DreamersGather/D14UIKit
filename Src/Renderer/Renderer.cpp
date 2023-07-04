@@ -162,7 +162,7 @@ namespace d14engine::renderer
 
         SetWindowPos(
             ptr,
-            HWND_TOPMOST,
+            HWND_TOP,
             m_originalInfo.windowRect.left,
             m_originalInfo.windowRect.top,
             (int)math_utils::width(m_originalInfo.windowRect),
