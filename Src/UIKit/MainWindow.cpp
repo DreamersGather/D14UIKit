@@ -132,21 +132,6 @@ namespace d14engine::uikit
         }
     }
 
-    void MainWindow::onChangeThemeHelper(WstrParam themeName)
-    {
-        Window::onChangeThemeHelper(themeName);
-
-        if (themeName == L"Light")
-        {
-            Application::g_app->dxRenderer()->setSceneColor(Colors::White);
-        }
-        else if (themeName == L"Dark")
-        {
-            Application::g_app->dxRenderer()->setSceneColor(Colors::Black);
-        }
-        getAppearance().changeTheme(themeName);
-    }
-
     void MainWindow::onCloseHelper()
     {
         Window::onCloseHelper();
