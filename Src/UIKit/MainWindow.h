@@ -41,9 +41,6 @@ namespace d14engine::uikit
         void setCornerState(CornerState state);
 
     protected:
-        // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
-
         // Window
         void onCloseHelper() override;
 

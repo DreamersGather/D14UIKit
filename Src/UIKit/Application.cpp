@@ -139,10 +139,10 @@ namespace d14engine::uikit
     void Application::initMiscComponents()
     {
         m_systemThemeStyle.querySystemSettingsFromRegistry();
+        bool light = (m_systemThemeStyle.mode == ThemeStyle::Mode::Light);
+        m_renderer->setSceneColor(light ? Colors::White : Colors::Black);
 
         appearance::initialize();
-
-        bool light = (m_systemThemeStyle.mode == ThemeStyle::Mode::Light);
         m_currThemeName = light ? L"Light" : L"Dark";
 
         bitmap_utils::initialize();
@@ -1061,6 +1061,14 @@ namespace d14engine::uikit
     {
         appearance::g_colorGroup.generateTonedColors();
 
+        if (themeName == L"Light")
+        {
+            m_renderer->setSceneColor(Colors::White);
+        }
+        else if (themeName == L"Dark")
+        {
+            m_renderer->setSceneColor(Colors::Black);
+        }        
         m_currThemeName = themeName;
 
         for (auto& uiobj : m_uiObjects)
