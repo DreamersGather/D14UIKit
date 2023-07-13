@@ -7,12 +7,15 @@
 #include "Image.h"
 #include "Panel.h"
 
+#include "Common/MathUtils/Basic.h"
+
 #include "Renderer/TickTimer.h"
 
 #include "UIKit/Application.h"
 #include "UIKit/BitmapObject.h"
 #include "UIKit/ColorUtils.h"
 #include "UIKit/Cursor.h"
+#include "UIKit/PlatformUtils.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
@@ -140,22 +143,67 @@ namespace d14uikit
         ShowWindow(pimpl->uiobj->win32Window(), showFlag);
     }
 
+    Size scaledByDpi(const Size& sz)
+    {
+        auto factor = uikit::platform_utils::dpi() / 96.0f;
+        return
+        {
+            math_utils::round((float)sz.width * factor),
+            math_utils::round((float)sz.height * factor)
+        };
+    }
+
+    Size restoredByDpi(const Size& sz)
+    {
+        auto factor = 96.0f / uikit::platform_utils::dpi();
+        return
+        {
+            math_utils::round((float)sz.width * factor),
+            math_utils::round((float)sz.height * factor)
+        };
+    }
+
+    Point scaledByDpi(const Point& pt)
+    {
+        auto factor = uikit::platform_utils::dpi() / 96.0f;
+        return
+        {
+            math_utils::round((float)pt.x * factor),
+            math_utils::round((float)pt.y * factor)
+        };
+    }
+
+    Point restoredByDpi(const Point& pt)
+    {
+        auto factor = 96.0f / uikit::platform_utils::dpi();
+        return
+        {
+            math_utils::round((float)pt.x * factor),
+            math_utils::round((float)pt.y * factor)
+        };
+    }
+
     Size Application::size() const
     {
         RECT rc = {};
         GetClientRect(pimpl->uiobj->win32Window(), &rc);
-        return { rc.right - rc.left, rc.bottom - rc.top };
+        return restoredByDpi(Size
+        {
+            rc.right - rc.left,
+            rc.bottom - rc.top
+        });
     }
 
     void Application::setSize(const Size& value)
     {
+        Size sz = scaledByDpi(value);
         SetWindowPos(
             pimpl->uiobj->win32Window(),
             HWND_TOP,
             0, // nomove
             0, // nomove
-            value.width,
-            value.height,
+            sz.width,
+            sz.height,
             SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOMOVE);
     }
 
@@ -183,16 +231,17 @@ namespace d14uikit
     {
         RECT rc = {};
         GetClientRect(pimpl->uiobj->win32Window(), &rc);
-        return { rc.left, rc.top };
+        return restoredByDpi(Point{ rc.left, rc.top });
     }
 
     void Application::setPosition(const Point& value)
     {
+        auto pt = scaledByDpi(value);
         SetWindowPos(
             pimpl->uiobj->win32Window(),
             HWND_TOP,
-            value.x,
-            value.y,
+            pt.x,
+            pt.y,
             0, // nosize
             0, // nosize
             SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOSIZE);
