@@ -90,6 +90,9 @@ type::callback().onTextChange = [__VA_ARGS__](type* obj, const std::wstring& tex
 #define D14_onTriggerMenuItem(menu, text, ...) \
 PopupMenu::callback().onTriggerMenuItem = [__VA_ARGS__](PopupMenu* menu, const std::wstring& text)
 
+#define D14_onUpdate(p, ...) \
+Panel::callback().onUpdate = [__VA_ARGS__](Panel* p)
+
 #define D14_onValueChange(type, obj, value, ...) \
 type::callback().onValueChange = [__VA_ARGS__](type* obj, float value)
 
