@@ -20,11 +20,13 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
+    public:
+        void setDisplayState(DisplayState state);
+
     protected:
         DisplayState m_originalDisplayState = {};
 
-    public:
-        void setDisplayState(DisplayState state);
+        void setDisplayStateHelper(DisplayState state); 
 
     public:
         using CornerState = DWM_WINDOW_CORNER_PREFERENCE;
