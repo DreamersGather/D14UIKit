@@ -4,7 +4,7 @@
 
 namespace d14engine::uikit::platform_utils
 {
-    float dpi();
+    float dpi(); // DPI: Dots Per Inch
 
     SIZE scaledByDpi(const SIZE& sz);
     SIZE restoredByDpi(const SIZE& sz);

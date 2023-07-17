@@ -40,7 +40,7 @@ namespace d14engine::uikit
 
         initMainRenderer();
 
-        initMiscComponents();
+        initMiscElements();
     }
 
     void Application::initWin32Window()
@@ -49,7 +49,7 @@ namespace d14engine::uikit
         
         WNDCLASSEX wndclass = {};
         wndclass.cbSize = sizeof(wndclass);
-        wndclass.style = CS_DBLCLKS | CS_DROPSHADOW;
+        wndclass.style = CS_DBLCLKS; // The drop shadow has bugs on Windows 11.
         wndclass.lpfnWndProc = fnWndProc;
         // We will populate GWLP_USERDATA with the application instance pointer.
         wndclass.cbWndExtra = sizeof(this);
@@ -136,7 +136,7 @@ namespace d14engine::uikit
         m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
     }
 
-    void Application::initMiscComponents()
+    void Application::initMiscElements()
     {
         m_systemThemeStyle.querySystemSettingsFromRegistry();
         bool light = (m_systemThemeStyle.mode == ThemeStyle::Mode::Light);

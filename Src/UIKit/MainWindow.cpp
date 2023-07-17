@@ -65,6 +65,13 @@ namespace d14engine::uikit
 
     void MainWindow::setDisplayState(DisplayState state)
     {
+        m_displayState = state;
+
+        setDisplayStateHelper(state);
+    }
+
+    void MainWindow::setDisplayStateHelper(DisplayState state)
+    {
         switch (state)
         {
         case DisplayState::Normal:
@@ -143,20 +150,20 @@ namespace d14engine::uikit
     {
         Window::onRestoreHelper();
 
-        setDisplayState(DisplayState::Normal);
+        setDisplayStateHelper(DisplayState::Normal);
     }
 
     void MainWindow::onMinimizeHelper()
     {
         Window::onMinimizeHelper();
 
-        setDisplayState(DisplayState::Minimized);
+        setDisplayStateHelper(DisplayState::Minimized);
     }
 
     void MainWindow::onMaximizeHelper()
     {
         Window::onMaximizeHelper();
 
-        setDisplayState(DisplayState::Maximized);
+        setDisplayStateHelper(DisplayState::Maximized);
     }
 }
