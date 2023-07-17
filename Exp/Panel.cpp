@@ -248,6 +248,11 @@ namespace d14uikit
         return convert(pimpl->uiobj->position());
     }
 
+    Point Panel::absPosition() const
+    {
+        return convert(pimpl->uiobj->absolutePosition());
+    }
+
     void Panel::setPosition(const Point& value)
     {
         pimpl->uiobj->move(convert(value));
@@ -258,6 +263,11 @@ namespace d14uikit
         return position().x;
     }
 
+    int Panel::absX() const
+    {
+        return absPosition().x;
+    }
+
     void Panel::setX(int value)
     {
         setPosition({ value, y() });
@@ -266,6 +276,11 @@ namespace d14uikit
     int Panel::y() const
     {
         return position().y;
+    }
+
+    int Panel::absY() const
+    {
+        return absPosition().y;
     }
 
     void Panel::setY(int value)

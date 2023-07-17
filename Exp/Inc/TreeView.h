@@ -17,5 +17,8 @@ namespace d14uikit
 
         void removeRootItem(int rootIndex, int count = 1);
         void clearAllItems();
+
+        int allItemCount() const;
+        int rootItemCount() const;
     };
 }

@@ -48,15 +48,27 @@ namespace d14uikit
             &Panel::position,
             &Panel::setPosition);
 
+        i.def_property_readonly(
+            "absPosition",
+            &Panel::absPosition);
+
         i.def_property(
             "x",
             &Panel::x,
             &Panel::setX);
 
+        i.def_property_readonly(
+            "absX",
+            &Panel::absX);
+
         i.def_property(
             "y",
             &Panel::y,
             &Panel::setY);
+
+        i.def_property_readonly(
+            "absY",
+            &Panel::absY);
 
         i.def_property(
             "color",

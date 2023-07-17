@@ -137,8 +137,8 @@ namespace d14uikit
             (UINT)dst.left,  (UINT)dst.top,
             (UINT)dst.right, (UINT)dst.bottom
         };
-        int pitch = 4 * (dst.right - dst.left);
-        // The pixel format of the bitmap is hardcoded as B8G8R8A8, so the pitch
+        UINT32 pitch = 4 * (dstRect.right - dstRect.left);
+        // The pixel format of the bitmap is hardcoded as R8G8B8A8, so the pitch
         // (byte count of each scanline) is set to "4 * dst_width" directly.
         THROW_IF_FAILED(pimpl->bitmap->CopyFromMemory(&dstRect, source, pitch));
     }

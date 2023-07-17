@@ -67,11 +67,11 @@ namespace d14uikit
             py::class_<Pixel> i(m, "Pixel");
 
             i.def(py::init<uint8_t, uint8_t, uint8_t, uint8_t>(),
-                  "b"_a = 0, "g"_a = 0, "r"_a = 0, "a"_a = 0);
+                  "r"_a = 0, "g"_a = 0, "b"_a = 0, "a"_a = 0);
 
-            i.def_readwrite("b", &Pixel::b);
-            i.def_readwrite("g", &Pixel::g);
             i.def_readwrite("r", &Pixel::r);
+            i.def_readwrite("g", &Pixel::g);
+            i.def_readwrite("b", &Pixel::b);
             i.def_readwrite("a", &Pixel::a);
         }
     }

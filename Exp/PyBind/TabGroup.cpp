@@ -18,9 +18,14 @@ namespace d14uikit
 
         // Tab
         {
-            py::class_<TabGroup::Tab> i2(i, "Tab");
+            using Tab = TabGroup::Tab;
+            py::class_<Tab> i2(i, "Tab");
 
+            i2.def(py::init());
             i2.def(py::init<TabCaption*, Panel*>(), "caption"_a, "content"_a);
+
+            i2.def_readwrite("caption", &Tab::caption);
+            i2.def_readwrite("content", &Tab::content);
         }
 
         i.def("insertTab", &TabGroup::insertTab, "tab"_a, "index"_a = 0);
@@ -28,6 +33,8 @@ namespace d14uikit
 
         i.def("removeTab", &TabGroup::removeTab, "index"_a, "count"_a = 1);
         i.def("clearAllTabs", &TabGroup::clearAllTabs);
+
+        i.def_property_readonly("tabCount", &TabGroup::tabCount);
 
         i.def("setCurrSelected", &TabGroup::setCurrSelected, "index"_a);
         i.def_property_readonly("currSelectedTitle", &TabGroup::currSelectedTitle);

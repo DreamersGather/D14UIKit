@@ -12,6 +12,7 @@
 #include "UIKit/ResourceUtils.h"
 #include "UIKit/TabCaption.h"
 #include "UIKit/TabGroup.h"
+#include "UIKit/Window.h"
 
 using namespace d14engine;
 
@@ -40,14 +41,30 @@ namespace d14uikit
 
     void TabGroup::initialize()
     {
+        pimpl->uiobj->f_onTriggerTabPromoting = []
+        (uikit::TabGroup* tg, uikit::Window* w)
+        {
+            w->registerDrawObjects();
+            w->registerApplicationEvents();
+
+            w->moveTopmost();
+
+            w->isMinimizeEnabled = false;
+            w->isMaximizeEnabled = false;
+
+            w->f_onClose = [](uikit::Window* w) { w->destroy(); };
+        };
         pimpl->uiobj->f_onSelectedTabIndexChange = [this]
         (uikit::TabGroup* tg, uikit::TabGroup::TabIndexParam index)
         {
-            auto& title = index->caption->title()->label()->text();
-            onSelectedChange(title);
-            if (pcallback->onSelectedChange)
+            if (index.valid())
             {
-                pcallback->onSelectedChange(this, title);
+                auto& title = index->caption->title()->label()->text();
+                onSelectedChange(title);
+                if (pcallback->onSelectedChange)
+                {
+                    pcallback->onSelectedChange(this, title);
+                }
             }
         };
     }
@@ -86,8 +103,10 @@ namespace d14uikit
         auto& prvwCtrlGeo = barAppear.moreCards.control.button.geometry;
 
         barGeo.height = (float)(value.height + 8);
-        sprtGeo.size.height = (float)(value.height - 8);        
-        prvwCtrlGeo.offset.y = ((float)value.height - prvwCtrlGeo.size.height) * 0.5f;
+        sprtGeo.size.height = (float)(value.height - 8);
+
+        auto& geoHeight = prvwCtrlGeo.size.height;
+        prvwCtrlGeo.offset.y = ((float)value.height - geoHeight) * 0.5f;
 
         pimpl->uiobj->updateCandidateTabInfo();
         pimpl->uiobj->updatePreviewPanelItems();
@@ -120,6 +139,11 @@ namespace d14uikit
     void TabGroup::clearAllTabs()
     {
         pimpl->uiobj->clearAllTabs();
+    }
+
+    int TabGroup::tabCount() const
+    {
+        return (int)pimpl->uiobj->tabs().size();
     }
 
     void TabGroup::setCurrSelected(int index)

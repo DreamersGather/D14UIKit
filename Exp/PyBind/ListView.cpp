@@ -35,5 +35,9 @@ namespace d14uikit
         i.def(
             "clearAllItems",
             &ListView::clearAllItems);
+
+        i.def_property_readonly(
+            "itemCount",
+            &ListView::itemCount);
     }
 }

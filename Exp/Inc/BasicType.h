@@ -30,6 +30,6 @@ namespace d14uikit
 
     struct Pixel
     {
-        uint8_t b = {}, g = {}, r = {}, a = {};
+        uint8_t r = {}, g = {}, b = {}, a = {};
     };
 }

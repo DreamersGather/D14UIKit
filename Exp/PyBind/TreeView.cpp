@@ -30,5 +30,13 @@ namespace d14uikit
         i.def(
             "clearAllItems",
             &TreeView::clearAllItems);
+
+        i.def_property_readonly(
+            "allItemCount",
+            &TreeView::allItemCount);
+
+        i.def_property_readonly(
+            "rootItemCount",
+            &TreeView::rootItemCount);
     }
 }

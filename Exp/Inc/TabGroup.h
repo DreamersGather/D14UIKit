@@ -26,6 +26,8 @@ namespace d14uikit
         void removeTab(int index, int count = 1);
         void clearAllTabs();
 
+        int tabCount() const;
+
         void setCurrSelected(int index);
         const std::wstring& currSelectedTitle() const;
 
