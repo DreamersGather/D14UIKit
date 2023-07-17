@@ -64,4 +64,14 @@ namespace d14uikit
     {
         pimpl->uiobj->clearAllItems();
     }
+
+    int TreeView::allItemCount() const
+    {
+        return (int)pimpl->uiobj->childrenItems().size();
+    }
+
+    int TreeView::rootItemCount() const
+    {
+        return (int)pimpl->uiobj->rootItems().size();
+    }
 }

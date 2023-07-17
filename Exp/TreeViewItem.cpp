@@ -85,6 +85,11 @@ namespace d14uikit
         pimpl->uiobj->clearAllItems();
     }
 
+    int TreeViewItem::itemCount() const
+    {
+        return (int)pimpl->uiobj->childrenItems().size();
+    }
+
     TreeViewItem::State TreeViewItem::state() const
     {
         return pimpl->state;

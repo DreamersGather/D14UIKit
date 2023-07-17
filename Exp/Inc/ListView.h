@@ -17,5 +17,7 @@ namespace d14uikit
 
         void removeItem(int index, int count = 1);
         void clearAllItems();
+
+        int itemCount() const;
     };
 }

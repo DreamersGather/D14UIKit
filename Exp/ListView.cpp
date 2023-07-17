@@ -62,4 +62,9 @@ namespace d14uikit
     {
         pimpl->uiobj->clearAllItems();
     }
+
+    int ListView::itemCount() const
+    {
+        return (int)pimpl->uiobj->childrenItems().size();
+    }
 }

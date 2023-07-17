@@ -33,12 +33,15 @@ namespace d14uikit
         void setHeight(int value);
 
         Point position() const;
+        Point absPosition() const;
         void setPosition(const Point& value);
 
         int x() const;
+        int absX() const;
         void setX(int value);
 
         int y() const;
+        int absY() const;
         void setY(int value);
 
         Color color() const;
