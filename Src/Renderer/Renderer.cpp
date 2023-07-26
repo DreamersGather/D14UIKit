@@ -372,7 +372,6 @@ namespace d14engine::renderer
     void Renderer::checkDxgiFactoryConfigs()
     {
         checkAdapterConfig();
-        checkTearingConfig();
     }
 
     void Renderer::checkAdapterConfig()
@@ -396,20 +395,11 @@ namespace d14engine::renderer
         }
     }
 
-    void Renderer::checkTearingConfig()
-    {
-        if (m_dxgiFactoryInfo.setting.allowTearing && !m_dxgiFactoryInfo.feature.allowTearing)
-        {
-            THROW_ERROR(L"Tearing (a.k.a VSync/Off) support is not available.");
-        }
-    }
-
     void Renderer::populateDxgiFactorySettings()
     {
         auto& setting = m_dxgiFactoryInfo.setting;
 
         setting.m_currSelectedAdapterIndex = createInfo.adapterIndex;
-        setting.allowTearing = createInfo.allowTearing;
     }
 
     Optional<UINT> Renderer::D3D12DeviceInfo::Feature::queryMsaaQualityLevel(UINT sampleCount) const
@@ -763,10 +753,25 @@ namespace d14engine::renderer
 
     void Renderer::createSwapChain()
     {
+        // The architecture follows the modern rendering mechanism in general,
+        // and one of the most useful features is that DirectX 12 3D supports
+        // uncapped FPS while keeping the screen not tearing, which is achieved
+        // by placing the window into the sandbox (DWM, desktop window manager).
+        //
+        // To benefit the most from the modern API, these configs are needed:
+        //
+        // 1. Always keep the render-target in windowed-mode.
+        //    Use a borderless window to simulate the false fullscreen.
+        //
+        // 2. Init the swap chain in Flip-Mode (NO Blt-Mode).
+        //
+        // 3. Enable tearing (Vsync-Off) when it is supported.
+        //
+        // 4. Create multiple back buffers for the swap chain.
+
         DXGI_SWAP_CHAIN_DESC1 desc = {};
 
-        // The resolution of the swap chain's back buffers follows the
-        // resolution of the window.
+        // The resolution of the buffers follows the resolution of the window.
         // 
         // We will create a separate buffer outside the swap chain as the
         // intermediate render target, which will be resized to follow the
@@ -778,6 +783,8 @@ namespace d14engine::renderer
         desc.Format = g_renderTargetFormat;
 
         // DirectX 12 3D does not support creating MSAA swap chain anymore.
+        // In fact, it is the Flip-Mode that disables the direct MSAA usage,
+        // and this is achieved by using DXGI_SWAP_EFFECT_FLIP_DISCARD.
         // 
         // In traditional methods, the back buffers of a MSAA swap chain will
         // be resolved automatically during presenting, but it is not allowed
@@ -787,11 +794,20 @@ namespace d14engine::renderer
         desc.SampleDesc.Count = 1;
         desc.SampleDesc.Quality = 0;
 
+        // Under current architecture, the renderer only supports the max
+        // FPS of (MaxLatency - 1) * Monitor_RefreshRate, where the default
+        // latency of 3 means the FPS can't go higher than 2 * RefreshRate,
+        // so for a 60_Hz monitor the FPS can't go above 120 (enough though).
+
         desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
         desc.BufferCount = (UINT)m_backBuffers.size();
 
-        desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-        desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+        desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // NO direct MSAA!
+
+        // To adjust the latency, FRAME_LATENCY_WAITABLE_OBJECT must be used.
+
+        desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH |
+            DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT;
 
         if (m_dxgiFactoryInfo.feature.allowTearing)
         {
@@ -1125,7 +1141,12 @@ namespace d14engine::renderer
     {
         m_letterbox->present();
 
-        THROW_IF_FAILED(m_swapChain->Present(0, 0));
+        UINT presentFlags = 0;
+        if (m_dxgiFactoryInfo.feature.allowTearing)
+        {
+            presentFlags |= DXGI_PRESENT_ALLOW_TEARING;
+        }
+        THROW_IF_FAILED(m_swapChain->Present(0, presentFlags));
 
         currFrameResource()->m_fenceValue = ++m_fenceValue;
         THROW_IF_FAILED(m_cmdQueue->Signal(m_fence.Get(), m_fenceValue));
