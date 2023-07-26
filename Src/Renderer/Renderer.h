@@ -38,9 +38,6 @@ namespace d14engine::renderer
             // of specific display mode if enable resolution-scaling.
             UINT displayModeIndex = 0;
 
-            // True/False ==> Disable/Enable Vertical-Synchronization.
-            bool allowTearing = true;
-
             XMVECTORF32 sceneColor = Colors::White;
             XMVECTORF32 letterboxColor = Colors::Black;
         };
@@ -149,8 +146,6 @@ namespace d14engine::renderer
 
                 IDXGIAdapter* currSelectedAdapter() const;
                 void selectAdapter(UINT index) const;
-
-                bool allowTearing = {}; // Tearing-On == VSync-Off
             }
             setting{ this };
         }
@@ -173,9 +168,7 @@ namespace d14engine::renderer
         void queryTearingSupport();
 
         void checkDxgiFactoryConfigs();
-
         void checkAdapterConfig();
-        void checkTearingConfig();
 
         void populateDxgiFactorySettings();
 
