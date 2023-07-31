@@ -29,6 +29,8 @@ namespace d14engine::renderer
             // Select GPU device.  Set as 0 to use the default one.
             UINT adapterIndex = 0;
 
+            bool vsync = true;
+
             // The scene is resized to:
             // (True) fit the resolution of current display mode.
             // (False) fill the client area of the root Win32 window.
@@ -141,11 +143,16 @@ namespace d14engine::renderer
             private:
                 mutable UINT m_currSelectedAdapterIndex = {};
 
+                mutable bool m_vsync = {};
+
             public:
                 UINT currSelectedAdapterIndex() const;
 
                 IDXGIAdapter* currSelectedAdapter() const;
                 void selectAdapter(UINT index) const;
+
+                bool vsync() const;
+                void setVsync(bool value) const;
             }
             setting{ this };
         }
@@ -168,7 +175,9 @@ namespace d14engine::renderer
         void queryTearingSupport();
 
         void checkDxgiFactoryConfigs();
+
         void checkAdapterConfig();
+        void checkTearingConfig();
 
         void populateDxgiFactorySettings();
 
@@ -211,7 +220,7 @@ namespace d14engine::renderer
                 using EnableMasterPtrType::EnableMasterPtrType;
 
             private:
-                mutable bool m_resolutionScaling = false;
+                mutable bool m_resolutionScaling = {};
                 mutable UINT m_currDisplayModeIndex = {};
 
             public:
