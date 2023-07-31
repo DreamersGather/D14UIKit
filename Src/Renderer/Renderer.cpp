@@ -315,6 +315,23 @@ namespace d14engine::renderer
         rndr->onWindowResize();
     }
 
+    bool Renderer::DxgiFactoryInfo::Setting::vsync() const
+    {
+        return m_vsync;
+    }
+
+    void Renderer::DxgiFactoryInfo::Setting::setVsync(bool value) const
+    {
+        DxgiFactoryInfo* info = m_master;
+        THROW_IF_NULL(info);
+
+        if (!value && !info->feature.allowTearing)
+        {
+            return; // Tearing-On == VSync-Off
+        }
+        else m_vsync = value;
+    }
+
     IDXGIFactory6* Renderer::dxgiFactory() const
     {
         return m_dxgiFactory.Get();
@@ -372,6 +389,7 @@ namespace d14engine::renderer
     void Renderer::checkDxgiFactoryConfigs()
     {
         checkAdapterConfig();
+        checkTearingConfig();
     }
 
     void Renderer::checkAdapterConfig()
@@ -395,11 +413,20 @@ namespace d14engine::renderer
         }
     }
 
+    void Renderer::checkTearingConfig()
+    {
+        if (!m_dxgiFactoryInfo.setting.m_vsync && !m_dxgiFactoryInfo.feature.allowTearing)
+        {
+            THROW_ERROR(L"Tearing (a.k.a VSync/Off) support is not available.");
+        }
+    }
+
     void Renderer::populateDxgiFactorySettings()
     {
         auto& setting = m_dxgiFactoryInfo.setting;
 
         setting.m_currSelectedAdapterIndex = createInfo.adapterIndex;
+        setting.m_vsync = createInfo.vsync;
     }
 
     Optional<UINT> Renderer::D3D12DeviceInfo::Feature::queryMsaaQualityLevel(UINT sampleCount) const
@@ -758,7 +785,7 @@ namespace d14engine::renderer
         // uncapped FPS while keeping the screen not tearing, which is achieved
         // by placing the window into the sandbox (DWM, desktop window manager).
         //
-        // To benefit the most from the modern API, these configs are needed:
+        // To benefit the most from DX12, these configs are needed:
         //
         // 1. Always keep the render-target in windowed-mode.
         //    Use a borderless window to simulate the false fullscreen.
@@ -802,7 +829,9 @@ namespace d14engine::renderer
         desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
         desc.BufferCount = (UINT)m_backBuffers.size();
 
+        desc.Scaling = DXGI_SCALING_NONE;
         desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // NO direct MSAA!
+        desc.AlphaMode = DXGI_ALPHA_MODE_IGNORE;
 
         // To adjust the latency, FRAME_LATENCY_WAITABLE_OBJECT must be used.
 
@@ -813,9 +842,11 @@ namespace d14engine::renderer
         {
             desc.Flags |= DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING;
         }
+        DXGI_SWAP_CHAIN_FULLSCREEN_DESC fsdesc = { .Windowed = TRUE };
+
         ComPtr<IDXGISwapChain1> tmpSwapChain;
         THROW_IF_FAILED(m_dxgiFactory->CreateSwapChainForHwnd(
-            m_cmdQueue.Get(), m_window.ptr, &desc, nullptr, nullptr, &tmpSwapChain));
+            m_cmdQueue.Get(), m_window.ptr, &desc, &fsdesc, nullptr, &tmpSwapChain));
 
         THROW_IF_FAILED(tmpSwapChain.As(&m_swapChain));
         m_currFrameIndex = m_swapChain->GetCurrentBackBufferIndex();
@@ -1142,7 +1173,7 @@ namespace d14engine::renderer
         m_letterbox->present();
 
         UINT presentFlags = 0;
-        if (m_dxgiFactoryInfo.feature.allowTearing)
+        if (!m_dxgiFactoryInfo.setting.m_vsync)
         {
             presentFlags |= DXGI_PRESENT_ALLOW_TEARING;
         }
