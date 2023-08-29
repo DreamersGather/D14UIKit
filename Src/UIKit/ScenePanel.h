@@ -44,7 +44,7 @@ namespace d14engine::uikit
         bool msaaEnabled() const;
 
     protected:
-        XMVECTORF32 m_clearColor = Colors::White;
+        XMVECTORF32 m_clearColor = Colors::Black;
 
         ComPtr<ID3D12DescriptorHeap> m_rtvHeap = {};
 
