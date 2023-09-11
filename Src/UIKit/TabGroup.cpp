@@ -32,7 +32,11 @@ namespace d14engine::uikit
         m_previewPanel->setBackgroundTriggerPanel(true);
     }
 
-    TabGroup::~TabGroup() { m_previewPanel->destroy(); }
+    TabGroup::~TabGroup()
+    {
+        // No need to do the clearing if the application already destroyed.
+        if (Application::g_app != nullptr) m_previewPanel->destroy();
+    }
 
     void TabGroup::onInitializeFinish()
     {
@@ -62,7 +66,9 @@ namespace d14engine::uikit
         auto& setting = getAppearance().tabBar.geometry;
 
         float top = m_absoluteRect.top - setting.height;
-        return math_utils::rect(m_absoluteRect.left, top, width(), setting.height);
+        return math_utils::rect(
+            m_absoluteRect.left, top,
+            width(), setting.height);
     }
 
     float TabGroup::minimalWidth() const
@@ -80,7 +86,8 @@ namespace d14engine::uikit
     TabGroup::TabIndex TabGroup::selfcoordOffsetToCardTabIndex(float offset) const
     {
         float cardLength = 0.0f;
-        for (TabIndex tabIndex = { (TabList*)&m_tabs, 0 }; tabIndex < m_candidateTabCount; ++tabIndex)
+        for (TabIndex tabIndex = { (TabList*)&m_tabs, 0 };
+             tabIndex < m_candidateTabCount; ++tabIndex)
         {
             auto state = getCardState(tabIndex);
             auto& setting = getAppearance().tabBar.card.main[(size_t)state];
