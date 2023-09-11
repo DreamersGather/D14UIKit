@@ -49,6 +49,9 @@ namespace d14engine::uikit
         // Step 1
         if (m_parent.expired())
         {
+            auto app = Application::g_app;
+            app->dxRenderer()->waitGpuCommand();
+
             unregisterDrawObjects();
             unregisterApplicationEvents();
         }
@@ -65,6 +68,9 @@ namespace d14engine::uikit
 
     bool Panel::destroyUIObject(ShrdPtrParam<Panel> uiobj)
     {
+        auto app = Application::g_app;
+        app->dxRenderer()->waitGpuCommand();
+
         if (f_destroyUIObject)
         {
             return f_destroyUIObject(this, uiobj);
@@ -973,9 +979,6 @@ namespace d14engine::uikit
 
     void Panel::unregisterDrawObjects()
     {
-        // No need to do the clearing if the application already destroyed.
-        if (Application::g_app == nullptr) return;
-
         auto& uiCmdLayer = Application::g_app->uiCmdLayer();
         if (std::holds_alternative<Renderer::CommandLayer::D2D1Target>(uiCmdLayer->drawTarget))
         {
@@ -993,9 +996,6 @@ namespace d14engine::uikit
 
     void Panel::unregisterApplicationEvents()
     {
-        // No need to do the clearing if the application already destroyed.
-        if (Application::g_app == nullptr) return;
-
         Application::g_app->removeUIObject(shared_from_this());
     }
 
