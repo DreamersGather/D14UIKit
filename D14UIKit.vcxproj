@@ -119,12 +119,10 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">
     <ClCompile>
@@ -145,13 +143,11 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <Manifest />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
 cd $(SolutionDir)Test\PyBind &gt;nul
 stubgen -m D14UIKit -o . &gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -174,14 +170,10 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest />
-    <Manifest />
-    <PostBuildEvent />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
     <ClCompile>
@@ -205,14 +197,10 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest />
-    <Manifest />
-    <PostBuildEvent />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
 copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">
     <ClCompile>
@@ -236,15 +224,11 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <Manifest />
-    <Manifest />
-    <PostBuildEvent />
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
 cd $(SolutionDir)Test\PyBind &gt;nul
 stubgen -m D14UIKit -o . &gt;nul</Command>
     </PostBuildEvent>
-    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Exp\Application.cpp">
