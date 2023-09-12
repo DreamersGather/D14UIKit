@@ -19,6 +19,18 @@ namespace d14engine::uikit::platform_utils
         else return (float)GetSystemDpiForProcess(GetCurrentProcess());
     }
 
+    LONG scaledByDpi(LONG a)
+    {
+        auto factor = dpi() / 96.0f;
+        return math_utils::round((float)a * factor);
+    }
+
+    LONG restoredByDpi(LONG a)
+    {
+        auto factor = 96.0f / dpi();
+        return math_utils::round((float)a * factor);
+    }
+
     SIZE scaledByDpi(const SIZE& sz)
     {
         auto factor = dpi() / 96.0f;

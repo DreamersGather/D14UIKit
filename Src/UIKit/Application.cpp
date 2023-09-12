@@ -737,16 +737,20 @@ namespace d14engine::uikit
                     HIMC himc = ImmGetContext(hwnd);
                     if (himc)
                     {
-                        auto& fval = form.value();
-                        if (fval.dwStyle == CFS_RECT)
-                        {
-                            fval.rcArea = platform_utils::scaledByDpi(fval.rcArea);
-                        }
-                        else if (fval.dwStyle == CFS_POINT)
-                        {
-                            fval.ptCurrentPos = platform_utils::scaledByDpi(fval.ptCurrentPos);
-                        }
-                        ImmSetCompositionWindow(himc, &fval);
+                        LOGFONT font = {};
+                        ImmGetCompositionFont(himc, &font);
+                        font.lfHeight = platform_utils::scaledByDpi(form.value().height);
+                        font.lfWidth = 0; // default aspect ratio
+                        font.lfWeight = FW_NORMAL;
+                        font.lfQuality = CLEARTYPE_NATURAL_QUALITY;
+                        lstrcpy(font.lfFaceName, L"Segoe UI");
+                        ImmSetCompositionFont(himc, &font);
+
+                        COMPOSITIONFORM cpfm = {};
+                        cpfm.dwStyle = CFS_POINT;
+                        cpfm.ptCurrentPos = platform_utils::scaledByDpi(form.value().origin);
+
+                        ImmSetCompositionWindow(himc, &cpfm);
                     }
                     ImmReleaseContext(hwnd, himc);
                 }
