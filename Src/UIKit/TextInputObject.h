@@ -4,9 +4,11 @@
 
 namespace d14engine::uikit
 {
+    struct CompositionForm { POINT origin = {}; LONG height = {}; };
+
     struct TextInputObject
     {
-        virtual Optional<COMPOSITIONFORM> getCompositionForm() const
+        virtual Optional<CompositionForm> getCompositionForm() const
         {
             return std::nullopt;
         }

@@ -480,17 +480,20 @@ namespace d14engine::uikit
         }
     }
 
-    Optional<COMPOSITIONFORM> RawTextInput::getCompositionForm() const
+    Optional<CompositionForm> RawTextInput::getCompositionForm() const
     {
-        COMPOSITIONFORM form = {};
-        form.dwStyle = CFS_POINT;
-
         auto origin = selfCoordToAbsolute(math_utils::leftTop(m_visibleTextRect));
-        form.ptCurrentPos =
+
+        CompositionForm form = {};
+        form.origin =
         {
-            math_utils::round(origin.x + m_indicatorGeometry.second.x - m_textContentOffset.x),
-            math_utils::round(origin.y + m_indicatorGeometry.second.y - m_textContentOffset.y)
+            math_utils::round(origin.x + m_indicatorGeometry.first.x - m_textContentOffset.x),
+            math_utils::round(origin.y + m_indicatorGeometry.first.y - m_textContentOffset.y)
         };
+        form.height = math_utils::round
+        (
+            m_indicatorGeometry.second.y - m_indicatorGeometry.first.y
+        );
         return form;
     }
 
@@ -500,11 +503,8 @@ namespace d14engine::uikit
 
         if (editable)
         {
-            // Discard the unprintable characters.
-            if (str.size() != 1 || str[0] >= L' ')
-            {
-                changeCandidateText(str);
-            }
+            // Discards the unprintable characters (ascii-code from 0 to 32).
+            if (str.size() != 1 || str[0] >= L' ') changeCandidateText(str);
         }
     }
 }
