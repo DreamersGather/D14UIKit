@@ -7,6 +7,7 @@
 
 #include "UIKit/Application.h"
 #include "UIKit/Cursor.h"
+#include "UIKit/PlatformUtils.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine::renderer;
@@ -480,20 +481,40 @@ namespace d14engine::uikit
         }
     }
 
-    Optional<CompositionForm> RawTextInput::getCompositionForm() const
+    Optional<LOGFONT> RawTextInput::getCompositionFont() const
+    {
+        LOGFONT font = {};
+        font.lfHeight = platform_utils::scaledByDpi(math_utils::round
+        (
+            m_indicatorGeometry.second.y - m_indicatorGeometry.first.y
+        ));
+        font.lfWidth = 0; // applies the font's default aspect ratio
+        font.lfEscapement = font.lfOrientation = 0;
+        font.lfWeight = m_textLayout->GetFontWeight();
+        font.lfItalic = font.lfUnderline = font.lfStrikeOut = FALSE;
+        font.lfCharSet = DEFAULT_CHARSET;
+        font.lfOutPrecision = OUT_DEFAULT_PRECIS;
+        font.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+        font.lfQuality = CLEARTYPE_NATURAL_QUALITY;
+        font.lfPitchAndFamily = DEFAULT_PITCH;
+        THROW_IF_FAILED(m_textLayout->GetFontFamilyName
+        (
+            font.lfFaceName, _countof(font.lfFaceName)
+        ));
+        return font;
+    }
+
+    Optional<COMPOSITIONFORM> RawTextInput::getCompositionForm() const
     {
         auto origin = selfCoordToAbsolute(math_utils::leftTop(m_visibleTextRect));
 
-        CompositionForm form = {};
-        form.origin =
+        COMPOSITIONFORM form = {};
+        form.dwStyle = CFS_POINT;
+        form.ptCurrentPos = platform_utils::scaledByDpi(POINT
         {
             math_utils::round(origin.x + m_indicatorGeometry.first.x - m_textContentOffset.x),
             math_utils::round(origin.y + m_indicatorGeometry.first.y - m_textContentOffset.y)
-        };
-        form.height = math_utils::round
-        (
-            m_indicatorGeometry.second.y - m_indicatorGeometry.first.y
-        );
+        });
         return form;
     }
 

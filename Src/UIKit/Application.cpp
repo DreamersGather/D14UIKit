@@ -731,29 +731,23 @@ namespace d14engine::uikit
         {
             if (app && !app->m_focusedTextInputObject.expired())
             {
-                auto form = app->m_focusedTextInputObject.lock()->getCompositionForm();
-                if (form.has_value())
+                HIMC himc = ImmGetContext(hwnd);
+                if (himc)
                 {
-                    HIMC himc = ImmGetContext(hwnd);
-                    if (himc)
+                    auto tobj = app->m_focusedTextInputObject.lock();
+                    
+                    auto font = tobj->getCompositionFont();
+                    if (font.has_value())
                     {
-                        LOGFONT font = {};
-                        ImmGetCompositionFont(himc, &font);
-                        font.lfHeight = platform_utils::scaledByDpi(form.value().height);
-                        font.lfWidth = 0; // default aspect ratio
-                        font.lfWeight = FW_NORMAL;
-                        font.lfQuality = CLEARTYPE_NATURAL_QUALITY;
-                        lstrcpy(font.lfFaceName, L"Segoe UI");
-                        ImmSetCompositionFont(himc, &font);
-
-                        COMPOSITIONFORM cpfm = {};
-                        cpfm.dwStyle = CFS_POINT;
-                        cpfm.ptCurrentPos = platform_utils::scaledByDpi(form.value().origin);
-
-                        ImmSetCompositionWindow(himc, &cpfm);
+                        ImmSetCompositionFont(himc, &font.value());
                     }
-                    ImmReleaseContext(hwnd, himc);
+                    auto form = tobj->getCompositionForm();
+                    if (form.has_value())
+                    {
+                        ImmSetCompositionWindow(himc, &form.value());
+                    }
                 }
+                ImmReleaseContext(hwnd, himc);
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
         }

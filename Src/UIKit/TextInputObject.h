@@ -4,11 +4,13 @@
 
 namespace d14engine::uikit
 {
-    struct CompositionForm { POINT origin = {}; LONG height = {}; };
-
     struct TextInputObject
     {
-        virtual Optional<CompositionForm> getCompositionForm() const
+        virtual Optional<LOGFONT> getCompositionFont() const
+        {
+            return std::nullopt;
+        }
+        virtual Optional<COMPOSITIONFORM> getCompositionForm() const
         {
             return std::nullopt;
         }
