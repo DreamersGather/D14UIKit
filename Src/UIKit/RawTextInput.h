@@ -90,7 +90,8 @@ namespace d14engine::uikit
 
     public:
         // TextInputObject
-        Optional<CompositionForm> getCompositionForm() const override;
+        Optional<LOGFONT> getCompositionFont() const override;
+        Optional<COMPOSITIONFORM> getCompositionForm() const override;
 
     protected:
         void onInputStringHelper(WstrParam str) override;
