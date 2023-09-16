@@ -1,4 +1,6 @@
-﻿#include "Common/Precompile.h"
+﻿#pragma once
+
+#include "Common/Precompile.h"
 
 #include "IDrawObject.h"
 
