@@ -40,7 +40,7 @@ namespace d14engine::uikit
 
         initMainRenderer();
 
-        initMiscElements();
+        initMiscComponents();
     }
 
     void Application::initWin32Window()
@@ -136,7 +136,7 @@ namespace d14engine::uikit
         m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
     }
 
-    void Application::initMiscElements()
+    void Application::initMiscComponents()
     {
         m_systemThemeStyle.querySystemSettingsFromRegistry();
         bool light = (m_systemThemeStyle.mode == ThemeStyle::Mode::Light);

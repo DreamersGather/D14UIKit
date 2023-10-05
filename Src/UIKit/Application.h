@@ -53,7 +53,7 @@ namespace d14engine::uikit
 
         void initMainRenderer();
 
-        void initMiscElements();
+        void initMiscComponents();
 
     public:
         int run(FuncParam<void(Application* app)> onLaunch = {});
