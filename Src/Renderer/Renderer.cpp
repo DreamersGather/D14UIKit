@@ -315,12 +315,12 @@ namespace d14engine::renderer
         rndr->onWindowResize();
     }
 
-    bool Renderer::DxgiFactoryInfo::Setting::vsync() const
+    bool Renderer::DxgiFactoryInfo::Setting::allowTearing() const
     {
-        return m_vsync;
+        return m_allowTearing;
     }
 
-    void Renderer::DxgiFactoryInfo::Setting::setVsync(bool value) const
+    void Renderer::DxgiFactoryInfo::Setting::setAllowTearing(bool value) const
     {
         DxgiFactoryInfo* info = m_master;
         THROW_IF_NULL(info);
@@ -329,7 +329,7 @@ namespace d14engine::renderer
         {
             return; // Tearing-On == VSync-Off
         }
-        else m_vsync = value;
+        else m_allowTearing = value;
     }
 
     IDXGIFactory6* Renderer::dxgiFactory() const
@@ -415,7 +415,7 @@ namespace d14engine::renderer
 
     void Renderer::checkTearingConfig()
     {
-        if (!m_dxgiFactoryInfo.setting.m_vsync && !m_dxgiFactoryInfo.feature.allowTearing)
+        if (m_dxgiFactoryInfo.setting.m_allowTearing && !m_dxgiFactoryInfo.feature.allowTearing)
         {
             THROW_ERROR(L"Tearing (a.k.a VSync/Off) support is not available.");
         }
@@ -426,7 +426,7 @@ namespace d14engine::renderer
         auto& setting = m_dxgiFactoryInfo.setting;
 
         setting.m_currSelectedAdapterIndex = createInfo.adapterIndex;
-        setting.m_vsync = createInfo.vsync;
+        setting.m_allowTearing = createInfo.allowTearing;
     }
 
     Optional<UINT> Renderer::D3D12DeviceInfo::Feature::queryMsaaQualityLevel(UINT sampleCount) const
@@ -1173,7 +1173,7 @@ namespace d14engine::renderer
         m_letterbox->present();
 
         UINT presentFlags = 0;
-        if (!m_dxgiFactoryInfo.setting.m_vsync)
+        if (m_dxgiFactoryInfo.setting.m_allowTearing)
         {
             presentFlags |= DXGI_PRESENT_ALLOW_TEARING;
         }

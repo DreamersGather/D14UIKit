@@ -29,7 +29,7 @@ namespace d14engine::renderer
             // Select GPU device.  Set as 0 to use the default one.
             UINT adapterIndex = 0;
 
-            bool vsync = true;
+            bool allowTearing = false;
 
             // The scene is resized to:
             // (True) fit the resolution of current display mode.
@@ -143,7 +143,7 @@ namespace d14engine::renderer
             private:
                 mutable UINT m_currSelectedAdapterIndex = {};
 
-                mutable bool m_vsync = {};
+                mutable bool m_allowTearing = {};
 
             public:
                 UINT currSelectedAdapterIndex() const;
@@ -151,8 +151,8 @@ namespace d14engine::renderer
                 IDXGIAdapter* currSelectedAdapter() const;
                 void selectAdapter(UINT index) const;
 
-                bool vsync() const;
-                void setVsync(bool value) const;
+                bool allowTearing() const;
+                void setAllowTearing(bool value) const;
             }
             setting{ this };
         }
