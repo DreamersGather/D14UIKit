@@ -29,6 +29,12 @@ namespace d14engine::renderer
             // Select GPU device.  Set as 0 to use the default one.
             UINT adapterIndex = 0;
 
+            // For [bitblt] model, which is used by default, values are:
+            // 0 - The presentation occurs immediately, there is no synchronization.
+            // 1 through 4 - Synchronize presentation after the nth vertical blank.
+            UINT syncInterval = 0;
+
+            // VRR displays require to allow tearing.
             bool allowTearing = false;
 
             // The scene is resized to:
@@ -143,6 +149,8 @@ namespace d14engine::renderer
             private:
                 mutable UINT m_currSelectedAdapterIndex = {};
 
+                mutable UINT m_syncInterval = {};
+
                 mutable bool m_allowTearing = {};
 
             public:
@@ -150,6 +158,9 @@ namespace d14engine::renderer
 
                 IDXGIAdapter* currSelectedAdapter() const;
                 void selectAdapter(UINT index) const;
+
+                UINT syncInterval() const;
+                void setSyncInterval(UINT count) const;
 
                 bool allowTearing() const;
                 void setAllowTearing(bool value) const;
@@ -177,6 +188,7 @@ namespace d14engine::renderer
         void checkDxgiFactoryConfigs();
 
         void checkAdapterConfig();
+        void checkSyncIntervalConfig();
         void checkTearingConfig();
 
         void populateDxgiFactorySettings();

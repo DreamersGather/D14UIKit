@@ -315,6 +315,23 @@ namespace d14engine::renderer
         rndr->onWindowResize();
     }
 
+    UINT Renderer::DxgiFactoryInfo::Setting::syncInterval() const
+    {
+        return m_syncInterval;
+    }
+
+    void Renderer::DxgiFactoryInfo::Setting::setSyncInterval(UINT count) const
+    {
+        DxgiFactoryInfo* info = m_master;
+        THROW_IF_NULL(info);
+
+        if (count > 4 || (count != 0 && info->setting.m_allowTearing))
+        {
+            return; // requires 0 ~ 4 and must be 0 when allow tearing
+        }
+        else m_syncInterval = count;
+    }
+
     bool Renderer::DxgiFactoryInfo::Setting::allowTearing() const
     {
         return m_allowTearing;
@@ -325,9 +342,9 @@ namespace d14engine::renderer
         DxgiFactoryInfo* info = m_master;
         THROW_IF_NULL(info);
 
-        if (!value && !info->feature.allowTearing)
+        if (value && !info->feature.allowTearing)
         {
-            return; // Tearing-On == VSync-Off
+            return; // tearing not supported
         }
         else m_allowTearing = value;
     }
@@ -389,6 +406,7 @@ namespace d14engine::renderer
     void Renderer::checkDxgiFactoryConfigs()
     {
         checkAdapterConfig();
+        checkSyncIntervalConfig();
         checkTearingConfig();
     }
 
@@ -413,6 +431,19 @@ namespace d14engine::renderer
         }
     }
 
+    void Renderer::checkSyncIntervalConfig()
+    {
+        if (m_dxgiFactoryInfo.setting.m_syncInterval > 4)
+        {
+            THROW_ERROR(L"Sync-Interval count must be selected from 0 ~ 4.");
+        }
+        if (m_dxgiFactoryInfo.setting.m_syncInterval != 0 &&
+            m_dxgiFactoryInfo.setting.m_allowTearing)
+        {
+            THROW_ERROR(L"Sync-Interval count must be 0 when allow tearing.");
+        }
+    }
+
     void Renderer::checkTearingConfig()
     {
         if (m_dxgiFactoryInfo.setting.m_allowTearing && !m_dxgiFactoryInfo.feature.allowTearing)
@@ -426,6 +457,7 @@ namespace d14engine::renderer
         auto& setting = m_dxgiFactoryInfo.setting;
 
         setting.m_currSelectedAdapterIndex = createInfo.adapterIndex;
+        setting.m_syncInterval = createInfo.syncInterval;
         setting.m_allowTearing = createInfo.allowTearing;
     }
 
@@ -1172,12 +1204,14 @@ namespace d14engine::renderer
     {
         m_letterbox->present();
 
+        auto& syncInterval = m_dxgiFactoryInfo.setting.m_syncInterval;
+
         UINT presentFlags = 0;
         if (m_dxgiFactoryInfo.setting.m_allowTearing)
         {
             presentFlags |= DXGI_PRESENT_ALLOW_TEARING;
         }
-        THROW_IF_FAILED(m_swapChain->Present(0, presentFlags));
+        THROW_IF_FAILED(m_swapChain->Present(syncInterval, presentFlags));
 
         currFrameResource()->m_fenceValue = ++m_fenceValue;
         THROW_IF_FAILED(m_cmdQueue->Signal(m_fence.Get(), m_fenceValue));
