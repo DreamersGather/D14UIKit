@@ -7,6 +7,7 @@
 #include "Common/MathUtils/GDI.h"
 
 #include "Renderer/GraphUtils/Barrier.h"
+#include "Renderer/GraphUtils/Bitmap.h"
 #include "Renderer/GraphUtils/ParamHelper.h"
 #include "Renderer/Interfaces/IDrawLayer.h"
 #include "Renderer/Interfaces/IDrawObject.h"
@@ -23,6 +24,8 @@ namespace d14engine::renderer
     Renderer::Renderer(HWND window, const CreateInfo& info)
         : createInfo(info), m_window(this, window)
     {
+        graph_utils::bitmap::initialize();
+
         populateDxgiFactorySettings();
         populateD3d12DeviceSettings();
 

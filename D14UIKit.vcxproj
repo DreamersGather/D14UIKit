@@ -114,6 +114,7 @@
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +138,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +165,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -190,6 +193,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <AdditionalIncludeDirectories>Exp;Inc;Src;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -216,6 +220,7 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -991,6 +996,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <None Include="Bin\Shaders\VS" />
     <None Include="LICENSE" />
     <None Include="comment.html" />
+    <ClCompile Include="Src\Renderer\GraphUtils\Bitmap.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Resource.cpp" />
     <ClCompile Include="Src\Renderer\Interfaces\DrawLayer.cpp" />
     <ClCompile Include="Src\Renderer\Interfaces\DrawObject.cpp" />
@@ -1622,6 +1628,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\Common\ResourcePack.h" />
     <ClInclude Include="Src\Common\Precompile.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\Barrier.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\Bitmap.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\ParamHelper.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\PSO.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\Resource.h" />
