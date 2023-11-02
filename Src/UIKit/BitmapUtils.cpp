@@ -5,6 +5,7 @@
 #include "Common/DirectXError.h"
 #include "Common/ResourcePack.h"
 
+#include "Renderer/GraphUtils/Bitmap.h"
 #include "Renderer/Renderer.h"
 
 #include "UIKit/Application.h"
@@ -14,20 +15,6 @@ using namespace d14engine::renderer;
 
 namespace d14engine::uikit::bitmap_utils
 {
-    ComPtr<IWICImagingFactory2> g_imageFactory = {};
-
-    void initialize()
-    {
-        THROW_IF_FAILED(CoInitializeEx(
-            nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE));
-
-        THROW_IF_FAILED(CoCreateInstance(
-            CLSID_WICImagingFactory,
-            nullptr,
-            CLSCTX_INPROC_SERVER,
-            IID_PPV_ARGS(&g_imageFactory)));
-    }
-
     ComPtr<ID2D1Bitmap1> loadBitmap(UINT width, UINT height, BYTE* data, D2D1_BITMAP_OPTIONS options)
     {
         auto dpi = platform_utils::dpi();
@@ -55,27 +42,7 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadBitmap(WstrParam imageFile, WstrParam binaryPath, D2D1_BITMAP_OPTIONS options)
     {
-        ComPtr<IWICBitmapDecoder> decoder;
-        THROW_IF_FAILED(g_imageFactory->CreateDecoderFromFilename(
-            (binaryPath + imageFile).c_str(),
-            nullptr,
-            GENERIC_READ,
-            WICDecodeMetadataCacheOnDemand,
-            &decoder));
-
-        ComPtr<IWICBitmapFrameDecode> frameDecode;
-        THROW_IF_FAILED(decoder->GetFrame(0, &frameDecode));
-
-        ComPtr<IWICFormatConverter> formatConverter;
-        THROW_IF_FAILED(g_imageFactory->CreateFormatConverter(&formatConverter));
-
-        THROW_IF_FAILED(formatConverter->Initialize(
-            frameDecode.Get(),
-            GUID_WICPixelFormat32bppPRGBA,
-            WICBitmapDitherTypeNone,
-            nullptr,
-            0.0f,
-            WICBitmapPaletteTypeCustom));
+        auto source = graph_utils::bitmap::load(imageFile, binaryPath);
 
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
@@ -87,7 +54,7 @@ namespace d14engine::uikit::bitmap_utils
         ComPtr<ID2D1Bitmap1> bitmap;
         THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
         (
-            /* wicBitmapSource  */ formatConverter.Get(),
+            /* wicBitmapSource  */ source.Get(),
             /* bitmapProperties */ props,
             /* bitmap           */ &bitmap
         ));
@@ -113,26 +80,7 @@ namespace d14engine::uikit::bitmap_utils
 
         // Create bitmap from stream.
 
-        ComPtr<IWICBitmapDecoder> decoder;
-        THROW_IF_FAILED(g_imageFactory->CreateDecoderFromStream(
-            stream.Get(),
-            nullptr,
-            WICDecodeMetadataCacheOnDemand,
-            &decoder));
-
-        ComPtr<IWICBitmapFrameDecode> frameDecode;
-        THROW_IF_FAILED(decoder->GetFrame(0, &frameDecode));
-
-        ComPtr<IWICFormatConverter> formatConverter;
-        THROW_IF_FAILED(g_imageFactory->CreateFormatConverter(&formatConverter));
-
-        THROW_IF_FAILED(formatConverter->Initialize(
-            frameDecode.Get(),
-            GUID_WICPixelFormat32bppPRGBA,
-            WICBitmapDitherTypeNone,
-            nullptr,
-            0.0f,
-            WICBitmapPaletteTypeCustom));
+        auto source = graph_utils::bitmap::load(stream.Get());
 
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
         (
@@ -144,7 +92,7 @@ namespace d14engine::uikit::bitmap_utils
         ComPtr<ID2D1Bitmap1> bitmap;
         THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
         (
-            /* wicBitmapSource  */ formatConverter.Get(),
+            /* wicBitmapSource  */ source.Get(),
             /* bitmapProperties */ props,
             /* bitmap           */ &bitmap
         ));
@@ -153,29 +101,42 @@ namespace d14engine::uikit::bitmap_utils
 
     void saveBitmap(ID2D1Bitmap1* bitmap, WstrParam imageFile, const GUID& format)
     {
+        auto factory = graph_utils::bitmap::factory();
+
         // Create file and stream.
 
         ComPtr<IWICStream> stream;
-        THROW_IF_FAILED(g_imageFactory->CreateStream(&stream));
+        THROW_IF_FAILED(factory->CreateStream(&stream));
 
-        THROW_IF_FAILED(stream->InitializeFromFilename(imageFile.c_str(), GENERIC_WRITE));
+        THROW_IF_FAILED(stream->InitializeFromFilename(
+            imageFile.c_str(),
+            GENERIC_WRITE));
 
         // Export image to stream.
 
         ComPtr<IWICBitmapEncoder> bitmapEncoder;
-        THROW_IF_FAILED(g_imageFactory->CreateEncoder(format, nullptr, &bitmapEncoder));
+        THROW_IF_FAILED(factory->CreateEncoder(
+            format,
+            nullptr,
+            &bitmapEncoder));
 
-        THROW_IF_FAILED(bitmapEncoder->Initialize(stream.Get(), WICBitmapEncoderNoCache));
+        THROW_IF_FAILED(bitmapEncoder->Initialize(
+            stream.Get(),
+            WICBitmapEncoderNoCache));
 
         ComPtr<IWICBitmapFrameEncode> frameEncode;
-        THROW_IF_FAILED(bitmapEncoder->CreateNewFrame(&frameEncode, nullptr));
+        THROW_IF_FAILED(bitmapEncoder->CreateNewFrame(
+            &frameEncode,
+            nullptr));
 
         THROW_IF_FAILED(frameEncode->Initialize(nullptr));
 
         auto device = Application::g_app->dxRenderer()->d2d1Device();
 
         ComPtr<IWICImageEncoder> imageEncoder;
-        THROW_IF_FAILED(g_imageFactory->CreateImageEncoder(device, &imageEncoder));
+        THROW_IF_FAILED(factory->CreateImageEncoder(
+            device,
+            &imageEncoder));
 
         WICImageParameters imageParams = {};
         imageParams.PixelFormat = bitmap->GetPixelFormat();
@@ -186,7 +147,10 @@ namespace d14engine::uikit::bitmap_utils
         imageParams.PixelWidth = pixSize.width;
         imageParams.PixelHeight = pixSize.height;
 
-        THROW_IF_FAILED(imageEncoder->WriteFrame(bitmap, frameEncode.Get(), &imageParams));
+        THROW_IF_FAILED(imageEncoder->WriteFrame(
+            bitmap,
+            frameEncode.Get(),
+            &imageParams));
 
         THROW_IF_FAILED(frameEncode->Commit());
         THROW_IF_FAILED(bitmapEncoder->Commit());

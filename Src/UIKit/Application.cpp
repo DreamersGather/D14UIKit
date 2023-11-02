@@ -145,7 +145,6 @@ namespace d14engine::uikit
         appearance::initialize();
         m_currThemeName = light ? L"Light" : L"Dark";
 
-        bitmap_utils::initialize();
         resource_utils::initialize();
 
         m_cursor = makeUIObject<Cursor>();
