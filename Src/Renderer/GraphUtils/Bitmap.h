@@ -20,8 +20,7 @@ namespace d14engine::renderer::graph_utils
             Optional<WICRect> rect = {});
 
         ComPtr<IWICBitmapSource> load(
-            WstrParam imageFile,
-            WstrParam binaryPath = L"",
+            WstrParam imagePath,
             REFWICPixelFormatGUID format = GUID_WICPixelFormat32bppPRGBA);
 
         ComPtr<IWICBitmapSource> load(

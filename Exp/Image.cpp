@@ -85,7 +85,7 @@ namespace d14uikit
         auto options = !pimpl->cpuRead ? D2D1_BITMAP_OPTIONS_NONE :
             D2D1_BITMAP_OPTIONS_CANNOT_DRAW | D2D1_BITMAP_OPTIONS_CPU_READ;
 
-        pimpl->bitmap = uikit::bitmap_utils::loadBitmap(path, L"", options);
+        pimpl->bitmap = uikit::bitmap_utils::loadBitmap(path, options);
 
         uikit::Application::g_app->dxRenderer()->endGpuCommand();
     }

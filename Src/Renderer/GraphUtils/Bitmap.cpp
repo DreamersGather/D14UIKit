@@ -46,11 +46,11 @@ namespace d14engine::renderer::graph_utils
             return lock;
         }
 
-        ComPtr<IWICBitmapSource> load(WstrParam imageFile, WstrParam binaryPath, REFWICPixelFormatGUID format)
+        ComPtr<IWICBitmapSource> load(WstrParam imagePath, REFWICPixelFormatGUID format)
         {
             ComPtr<IWICBitmapDecoder> decoder;
             THROW_IF_FAILED(g_imagingFactory->CreateDecoderFromFilename(
-                (binaryPath + imageFile).c_str(),
+                imagePath.c_str(),
                 nullptr,
                 GENERIC_READ,
                 WICDecodeMetadataCacheOnDemand,
