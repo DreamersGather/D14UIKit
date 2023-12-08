@@ -1,10 +1,8 @@
 ﻿*.dll
 *.lib
-*.png
 *.pyd
 *.pyi
 
-Bin/Shaders
 Out
 
 ## Ignore Visual Studio temporary files, build results, and
