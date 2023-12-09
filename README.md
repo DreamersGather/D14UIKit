@@ -1,6 +1,6 @@
 # D14UIKit
 
-<div align=left><img src="https://raw.githubusercontent.com/yiyaowen/D14Engine.Docs.Img/main/d14uikit/logo.png" height="82"/></div>
+<img src="https://raw.githubusercontent.com/yiyaowen/D14Engine.Docs.Img/main/d14uikit/logo.png" height="82"/>
 
 D14UIKit 是一个适用于现代 Windows 桌面环境的 GUI 库。
 
