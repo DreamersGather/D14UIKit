@@ -1,6 +1,7 @@
 ﻿param($version)
 
-Remove-Item -Recurse -Force Out | Out-Null
+Remove-Item -Recurse -Force 'Out\cpp' | Out-Null
+Remove-Item -Recurse -Force 'Out\python' | Out-Null
 
 New-Item -Path 'Out\cpp\include' -ItemType 'directory' | Out-Null
 Copy-Item -Recurse -Path 'Exp\Inc\*' -Destination 'Out\cpp\include' | Out-Null
@@ -18,9 +19,6 @@ Write-Output "C++ wrapper packaged to Out\d14uikit_cpp_$version.zip"
 
 New-Item -Path 'Out\python' -ItemType 'directory' | Out-Null
 Copy-Item 'x64\RPyBind\D14UIKit.pyd' -Destination 'Out\python' | Out-Null
-Set-Location 'Out\python' | Out-Null
-&'stubgen' '-m' 'D14UIKit' '-o' '.' | Out-Null
-Set-Location '..\..' | Out-Null # fucking mypy stubgen, --search-path is a bullshit
 New-Item -Path 'Out\python\demo' -ItemType 'directory' | Out-Null
 Copy-Item -Recurse -Path 'Test\PyBind\*.py' -Destination 'Out\python\demo' | Out-Null
 Copy-Item 'Test\test.png' -Destination 'Out\python\demo' | Out-Null
