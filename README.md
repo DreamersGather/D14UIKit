@@ -4,8 +4,8 @@
 
 <img src="https://raw.githubusercontent.com/yiyaowen/D14Engine.Docs.Img/main/d14uikit/logo.png" height="82"/>
 
-D14UIKit 是一个适用于现代 Windows 桌面环境的 GUI 库。
+D14UIKit is a GUI development library for modern Windows platform.
 
-## 附注
+## About
 
-Logo 中的 UIKit 为 Segoe UI 字体，是 Vista 及后续版本的 Windows 上显示西文的系统默认字体。
+The "UIKit" in the logo is in Segoe UI font, which is the default font for displaying Western languages on Vista and subsequent versions of Windows.
