@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 
     themeSelector.setCurrSelected(2);
     
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     themeSelector.D14_onSelectedChange(ComboBox, obj, text)
     {

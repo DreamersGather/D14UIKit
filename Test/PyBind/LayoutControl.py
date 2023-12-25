@@ -102,6 +102,6 @@ if __name__ == '__main__':
     lbl_g4.bkgnOpacity = 0.5
     lbl_g4.horzAlign = Label.HCenter
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     exit(app.run())

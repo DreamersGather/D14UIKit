@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     themeSelector.setCurrSelected(2)
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     def changeThemeMode(obj, text):
         app = Application.app

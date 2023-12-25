@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # loading a complete one if only few properties are changed.
     busyArea.fontSize = 20
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     def setBusyCursor(p, e):
         cursor = Application.app.cursor

@@ -10,6 +10,6 @@ if __name__ == '__main__':
 
     mwnd = MainWindow(DEMO_NAME)
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     exit(app.run())

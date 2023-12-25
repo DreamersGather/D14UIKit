@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
     // loading a complete one if only few properties are changed.
     busyArea.setFontSize(20);
 
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     auto setBusyCursor = [](Panel* p, MouseMoveEvent* e)
     {

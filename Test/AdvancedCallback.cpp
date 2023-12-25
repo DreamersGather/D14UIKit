@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
     // the geometry of the value label is updated.
     strokeSlider.setValue(24.0f);
     
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     // Prepares the copy source to improve performance.
     std::array<Pixel, 32*32> pencil, eraser;

@@ -35,7 +35,7 @@ if __name__ == '__main__':
     restoreButton.roundRadius = 5
     restoreButton.text = 'Restore default'
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     # The simplest way to designate an event callback is
     # binding a specific function to the functor property.
