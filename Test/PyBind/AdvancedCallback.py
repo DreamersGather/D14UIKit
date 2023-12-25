@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # the geometry of the value label is updated.
     strokeSlider.value = 24.0
 
-    #------------------------------------------- Set UI event callacks.
+    #------------------------------------------- Set UI event callbacks.
 
     # Prepares the copy source to improve performance.
     pencil = list()

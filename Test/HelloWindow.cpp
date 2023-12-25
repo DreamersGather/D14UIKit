@@ -13,7 +13,7 @@ int main()
 
     MainWindow mwnd(DEMO_NAME);
 
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     return app.run();
 }

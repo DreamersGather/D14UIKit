@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D14UIKit", "D14UIKit.vcxproj", "{734B18AB-6017-43AD-BC8C-78FE0CC9B625}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{963A04DF-CB9B-4C69-BE7E-3B779F7AD45C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCpp", "Test\TestCpp.vcxproj", "{963A04DF-CB9B-4C69-BE7E-3B779F7AD45C}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyBind", "Test\PyBind\PyBind.pyproj", "{C2E17895-E0A5-490C-815A-800FE0801AA6}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TestPyBind", "Test\PyBind\TestPyBind.pyproj", "{C2E17895-E0A5-490C-815A-800FE0801AA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

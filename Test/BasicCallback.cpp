@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     restoreButton.setRoundRadius(5);
     restoreButton.setText(L"Restore default");
 
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     // We can use the macros in Callback.h to avoid
     // writting verbose lambda signatures manually.

@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
     lbl_g4.setBkgnOpacity(0.5f);
     lbl_g4.setHorzAlign(Label::HCenter);
 
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     return app.run();
 }

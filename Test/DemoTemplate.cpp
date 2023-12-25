@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     MainWindow mwnd(DEMO_NAME);
 
-    //------------------------------------------- Set UI event callacks.
+    //------------------------------------------- Set UI event callbacks.
 
     return app.run();
 }
