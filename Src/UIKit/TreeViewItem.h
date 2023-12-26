@@ -78,7 +78,7 @@ namespace d14engine::uikit
             SharedPtr<TreeViewItem> ptr = {};
 
         private:
-            // Since the height of a folded item will be set as 0, we need
+            // Since the height of a folded item will be set to 0, we need
             // this backup to help restore the height after the item unfolded.
             float m_unfoldedHeight = {};
 
@@ -88,7 +88,7 @@ namespace d14engine::uikit
             // Note this method only update the item and the backup, so you
             // need to call updateMasterViewConstraints later to update the
             // appearance immediately.
-            // 
+            //
             // We do not call updateMasterViewConstraints in this method
             // since it can cause unnecessary performance loss when the
             // setter is called more than once, so basically you should
@@ -128,15 +128,15 @@ namespace d14engine::uikit
         void unfold(); void notifyShowChildrenItems();
 
         // Convert item-tree to item-list:
-        // 
+        //
         // Root---Child_0---Child_1--Child_2
         //           |         |
         //           |         \---Child_10
         //           |
         //           \---Child_00---Child_01
-        // 
+        //
         // will be expanded to:
-        // 
+        //
         // Root---Child_0---Child_00---Child_01---Child_1---Child_10---Child_2
 
         size_t getExpandedChildrenCount() const;
