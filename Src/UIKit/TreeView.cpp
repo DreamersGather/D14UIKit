@@ -58,7 +58,7 @@ namespace d14engine::uikit
     {
         // "index == m_rootItems.size()" ---> append.
         rootIndex = std::clamp(rootIndex, 0ull, m_rootItems.size());
-        
+
         auto insertIndex = getRootItemGlobalIndex(rootIndex);
 
         insertItem(getExpandedTreeViewItems(items), insertIndex.index);
@@ -152,7 +152,7 @@ namespace d14engine::uikit
                 {
                     auto value = (*itemIndex)->m_currState.ancestorUnfolded();
 
-                    // When folding a tree view item, we set its height as
+                    // When folding a tree view item, we set its height to
                     // zero to hide the content, but its rect, however, is
                     // still within the scope of the visible area, so we must
                     // make sure the item is not belonging to any folded item
