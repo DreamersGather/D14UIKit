@@ -26,7 +26,7 @@ namespace d14engine::renderer
 
             bool fullscreen = false;
 
-            // Select GPU device.  Set as 0 to use the default one.
+            // Select GPU device.  Set to 0 to use the default one.
             UINT adapterIndex = 0;
 
             // For [bitblt] model, which is used by default, values are:
@@ -117,7 +117,7 @@ namespace d14engine::renderer
 
 #pragma endregion
 
-#pragma region D3D12 Components        
+#pragma region D3D12 Components
 
     private:
         ComPtr<IDXGIFactory6> m_dxgiFactory = {};
