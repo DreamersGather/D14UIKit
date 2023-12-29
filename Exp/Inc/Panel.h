@@ -60,7 +60,7 @@ namespace d14uikit
         void setOutlineOpacity(float value);
 
         Image* image() const;
-        void setImage(Image* imgae);
+        void setImage(Image* image);
 
         int roundRadius() const;
         void setRoundRadius(int value);
