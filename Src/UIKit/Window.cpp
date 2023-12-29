@@ -405,7 +405,7 @@ namespace d14engine::uikit
             {
                 auto tabGroup = associatedTabGroup.lock();
 
-                // Retain this to avoid abrupt destruction after destory(),
+                // Retain this to avoid abrupt destruction after destroy(),
                 // otherwise the following demoting operation may collapse.
                 auto temporaryLocked = shared_from_this();
 

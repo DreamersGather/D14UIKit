@@ -16,7 +16,7 @@ namespace d14uikit
 
         i.def(
             "destroy",
-            &Panel::destory);
+            &Panel::destroy);
 
         i.def_property(
             "visible",

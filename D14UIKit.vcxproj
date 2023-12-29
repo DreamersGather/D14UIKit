@@ -988,6 +988,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     </ClCompile>
     <ClCompile Include="Src\Common\ResourcePack.cpp" />
     <None Include=".editorconfig" />
+    <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="Bin\Shaders\Letterbox.hlsl">
       <FileType>Document</FileType>
@@ -1008,9 +1009,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
     </ClCompile>
-    <None Include="package.ps1">
-      <FileType>Document</FileType>
-    </None>
+    <None Include="pack.ps1" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
