@@ -188,7 +188,7 @@ namespace d14uikit
         };
     }
 
-    bool Panel::destory()
+    bool Panel::destroy()
     {
         return pimpl->uiobj->destroy();
     }

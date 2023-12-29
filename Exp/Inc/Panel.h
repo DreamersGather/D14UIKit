@@ -15,7 +15,7 @@ namespace d14uikit
 
         virtual ~Panel() = default;
 
-        bool destory();
+        bool destroy();
 
         bool visible() const;
         void setVisible(bool value);
