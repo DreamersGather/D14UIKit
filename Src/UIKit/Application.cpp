@@ -171,21 +171,31 @@ namespace d14engine::uikit
         MSG msg;
         while (true)
         {
-            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+            if (m_animationCount == 0)
             {
-                if (msg.message == WM_QUIT)
+                BOOL ret = GetMessage(&msg, nullptr, 0, 0);
+
+                // (WM_QUIT  || An Error )
+                if (ret == 0 || ret == -1)
                 {
                     break;
                 }
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
-            // Use "else-if" instead of "if" here to empty the Win32 message
-            // queue between each frame since there are usually dozens of UI
-            // messages queued up during a single frame.
-            else if (m_animationCount > 0)
+            else // full speed rendering
             {
-                m_renderer->renderNextFrame();
+                if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+                {
+                    if (msg.message == WM_QUIT)
+                    {
+                        break;
+                    }
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+                // use "else" for clearing the message queue
+                else m_renderer->renderNextFrame();
             }
         }
         return (int)msg.wParam;
@@ -247,12 +257,10 @@ namespace d14engine::uikit
         {
             if (app != nullptr)
             {
-                if (app->m_animationCount != 0)
-                {
-                    // Prevent the system from sending WM_PAINT repeatedly.
-                    ValidateRect(hwnd, nullptr);
-                }
-                else app->m_renderer->renderNextFrame();
+                app->m_renderer->renderNextFrame();
+
+                // Prevent the system from sending WM_PAINT repeatedly.
+                ValidateRect(hwnd, nullptr);
             }
             return 0;
         }
@@ -277,7 +285,7 @@ namespace d14engine::uikit
         {
             if (app != nullptr)
             {
-                if (wParam && IsIconic(app->m_win32Window))
+                if (wParam && IsMinimized(app->m_win32Window))
                 {
                     if (app->win32WindowSettings.callback.f_onRestoreFromMinimized)
                     {
@@ -782,6 +790,10 @@ namespace d14engine::uikit
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
         }
+        case (UINT)CustomWin32Message::AwakeGetMessage:
+        {
+            return 0;
+        }
         case (UINT)CustomWin32Message::UpdateRootDiffPinnedUIObjects:
         {
             if (app != nullptr)
@@ -913,6 +925,15 @@ namespace d14engine::uikit
 
         m_renderer->skipUpdating = false;
         m_renderer->timer()->resume();
+
+        // When the animation count changes from 0 to 1,
+        // we must send a message to awake the message loop
+        // since the GetMessage function might be blocking.
+        if (m_animationCount == 1)
+        {
+            postCustomWin32Message(
+                CustomWin32Message::AwakeGetMessage);
+        }
     }
 
     void Application::decreaseAnimationCount()

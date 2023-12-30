@@ -14,8 +14,6 @@ namespace d14uikit
 
         std::shared_ptr<d14engine::uikit::Application> uiobj = {};
 
-        bool lowEnergy = true;
-
         bool useSystemTheme = true;
 
         std::shared_ptr<Cursor> cursor = {};

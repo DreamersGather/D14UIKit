@@ -112,11 +112,6 @@ namespace d14uikit
             &Application::fps);
 
         i.def_property(
-            "lowEnergy",
-            &Application::lowEnergy,
-            &Application::setLowEnergy);
-
-        i.def_property(
             "themeMode",
             &Application::themeMode,
             &Application::setThemeMode);
