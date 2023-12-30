@@ -337,21 +337,6 @@ namespace d14uikit
         return pimpl->uiobj->dxRenderer()->timer()->fps();
     }
 
-    bool Application::lowEnergy() const
-    {
-        return pimpl->lowEnergy;
-    }
-
-    void Application::setLowEnergy(bool value)
-    {
-        if (pimpl->lowEnergy != value)
-        {
-            if (value) pimpl->uiobj->decreaseAnimationCount();
-            else pimpl->uiobj->increaseAnimationCount();
-        }
-        pimpl->lowEnergy = value;
-    }
-
     const std::wstring& Application::themeMode() const
     {
         return pimpl->uiobj->currThemeName();

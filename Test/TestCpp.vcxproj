@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdvancedCallback.cpp" />
+    <Image Include="test.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test.png" />
+    <ClCompile Include="AdvancedCallback.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

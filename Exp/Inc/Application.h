@@ -70,9 +70,6 @@ namespace d14uikit
 
         int fps() const;
 
-        bool lowEnergy() const;
-        void setLowEnergy(bool value);
-
         const std::wstring& themeMode() const;
         void setThemeMode(const std::wstring& name);
 

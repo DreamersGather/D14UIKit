@@ -264,8 +264,10 @@ namespace d14engine::uikit
     public:
         enum class CustomWin32Message
         {
-            UpdateRootDiffPinnedUIObjects = WM_USER,
-            UpdateMiscDiffPinnedUIObjects = WM_USER + 1
+            AwakeGetMessage = WM_USER,
+
+            UpdateRootDiffPinnedUIObjects = WM_USER + 1,
+            UpdateMiscDiffPinnedUIObjects = WM_USER + 2
         };
         void postCustomWin32Message(CustomWin32Message message);
 
