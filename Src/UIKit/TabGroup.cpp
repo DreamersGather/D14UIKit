@@ -154,7 +154,7 @@ namespace d14engine::uikit
         }
         else if (m_currActiveCardTabIndex.valid())
         {
-            m_currActiveCardTabIndex->content->setEnabled(false);
+            m_currActiveCardTabIndex->content->setPrivateEnabled(false);
             m_currActiveCardTabIndex.invalidate();
 
             updateCandidateTabInfo();
@@ -188,7 +188,7 @@ namespace d14engine::uikit
         tab.caption->m_parentTabGroup = std::dynamic_pointer_cast<TabGroup>(shared_from_this());
 
         tab.content->skipDrawPosteriorObjects = true;
-        tab.content->setEnabled(false);
+        tab.content->setPrivateEnabled(false);
         tab.content->transform(selfCoordRect());
 
         auto tabItor = m_tabs.insert(tabIndex.iterator, tab);
@@ -285,7 +285,7 @@ do { \
         {
             if (m_currActiveCardTabIndex.valid())
             {
-                m_currActiveCardTabIndex->content->setEnabled(false);
+                m_currActiveCardTabIndex->content->setPrivateEnabled(false);
             }
         }
         if (tabIndex >= m_candidateTabCount)
@@ -302,7 +302,7 @@ do { \
 
         if (m_candidateTabCount > 0)
         {
-            m_currActiveCardTabIndex->content->setEnabled(true);
+            m_currActiveCardTabIndex->content->setPrivateEnabled(true);
         }
         else m_currActiveCardTabIndex.invalidate();
 
@@ -409,7 +409,7 @@ do { \
 
             // The tab-caption may be disabled when the preview-panel
             // calls updateItemIndexRangeActivity() to optimize performance.
-            tabIndex->caption->setEnabled(true);
+            tabIndex->caption->setPrivateEnabled(true);
 
             tabIndex->caption->transform(absoluteToSelfCoord(cardCaptionAbsoluteRect(tabIndex)));
         }
@@ -427,7 +427,7 @@ do { \
 
             // The tab-caption may be disabled when the preview-panel
             // calls updateItemIndexRangeActivity() to optimize performance.
-            tabIndex->caption->setEnabled(true);
+            tabIndex->caption->setPrivateEnabled(true);
         }
         m_previewPanel->clearAllItems();
 
@@ -558,7 +558,7 @@ do { \
         auto w = makeUIObject<Window>(tabIndex->caption->title(), rect);
 
         tabIndex->content->skipDrawPosteriorObjects = false;
-        tabIndex->content->setEnabled(true);
+        tabIndex->content->setPrivateEnabled(true);
 
         w->setCenterUIObject(tabIndex->content);
 

@@ -99,13 +99,13 @@ namespace d14engine::uikit
                 m_content->label()->copyTextStyle(newContent->label().get(), newContent->label()->text());
 
                 m_content->updateLayout();
-                m_content->setVisible(true);
+                m_content->setPrivateVisible(true);
             }
         }
         else // Typically, pass SIZE_MAX to clear current selected item.
         {
             m_currSelected.reset();
-            m_content->setVisible(false);
+            m_content->setPrivateVisible(false);
         }
         if (!cpp_lang_utils::isMostDerivedEqual(originalSelected.lock(), m_currSelected.lock()))
         {

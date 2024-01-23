@@ -31,8 +31,8 @@ namespace d14engine::uikit
 
         m_valueLabel = makeUIObject<Label>();
 
-        m_valueLabel->setVisible(false);
-        m_valueLabel->setEnabled(false);
+        m_valueLabel->setPrivateVisible(false);
+        m_valueLabel->setPrivateEnabled(false);
 
         m_valueLabel->setTextFormat(resource_utils::g_textFormats.at(L"Default/Normal/9").Get());
         THROW_IF_FAILED(m_valueLabel->textLayout()->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
@@ -256,8 +256,8 @@ namespace d14engine::uikit
         // Value Label
         if (getAppearance().valueLabel.isResident)
         {
-            m_valueLabel->setVisible(true);
-            m_valueLabel->setEnabled(true);
+            m_valueLabel->setPrivateVisible(true);
+            m_valueLabel->setPrivateEnabled(true);
         }
         if (m_valueLabel->isD2d1ObjectVisible())
         {
@@ -330,8 +330,8 @@ namespace d14engine::uikit
 
             if (getAppearance().valueLabel.enabled)
             {
-                m_valueLabel->setVisible(true);
-                m_valueLabel->setEnabled(true);
+                m_valueLabel->setPrivateVisible(true);
+                m_valueLabel->setPrivateEnabled(true);
             }
             onStartSliding(m_value);
         }
@@ -343,8 +343,8 @@ namespace d14engine::uikit
 
                 if (getAppearance().valueLabel.enabled)
                 {
-                    m_valueLabel->setVisible(false);
-                    m_valueLabel->setEnabled(false);
+                    m_valueLabel->setPrivateVisible(false);
+                    m_valueLabel->setPrivateEnabled(false);
                 }
                 onEndSliding(m_value);
             }

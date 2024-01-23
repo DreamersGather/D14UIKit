@@ -149,7 +149,7 @@ namespace d14engine::uikit
 
         m_cursor = makeUIObject<Cursor>();
 
-        m_cursor->setVisible(false);
+        m_cursor->setPrivateVisible(false);
         m_cursor->registerDrawObjects();
         // The cursor does not need to receive any UI event.
     }
@@ -210,29 +210,6 @@ namespace d14engine::uikit
     {
         auto app = (Application*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
         
-        if (app != nullptr && app->m_isHandlingSensitiveUIEvent)
-        {
-            if (message == WM_MOUSEMOVE ||
-                message == WM_MOUSELEAVE ||
-                message == WM_MOUSEWHEEL ||
-                message == WM_KEYDOWN ||
-                message == WM_SYSKEYDOWN ||
-                message == WM_KEYUP ||
-                message == WM_SYSKEYUP ||
-                message == WM_LBUTTONDOWN ||
-                message == WM_LBUTTONUP ||
-                message == WM_LBUTTONDBLCLK ||
-                message == WM_RBUTTONDOWN ||
-                message == WM_RBUTTONUP ||
-                message == WM_RBUTTONDBLCLK ||
-                message == WM_MBUTTONDOWN ||
-                message == WM_MBUTTONUP ||
-                message == WM_MBUTTONDBLCLK)
-            {
-                PostMessage(hwnd, message, wParam, lParam);
-                return 0;
-            }
-        }
         switch (message)
         {
         case WM_SIZE:
@@ -349,7 +326,11 @@ namespace d14engine::uikit
         }
         case WM_MOUSEMOVE:
         {
-            if (app == nullptr) return 0;
+            if (app == nullptr ||
+                app->m_isHandlingSensitiveUIEvent)
+            {
+                return 0;
+            }
             app->m_isHandlingSensitiveUIEvent = true;
 
             auto rawCursorPoint =
@@ -489,7 +470,7 @@ namespace d14engine::uikit
 
             // The cursor will be hidden if moves out of the Win32 window,
             // so we need to show it explicitly in every mouse-move event.
-            app->m_cursor->setVisible(true);
+            app->m_cursor->setPrivateVisible(true);
             if (app->m_cursor->useSystemIcons)
             {
                 app->m_cursor->setSystemIcon();
@@ -501,7 +482,11 @@ namespace d14engine::uikit
         }
         case WM_MOUSELEAVE:
         {
-            if (app == nullptr) return 0;
+            if (app == nullptr ||
+                app->m_isHandlingSensitiveUIEvent)
+            {
+                return 0;
+            }
             app->m_isHandlingSensitiveUIEvent = true;
 
             POINT screenCursorPoint = {};
@@ -536,7 +521,7 @@ namespace d14engine::uikit
                 });
                 app->m_hitUIObjects.clear();
             }
-            app->m_cursor->setVisible(false);
+            app->m_cursor->setPrivateVisible(false);
 
             InvalidateRect(hwnd, nullptr, FALSE);
 
@@ -553,7 +538,11 @@ namespace d14engine::uikit
         case WM_MBUTTONUP:
         case WM_MBUTTONDBLCLK:
         {
-            if (app == nullptr) return 0;
+            if (app == nullptr ||
+                app->m_isHandlingSensitiveUIEvent)
+            {
+                return 0;
+            }
             app->m_isHandlingSensitiveUIEvent = true;
 
             if (message == WM_LBUTTONDOWN ||
@@ -619,7 +608,11 @@ namespace d14engine::uikit
         }
         case WM_MOUSEWHEEL:
         {
-            if (app == nullptr) return 0;
+            if (app == nullptr ||
+                app->m_isHandlingSensitiveUIEvent)
+            {
+                return 0;
+            }
             app->m_isHandlingSensitiveUIEvent = true;
 
             POINT screenCursorPoint =
@@ -684,7 +677,11 @@ namespace d14engine::uikit
         case WM_KEYUP:
         case WM_SYSKEYUP:
         {
-            if (app == nullptr) return 0;
+            if (app == nullptr ||
+                app->m_isHandlingSensitiveUIEvent)
+            {
+                return 0;
+            }
             app->m_isHandlingSensitiveUIEvent = true;
 
             KeyboardEvent e = {};
@@ -1168,7 +1165,7 @@ namespace d14engine::uikit
             GetCursorPos(&screenCursorPoint);
             ScreenToClient(m_win32Window, &screenCursorPoint);
 
-            SendMessage(m_win32Window, WM_MOUSEMOVE, 0,
+            PostMessage(m_win32Window, WM_MOUSEMOVE, 0,
                 MAKELPARAM(screenCursorPoint.x, screenCursorPoint.y));
         }
     }
