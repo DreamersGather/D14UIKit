@@ -77,6 +77,16 @@ namespace d14engine::uikit
             properties, nullptr, 0, &arrowIcon.strokeStyle));
     }
 
+    void TreeViewItem::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        if (!m_layout->children().empty())
+        {
+            (*m_layout->children().begin())->setEnabled(value);
+        }
+    }
+
     WeakPtr<Panel> TreeViewItem::content() const
     {
         if (m_layout->children().empty()) return {};
@@ -444,26 +454,27 @@ namespace d14engine::uikit
         // Fold/Unfold Arrow
         if (!m_childrenItems.empty() && !m_parentView.expired())
         {
-            auto& setting = getAppearance().arrow;
-            auto& geoSetting = setting.geometry[StatefulObject::m_state.index()];
+            auto& arrowSetting = getAppearance().arrow;
+            auto& arrowGeometry = arrowSetting.geometry[StatefulObject::m_state.index()];;
+            auto& arrowBackground = m_enabled ? arrowSetting.background : arrowSetting.secondaryBackground;
 
-            resource_utils::g_solidColorBrush->SetColor(setting.background.color);
-            resource_utils::g_solidColorBrush->SetOpacity(setting.background.opacity);
+            resource_utils::g_solidColorBrush->SetColor(arrowBackground.color);
+            resource_utils::g_solidColorBrush->SetOpacity(arrowBackground.opacity);
 
             auto offset = m_nodeLevel * m_parentView.lock()->horzIndentEachNodelLevel();
             auto arrowLeftTop = math_utils::offset(absolutePosition(), { offset, 0.0f });
 
             rndr->d2d1DeviceContext()->DrawLine(
-                math_utils::offset(arrowLeftTop, geoSetting.line0.point0),
-                math_utils::offset(arrowLeftTop, geoSetting.line0.point1),
+                math_utils::offset(arrowLeftTop, arrowGeometry.line0.point0),
+                math_utils::offset(arrowLeftTop, arrowGeometry.line0.point1),
                 resource_utils::g_solidColorBrush.Get(),
-                setting.strokeWidth, arrowIcon.strokeStyle.Get());
+                arrowSetting.strokeWidth, arrowIcon.strokeStyle.Get());
 
             rndr->d2d1DeviceContext()->DrawLine(
-                math_utils::offset(arrowLeftTop, geoSetting.line1.point0),
-                math_utils::offset(arrowLeftTop, geoSetting.line1.point1),
+                math_utils::offset(arrowLeftTop, arrowGeometry.line1.point0),
+                math_utils::offset(arrowLeftTop, arrowGeometry.line1.point1),
                 resource_utils::g_solidColorBrush.Get(),
-                setting.strokeWidth, arrowIcon.strokeStyle.Get());
+                arrowSetting.strokeWidth, arrowIcon.strokeStyle.Get());
         }
     }
 

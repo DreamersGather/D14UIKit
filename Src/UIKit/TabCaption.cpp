@@ -37,6 +37,13 @@ namespace d14engine::uikit
         m_title->label()->drawTextOptions = D2D1_DRAW_TEXT_OPTIONS_CLIP;
     }
 
+    void TabCaption::setEnabled(bool value)
+    {
+        Panel::setEnabled(value);
+
+        m_title->setEnabled(value);
+    }
+
     const SharedPtr<IconLabel>& TabCaption::title() const
     {
         return m_title;

@@ -22,6 +22,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(TabCaption)
 
+        void setEnabled(bool value) override;
+
     protected:
         SharedPtr<IconLabel> m_title = {};
 

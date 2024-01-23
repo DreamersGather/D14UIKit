@@ -35,6 +35,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(TreeViewItem)
 
+        void setEnabled(bool value) override;
+
     protected:
         SharedPtr<ConstraintLayout> m_layout = {};
 

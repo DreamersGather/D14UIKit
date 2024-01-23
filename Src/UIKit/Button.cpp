@@ -56,7 +56,7 @@ namespace d14engine::uikit
 
         m_currState = value ? State::Idle : State::Disabled;
 
-        m_content->label()->setEnabled(value);
+        m_content->setEnabled(value);
     }
 
     const SharedPtr<IconLabel>& Button::content() const
