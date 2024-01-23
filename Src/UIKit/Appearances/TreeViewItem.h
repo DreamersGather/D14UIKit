@@ -68,6 +68,8 @@ namespace d14engine::uikit::appearance
                 };
 
                 SolidStyle background = {};
+                // i.e. background when disabled
+                SolidStyle secondaryBackground = {};
 
                 float strokeWidth = 2.0f;
             }
@@ -77,7 +79,12 @@ namespace d14engine::uikit::appearance
             {
                 struct Arrow
                 {
-                    SolidStyle background = {};
+                    struct Background
+                    {
+                        D2D1_COLOR_F color = {};
+                    }
+                    background = {},
+                    secondaryBackground = {};
                 }
                 arrow = {};
             };
