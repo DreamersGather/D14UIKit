@@ -158,7 +158,7 @@ namespace d14engine::uikit
                     // make sure the item is not belonging to any folded item
                     // before showing it.
 
-                    (*itemIndex)->setVisible(value);
+                    (*itemIndex)->setPrivateVisible(value);
                     (*itemIndex)->appEventReactability.hitTest = value;
                 }
             }
@@ -166,7 +166,7 @@ namespace d14engine::uikit
             {
                 for (ItemIndex itemIndex = range.first; itemIndex <= range.last; ++itemIndex)
                 {
-                    (*itemIndex)->setVisible(false);
+                    (*itemIndex)->setPrivateVisible(false);
                     (*itemIndex)->appEventReactability.hitTest = false;
                 }
             }

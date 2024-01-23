@@ -59,6 +59,13 @@ namespace d14engine::uikit
                    std::enable_shared_from_this<Panel>, ISortable<Panel>
     {
         friend struct Application;
+        friend struct ComboBox;
+        friend struct PopupMenu;
+        friend struct Slider;
+        friend struct TabGroup;
+        friend struct TreeView;
+        template<typename Item_T>
+        friend struct WaterfallView;
 
         Panel(
             const D2D1_RECT_F& rect = {},
@@ -271,13 +278,13 @@ namespace d14engine::uikit
         // Introduce onXxxHelper to solve the inheritance conflicts of
         // the "override", "before" and "after" event callback lambdas.
         // 
-        // *----------*----------------------------------------*---------------------------------------------*
-        // | Class    | onSize                                 | onSizeHelper                                |
-        // *----------*----------------------------------------*---------------------------------------------*
-        // | Panel    | "before" ; Call Panel's onSizeHelper   | Panel's works                               |
-        // *----------*----------------------------------------*---------------------------------------------*
-        // | Window   | "before" ; Call Window's onSizeHelper  | Call Panel's onSizeHelper ; Window's works  |
-        // *----------*----------------------------------------*---------------------------------------------*
+        // *----------*---------------------------------------*-------------------------------------*
+        // | Class  | onSize                                  | onSizeHelper                        |
+        // *----------*---------------------------------------*-------------------------------------*
+        // | Panel  | "before"; Panel::onSizeHelper; "after"  | Panel's works                       |
+        // *----------*---------------------------------------*-------------------------------------*
+        // | Window | "before"; Window::onSizeHelper; "after" | Panel::onSizeHelper; Window's works |
+        // *----------*---------------------------------------*-------------------------------------*
         // 
         // To sum up, do the actual works in onXxxHelper methods and wrap them into onXxx methods.
 
@@ -360,6 +367,14 @@ namespace d14engine::uikit
         bool m_visible = true;
         bool m_enabled = true;
 
+        // Consider a situation where the internal implementation requires
+        // the panel to be invisible, in which case we can set m_privateVisible=false
+        // to make the panel keep invisible even if the user sets m_visible=true.
+        // For example, to hide a menu item after it moves outside of its parent menu,
+        // we can make it private-invisible without messing up the user settings.
+        bool m_privateVisible = true;
+        bool m_privateEnabled = true;
+
         D2D1_RECT_F m_rect = {};
         D2D1_RECT_F m_absoluteRect = {};
 
@@ -370,6 +385,13 @@ namespace d14engine::uikit
         virtual bool enabled() const;
         virtual void setEnabled(bool value);
 
+    protected:
+        void setPrivateVisible(bool value);
+        void setPrivateEnabled(bool value);
+
+        void updateAppEventReactability();
+
+    public:
         float width() const;
         float height() const;
         D2D1_SIZE_F size() const;

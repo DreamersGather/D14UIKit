@@ -16,8 +16,8 @@ namespace d14engine::uikit
         WaterfallView(rect),
         shadow(math_utils::roundu(extendedSize(size())))
     {
-        setVisible(false);
-        setEnabled(false);
+        setPrivateVisible(false);
+        setPrivateEnabled(false);
 
         selectMode = SelectMode::None;
     }
@@ -101,13 +101,13 @@ namespace d14engine::uikit
 
     void PopupMenu::setActivated(bool value)
     {
-        setVisible(value);
-        setEnabled(value);
+        setPrivateVisible(value);
+        setPrivateEnabled(value);
 
         if (m_backgroundTriggerPanel)
         {
-            m_backgroundTriggerPanel->setEnabled(value);
-            if (value) m_backgroundTriggerPanel->moveTopmost();;
+            m_backgroundTriggerPanel->setPrivateEnabled(value);
+            if (value) m_backgroundTriggerPanel->moveTopmost();
         }
         if (value)
         {
@@ -182,8 +182,8 @@ namespace d14engine::uikit
         {
             m_backgroundTriggerPanel = makeRootUIObject<Panel>(math_utils::infiniteRectFRef());
 
-            m_backgroundTriggerPanel->setVisible(false);
-            m_backgroundTriggerPanel->setEnabled(false);
+            m_backgroundTriggerPanel->setPrivateVisible(false);
+            m_backgroundTriggerPanel->setPrivateEnabled(false);
 
             m_backgroundTriggerPanel->f_onMouseButton = [this](Panel* p, MouseButtonEvent& e)
             {

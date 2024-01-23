@@ -80,12 +80,12 @@ namespace d14engine::uikit
 
     bool Panel::isD2d1ObjectVisible() const
     {
-        return m_visible;
+        return m_visible && m_privateVisible;
     }
 
     void Panel::setD2d1ObjectVisible(bool value)
     {
-        m_visible = value;
+        m_visible = value; // no for private
     }
 
     void Panel::onRendererUpdateObject2D(Renderer* rndr)
@@ -754,12 +754,12 @@ namespace d14engine::uikit
 
     bool Panel::visible() const
     {
-        return isD2d1ObjectVisible();
+        return m_visible;
     }
 
     void Panel::setVisible(bool value)
     {
-        setD2d1ObjectVisible(value);
+        m_visible = value;
     }
 
     bool Panel::enabled() const
@@ -771,7 +771,25 @@ namespace d14engine::uikit
     {
         m_enabled = value;
 
-        appEventReactability.setFlag(value);
+        updateAppEventReactability();
+    }
+
+    void Panel::setPrivateVisible(bool value)
+    {
+        m_privateVisible = value;
+    }
+
+    void Panel::setPrivateEnabled(bool value)
+    {
+        m_privateEnabled = value;
+
+        updateAppEventReactability();
+    }
+
+    void Panel::updateAppEventReactability()
+    {
+        appEventReactability.setFlag(
+            m_enabled && m_privateEnabled);
     }
 
     float Panel::width() const
