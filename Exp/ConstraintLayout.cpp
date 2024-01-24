@@ -2,8 +2,7 @@
 
 #include "ConstraintLayout.h"
 
-#include "Panel.h"
-#include "ResizablePanel.h"
+#include "Layout.h"
 
 #include "UIKit/ConstraintLayout.h"
 
@@ -30,27 +29,7 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    ConstraintLayout::ConstraintLayout()
-        :
-        ConstraintLayout(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        ConstraintLayout::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ConstraintLayout>();
-
-        Panel::initialize();
-        ResizablePanel::initialize();
-        ConstraintLayout::initialize();
-    }
-
-    ConstraintLayout::ConstraintLayout(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void ConstraintLayout::initialize() { }
+    _D14_UIKIT_LAYOUT_IMPL(ConstraintLayout)
 
     void ConstraintLayout::addElement(Panel* elem, const GeoInfo& geoInfo)
     {
