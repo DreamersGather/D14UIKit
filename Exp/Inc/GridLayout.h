@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "Layout.h"
 #include "ResizablePanel.h"
 
 namespace d14uikit
@@ -7,8 +8,7 @@ namespace d14uikit
     class DllExport GridLayout : public ResizablePanel
     {
         _D14_UIKIT_PIMPL(GridLayout)
-
-        GridLayout();
+        _D14_UIKIT_LAYOUT_DECL(GridLayout)
 
         int horzCellCount() const;
         void setHorzCellCount(int value);

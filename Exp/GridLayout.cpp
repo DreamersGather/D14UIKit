@@ -2,8 +2,7 @@
 
 #include "GridLayout.h"
 
-#include "Panel.h"
-#include "ResizablePanel.h"
+#include "Layout.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -24,27 +23,7 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    GridLayout::GridLayout()
-        :
-        GridLayout(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        GridLayout::pimpl->uiobj =
-        uikit::makeUIObject<uikit::GridLayout>();
-
-        Panel::initialize();
-        ResizablePanel::initialize();
-        GridLayout::initialize();
-    }
-
-    GridLayout::GridLayout(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void GridLayout::initialize() { }
+    _D14_UIKIT_LAYOUT_IMPL(GridLayout)
 
     int GridLayout::horzCellCount() const
     {

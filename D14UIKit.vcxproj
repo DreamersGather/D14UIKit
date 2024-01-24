@@ -1302,6 +1302,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\Label.h" />
     <ClInclude Include="Exp\Inc\LabelArea.h" />
+    <ClInclude Include="Exp\Inc\Layout.h" />
     <ClInclude Include="Exp\Inc\ListView.h" />
     <ClInclude Include="Exp\Inc\ListViewItem.h" />
     <ClInclude Include="Exp\Inc\MainWindow.h" />
@@ -1332,6 +1333,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\Inc\Window.h" />
     <ClInclude Include="Exp\Label.h" />
     <ClInclude Include="Exp\LabelArea.h" />
+    <ClInclude Include="Exp\Layout.h" />
     <ClInclude Include="Exp\ListView.h" />
     <ClInclude Include="Exp\ListViewItem.h" />
     <ClInclude Include="Exp\MainWindow.h" />
