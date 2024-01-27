@@ -26,6 +26,10 @@ namespace d14uikit
         int height() const;
         void setHeight(int value);
 
+        Size dipSize() const;
+        int dipWidth() const;
+        int dipHeight() const;
+
         enum class Format
         {
             Adng,

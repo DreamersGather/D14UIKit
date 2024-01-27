@@ -52,6 +52,10 @@ namespace d14uikit
             &Application::maximized,
             &Application::setMaximized);
 
+        i.def_property_readonly(
+            "dpi",
+            &Application::dpi);
+
         i.def_property(
             "size",
             &Application::size,

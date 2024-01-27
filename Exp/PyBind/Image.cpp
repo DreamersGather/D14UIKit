@@ -33,6 +33,18 @@ namespace d14uikit
             &Image::height,
             &Image::setHeight);
 
+        i.def_property_readonly(
+            "dipSize",
+            &Image::dipSize);
+
+        i.def_property_readonly(
+            "dipWidth",
+            &Image::dipWidth);
+
+        i.def_property_readonly(
+            "dipHeight",
+            &Image::dipHeight);
+
         py::enum_<Image::Format>(i, "Format")
             .value("Adng",  Image::Adng)
             .value("Bmp",   Image::Bmp)

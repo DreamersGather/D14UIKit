@@ -288,6 +288,68 @@ namespace d14uikit
         setPosition({ x(), value });
     }
 
+    Size Panel::minSize() const
+    {
+        return convert(pimpl->uiobj->minimalSize());
+    }
+
+    void Panel::setMinSize(const Size& value)
+    {
+        pimpl->uiobj->minimalWidthHint = (float)value.width;
+        pimpl->uiobj->minimalHeightHint = (float)value.height;
+    }
+
+    int Panel::minWidth() const
+    {
+        return math_utils::round(pimpl->uiobj->minimalWidth());
+    }
+
+    void Panel::setMinWidth(int value)
+    {
+        pimpl->uiobj->minimalWidthHint = (float)value;
+    }
+
+    int Panel::minHeight() const
+    {
+        return math_utils::round(pimpl->uiobj->minimalHeight());
+    }
+
+    void Panel::setMinHeight(int value)
+    {
+        pimpl->uiobj->minimalHeightHint = (float)value;
+    }
+
+    Size Panel::maxSize() const
+    {
+        return convert(pimpl->uiobj->maximalSize());
+    }
+
+    void Panel::setMaxSize(const Size& value)
+    {
+        pimpl->uiobj->maximalWidthHint = (float)value.width;
+        pimpl->uiobj->maximalHeightHint = (float)value.height;
+    }
+
+    int Panel::maxWidth() const
+    {
+        return math_utils::round(pimpl->uiobj->maximalWidth());
+    }
+
+    void Panel::setMaxWidth(int value)
+    {
+        pimpl->uiobj->maximalWidthHint = (float)value;
+    }
+
+    int Panel::maxHeight() const
+    {
+        return math_utils::round(pimpl->uiobj->maximalHeight());
+    }
+
+    void Panel::setMaxHeight(int value)
+    {
+        pimpl->uiobj->maximalHeightHint = (float)value;
+    }
+
     Color Panel::color() const
     {
         return convert(pimpl->bkgn.color);

@@ -35,6 +35,8 @@ namespace d14uikit
         bool maximized() const;
         void setMaximized(bool value);
 
+        int dpi() const;
+
         Size size() const;
         void setSize(const Size& value);
 

@@ -11,7 +11,5 @@ namespace d14uikit
     struct ResizablePanel::Impl
     {
         std::shared_ptr<d14engine::uikit::ResizablePanel> uiobj = {};
-
-        bool resizable = true;
     };
 }

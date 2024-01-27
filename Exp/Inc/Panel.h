@@ -44,6 +44,24 @@ namespace d14uikit
         int absY() const;
         void setY(int value);
 
+        Size minSize() const;
+        void setMinSize(const Size& value);
+
+        int minWidth() const;
+        void setMinWidth(int value);
+
+        int minHeight() const;
+        void setMinHeight(int value);
+
+        Size maxSize() const;
+        void setMaxSize(const Size& value);
+
+        int maxWidth() const;
+        void setMaxWidth(int value);
+
+        int maxHeight() const;
+        void setMaxHeight(int value);
+
         Color color() const;
         void setColor(const Color& value);
 

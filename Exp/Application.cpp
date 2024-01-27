@@ -143,6 +143,11 @@ namespace d14uikit
         ShowWindow(pimpl->uiobj->win32Window(), showFlag);
     }
 
+    int Application::dpi() const
+    {
+        return math_utils::round(uikit::platform_utils::dpi());
+    }
+
     Size scaledByDpi(const Size& sz)
     {
         auto factor = uikit::platform_utils::dpi() / 96.0f;

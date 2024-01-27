@@ -10,8 +10,22 @@ namespace d14uikit
 
         ResizablePanel();
 
-        bool resizable() const;
-        void setResizable(bool value);
+        enum class Border
+        {
+            All, Left, Right, Top, Bottom
+        };
+#define SET_BORDER(Name) constexpr static auto Name = Border::Name
+
+        SET_BORDER(All);
+        SET_BORDER(Left);
+        SET_BORDER(Right);
+        SET_BORDER(Top);
+        SET_BORDER(Bottom);
+
+#undef SET_BORDER
+
+        bool resizable(Border border = All) const;
+        void setResizable(bool value, Border border = All);
 
         bool dynamicSizing() const;
         void setDynamicSizing(bool value);
