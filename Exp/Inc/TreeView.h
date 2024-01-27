@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "ScrollView.h"
+#include "WaterfallView.h"
 
 namespace d14uikit
 {
@@ -10,15 +11,14 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL(TreeView)
 
-        TreeView();
-
         void insertRootItem(const std::list<TreeViewItem*>& items, int rootIndex = 0);
         void appendRootItem(const std::list<TreeViewItem*>& items);
 
         void removeRootItem(int rootIndex, int count = 1);
         void clearAllItems();
 
-        int allItemCount() const;
         int rootItemCount() const;
+
+        _D14_UIKIT_WATERFALL_VIEW_DECL(TreeView)
     };
 }

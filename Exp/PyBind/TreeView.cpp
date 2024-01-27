@@ -3,8 +3,8 @@
 #include "TreeView.h"
 
 #include "ScrollView.h"
+#include "WaterfallView.h"
 
-#include "Inc/TreeView.h"
 #include "Inc/TreeViewItem.h"
 
 namespace d14uikit
@@ -14,6 +14,8 @@ namespace d14uikit
         py::class_<TreeView, ScrollView, PyScrollView<TreeView>> i(m, "TreeView");
 
         i.def(py::init());
+
+        _D14_UIKIT_PYBIND_WATERFALL_VIEW(TreeView)
 
         i.def(
             "insertRootItem",
@@ -30,10 +32,6 @@ namespace d14uikit
         i.def(
             "clearAllItems",
             &TreeView::clearAllItems);
-
-        i.def_property_readonly(
-            "allItemCount",
-            &TreeView::allItemCount);
 
         i.def_property_readonly(
             "rootItemCount",

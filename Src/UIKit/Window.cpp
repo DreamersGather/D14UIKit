@@ -81,11 +81,27 @@ namespace d14engine::uikit
 
     float Window::minimalWidth() const
     {
+        if (minimalWidthHint.has_value())
+        {
+            auto userWidth = minimalWidthHint.value();
+            if (userWidth > nonClientAreaMinimalWidth())
+            {
+                return userWidth;
+            }
+        }
         return nonClientAreaMinimalWidth();
     }
 
     float Window::minimalHeight() const
     {
+        if (minimalHeightHint.has_value())
+        {
+            auto userHeight = minimalHeightHint.value();
+            if (userHeight > nonClientAreaHeight())
+            {
+                return userHeight;
+            }
+        }
         return nonClientAreaHeight();
     }
 
@@ -706,7 +722,12 @@ namespace d14engine::uikit
 
         if (respondSetForegroundEvent)
         {
-            moveTopmost();
+            if (e.state.leftDown() ||
+                e.state.rightDown() ||
+                e.state.middleDown())
+            {
+                moveTopmost();
+            }
         }
         auto& p = e.cursorPoint;
 
