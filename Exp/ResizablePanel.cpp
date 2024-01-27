@@ -51,17 +51,44 @@ namespace d14uikit
         };
     }
 
-    bool ResizablePanel::resizable() const
+    bool ResizablePanel::resizable(Border border) const
     {
-        return pimpl->resizable;
+        switch (border)
+        {
+        case All:
+        {
+            return
+            pimpl->uiobj->isLeftResizable &&
+            pimpl->uiobj->isRightResizable &&
+            pimpl->uiobj->isTopResizable &&
+            pimpl->uiobj->isBottomResizable;
+        }
+        case Left: return pimpl->uiobj->isLeftResizable;
+        case Right: return pimpl->uiobj->isRightResizable;
+        case Top: return pimpl->uiobj->isTopResizable;
+        case Bottom: return pimpl->uiobj->isBottomResizable;
+        default: return false;
+        }
     }
 
-    void ResizablePanel::setResizable(bool value)
+    void ResizablePanel::setResizable(bool value, Border border)
     {
-        pimpl->resizable = value;
-
-        pimpl->uiobj->isLeftResizable = pimpl->uiobj->isRightResizable =
-        pimpl->uiobj->isTopResizable = pimpl->uiobj->isBottomResizable = value;
+        switch (border)
+        {
+        case All:
+        {
+            pimpl->uiobj->isLeftResizable =
+            pimpl->uiobj->isRightResizable =
+            pimpl->uiobj->isTopResizable =
+            pimpl->uiobj->isBottomResizable = value;
+            break;
+        }
+        case Left: pimpl->uiobj->isLeftResizable = value; break;
+        case Right: pimpl->uiobj->isRightResizable = value; break;
+        case Top: pimpl->uiobj->isTopResizable = value; break;
+        case Bottom: pimpl->uiobj->isBottomResizable = value; break;
+        default: break;
+        }
     }
 
     bool ResizablePanel::dynamicSizing() const
@@ -74,7 +101,8 @@ namespace d14uikit
         pimpl->uiobj->enableDynamicSizing = value;
     }
 
-    ResizablePanel::Callback& ResizablePanel::callback() const { return *pcallback; }
+    ResizablePanel::Callback&
+    ResizablePanel::callback() const { return *pcallback; }
 
     void ResizablePanel::onStartResizing() { }
 

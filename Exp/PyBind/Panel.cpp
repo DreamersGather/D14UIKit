@@ -71,6 +71,36 @@ namespace d14uikit
             &Panel::absY);
 
         i.def_property(
+            "minSize",
+            &Panel::minSize,
+            &Panel::setMinSize);
+
+        i.def_property(
+            "minWidth",
+            &Panel::minWidth,
+            &Panel::setMinWidth);
+
+        i.def_property(
+            "minHeight",
+            &Panel::minHeight,
+            &Panel::setMinHeight);
+
+        i.def_property(
+            "maxSize",
+            &Panel::maxSize,
+            &Panel::setMaxSize);
+
+        i.def_property(
+            "maxWidth",
+            &Panel::maxWidth,
+            &Panel::setMaxWidth);
+
+        i.def_property(
+            "maxHeight",
+            &Panel::maxHeight,
+            &Panel::setMaxHeight);
+
+        i.def_property(
             "color",
             &Panel::color,
             &Panel::setColor);

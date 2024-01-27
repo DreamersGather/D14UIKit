@@ -15,10 +15,24 @@ namespace d14uikit
 
         i.def(py::init());
 
-        i.def_property(
+        py::enum_<ResizablePanel::Border>(i, "Border")
+            .value("All", ResizablePanel::All)
+            .value("Left", ResizablePanel::Left)
+            .value("Right", ResizablePanel::Right)
+            .value("Top", ResizablePanel::Top)
+            .value("Bottom", ResizablePanel::Bottom)
+            .export_values();
+
+        i.def(
             "resizable",
             &ResizablePanel::resizable,
-            &ResizablePanel::setResizable);
+            "border"_a = ResizablePanel::All);
+
+        i.def(
+            "setResizable",
+            &ResizablePanel::setResizable,
+            "value"_a,
+            "border"_a = ResizablePanel::All);
 
         i.def_property(
             "dynamicSizing",

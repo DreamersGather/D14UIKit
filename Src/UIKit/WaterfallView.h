@@ -158,9 +158,9 @@ do { \
         } \
     } \
 } while (0)
-            UPDATE_ITEM_INDEX(m_extendedSelectItemIndexOrigin);
-            UPDATE_ITEM_INDEX(m_lastSelectedItemIndex);
             UPDATE_ITEM_INDEX(m_lastHoverItemIndex);
+            UPDATE_ITEM_INDEX(m_lastSelectedItemIndex);
+            UPDATE_ITEM_INDEX(m_extendedSelectItemIndexOrigin);
 
             UPDATE_ITEM_INDEX(m_activeItemIndexRange.first);
             UPDATE_ITEM_INDEX(m_activeItemIndexRange.last);
@@ -286,9 +286,10 @@ do { \
 
             m_items.clear();
 
-            m_extendedSelectItemIndexOrigin.invalidate();
-            m_lastSelectedItemIndex.invalidate();
+            m_selectedItemIndices.clear();
             m_lastHoverItemIndex.invalidate();
+            m_lastSelectedItemIndex.invalidate();
+            m_extendedSelectItemIndexOrigin.invalidate();
 
             m_activeItemIndexRange.first.invalidate();
             m_activeItemIndexRange.last.invalidate();

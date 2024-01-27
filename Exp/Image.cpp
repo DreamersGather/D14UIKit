@@ -4,6 +4,8 @@
 
 #include "Common/DirectXError.h"
 
+#include "Common/MathUtils/Basic.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/BitmapUtils.h"
 
@@ -74,6 +76,26 @@ namespace d14uikit
     void Image::setHeight(int value)
     {
         setSize({ width(), value });
+    }
+
+    Size Image::dipSize() const
+    {
+        auto size = pimpl->bitmap->GetSize();
+        return
+        {
+            math_utils::round(size.width),
+            math_utils::round(size.height)
+        };
+    }
+
+    int Image::dipWidth() const
+    {
+        return dipSize().width;
+    }
+
+    int Image::dipHeight() const
+    {
+        return dipSize().height;
     }
 
     void Image::load(const std::wstring& path, bool cpuRead)
