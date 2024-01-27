@@ -2,6 +2,7 @@
 
 #include "GridLayout.h"
 
+#include "Layout.h"
 #include "ResizablePanel.h"
 
 #include "Inc/GridLayout.h"
@@ -14,6 +15,8 @@ namespace d14uikit
             PyResizablePanel<GridLayout>> i(m, "GridLayout");
 
         i.def(py::init());
+
+        _D14_UIKIT_PYBIND_LAYOUT(GridLayout)
 
         i.def_property(
             "horzCellCount",

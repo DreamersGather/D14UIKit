@@ -10,7 +10,7 @@ namespace d14uikit
 {
     void Py_InitWindow(py::module_& m);
 
-    class ExWindow : public d14uikit::Window
+    class ExWindow : public Window
     {
     public:
         using Window::onClose;

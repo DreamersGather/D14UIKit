@@ -3,8 +3,8 @@
 #include "ListView.h"
 
 #include "ScrollView.h"
+#include "WaterfallView.h"
 
-#include "Inc/ListView.h"
 #include "Inc/ListViewItem.h"
 
 namespace d14uikit
@@ -14,6 +14,8 @@ namespace d14uikit
         py::class_<ListView, ScrollView, PyScrollView<ListView>> i(m, "ListView");
 
         i.def(py::init());
+
+        _D14_UIKIT_PYBIND_WATERFALL_VIEW(ListView)
 
         i.def(
             "insertItem",
@@ -35,9 +37,5 @@ namespace d14uikit
         i.def(
             "clearAllItems",
             &ListView::clearAllItems);
-
-        i.def_property_readonly(
-            "itemCount",
-            &ListView::itemCount);
     }
 }

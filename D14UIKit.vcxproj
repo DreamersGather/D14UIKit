@@ -1330,6 +1330,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\Inc\VertSlider.h" />
     <ClInclude Include="Exp\Inc\ViewItem.h" />
     <ClInclude Include="Exp\Inc\VirtualKeyCode.h" />
+    <ClInclude Include="Exp\Inc\WaterfallView.h" />
     <ClInclude Include="Exp\Inc\Window.h" />
     <ClInclude Include="Exp\Label.h" />
     <ClInclude Include="Exp\LabelArea.h" />
@@ -1453,6 +1454,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\Layout.h" />
     <ClInclude Include="Exp\PyBind\ListView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1579,6 +1581,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\WaterfallView.h" />
     <ClInclude Include="Exp\PyBind\Window.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1611,6 +1614,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\TreeViewItem.h" />
     <ClInclude Include="Exp\VertSlider.h" />
     <ClInclude Include="Exp\ViewItem.h" />
+    <ClInclude Include="Exp\WaterfallView.h" />
     <ClInclude Include="Exp\Window.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h" />

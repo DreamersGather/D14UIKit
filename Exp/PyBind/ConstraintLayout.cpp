@@ -2,6 +2,7 @@
 
 #include "ConstraintLayout.h"
 
+#include "Layout.h"
 #include "ResizablePanel.h"
 
 #include "Inc/ConstraintLayout.h"
@@ -14,6 +15,8 @@ namespace d14uikit
             PyResizablePanel<ConstraintLayout>> i(m, "ConstraintLayout");
 
         i.def(py::init());
+
+        _D14_UIKIT_PYBIND_LAYOUT(ConstraintLayout)
 
         // Geometry Info
         {

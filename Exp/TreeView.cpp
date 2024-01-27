@@ -2,12 +2,8 @@
 
 #include "TreeView.h"
 
-#include "Panel.h"
-#include "ResizablePanel.h"
-#include "ScrollView.h"
 #include "TreeViewItem.h"
-
-#include "Common/MathUtils/Basic.h"
+#include "WaterfallView.h"
 
 #include "UIKit/TreeView.h"
 
@@ -15,27 +11,7 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    TreeView::TreeView() : TreeView(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        ScrollView::pimpl->uiobj =
-        TreeView::pimpl->uiobj =
-        uikit::makeUIObject<uikit::TreeView>();
-
-        Panel::initialize();
-        ResizablePanel::initialize();
-        ScrollView::initialize();
-        TreeView::initialize();
-    }
-
-    TreeView::TreeView(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        ScrollView(ScrollView::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void TreeView::initialize() { }
+    _D14_UIKIT_WATERFALL_VIEW_IMPL(TreeView)
 
     void TreeView::insertRootItem(const std::list<TreeViewItem*>& items, int rootIndex)
     {
@@ -63,11 +39,6 @@ namespace d14uikit
     void TreeView::clearAllItems()
     {
         pimpl->uiobj->clearAllItems();
-    }
-
-    int TreeView::allItemCount() const
-    {
-        return (int)pimpl->uiobj->childrenItems().size();
     }
 
     int TreeView::rootItemCount() const

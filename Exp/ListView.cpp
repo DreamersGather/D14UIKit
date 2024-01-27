@@ -3,9 +3,7 @@
 #include "ListView.h"
 
 #include "ListViewItem.h"
-#include "Panel.h"
-#include "ResizablePanel.h"
-#include "ScrollView.h"
+#include "WaterfallView.h"
 
 #include "UIKit/ListView.h"
 
@@ -13,27 +11,7 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    ListView::ListView() : ListView(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        ScrollView::pimpl->uiobj =
-        ListView::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ListView>();
-
-        Panel::initialize();
-        ResizablePanel::initialize();
-        ScrollView::initialize();
-        ListView::initialize();
-    }
-
-    ListView::ListView(Passkey)
-        :
-        Panel(Panel::Passkey{}),
-        ScrollView(ScrollView::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void ListView::initialize() { }
+    _D14_UIKIT_WATERFALL_VIEW_IMPL(ListView)
 
     void ListView::insertItem(const std::list<ListViewItem*>& items, int index)
     {
@@ -61,10 +39,5 @@ namespace d14uikit
     void ListView::clearAllItems()
     {
         pimpl->uiobj->clearAllItems();
-    }
-
-    int ListView::itemCount() const
-    {
-        return (int)pimpl->uiobj->childrenItems().size();
     }
 }
