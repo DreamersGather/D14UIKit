@@ -26,7 +26,8 @@ Type_Name::Type_Name(Passkey)                                                   
     :                                                                                   \
     Panel(Panel::Passkey{}),                                                            \
     ScrollView(ScrollView::Passkey{}),                                                  \
-    pimpl(std::make_shared<Impl>()) { }                                                 \
+    pimpl(std::make_shared<Impl>()),                                                    \
+    pcallback(std::make_unique<Callback>()) { }                                         \
                                                                                         \
 void Type_Name::initialize()                                                            \
 {                                                                                       \
