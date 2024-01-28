@@ -440,6 +440,18 @@ namespace d14uikit
         }
     }
 
+    void Panel::setPinned(bool value)
+    {
+        if (value)
+        {
+            pimpl->uiobj->pinApplicationEvents();
+        }
+        else // unpin
+        {
+            pimpl->uiobj->unpinApplicationEvents();
+        }
+    }
+
     void Panel::setFocused(bool value)
     {
         auto app = uikit::Application::g_app;
@@ -481,6 +493,22 @@ namespace d14uikit
         if (uiobj != nullptr)
         {
             pimpl->uiobj->removeUIObject(uiobj->pimpl->uiobj);
+        }
+    }
+
+    void Panel::pinChild(Panel* uiobj)
+    {
+        if (uiobj != nullptr)
+        {
+            pimpl->uiobj->pinUIObject(uiobj->pimpl->uiobj);
+        }
+    }
+
+    void Panel::unpinChild(Panel* uiobj)
+    {
+        if (uiobj != nullptr)
+        {
+            pimpl->uiobj->unpinUIObject(uiobj->pimpl->uiobj);
         }
     }
 

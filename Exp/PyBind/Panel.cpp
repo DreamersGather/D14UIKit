@@ -141,6 +141,11 @@ namespace d14uikit
             "value"_a);
 
         i.def(
+            "setPinned",
+            &Panel::setPinned,
+            "value"_a);
+
+        i.def(
             "setFocused",
             &Panel::setFocused,
             "value_a");
@@ -149,6 +154,26 @@ namespace d14uikit
             "parent",
             &Panel::parent,
             &Panel::setParent);
+
+        i.def(
+            "addChild",
+            &Panel::addChild,
+            "uiobj"_a);
+
+        i.def(
+            "removeChild",
+            &Panel::removeChild,
+            "uiobj"_a);
+
+        i.def(
+            "pinChild",
+            &Panel::pinChild,
+            "uiobj"_a);
+
+        i.def(
+            "unpinChild",
+            &Panel::unpinChild,
+            "uiobj"_a);
 
         i.def(
             "moveTopmost",
