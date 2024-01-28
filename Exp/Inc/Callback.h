@@ -63,6 +63,9 @@ Panel::callback().onMove = [__VA_ARGS__](Panel* p, MoveEvent* e)
 #define D14_onRestore(w, ...) \
 Window::callback().onRestore = [__VA_ARGS__](Window* w)
 
+#define D14_onSelectChange(type, obj, selected, ...) \
+type::callback().onSelectChange = [__VA_ARGS__](type* obj, const std::set<int>& selected)
+
 #define D14_onSelectedChange(type, obj, text, ...) \
 type::callback().onSelectedChange = [__VA_ARGS__](type* obj, const std::wstring& text)
 
