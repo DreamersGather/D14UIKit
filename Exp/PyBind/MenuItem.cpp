@@ -28,6 +28,16 @@ namespace d14uikit
             &MenuItem::setAssociatedMenu);
 
         i.def_property(
+            "instant",
+            &MenuItem::instant,
+            &MenuItem::setInstant);
+
+        i.def_property(
+            "trigger",
+            &MenuItem::trigger,
+            &MenuItem::setTrigger);
+
+        i.def_property(
             "hotkeyText",
             &MenuItem::hotkeyText,
             &MenuItem::setHotkeyText);

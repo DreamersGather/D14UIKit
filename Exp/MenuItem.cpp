@@ -55,6 +55,26 @@ namespace d14uikit
         else pimpl->uiobj->setAssociatedMenu(nullptr);
     }
 
+    bool MenuItem::instant() const
+    {
+        return pimpl->uiobj->isInstant;
+    }
+
+    void MenuItem::setInstant(bool value)
+    {
+        pimpl->uiobj->isInstant = value;
+    }
+
+    bool MenuItem::trigger() const
+    {
+        return pimpl->uiobj->isTriggerItem;
+    }
+
+    void MenuItem::setTrigger(bool value)
+    {
+        pimpl->uiobj->isTriggerItem = value;
+    }
+
     // Some UIObject types inherited from MenuItem
     // may not create the content as IconLabel2.
 
