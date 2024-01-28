@@ -2,7 +2,7 @@
 
 #include "Common/Precompile.h"
 
-#include "Panel.h"
+#include "ScrollView.h"
 
 #include "Inc/ListView.h"
 
@@ -17,10 +17,10 @@ namespace d14uikit
     };
 
     template<typename ListViewBase = ListView>
-    class PyListView : public PyPanel<ListViewBase>
+    class PyListView : public PyScrollView<ListViewBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyScrollView::PyScrollView;
 
         void onSelectChange(const std::set<int> selected) override
         {

@@ -10,7 +10,7 @@ namespace d14uikit
 {
     void Py_InitScrollView(py::module_& m);
 
-    class ExScrollView : public d14uikit::ScrollView
+    class ExScrollView : public ScrollView
     {
     public:
         using ScrollView::onEndThumbScrolling;
