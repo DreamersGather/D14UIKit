@@ -368,6 +368,15 @@ namespace d14engine::uikit
                  app->m_currFocusedUIObject.lock()->forceGlobalExclusiveFocusing)
             {
                 app->m_currFocusedUIObject.lock()->onMouseMove(e);
+
+                ISortable<Panel>::foreach(app->m_pinnedUIObjects, [&](ShrdPtrParam<Panel> uiobj)
+                {
+                    if (uiobj->appEventReactability.mouse.move)
+                    {
+                        uiobj->onMouseMove(e);
+                    }
+                    return uiobj->appEventTransparency.mouse.move;
+                });
             }
             else // Deliver mouse-move event normally.
             {
@@ -567,6 +576,15 @@ namespace d14engine::uikit
                  app->m_currFocusedUIObject.lock()->forceGlobalExclusiveFocusing)
             {
                 app->m_currFocusedUIObject.lock()->onMouseButton(e);
+
+                ISortable<Panel>::foreach(app->m_pinnedUIObjects, [&](ShrdPtrParam<Panel> uiobj)
+                {
+                    if (uiobj->appEventReactability.mouse.button)
+                    {
+                        uiobj->onMouseButton(e);
+                    }
+                    return uiobj->appEventTransparency.mouse.button;
+                });
             }
             else // Deliver mouse-button event normally.
             {
@@ -646,6 +664,15 @@ namespace d14engine::uikit
                  app->m_currFocusedUIObject.lock()->forceGlobalExclusiveFocusing)
             {
                 app->m_currFocusedUIObject.lock()->onMouseWheel(e);
+
+                ISortable<Panel>::foreach(app->m_pinnedUIObjects, [&](ShrdPtrParam<Panel> uiobj)
+                {
+                    if (uiobj->appEventReactability.mouse.wheel)
+                    {
+                        uiobj->onMouseWheel(e);
+                    }
+                    return uiobj->appEventTransparency.mouse.wheel;
+                });
             }
             else // Deliver mouse-wheel event normally.
             {
@@ -696,6 +723,15 @@ namespace d14engine::uikit
             if (!app->m_currFocusedUIObject.expired())
             {
                 app->m_currFocusedUIObject.lock()->onKeyboard(e);
+
+                ISortable<Panel>::foreach(app->m_pinnedUIObjects, [&](ShrdPtrParam<Panel> uiobj)
+                {
+                    if (uiobj->appEventReactability.keyboard)
+                    {
+                        uiobj->onKeyboard(e);
+                    }
+                    return uiobj->appEventTransparency.keyboard;
+                });
             }
             else // Deliver keyboard event normally.
             {

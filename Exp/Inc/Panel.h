@@ -84,6 +84,7 @@ namespace d14uikit
         void setRoundRadius(int value);
 
         void setGlobal(bool value);
+        void setPinned(bool value);
         void setFocused(bool value);
 
         Panel* parent() const;
@@ -91,6 +92,9 @@ namespace d14uikit
 
         void addChild(Panel* uiobj);
         void removeChild(Panel* uiobj);
+
+        void pinChild(Panel* uiobj);
+        void unpinChild(Panel* uiobj);
 
         void moveTopmost();
         void moveAbove(Panel* uiobj);
