@@ -15,12 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test.png">
-      <Filter>资源文件</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="ObjectOriented.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="AdvancedCallback.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicCallback.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoTemplate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloWindowDPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ModernTheme.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
