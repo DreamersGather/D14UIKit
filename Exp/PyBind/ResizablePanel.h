@@ -10,7 +10,7 @@ namespace d14uikit
 {
     void Py_InitResizablePanel(py::module_& m);
 
-    class ExResizablePanel : public d14uikit::ResizablePanel
+    class ExResizablePanel : public ResizablePanel
     {
     public:
         using ResizablePanel::onEndResizing;

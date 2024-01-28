@@ -10,7 +10,7 @@ namespace d14uikit
 {
     void Py_InitTabGroup(py::module_& m);
 
-    class ExTabGroup : public d14uikit::TabGroup
+    class ExTabGroup : public TabGroup
     {
     public:
         using TabGroup::onSelectedChange;
