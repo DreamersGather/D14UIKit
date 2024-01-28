@@ -17,6 +17,12 @@ namespace d14uikit
         PopupMenu* associatedMenu() const;
         void setAssociatedMenu(PopupMenu* menu);
 
+        bool instant() const;
+        void setInstant(bool value);
+
+        bool trigger() const;
+        void setTrigger(bool value);
+
         const std::wstring& hotkeyText() const;
         void setHotkeyText(const std::wstring& text);
 
