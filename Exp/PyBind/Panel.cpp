@@ -15,8 +15,8 @@ namespace d14uikit
         i.def(py::init());
 
         i.def(
-            "destroy",
-            &Panel::destroy);
+            "release",
+            &Panel::release);
 
         i.def_property(
             "visible",
@@ -126,9 +126,24 @@ namespace d14uikit
             &Panel::setOutlineOpacity);
 
         i.def_property(
+            "animState",
+            &Panel::animState,
+            &Panel::setAnimState);
+
+        i.def_property(
             "image",
             &Panel::image,
             &Panel::setImage);
+
+        i.def_property(
+            "bitmapOpacity",
+            &Panel::bitmapOpacity,
+            &Panel::setBitmapOpacity);
+
+        i.def_property(
+            "bitmapInterpMode",
+            &Panel::bitmapInterpMode,
+            &Panel::setBitmapInterpMode);
 
         i.def_property(
             "roundRadius",

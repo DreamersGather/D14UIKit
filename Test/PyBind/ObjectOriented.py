@@ -34,7 +34,7 @@ if __name__ == '__main__':
     mwnd.content = clntArea
 
     # Image is also an object indeed, although not a UI object.
-    img = Image('test.png')
+    img = Image('images/test.png')
 
     # To display the image on the screen, we need to create
     # an associated panel (graphic rectangle area) for it.
@@ -93,6 +93,7 @@ if __name__ == '__main__':
     def setBusyCursor(p, e):
         cursor = Application.app.cursor
         cursor.setIcon(Cursor.Busy)
+
     # The event callback of Panel is also an object (i.e. functor).
     # Thus, we can assign a lambda or a function as the callback.
     busyArea.f_onMouseMove = setBusyCursor

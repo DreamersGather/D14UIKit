@@ -75,12 +75,12 @@ namespace d14engine::uikit
         ID2D1Bitmap* sharedBitmap() const;
 
     public:
-        struct BitmapSamplingSetting
+        struct SharedBitmapProperty
         {
             float opacity = 1.0f;
             Optional<D2D1_INTERPOLATION_MODE> interpolationMode = std::nullopt;
         }
-        bitmapSamplingSetting = {};
+        sharedBitmapProperty = {};
 
     protected:
         // IDrawObject2D

@@ -4,6 +4,8 @@
 
 namespace d14engine::uikit
 {
+    BitmapObject::BitmapObject(ComPtrParam<ID2D1Bitmap1> bitmap) : bitmap(bitmap) {}
+
     bool BitmapObject::empty() const
     {
         if (bitmap != nullptr)
@@ -23,9 +25,9 @@ namespace d14engine::uikit
         }
         else mode = g_interpolationMode;
         
-        // This mode uses a variable size high quality cubic kernel
-        // to perform a pre-downscale the image if downscaling is involved
-        // in the transform matrix, whichi not works for empty bitmap
+        // This mode uses a variable-size high-quality cubic kernel
+        // to perform a pre-downscale if the target draw-rect is samller
+        // than the source bitmap, which is invalid for empty bitmap
         // in high DPI mode (Since that requests a invalid kernel size).
         if (mode == D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC && empty())
         {

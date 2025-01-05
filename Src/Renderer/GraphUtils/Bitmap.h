@@ -8,9 +8,9 @@ namespace d14engine::renderer::graph_utils
     {
         void initialize();
 
-        // Contrast to loading bitmap from file, storing bitmap to file
-        // is a little tricky and complex. So we expose the inner factory
-        // instance and allow users to implement custom storing process.
+        // Contrast to loading bitmap from file, saving bitmap to file
+        // depends on more specific settings. So we expose the factory
+        // instance and allow users to implement custom saving process.
 
         IWICImagingFactory2* factory();
 

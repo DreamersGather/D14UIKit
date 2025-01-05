@@ -20,7 +20,7 @@ namespace d14uikit
     class PyTextBox : public PyPanel<TextBoxBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<TextBoxBase>::PyPanel;
 
         void onTextChange(const std::wstring& text) override
         {

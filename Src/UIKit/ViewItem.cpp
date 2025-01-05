@@ -208,11 +208,11 @@ namespace d14engine::uikit
         return math_utils::isOverlappedExcludingBottom(p, m_absoluteRect);
     }
 
-    bool ViewItem::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool ViewItem::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(m_content, uiobj)) m_content.reset();
 
-        return Panel::destroyUIObjectHelper(uiobj);
+        return Panel::releaseUIObjectHelper(uiobj);
     }
 
     void ViewItem::onSizeHelper(SizeEvent& e)

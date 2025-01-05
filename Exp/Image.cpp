@@ -47,7 +47,7 @@ namespace d14uikit
 
     void Image::setSize(const Size& value)
     {
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->beginGpuCommand();
 
         auto options = !pimpl->cpuRead ? D2D1_BITMAP_OPTIONS_NONE :
             D2D1_BITMAP_OPTIONS_CANNOT_DRAW | D2D1_BITMAP_OPTIONS_CPU_READ;
@@ -55,7 +55,7 @@ namespace d14uikit
         pimpl->bitmap = uikit::bitmap_utils::loadBitmap(
             value.width, value.height, nullptr, options);
 
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->endGpuCommand();
     }
 
     int Image::width() const
@@ -102,19 +102,19 @@ namespace d14uikit
     {
         pimpl->cpuRead = cpuRead;
 
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->beginGpuCommand();
 
         auto options = !pimpl->cpuRead ? D2D1_BITMAP_OPTIONS_NONE :
             D2D1_BITMAP_OPTIONS_CANNOT_DRAW | D2D1_BITMAP_OPTIONS_CPU_READ;
 
         pimpl->bitmap = uikit::bitmap_utils::loadBitmap(path, options);
 
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->endGpuCommand();
     }
 
     void Image::save(const std::wstring& path, Format format)
     {
-        uikit::Application::g_app->dxRenderer()->waitGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->waitGpuCommand();
 
         GUID formatID = {};
         switch (format)
@@ -136,20 +136,20 @@ namespace d14uikit
 
     void Image::copy(const Rect& dst, const Pixel* source)
     {
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->beginGpuCommand();
 
         copyInFrame(dst, source);
 
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->endGpuCommand();
     }
 
     void Image::copy(const Point& dst, Image* source, const Rect& src)
     {
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->beginGpuCommand();
 
         copyInFrame(dst, source, src);
 
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->endGpuCommand();
     }
 
     void Image::copyInFrame(const Rect& dst, const Pixel* source)
@@ -185,14 +185,14 @@ namespace d14uikit
     {
         if (!pimpl->cpuRead) return nullptr;
 
-        uikit::Application::g_app->dxRenderer()->beginGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->beginGpuCommand();
 
         constexpr auto options = D2D1_MAP_OPTIONS_READ;
         D2D1_MAPPED_RECT mapped = {};
 
         THROW_IF_FAILED(pimpl->bitmap->Map(options, &mapped));
 
-        uikit::Application::g_app->dxRenderer()->endGpuCommand();
+        uikit::Application::g_app->dx12Renderer()->endGpuCommand();
 
         return (Pixel*)mapped.bits;
     }

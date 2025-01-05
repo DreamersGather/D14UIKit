@@ -22,7 +22,7 @@ namespace d14uikit
     class PyVertSlider : public PyPanel<VertSliderBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<VertSliderBase>::PyPanel;
 
         void onValueChange(float value) override
         {

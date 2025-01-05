@@ -42,6 +42,7 @@ if __name__ == '__main__':
 
     def changeMwndTitle(obj, text):
         mwnd.title = text
+
     titleInput.f_onTextChange = changeMwndTitle
 
     def restoreMwndTitle(clkp, e):
@@ -50,6 +51,7 @@ if __name__ == '__main__':
         # the window title as empty at the end.
         titleInput.text = ''
         mwnd.title = DEMO_NAME
+
     restoreButton.f_onMouseButtonRelease = restoreMwndTitle
 
     exit(app.run())

@@ -20,7 +20,7 @@ namespace d14uikit
     class PyTextEditor : public PyPanel<TextEditorBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<TextEditorBase>::PyPanel;
 
         void onTextChange(const std::wstring& text) override
         {

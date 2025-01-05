@@ -14,11 +14,14 @@ namespace d14uikit
 
         std::shared_ptr<d14engine::uikit::Application> uiobj = {};
 
+        bool animState = false;
+
         bool useSystemTheme = true;
 
         std::shared_ptr<Cursor> cursor = {};
 
-        bool clearType = false;
-        bool drawTextNatrualSymmetric = false;
+        TextAntialiasMode textAntialiasMode = TextAntialiasMode::Default;
+        D2DRenderingMode d2dRenderingMode = D2DRenderingMode::Default;
+        BitmapInterpMode bitmapInterpMode = BitmapInterpMode::Linear;
     };
 }

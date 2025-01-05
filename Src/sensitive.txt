@@ -5,13 +5,13 @@ Renderer/GraphUtils/Shader.h
 
 ========= Modified =========
 
-Common/Precompile.h
-Common/ResourcePack.cpp
+Common/Precompile.h (Add macro definition for module name)
+Common/ResourcePack.cpp (Adapt related module name)
 
-Renderer/Letterbox.cpp
-Renderer/Renderer.cpp
+Renderer/Letterbox.cpp (Load CSO instead of compiling HLSL)
+Renderer/Renderer.cpp (Remove shader initialization; Adapt related module name)
 
-UIKit/AppEntry.h
-UIKit/Application.cpp
-UIKit/Cursor.cpp
-UIKit/Cursor.h
+UIKit/AppEntry.h (Change entry from 'wmain' to 'main')
+UIKit/Application.cpp (Adapt related module name)
+UIKit/Cursor.cpp (Load cursor from resource instead of images)
+UIKit/Cursor.h (Load cursor from resource instead of images)

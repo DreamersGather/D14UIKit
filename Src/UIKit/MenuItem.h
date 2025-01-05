@@ -21,7 +21,7 @@ namespace d14engine::uikit
         // Since the associated menu is created as a root UI object, it is
         // not destroyed after being disassociated with the menu-item, which
         // makes it convenient to transfer the menu between different items.
-        // If you do not need the menu anymore, please call Panel::destroy(),
+        // If you do not need the menu anymore, please call Panel::release(),
         // otherwise the memory leaks.
         SharedPtr<PopupMenu> m_associatedMenu = {};
 

@@ -327,19 +327,42 @@ namespace d14uikit
 
     bool Application::fullscreen() const
     {
-        return pimpl->uiobj->dxRenderer()->window().fullscreen();
+        return pimpl->uiobj->dx12Renderer()->window().fullscreen();
     }
 
     void Application::setFullscreen(bool value)
     {
-        auto& dxwnd = pimpl->uiobj->dxRenderer()->window();
+        auto& dxwnd = pimpl->uiobj->dx12Renderer()->window();
         if (value) dxwnd.enterFullscreenMode();
         else dxwnd.restoreWindowedMode();
     }
 
     int Application::fps() const
     {
-        return pimpl->uiobj->dxRenderer()->timer()->fps();
+        return pimpl->uiobj->dx12Renderer()->timer()->fps();
+    }
+
+    int Application::animCount() const
+    {
+        return pimpl->uiobj->animationCount();
+    }
+
+    bool Application::animState() const
+    {
+        return pimpl->animState;
+    }
+
+    void Application::setAnimState(bool value)
+    {
+        if (pimpl->animState != value)
+        {
+            if (value)
+            {
+                pimpl->uiobj->increaseAnimationCount();
+            }
+            else pimpl->uiobj->decreaseAnimationCount();
+        }
+        pimpl->animState = value;
     }
 
     const std::wstring& Application::themeMode() const
@@ -414,60 +437,45 @@ namespace d14uikit
         pimpl->uiobj->changeLangLocale(name);
     }
 
-    bool Application::clearType() const
+    TextAntialiasMode Application::textAntialiasMode() const
     {
-        return pimpl->clearType;
+        return pimpl->textAntialiasMode;
     }
 
-    void Application::setClearType(bool value)
+    void Application::setTextAntialiasMode(TextAntialiasMode mode)
     {
-        if (pimpl->clearType != value)
+        if (pimpl->textAntialiasMode != mode)
         {
-            auto rndr = pimpl->uiobj->dxRenderer();
-            if (value)
-            {
-                rndr->setTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE);
-            }
-            else rndr->setTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_DEFAULT);
+            auto rndr = pimpl->uiobj->dx12Renderer();
+            rndr->setTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE)mode);
         }
-        pimpl->clearType = value;
+        pimpl->textAntialiasMode = mode;
     }
 
-    bool Application::textVertSmooth() const
+    D2DRenderingMode Application::d2dRenderingMode() const
     {
-        return pimpl->drawTextNatrualSymmetric;
+        return pimpl->d2dRenderingMode;
     }
 
-    void Application::setTextVertSmooth(bool value)
+    void Application::setD2dRenderingMode(D2DRenderingMode mode)
     {
-        if (pimpl->drawTextNatrualSymmetric != value)
+        if (pimpl->d2dRenderingMode != mode)
         {
-            auto mode = pimpl->uiobj->dxRenderer()->getDefaultTextRenderingMode();
-            if (value)
-            {
-                mode.renderingMode = DWRITE_RENDERING_MODE_NATURAL_SYMMETRIC;
-            }
-            else mode.renderingMode = DWRITE_RENDERING_MODE_DEFAULT;
-
-            pimpl->uiobj->dxRenderer()->setTextRenderingMode(mode);
+            auto defMode = pimpl->uiobj->dx12Renderer()->getDefaultTextRenderingMode();
+            defMode.renderingMode = (DWRITE_RENDERING_MODE)mode;
+            pimpl->uiobj->dx12Renderer()->setTextRenderingMode(defMode);
         }
-        pimpl->drawTextNatrualSymmetric = value;
+        pimpl->d2dRenderingMode = mode;
     }
 
-    bool Application::bmpQualityInterp() const
+    BitmapInterpMode Application::bitmapInterpMode() const
     {
-        auto& mode = uikit::BitmapObject::g_interpolationMode;
-        return mode == D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC;
+        return pimpl->bitmapInterpMode;
     }
 
-    void Application::setBmpQualityInterp(bool value)
+    void Application::setBitmapInterpMode(BitmapInterpMode mode)
     {
-        auto& mode = uikit::BitmapObject::g_interpolationMode;
-        if (value)
-        {
-            mode = D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC;
-        }
-        else mode = D2D1_INTERPOLATION_MODE_LINEAR;
+        uikit::BitmapObject::g_interpolationMode = (D2D1_INTERPOLATION_MODE)mode;
     }
 
     std::unique_ptr<Image> Application::capture() const

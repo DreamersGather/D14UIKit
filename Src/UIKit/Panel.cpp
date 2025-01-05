@@ -5,6 +5,7 @@
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/MathUtils/2D.h"
 #include "Common/MathUtils/Basic.h"
+#include "Common/RuntimeError.h"
 
 #include "UIKit/Application.h"
 #include "UIKit/BitmapObject.h"
@@ -31,17 +32,26 @@ namespace d14engine::uikit
         updateAbsoluteRect();
     }
 
+    Panel::~Panel()
+    {
+        if (f_onDestroy) f_onDestroy(this);
+    }
+
     void Panel::onInitializeFinish()
     {
+        THROW_IF_NULL(Application::g_app);
+
         onChangeThemeHelper(Application::g_app->currThemeName());
         onChangeLangLocaleHelper(Application::g_app->currLangLocaleName());
     }
 
-    bool Panel::destroy()
+    bool Panel::release()
     {
-        bool isDestroyed = true;
+        THROW_IF_NULL(Application::g_app);
 
-        // After Step 1, the ref-count of this becomes 0 if it is destroyed
+        bool isReleased = true;
+
+        // After Step 1, the ref-count of this may be 0 if it is released
         // successfully, so we must retain a temporary ptr to make sure the
         // callback in Step 2 can be performed correctly.
         auto temporaryLocked = shared_from_this();
@@ -49,33 +59,35 @@ namespace d14engine::uikit
         // Step 1
         if (m_parent.expired())
         {
-            auto app = Application::g_app;
-            app->dxRenderer()->waitGpuCommand();
+            auto& app = Application::g_app;
+            app->dx12Renderer()->waitGpuCommand();
 
             unregisterDrawObjects();
             unregisterApplicationEvents();
         }
-        else isDestroyed = m_parent.lock()->destroyUIObject(temporaryLocked);
+        else isReleased = m_parent.lock()->releaseUIObject(temporaryLocked);
 
         // Step 2
-        if (isDestroyed &&
-            f_onDestroy)
+        if (isReleased &&
+            f_onRelease)
         {
-            f_onDestroy(this);
+            f_onRelease(this);
         }
-        return isDestroyed;
+        return isReleased;
     }
 
-    bool Panel::destroyUIObject(ShrdPtrParam<Panel> uiobj)
+    bool Panel::releaseUIObject(ShrdPtrParam<Panel> uiobj)
     {
-        auto app = Application::g_app;
-        app->dxRenderer()->waitGpuCommand();
+        THROW_IF_NULL(Application::g_app);
 
-        if (f_destroyUIObject)
+        auto& app = Application::g_app;
+        app->dx12Renderer()->waitGpuCommand();
+
+        if (f_onReleaseUIObject)
         {
-            return f_destroyUIObject(this, uiobj);
+            return f_onReleaseUIObject(this, uiobj);
         }
-        else return destroyUIObjectHelper(uiobj);
+        else return releaseUIObjectHelper(uiobj);
     }
 
     bool Panel::isD2d1ObjectVisible() const
@@ -147,6 +159,8 @@ namespace d14engine::uikit
 
     void Panel::increaseAnimationCount()
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (!m_isPlayAnimation)
         {
             m_isPlayAnimation = true;
@@ -156,6 +170,8 @@ namespace d14engine::uikit
 
     void Panel::decreaseAnimationCount()
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_isPlayAnimation)
         {
             m_isPlayAnimation = false;
@@ -267,6 +283,8 @@ namespace d14engine::uikit
 
     bool Panel::isFocused() const
     {
+        THROW_IF_NULL(Application::g_app);
+
         return cpp_lang_utils::isMostDerivedEqual(
             Application::g_app->currFocusedUIObject().lock(), shared_from_this());
     }
@@ -318,7 +336,7 @@ namespace d14engine::uikit
         return math_utils::isOverlapped(p, m_absoluteRect);
     }
 
-    bool Panel::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool Panel::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         removeUIObject(uiobj);
         return true;
@@ -584,6 +602,8 @@ namespace d14engine::uikit
 
     void Panel::setD2d1ObjectPriority(int value)
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_parent.expired())
         {
             auto& uiCmdLayer = Application::g_app->uiCmdLayer();
@@ -627,6 +647,8 @@ namespace d14engine::uikit
 
     void Panel::setUIObjectPriority(int value)
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_parent.expired())
         {
             auto& uiobjs = Application::g_app->uiObjects();
@@ -666,6 +688,8 @@ namespace d14engine::uikit
 
     void Panel::moveTopmost()
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_parent.expired())
         {
             Application::g_app->moveRootObjectTopmost(this);
@@ -725,9 +749,18 @@ namespace d14engine::uikit
         }
         if (bitmap)
         {
-            rndr->d2d1DeviceContext()->DrawBitmap( // round to fit pixel size
-                bitmap.Get(), math_utils::roundf(m_absoluteRect),
-                bitmapOpacity, BitmapObject::g_interpolationMode);
+            // round to fit pixel size
+            auto rect = math_utils::roundf(m_absoluteRect);
+
+            D2D1_INTERPOLATION_MODE mode = {};
+            if (bitmapProperty.interpolationMode.has_value())
+            {
+                mode = bitmapProperty.interpolationMode.value();
+            }
+            else mode = BitmapObject::g_interpolationMode;
+
+            rndr->d2d1DeviceContext()->DrawBitmap(
+                bitmap.Get(), rect, bitmapProperty.opacity, mode);
         }
     }
 
@@ -982,6 +1015,8 @@ namespace d14engine::uikit
 
     void Panel::registerDrawObjects()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& uiCmdLayer = Application::g_app->uiCmdLayer();
         if (std::holds_alternative<Renderer::CommandLayer::D2D1Target>(uiCmdLayer->drawTarget))
         {
@@ -997,6 +1032,8 @@ namespace d14engine::uikit
 
     void Panel::unregisterDrawObjects()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& uiCmdLayer = Application::g_app->uiCmdLayer();
         if (std::holds_alternative<Renderer::CommandLayer::D2D1Target>(uiCmdLayer->drawTarget))
         {
@@ -1007,6 +1044,8 @@ namespace d14engine::uikit
 
     void Panel::registerApplicationEvents()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Application::g_app->addUIObject(shared_from_this());
 
         // The priority has already been updated in addUIObject.
@@ -1014,11 +1053,15 @@ namespace d14engine::uikit
 
     void Panel::unregisterApplicationEvents()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Application::g_app->removeUIObject(shared_from_this());
     }
 
     void Panel::pinApplicationEvents()
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_parent.expired())
         {
             Application::g_app->pinUIObject(shared_from_this());
@@ -1028,6 +1071,8 @@ namespace d14engine::uikit
 
     void Panel::unpinApplicationEvents()
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_parent.expired())
         {
             Application::g_app->unpinUIObject(shared_from_this());
@@ -1160,7 +1205,9 @@ namespace d14engine::uikit
 
     void Panel::updateDiffPinnedUIObjectsLater()
     {
-        auto app = Application::g_app;
+        THROW_IF_NULL(Application::g_app);
+
+        auto& app = Application::g_app;
         using CustomMsg = Application::CustomWin32Message;
 
         app->pushDiffPinnedUpdateCandidate(shared_from_this());

@@ -4,5 +4,5 @@
 
 namespace d14engine::renderer::graph_utils
 {
-    D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDescTemplate();
+    D3D12_GRAPHICS_PIPELINE_STATE_DESC GPSODescTemplate();
 }

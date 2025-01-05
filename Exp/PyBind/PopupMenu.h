@@ -20,7 +20,7 @@ namespace d14uikit
     class PyPopupMenu : public PyScrollView<PopupMenuBase>
     {
     public:
-        using PyScrollView::PyScrollView;
+        using PyScrollView<PopupMenuBase>::PyScrollView;
 
         void onTriggerMenuItem(const std::wstring& text) override
         {

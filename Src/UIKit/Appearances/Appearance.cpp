@@ -1,5 +1,7 @@
 ﻿#include "Common/Precompile.h"
 
+#include "Common/RuntimeError.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/ColorUtils.h"
 
@@ -71,6 +73,8 @@ namespace d14engine::uikit::appearance
 
     void ColorGroup::generateTonedColors()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Application::ThemeStyle themeStyle = {};
         if (Application::g_app->customThemeStyle.has_value())
         {

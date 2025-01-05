@@ -43,18 +43,18 @@ namespace d14uikit
             Heif,
             Webp
         };
-#define SET_FORMAT(Name) constexpr static auto Name = Format::Name
+#define SET_FORMAT(Name) constexpr static auto Name = Format::Name;
 
-        SET_FORMAT(Adng);
-        SET_FORMAT(Bmp);
-        SET_FORMAT(Png);
-        SET_FORMAT(Ico);
-        SET_FORMAT(Jpeg);
-        SET_FORMAT(Tiff);
-        SET_FORMAT(Gif);
-        SET_FORMAT(Wmp);
-        SET_FORMAT(Heif);
-        SET_FORMAT(Webp);
+        SET_FORMAT(Adng)
+        SET_FORMAT(Bmp)
+        SET_FORMAT(Png)
+        SET_FORMAT(Ico)
+        SET_FORMAT(Jpeg)
+        SET_FORMAT(Tiff)
+        SET_FORMAT(Gif)
+        SET_FORMAT(Wmp)
+        SET_FORMAT(Heif)
+        SET_FORMAT(Webp)
 
 #undef SET_FORMAT
 

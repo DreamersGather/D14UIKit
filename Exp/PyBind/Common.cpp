@@ -6,6 +6,7 @@
 #include "__Test__.h"
 #endif
 #include "Application.h"
+#include "BasicEnum.h"
 #include "BasicType.h"
 #include "Button.h"
 #include "CheckBox.h"
@@ -20,6 +21,7 @@
 #include "FilledButton.h"
 #include "FlatButton.h"
 #include "Font.h"
+#include "FrameAnimPanel.h"
 #include "GridLayout.h"
 #include "HorzSlider.h"
 #include "Image.h"
@@ -62,6 +64,7 @@ namespace d14uikit
         // is significant: we must first init the base classes
         // to avoid pybind11 incomplete type reference error.
 
+        Py_InitBasicEnum(m);
         Py_InitBasicType(m);
         Py_InitVirtualKeyCode(m);
 
@@ -86,6 +89,7 @@ namespace d14uikit
                 Py_InitCheckBox(m);
                 Py_InitOnOffSwitch(m);
             Py_InitDraggablePanel(m);
+            Py_InitFrameAnimPanel(m);
             Py_InitHorzSlider(m);
             Py_InitLabel(m);
                 Py_InitLabelArea(m);

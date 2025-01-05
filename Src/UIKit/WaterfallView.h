@@ -31,7 +31,7 @@ namespace d14engine::uikit
 
             m_layout = std::dynamic_pointer_cast<ConstraintLayout>(m_content);
 
-            m_layout->f_destroyUIObject = [this](Panel* p, ShrdPtrParam<Panel> uiobj)
+            m_layout->f_onReleaseUIObject = [this](Panel* p, ShrdPtrParam<Panel> uiobj)
             {
                 size_t index = 0;
                 for (auto& item : m_items)

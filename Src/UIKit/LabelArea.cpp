@@ -2,6 +2,8 @@
 
 #include "UIKit/LabelArea.h"
 
+#include "Common/RuntimeError.h"
+
 #include "Renderer/TickTimer.h"
 
 #include "UIKit/Application.h"
@@ -193,6 +195,8 @@ namespace d14engine::uikit
 
     void LabelArea::onMouseMoveHelper(MouseMoveEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         Label::onMouseMoveHelper(e);
 
         Application::g_app->cursor()->setIcon(Cursor::Beam);

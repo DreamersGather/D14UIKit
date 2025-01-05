@@ -47,7 +47,7 @@ namespace d14uikit
     class PyFlyAnimal : public PyAnimal<FlyAnimalBase>
     {
     public:
-        using PyAnimal::PyAnimal;
+        using PyAnimal<FlyAnimalBase>::PyAnimal;
 
         void fly() override
         {
@@ -69,7 +69,7 @@ namespace d14uikit
     class PyWalkAnimal : public PyAnimal<WalkAnimalBase>
     {
     public:
-        using PyAnimal::PyAnimal;
+        using PyAnimal<WalkAnimalBase>::PyAnimal;
 
         void walk() override
         {
@@ -94,7 +94,7 @@ namespace d14uikit
     class PyBird : public PyAnimal<BirdBase>
     {
     public:
-        using PyAnimal::PyAnimal;
+        using PyAnimal<BirdBase>::PyAnimal;
 
         // As commented above, pybind11 does not support using virtual
         // inheritance on trampoline classes, which causes multiple

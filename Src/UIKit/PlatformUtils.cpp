@@ -11,7 +11,7 @@ namespace d14engine::uikit::platform_utils
 {
     float dpi() // DPI: Dots Per Inch
     {
-        auto app = Application::g_app;
+        auto& app = Application::g_app;
         if (app != nullptr && app->createInfo.dpi.has_value())
         {
             return app->createInfo.dpi.value();

@@ -20,7 +20,7 @@ namespace d14uikit
     class PyOnOffSwitch : public PyClickablePanel<OnOffSwitchBase>
     {
     public:
-        using PyClickablePanel::PyClickablePanel;
+        using PyClickablePanel<OnOffSwitchBase>::PyClickablePanel;
 
         void onStateChange(OnOffSwitch::State state) override
         {

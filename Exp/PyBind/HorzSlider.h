@@ -22,7 +22,7 @@ namespace d14uikit
     class PyHorzSlider : public PyPanel<HorzSliderBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<HorzSliderBase>::PyPanel;
 
         void onValueChange(float value) override
         {

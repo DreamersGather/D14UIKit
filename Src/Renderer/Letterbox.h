@@ -4,7 +4,7 @@
 
 #include "Common/CppLangUtils/PasskeyIdiom.h"
 
-#include "Renderer/FrameResource.h"
+#include "Renderer/FrameData/FrameResource.h"
 #include "Renderer/Interfaces/ICamera.h"
 
 namespace d14engine::renderer
@@ -31,6 +31,7 @@ namespace d14engine::renderer
 
     public:
         bool enabled() const;
+        // reset the GPU command list before calling this
         void setEnabled(bool value);
 
     private:
@@ -59,6 +60,11 @@ namespace d14engine::renderer
 
         UniquePtr<DefaultBuffer> m_vertexBuffer = {};
         D3D12_VERTEX_BUFFER_VIEW m_vertexBufferView = {};
+
+    private:
+        void createRootSignature();
+        void createPipelineState();
+        void createVertexBuffer();
 
     public:
         void present();

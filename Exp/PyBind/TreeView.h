@@ -20,7 +20,7 @@ namespace d14uikit
     class PyTreeView : public PyPanel<TreeViewBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<TreeViewBase>::PyPanel;
 
         void onSelectChange(const std::set<int> selected) override
         {

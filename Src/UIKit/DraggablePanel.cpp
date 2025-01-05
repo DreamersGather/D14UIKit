@@ -2,6 +2,8 @@
 
 #include "UIKit/DraggablePanel.h"
 
+#include "Common/RuntimeError.h"
+
 #include "UIKit/Application.h"
 #include "UIKit/Cursor.h"
 
@@ -44,6 +46,8 @@ namespace d14engine::uikit
 
     void DraggablePanel::onStartDraggingHelper()
     {
+        THROW_IF_NULL(Application::g_app);
+
         forceGlobalExclusiveFocusing = true;
 
         if (operationTarget == OperationTarget::GlobalWin32Window)
@@ -55,6 +59,8 @@ namespace d14engine::uikit
 
     void DraggablePanel::onEndDraggingHelper()
     {
+        THROW_IF_NULL(Application::g_app);
+
         forceGlobalExclusiveFocusing = false;
 
         if (operationTarget == OperationTarget::GlobalWin32Window)
@@ -78,6 +84,8 @@ namespace d14engine::uikit
 
     void DraggablePanel::onMouseMoveWrapper(MouseMoveEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& p = e.cursorPoint;
 
         if (m_isDragging)
@@ -123,6 +131,8 @@ namespace d14engine::uikit
 
     void DraggablePanel::onMouseButtonWrapper(MouseButtonEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& p = e.cursorPoint;
 
         if (e.state.leftDown() || e.state.leftDblclk())

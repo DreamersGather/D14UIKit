@@ -18,13 +18,14 @@ namespace d14engine::uikit
             // Win32 window class name & Win32 window caption text
             Wstring name = L"D14Engine";
 
-            // Def-resources (cursor etc.) are loaded from this path.
+            // Resources (such as cursors) are loaded from this path.
             Wstring binaryPath = L"Bin/";
             Wstring libraryPath = L"Lib/";
 
             Optional<float> dpi = std::nullopt;
 
             bool showCentered = true;
+
             bool showMaximized = false;
             bool showFullscreen = false;
 
@@ -51,7 +52,7 @@ namespace d14engine::uikit
     private:
         void initWin32Window();
 
-        void initMainRenderer();
+        void initDirectX12Renderer();
 
         void initMiscComponents();
 
@@ -101,7 +102,7 @@ namespace d14engine::uikit
         UniquePtr<renderer::Renderer> m_renderer = {};
 
     public:
-        renderer::Renderer* dxRenderer() const;
+        renderer::Renderer* dx12Renderer() const;
 
         ComPtr<ID2D1Bitmap1> screenshot() const;
 

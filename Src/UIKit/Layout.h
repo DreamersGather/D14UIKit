@@ -108,7 +108,7 @@ namespace d14engine::uikit
         }
 
         // Panel
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override
         {
             removeElement(uiobj);
             return true;

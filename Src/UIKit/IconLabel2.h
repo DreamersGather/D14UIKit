@@ -41,6 +41,6 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
         
         // Panel
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
     };
 }

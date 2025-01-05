@@ -2,9 +2,11 @@
 
 #include "UIKit/TextInput.h"
 
+#include "Common/RuntimeError.h"
+
 #include "Renderer/TickTimer.h"
 
-#include "UIKit/AnimationUtils/Motion.h"
+#include "UIKit/AnimationUtils/MotionFunctions.h"
 #include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"
 
@@ -14,6 +16,8 @@ namespace d14engine::uikit
 {
     void TextInput::setEnabled(bool value)
     {
+        THROW_IF_NULL(Application::g_app);
+
         RawTextInput::setEnabled(value);
 
         if (value)

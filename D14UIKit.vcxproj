@@ -107,7 +107,6 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -121,8 +120,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Command>copy /Y $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">
@@ -130,7 +130,6 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_PYBIND;_D14_UIKIT_PYBIND_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -146,9 +145,9 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &gt;nul
-stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,7 +157,6 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -174,8 +172,9 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Command>copy /Y $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
@@ -185,7 +184,6 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_EXP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -202,8 +200,9 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
-copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Command>copy /Y $(OutDir)$(TargetName).dll $(SolutionDir)Test &gt;nul
+copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
+      <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">
@@ -213,7 +212,6 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;NOMINMAX;_D14_UIKIT_PYBIND;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -230,9 +228,9 @@ copy $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &gt;nul
-stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -334,6 +332,13 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FontPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FontPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FontPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\FrameAnimPanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FrameAnimPanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FrameAnimPanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FrameAnimPanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FrameAnimPanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FrameAnimPanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\GridLayout.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)GridLayoutPrivate</ObjectFileName>
@@ -442,6 +447,13 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\BasicEnum.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\BasicType.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
@@ -592,6 +604,13 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FontBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FontBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FontBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\FrameAnimPanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\GridLayout.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -997,11 +1016,15 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <None Include="Bin\Shaders\VS" />
     <None Include="LICENSE" />
     <None Include="comment.html" />
+    <ClCompile Include="Src\Renderer\FrameData\FrameResource.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Bitmap.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Resource.cpp" />
+    <ClCompile Include="Src\Renderer\GraphUtils\Texture.cpp" />
     <ClCompile Include="Src\Renderer\Interfaces\DrawLayer.cpp" />
     <ClCompile Include="Src\Renderer\Interfaces\DrawObject.cpp" />
     <ClCompile Include="Src\Renderer\Interfaces\DrawObject2D.cpp" />
+    <ClCompile Include="Src\UIKit\AnimationUtils\BitmapSequence.cpp" />
+    <ClCompile Include="Src\UIKit\AnimationUtils\MotionFunctions.cpp" />
     <ClCompile Include="Src\UIKit\Appearances\ComboBox.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ComboBoxAppearance</ObjectFileName>
@@ -1033,7 +1056,6 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">false</ShowIncludes>
     </ClCompile>
     <ClCompile Include="Src\Renderer\DebugUtils.cpp" />
-    <ClCompile Include="Src\Renderer\FrameResource.cpp" />
     <ClCompile Include="Src\Renderer\GpuBuffer.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Barrier.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\PSO.cpp" />
@@ -1041,8 +1063,6 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClCompile Include="Src\Renderer\Renderer.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\StaticSampler.cpp" />
     <ClCompile Include="Src\Renderer\TickTimer.cpp" />
-    <ClCompile Include="Src\UIKit\AnimationUtils\Sequence.cpp" />
-    <ClCompile Include="Src\UIKit\AnimationUtils\Motion.cpp" />
     <ClCompile Include="Src\UIKit\Appearances\Appearance.cpp" />
     <ClCompile Include="Src\UIKit\Appearances\Button.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ButtonAppearance</ObjectFileName>
@@ -1218,6 +1238,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClCompile Include="Src\UIKit\BitmapUtils.cpp" />
     <ClCompile Include="Src\UIKit\Button.cpp" />
     <ClCompile Include="Src\UIKit\ComboBox.cpp" />
+    <ClCompile Include="Src\UIKit\FrameAnimPanel.cpp" />
     <ClCompile Include="Src\UIKit\IconLabel2.cpp" />
     <ClCompile Include="Src\UIKit\LabelArea.cpp" />
     <ClCompile Include="Src\UIKit\MenuItem.cpp" />
@@ -1276,11 +1297,13 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\FilledButton.h" />
     <ClInclude Include="Exp\FlatButton.h" />
     <ClInclude Include="Exp\Font.h" />
+    <ClInclude Include="Exp\FrameAnimPanel.h" />
     <ClInclude Include="Exp\GridLayout.h" />
     <ClInclude Include="Exp\HorzSlider.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\AppEntry.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
+    <ClInclude Include="Exp\Inc\BasicEnum.h" />
     <ClInclude Include="Exp\Inc\BasicType.h" />
     <ClInclude Include="Exp\Inc\Button.h" />
     <ClInclude Include="Exp\Inc\Callback.h" />
@@ -1297,6 +1320,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Exp\Inc\FilledButton.h" />
     <ClInclude Include="Exp\Inc\FlatButton.h" />
     <ClInclude Include="Exp\Inc\Font.h" />
+    <ClInclude Include="Exp\Inc\FrameAnimPanel.h" />
     <ClInclude Include="Exp\Inc\GridLayout.h" />
     <ClInclude Include="Exp\Inc\HorzSlider.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
@@ -1349,6 +1373,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\BasicEnum.h" />
     <ClInclude Include="Exp\PyBind\BasicType.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1429,6 +1454,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\FrameAnimPanel.h" />
     <ClInclude Include="Exp\PyBind\GridLayout.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1632,11 +1658,15 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\Common\MathUtils\GDI.h" />
     <ClInclude Include="Src\Common\ResourcePack.h" />
     <ClInclude Include="Src\Common\Precompile.h" />
+    <ClInclude Include="Src\Renderer\FrameData\FrameAnimation.h" />
+    <ClInclude Include="Src\Renderer\FrameData\FrameResource.h" />
+    <ClInclude Include="Src\Renderer\FrameData\FrameSequence.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\Barrier.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\Bitmap.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\ParamHelper.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\PSO.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\Resource.h" />
+    <ClInclude Include="Src\Renderer\GraphUtils\Texture.h" />
     <ClInclude Include="Src\Renderer\Interfaces\DrawLayer.h" />
     <ClInclude Include="Src\Renderer\Interfaces\DrawObject.h" />
     <ClInclude Include="Src\Renderer\Interfaces\DrawObject2D.h" />
@@ -1647,15 +1677,14 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\Common\Interfaces\ISortable.h" />
     <ClInclude Include="Src\Renderer\Camera.h" />
     <ClInclude Include="Src\Renderer\DebugUtils.h" />
-    <ClInclude Include="Src\Renderer\FrameResource.h" />
     <ClInclude Include="Src\Renderer\GpuBuffer.h" />
     <ClInclude Include="Src\Renderer\Letterbox.h" />
     <ClInclude Include="Src\Renderer\Renderer.h" />
     <ClInclude Include="Src\Common\RuntimeError.h" />
     <ClInclude Include="Src\Renderer\GraphUtils\StaticSampler.h" />
     <ClInclude Include="Src\Renderer\TickTimer.h" />
-    <ClInclude Include="Src\UIKit\AnimationUtils\Sequence.h" />
-    <ClInclude Include="Src\UIKit\AnimationUtils\Motion.h" />
+    <ClInclude Include="Src\UIKit\AnimationUtils\BitmapSequence.h" />
+    <ClInclude Include="Src\UIKit\AnimationUtils\MotionFunctions.h" />
     <ClInclude Include="Src\UIKit\Appearances\Appearance.h" />
     <ClInclude Include="Src\UIKit\Appearances\Button.h" />
     <ClInclude Include="Src\UIKit\Appearances\ComboBox.h" />
@@ -1689,6 +1718,7 @@ stubgen -m D14UIKit -o . &gt;nul</Command>
     <ClInclude Include="Src\UIKit\Button.h" />
     <ClInclude Include="Src\UIKit\ColorUtils.h" />
     <ClInclude Include="Src\UIKit\ComboBox.h" />
+    <ClInclude Include="Src\UIKit\FrameAnimPanel.h" />
     <ClInclude Include="Src\UIKit\IconLabel2.h" />
     <ClInclude Include="Src\UIKit\LabelArea.h" />
     <ClInclude Include="Src\UIKit\MenuSeparator.h" />

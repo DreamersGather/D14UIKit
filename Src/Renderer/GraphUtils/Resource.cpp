@@ -17,9 +17,10 @@ namespace d14engine::renderer::graph_utils
         THROW_IF_FAILED(texture->GetDevice(IID_PPV_ARGS(&device)));
 
         auto texDesc = texture->GetDesc();
-
         UINT64 totalBytes = 0, rowSizeInBytes = 0;
-        device->GetCopyableFootprints(
+
+        device->GetCopyableFootprints
+        (
             /* pResourceDesc    */ &texDesc,
             /* FirstSubresource */ 0,
             /* NumSubresources  */ 1,
@@ -27,17 +28,22 @@ namespace d14engine::renderer::graph_utils
             /* pLayouts         */ nullptr,
             /* pNumRows         */ nullptr,
             /* pRowSizeInBytes  */ &rowSizeInBytes,
-            /* pTotalBytes      */ &totalBytes);
-
+            /* pTotalBytes      */ &totalBytes
+        );
         ComPtr<ID3D12Resource> staging = {};
-        THROW_IF_FAILED(device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK),
-            D3D12_HEAP_FLAG_NONE,
-            &CD3DX12_RESOURCE_DESC::Buffer(totalBytes),
-            D3D12_RESOURCE_STATE_COPY_DEST,
-            nullptr,
-            IID_PPV_ARGS(&staging))); // readback must be buffer
+        auto stagingProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
+        auto stagingDesc = CD3DX12_RESOURCE_DESC::Buffer(totalBytes);
 
+        THROW_IF_FAILED(device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &stagingProp,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &stagingDesc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_COPY_DEST,
+            /* pOptimizedClearValue */ nullptr,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&staging)
+        ));
         auto barrier = CD3DX12_RESOURCE_BARRIER::Transition
         (
             texture, orgState, D3D12_RESOURCE_STATE_COPY_SOURCE

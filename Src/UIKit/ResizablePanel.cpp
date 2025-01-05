@@ -32,7 +32,9 @@ namespace d14engine::uikit
 
     void ResizablePanel::loadStaticSizingGuideFrameStrokeStyle()
     {
-        auto factory = Application::g_app->dxRenderer()->d2d1Factory();
+        THROW_IF_NULL(Application::g_app);
+
+        auto factory = Application::g_app->dx12Renderer()->d2d1Factory();
 
         auto properties = D2D1::StrokeStyleProperties
         (
@@ -207,6 +209,8 @@ namespace d14engine::uikit
 
     void ResizablePanel::onMouseMoveWrapper(MouseMoveEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& p = e.cursorPoint;
 
         float minWidth = minimalWidth();

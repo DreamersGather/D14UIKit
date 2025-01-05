@@ -118,7 +118,7 @@ namespace d14engine::uikit
         void drawD2d1ObjectPosterior(renderer::Renderer* rndr) override;
 
         // Panel
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
 
         void onSizeHelper(SizeEvent& e) override;
 

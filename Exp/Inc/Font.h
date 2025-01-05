@@ -39,18 +39,18 @@ namespace d14uikit
         };
         Weight weight() const;
 
-#define SET_WEIGHT(Name) constexpr static auto Name = Weight::Name
+#define SET_WEIGHT(Name) constexpr static auto Name = Weight::Name;
 
-        SET_WEIGHT(Thin);
-        SET_WEIGHT(ExtraLight);
-        SET_WEIGHT(Light);
-        SET_WEIGHT(SemiLight);
-        SET_WEIGHT(Regular);
-        SET_WEIGHT(SemiBold);
-        SET_WEIGHT(Bold);
-        SET_WEIGHT(ExtraBold);
-        SET_WEIGHT(Black);
-        SET_WEIGHT(ExtraBlack);
+        SET_WEIGHT(Thin)
+        SET_WEIGHT(ExtraLight)
+        SET_WEIGHT(Light)
+        SET_WEIGHT(SemiLight)
+        SET_WEIGHT(Regular)
+        SET_WEIGHT(SemiBold)
+        SET_WEIGHT(Bold)
+        SET_WEIGHT(ExtraBold)
+        SET_WEIGHT(Black)
+        SET_WEIGHT(ExtraBlack)
 
 #undef SET_WEIGHT
 
@@ -62,11 +62,11 @@ namespace d14uikit
         };
         Style style() const;
 
-#define SET_STYLE(Name) constexpr static auto Name = Style::Name
+#define SET_STYLE(Name) constexpr static auto Name = Style::Name;
 
-        SET_STYLE(Normal);
-        SET_STYLE(Oblique);
-        SET_STYLE(Italic);
+        SET_STYLE(Normal)
+        SET_STYLE(Oblique)
+        SET_STYLE(Italic)
 
 #undef SET_STYLE
 
@@ -86,15 +86,15 @@ namespace d14uikit
         };
         Stretch stretch() const;
 
-#define SET_STRETCH(Name) constexpr static auto Name = Stretch::Name
+#define SET_STRETCH(Name) constexpr static auto Name = Stretch::Name;
 
-        SET_STRETCH(ExtraCondensed);
-        SET_STRETCH(Condensed);
-        SET_STRETCH(SemiCondensed);
-        SET_STRETCH(Medium);
-        SET_STRETCH(SemiExpanded);
-        SET_STRETCH(Expanded);
-        SET_STRETCH(ExtraExpanded);
+        SET_STRETCH(ExtraCondensed)
+        SET_STRETCH(Condensed)
+        SET_STRETCH(SemiCondensed)
+        SET_STRETCH(Medium)
+        SET_STRETCH(SemiExpanded)
+        SET_STRETCH(Expanded)
+        SET_STRETCH(ExtraExpanded)
 
 #undef SET_STRETCH
 

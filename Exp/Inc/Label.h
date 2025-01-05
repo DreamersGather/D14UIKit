@@ -71,13 +71,13 @@ namespace d14uikit
         WordWrapping wordWrapping() const;
         void setWordWrapping(WordWrapping value);
 
-#define SET_WORD_WRAPPING(Name) constexpr static auto Name = WordWrapping::Name
+#define SET_WORD_WRAPPING(Name) constexpr static auto Name = WordWrapping::Name;
 
-        SET_WORD_WRAPPING(Character);
-        SET_WORD_WRAPPING(NoWrap);
-        SET_WORD_WRAPPING(WholeWord);
-        SET_WORD_WRAPPING(Wrap);
-        SET_WORD_WRAPPING(EmergencyBreak);
+        SET_WORD_WRAPPING(Character)
+        SET_WORD_WRAPPING(NoWrap)
+        SET_WORD_WRAPPING(WholeWord)
+        SET_WORD_WRAPPING(Wrap)
+        SET_WORD_WRAPPING(EmergencyBreak)
 
 #undef SET_WORD_WRAPPING
 

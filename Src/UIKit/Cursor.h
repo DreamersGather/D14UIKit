@@ -4,7 +4,7 @@
 
 #include "Common/CppLangUtils/EnumClassMap.h"
 
-#include "UIKit/AnimationUtils/Sequence.h"
+#include "UIKit/AnimationUtils/BitmapSequence.h"
 #include "UIKit/Panel.h"
 
 namespace d14engine::uikit
@@ -20,42 +20,39 @@ namespace d14engine::uikit
         {
             Busy, Working, Count
         };
-#define SET_STATIC(Name) constexpr static auto Name = StaticIconIndex::Name
-#define SET_DYNAMIC(Name) constexpr static auto Name = DynamicIconIndex::Name
+#define SET_STATIC_ALIAS(Name) constexpr static auto Name = StaticIconIndex::Name;
+#define SET_DYNAMIC_ALIAS(Name) constexpr static auto Name = DynamicIconIndex::Name;
 
-        SET_STATIC(Alternate);
-        SET_STATIC(Arrow);
-        SET_STATIC(BackDiag);
-        SET_STATIC(Beam);
-        SET_STATIC(Hand);
-        SET_STATIC(Help);
-        SET_STATIC(HorzSize);
-        SET_STATIC(MainDiag);
-        SET_STATIC(Move);
-        SET_STATIC(Pen);
-        SET_STATIC(Person);
-        SET_STATIC(Pin);
-        SET_STATIC(Select);
-        SET_STATIC(Stop);
-        SET_STATIC(VertSize);
+        SET_STATIC_ALIAS(Alternate)
+        SET_STATIC_ALIAS(Arrow)
+        SET_STATIC_ALIAS(BackDiag)
+        SET_STATIC_ALIAS(Beam)
+        SET_STATIC_ALIAS(Hand)
+        SET_STATIC_ALIAS(Help)
+        SET_STATIC_ALIAS(HorzSize)
+        SET_STATIC_ALIAS(MainDiag)
+        SET_STATIC_ALIAS(Move)
+        SET_STATIC_ALIAS(Pen)
+        SET_STATIC_ALIAS(Person)
+        SET_STATIC_ALIAS(Pin)
+        SET_STATIC_ALIAS(Select)
+        SET_STATIC_ALIAS(Stop)
+        SET_STATIC_ALIAS(VertSize)
 
-        SET_DYNAMIC(Busy);
-        SET_DYNAMIC(Working);
+        SET_DYNAMIC_ALIAS(Busy)
+        SET_DYNAMIC_ALIAS(Working)
 
 #undef SET_STATIC
 #undef SET_DYNAMIC
 
-        struct StaticIcon
+        template<typename T>
+        struct Icon
         {
             D2D1_POINT_2F displayOffset = {};
-            ComPtr<ID2D1Bitmap1> bitmap = {};
-            float bitmapOpacity = 1.0f;
+            T bitmapData = {};
         };
-        struct DynamicIcon
-        {
-            D2D1_POINT_2F displayOffset = {};
-            animation_utils::DynamicBitmap bitmap = {};
-        };
+        using StaticIcon = Icon<BitmapObject>;
+        using DynamicIcon = Icon<animation_utils::BitmapSequence>;
 
         using StaticIconMap = cpp_lang_utils::EnumClassMap<StaticIconIndex, StaticIcon>;
         using DynamicIconMap = cpp_lang_utils::EnumClassMap<DynamicIconIndex, DynamicIcon>;
@@ -125,7 +122,7 @@ namespace d14engine::uikit
 
     public:
         // To show a basic icon, you only need to specify the index,
-        // and its category will be decided by current themem automatically.
+        // and its category will be decided by current theme automatically.
 
         void setIcon(StaticIconIndex index);
         void setStaticIcon(WstrParam name);

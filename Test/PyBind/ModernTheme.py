@@ -65,6 +65,7 @@ if __name__ == '__main__':
             app.themeMode = text
         elif text == 'Use system setting':
             app.useSystemTheme = True
+
     themeSelector.f_onSelectedChange = changeThemeMode
 
     exit(app.run())

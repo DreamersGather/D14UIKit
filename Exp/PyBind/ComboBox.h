@@ -20,7 +20,7 @@ namespace d14uikit
     class PyComboBox : public PyClickablePanel<ComboBoxBase>
     {
     public:
-        using PyClickablePanel::PyClickablePanel;
+        using PyClickablePanel<ComboBoxBase>::PyClickablePanel;
 
         void onSelectedChange(const std::wstring& text) override
         {

@@ -3,6 +3,7 @@
 #include "UIKit/TabCaption.h"
 
 #include "Common/CppLangUtils/PointerEquality.h"
+#include "Common/RuntimeError.h"
 
 #include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
@@ -178,6 +179,8 @@ namespace d14engine::uikit
 
     void TabCaption::onMouseButtonHelper(MouseButtonEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         Panel::onMouseButtonHelper(e);
 
         if (e.state.leftDown() || e.state.leftDblclk())

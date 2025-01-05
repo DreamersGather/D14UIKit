@@ -3,6 +3,7 @@
 #include "UIKit/PopupMenu.h"
 
 #include "Common/CppLangUtils/PointerEquality.h"
+#include "Common/RuntimeError.h"
 
 #include "UIKit/Application.h"
 
@@ -48,6 +49,8 @@ namespace d14engine::uikit
 
     void PopupMenu::onChangeActivityHelper(bool value)
     {
+        THROW_IF_NULL(Application::g_app);
+
         Application::g_app->sendNextImmediateMouseMoveEvent = true;
     }
 
@@ -190,7 +193,7 @@ namespace d14engine::uikit
                 setActivatedIncludingChildren(false);
             };
         }
-        else if (m_backgroundTriggerPanel && m_backgroundTriggerPanel->destroy())
+        else if (m_backgroundTriggerPanel && m_backgroundTriggerPanel->release())
         {
             m_backgroundTriggerPanel.reset();
         }

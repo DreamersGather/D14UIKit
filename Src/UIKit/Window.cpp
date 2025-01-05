@@ -65,7 +65,9 @@ namespace d14engine::uikit
 
     void Window::loadDecorativeBarBrush()
     {
-        auto context = Application::g_app->dxRenderer()->d2d1DeviceContext();
+        THROW_IF_NULL(Application::g_app);
+
+        auto context = Application::g_app->dx12Renderer()->d2d1DeviceContext();
 
         D2D1_GRADIENT_STOP stop[] =
         {
@@ -421,11 +423,11 @@ namespace d14engine::uikit
             {
                 auto tabGroup = associatedTabGroup.lock();
 
-                // Retain this to avoid abrupt destruction after destroy(),
+                // Retain this to avoid abrupt destruction after release(),
                 // otherwise the following demoting operation may collapse.
                 auto temporaryLocked = shared_from_this();
 
-                if (destroy())
+                if (release())
                 {
                     auto caption = makeUIObject<TabCaption>(m_caption);
                     caption->promotable = true;
@@ -633,11 +635,11 @@ namespace d14engine::uikit
         }
     }
 
-    bool Window::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool Window::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(uiobj, m_caption)) return false;
 
-        return Panel::destroyUIObjectHelper(uiobj);
+        return Panel::releaseUIObjectHelper(uiobj);
     }
 
     void Window::onSizeHelper(SizeEvent& e)

@@ -20,7 +20,7 @@ namespace d14uikit
     class PyListView : public PyScrollView<ListViewBase>
     {
     public:
-        using PyScrollView::PyScrollView;
+        using PyScrollView<ListViewBase>::PyScrollView;
 
         void onSelectChange(const std::set<int> selected) override
         {

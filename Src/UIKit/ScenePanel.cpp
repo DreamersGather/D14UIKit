@@ -23,7 +23,9 @@ namespace d14engine::uikit
         :
         Panel(rect)
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
 
         auto device = rndr->d3d12Device();
         m_cmdLayer = std::make_shared<Renderer::CommandLayer>(device);
@@ -45,9 +47,11 @@ namespace d14engine::uikit
 
     void ScenePanel::onInitializeFinish()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Panel::onInitializeFinish();
 
-        auto rndr = Application::g_app->dxRenderer();
+        auto rndr = Application::g_app->dx12Renderer();
 
         // The back/MSAA buffers share the same RTV heap. Just 1 RTV seat
         // is enough since only 1 of them is used as render target at the same time:
@@ -95,15 +99,18 @@ namespace d14engine::uikit
             {
                 D3D12_RESOURCE_BARRIER barriers[] =
                 {
-                    CD3DX12_RESOURCE_BARRIER::Transition(
+                    CD3DX12_RESOURCE_BARRIER::Transition
+                    (
                         m_backBuffer.Get(),
                         D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
-                        D3D12_RESOURCE_STATE_RESOLVE_DEST),
-
-                    CD3DX12_RESOURCE_BARRIER::Transition(
+                        D3D12_RESOURCE_STATE_RESOLVE_DEST
+                    ),
+                    CD3DX12_RESOURCE_BARRIER::Transition
+                    (
                         m_msaaBuffer.Get(),
                         D3D12_RESOURCE_STATE_RENDER_TARGET,
-                        D3D12_RESOURCE_STATE_RESOLVE_SOURCE),
+                        D3D12_RESOURCE_STATE_RESOLVE_SOURCE
+                    ),
                 };
                 rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers));
 
@@ -150,7 +157,9 @@ namespace d14engine::uikit
 
     void ScenePanel::setCmdLayerPriority(int value)
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
         rndr->cmdLayers.erase(m_cmdLayer);
         m_cmdLayer->setPriority(value);
         rndr->cmdLayers.insert(m_cmdLayer);
@@ -168,7 +177,9 @@ namespace d14engine::uikit
 
     bool ScenePanel::setMultiSample(UINT count, OptParam<UINT> quality)
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
 
         if (count <= 1)
         {
@@ -205,7 +216,9 @@ namespace d14engine::uikit
 
     void ScenePanel::loadOffscreenTexture()
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
         rndr->beginGpuCommand();
 
         createBackBuffer();
@@ -221,13 +234,16 @@ namespace d14engine::uikit
 
     void ScenePanel::createBackBuffer()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto texSize = math_utils::roundu(size());
         texSize.width = std::max(texSize.width, 1u);
         texSize.height = std::max(texSize.height, 1u);
 
-        auto rndr = Application::g_app->dxRenderer();
+        auto rndr = Application::g_app->dx12Renderer();
 
-        D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D
+        auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+        auto desc = CD3DX12_RESOURCE_DESC::Tex2D
         (
             /* format    */ Renderer::g_renderTargetFormat,
             /* width     */ math_utils::round<UINT64>(texSize.width),
@@ -237,14 +253,16 @@ namespace d14engine::uikit
         );
         if (m_msaaEnabled)
         {
-            auto device = rndr->d3d12Device();
-            THROW_IF_FAILED(device->CreateCommittedResource(
-                &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
-                D3D12_HEAP_FLAG_NONE,
-                &desc,
-                D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
-                nullptr,
-                IID_PPV_ARGS(&m_backBuffer)));
+            THROW_IF_FAILED(rndr->d3d12Device()->CreateCommittedResource
+            (
+                /* pHeapProperties      */ &prop,
+                /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+                /* pDesc                */ &desc,
+                /* InitialResourceState */ D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+                /* pOptimizedClearValue */ nullptr,
+                /* riidResource         */
+                /* ppvResource          */ IID_PPV_ARGS(&m_backBuffer)
+            ));
         }
         else // back buffer == render target
         {
@@ -255,13 +273,17 @@ namespace d14engine::uikit
             memcpy(clearValue.Color, m_clearColor, 4 * sizeof(FLOAT));
 
             auto device = rndr->d3d12Device();
-            THROW_IF_FAILED(device->CreateCommittedResource(
-                &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
-                D3D12_HEAP_FLAG_NONE,
-                &desc,
-                D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
-                &clearValue,
-                IID_PPV_ARGS(&m_backBuffer)));
+
+            THROW_IF_FAILED(device->CreateCommittedResource
+            (
+                /* pHeapProperties      */ &prop,
+                /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+                /* pDesc                */ &desc,
+                /* InitialResourceState */ D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+                /* pOptimizedClearValue */ &clearValue,
+                /* riidResource         */
+                /* ppvResource          */ IID_PPV_ARGS(&m_backBuffer)
+            ));
 
             auto rtvHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
             device->CreateRenderTargetView(m_backBuffer.Get(), nullptr, rtvHandle);
@@ -270,13 +292,16 @@ namespace d14engine::uikit
 
     void ScenePanel::createMsaaBuffer()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto texSize = math_utils::roundu(size());
         texSize.width = std::max(texSize.width, 1u);
         texSize.height = std::max(texSize.height, 1u);
 
-        auto rndr = Application::g_app->dxRenderer();
+        auto rndr = Application::g_app->dx12Renderer();
 
-        D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D
+        auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+        auto desc = CD3DX12_RESOURCE_DESC::Tex2D
         (
             /* format    */ Renderer::g_renderTargetFormat,
             /* width     */ math_utils::round<UINT64>(texSize.width),
@@ -293,13 +318,17 @@ namespace d14engine::uikit
         memcpy(clearValue.Color, m_clearColor, 4 * sizeof(FLOAT));
 
         auto device = rndr->d3d12Device();
-        THROW_IF_FAILED(device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
-            D3D12_HEAP_FLAG_NONE,
-            &desc,
-            D3D12_RESOURCE_STATE_RENDER_TARGET,
-            &clearValue,
-            IID_PPV_ARGS(&m_msaaBuffer)));
+
+        THROW_IF_FAILED(device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &prop,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &desc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_RENDER_TARGET,
+            /* pOptimizedClearValue */ &clearValue,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&m_msaaBuffer)
+        ));
 
         auto rtvHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
         device->CreateRenderTargetView(m_msaaBuffer.Get(), nullptr, rtvHandle);
@@ -307,10 +336,12 @@ namespace d14engine::uikit
 
     void ScenePanel::createWrappedBuffer()
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
         auto dpi = platform_utils::dpi();
 
-        D2D1_BITMAP_PROPERTIES props = D2D1::BitmapProperties
+        auto props = D2D1::BitmapProperties
         (
             /* pixelFormat */ D2D1::PixelFormat(Renderer::g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
             /* dpiX        */ dpi,
@@ -374,14 +405,18 @@ namespace d14engine::uikit
         // There is no need to acquire or release the wrapped buffer since
         // the state transition has already been handled in Direct3D layer.
 
-        auto& interpMode = bitmapSamplingSetting.interpolationMode;
+        // round to fit pixel size
+        auto rect = math_utils::roundf(m_absoluteRect);
+
+        D2D1_INTERPOLATION_MODE mode = {};
+        if (sharedBitmapProperty.interpolationMode.has_value())
+        {
+            mode = sharedBitmapProperty.interpolationMode.value();
+        }
+        else mode = BitmapObject::g_interpolationMode;
 
         rndr->d2d1DeviceContext()->DrawBitmap(
-            m_sharedBitmap.Get(),
-            math_utils::roundf(m_absoluteRect),
-            bitmapSamplingSetting.opacity,
-            interpMode.has_value() ? interpMode.value() :
-            BitmapObject::g_interpolationMode);
+            m_sharedBitmap.Get(), rect, sharedBitmapProperty.opacity, mode);
     }
 
     void ScenePanel::onSizeHelper(SizeEvent& e)

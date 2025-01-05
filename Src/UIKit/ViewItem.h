@@ -70,7 +70,7 @@ namespace d14engine::uikit
         // Panel
         bool isHitHelper(const Event::Point& p) const override;
 
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
 
         void onSizeHelper(SizeEvent& e) override;
 
