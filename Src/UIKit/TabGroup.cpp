@@ -35,7 +35,7 @@ namespace d14engine::uikit
     TabGroup::~TabGroup()
     {
         // No need to do the clearing if the application already destroyed.
-        if (Application::g_app != nullptr) m_previewPanel->destroy();
+        if (Application::g_app != nullptr) m_previewPanel->release();
     }
 
     void TabGroup::onInitializeFinish()
@@ -235,9 +235,12 @@ do { \
 
         for (size_t i = 0; i < count; ++i)
         {
-            tabItor->caption->destroy();
+            // Its parent could be either tab-group or preview-menu,
+            // so using release here ensures that it is properly cleaned up.
+            tabItor->caption->release();
+
             removeUIObject(tabItor->content);
-            tabItor->m_previewItem->destroy();
+            tabItor->m_previewItem->release();
 
             tabItor->caption->m_parentTabGroup.reset();
 
@@ -376,7 +379,7 @@ do { \
         TabIndex orgIndex = { &m_tabs, 0 };
         for (; orgIndex < m_candidateTabCount && orgIndex.valid(); ++orgIndex)
         {
-            orgIndex->caption->destroy();
+            orgIndex->caption->release();
             orgIndex->m_previewItem->setContent(orgIndex->caption);
         }
         m_candidateTabCount = m_tabs.size();
@@ -404,7 +407,7 @@ do { \
             };
             cardLength = temporaryLength;
 
-            tabIndex->caption->destroy();
+            tabIndex->caption->release();
             addUIObject(tabIndex->caption);
 
             // The tab-caption may be disabled when the preview-panel
@@ -422,7 +425,7 @@ do { \
         TabIndex tabIndex = { &m_tabs, 0 };
         for ( ; tabIndex < m_candidateTabCount; ++tabIndex )
         {
-            tabIndex->caption->destroy();
+            tabIndex->caption->release();
             addUIObject(tabIndex->caption);
 
             // The tab-caption may be disabled when the preview-panel
@@ -446,7 +449,7 @@ do { \
         for ( ; tabIndex.valid(); ++tabIndex )
         {
             tabIndex->m_previewItem->transform(math_utils::heightOnlyRect(prvwSrc.itemHeight));
-            tabIndex->caption->destroy();
+            tabIndex->caption->release();
             tabIndex->m_previewItem->setContent(tabIndex->caption);
             tabIndex->m_previewItem->state = ViewItem::State::Idle;
 
@@ -575,6 +578,8 @@ do { \
 
     void TabGroup::triggerTabPromoting(MouseMoveEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (m_currDraggedCardTabIndex.valid() && m_currDraggedCardTabIndex->caption->promotable)
         {
             auto w = promoteTabToWindow(m_currDraggedCardTabIndex);

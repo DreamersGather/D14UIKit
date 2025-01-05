@@ -115,6 +115,15 @@ namespace d14uikit
             "fps",
             &Application::fps);
 
+        i.def_property_readonly(
+            "animCount",
+            &Application::animCount);
+
+        i.def_property(
+            "animState",
+            &Application::animState,
+            &Application::setAnimState);
+
         i.def_property(
             "themeMode",
             &Application::themeMode,
@@ -136,19 +145,19 @@ namespace d14uikit
             &Application::setLangLocale);
 
         i.def_property(
-            "clearType",
-            &Application::clearType,
-            &Application::setClearType);
+            "textAntialiasMode",
+            &Application::textAntialiasMode,
+            &Application::setTextAntialiasMode);
 
         i.def_property(
-            "textVertSmooth",
-            &Application::textVertSmooth,
-            &Application::setTextVertSmooth);
+            "d2dRenderingMode",
+            &Application::d2dRenderingMode,
+            &Application::setD2dRenderingMode);
 
         i.def_property(
-            "bmpQualityInterp",
-            &Application::bmpQualityInterp,
-            &Application::setBmpQualityInterp);
+            "bitmapInterpMode",
+            &Application::bitmapInterpMode,
+            &Application::setBitmapInterpMode);
 
         i.def(
             "capture",

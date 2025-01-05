@@ -21,7 +21,7 @@ namespace d14uikit
     class PyClickablePanel : public PyPanel<ClickablePanelBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<ClickablePanelBase>::PyPanel;
 
         void onMouseButtonPress(MouseButtonClickEvent* e) override
         {

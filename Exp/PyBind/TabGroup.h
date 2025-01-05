@@ -20,7 +20,7 @@ namespace d14uikit
     class PyTabGroup : public PyResizablePanel<TabGroupBase>
     {
     public:
-        using PyResizablePanel::PyResizablePanel;
+        using PyResizablePanel<TabGroupBase>::PyResizablePanel;
 
         void onSelectedChange(const std::wstring& title) override
         {

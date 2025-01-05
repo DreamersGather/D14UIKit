@@ -3,9 +3,9 @@
 #include "UIKit/Cursor.h"
 
 #include "Common/MathUtils/2D.h"
+#include "Common/RuntimeError.h"
 
 #include "UIKit/Application.h"
-#include "UIKit/BitmapObject.h"
 #include "UIKit/BitmapUtils.h"
 #include "UIKit/FileSystemUtils.h"
 
@@ -24,6 +24,8 @@ namespace d14engine::uikit
 
     void Cursor::registerDrawObjects()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& uiCmdLayer = Application::g_app->uiCmdLayer();
         if (std::holds_alternative<Renderer::CommandLayer::D2D1Target>(uiCmdLayer->drawTarget))
         {
@@ -45,32 +47,33 @@ namespace d14engine::uikit
 
     Cursor::IconSeries Cursor::loadBasicIconSeries(WstrParam themeName)
     {
+        THROW_IF_NULL(Application::g_app);
         IconSeries icons = {};
 
         // Load static icons.
 
-#define PUSH_STATIC_ICON(Name, ...) { StaticIconIndex::Name, L#Name, __VA_ARGS__ }
+#define DEF_STATIC_ICON(Name, ...) { StaticIconIndex::Name, L#Name, __VA_ARGS__ }
 
         std::tuple<StaticIconIndex, Wstring, D2D1_POINT_2F> staticIconNames[] =
         {
-            PUSH_STATIC_ICON(Alternate, { -16.0f, -4.0f }),
-            PUSH_STATIC_ICON(Arrow,     { -5.0f, -10.0f }),
-            PUSH_STATIC_ICON(BackDiag,  { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(Beam,      { -16.0f, -15.0f }),
-            PUSH_STATIC_ICON(Hand,      { -11.0f, -7.0f }),
-            PUSH_STATIC_ICON(Help,      { -5.0f, -10.0f }),
-            PUSH_STATIC_ICON(HorzSize,  { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(MainDiag,  { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(Move,      { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(Pen,       { -7.0f, -8.0f }),
-            PUSH_STATIC_ICON(Person,    { -9.0f, -8.0f }),
-            PUSH_STATIC_ICON(Pin,       { -9.0f, -8.0f }),
-            PUSH_STATIC_ICON(Select,    { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(Stop,      { -16.0f, -16.0f }),
-            PUSH_STATIC_ICON(VertSize,  { -16.0f, -16.0f })
+            DEF_STATIC_ICON(Alternate,  { -16.0f, -4.0f }),
+            DEF_STATIC_ICON(Arrow,      { -5.0f, -10.0f }),
+            DEF_STATIC_ICON(BackDiag,   { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(Beam,       { -16.0f, -15.0f }),
+            DEF_STATIC_ICON(Hand,       { -11.0f, -7.0f }),
+            DEF_STATIC_ICON(Help,       { -5.0f, -10.0f }),
+            DEF_STATIC_ICON(HorzSize,   { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(MainDiag,   { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(Move,       { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(Pen,        { -7.0f, -8.0f }),
+            DEF_STATIC_ICON(Person,     { -9.0f, -8.0f }),
+            DEF_STATIC_ICON(Pin,        { -9.0f, -8.0f }),
+            DEF_STATIC_ICON(Select,     { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(Stop,       { -16.0f, -16.0f }),
+            DEF_STATIC_ICON(VertSize,   { -16.0f, -16.0f })
         };
 
-#undef PUSH_STATIC_ICON
+#undef DEF_STATIC_ICON
 
         for (auto& name : staticIconNames)
         {
@@ -90,8 +93,8 @@ namespace d14engine::uikit
 ) \
 .displayOffset = __VA_ARGS__;
 
-        LOAD_DYNAMIC_ICON(Busy,    { -16.0f, -16.0f });
-        LOAD_DYNAMIC_ICON(Working, { -4.0f, -12.0f });
+        LOAD_DYNAMIC_ICON(Busy,     { -16.0f, -16.0f });
+        LOAD_DYNAMIC_ICON(Working,  { -4.0f, -12.0f });
 
 #undef LOAD_DYNAMIC_ICON
 
@@ -101,13 +104,15 @@ namespace d14engine::uikit
     Cursor::DynamicIcon Cursor::loadBasicIconFrames(WstrParam name, size_t count)
     {
         DynamicIcon icon = {};
+		
+        auto& fanim = icon.bitmapData.fanim;
 
-        icon.bitmap.frames.resize(count);
+        fanim.frames.resize(count);
         for (size_t i = 0; i < count; ++i)
         {
-            icon.bitmap.frames[i] = bitmap_utils::loadPackedBitmap(name + std::to_wstring(i + 1));
+            fanim.frames[i] = bitmap_utils::loadPackedBitmap(name + std::to_wstring(i + 1));
         }
-        icon.bitmap.equalTimeSpanOptimization.durationInSecs = 0.05f;
+        fanim.timeSpanDataInSecs = 0.05f;
 
         return icon;
     }
@@ -222,6 +227,8 @@ namespace d14engine::uikit
 
     Cursor::StaticIcon& Cursor::getCurrentSelectedStaticIcon()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& iconID = std::get<g_staticIconSeat>(m_selectedIconID);
         auto& basicIcons = m_classifiedBasicIcons.at(Application::g_app->currThemeName());
 
@@ -232,6 +239,8 @@ namespace d14engine::uikit
 
     Cursor::DynamicIcon& Cursor::getCurrentSelectedDynamicIcon()
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto& iconID = std::get<g_dynamicIconSeat>(m_selectedIconID);
         auto& basicIcons = m_classifiedBasicIcons.at(Application::g_app->currThemeName());
 
@@ -244,7 +253,7 @@ namespace d14engine::uikit
     {
         if (m_selectedIconID.index() == g_dynamicIconSeat)
         {
-            getCurrentSelectedDynamicIcon().bitmap.update(rndr);
+            getCurrentSelectedDynamicIcon().bitmapData.update(rndr);
         }
     }
 
@@ -253,7 +262,7 @@ namespace d14engine::uikit
         if (m_lastSelectedIconID.index() == g_staticIconSeat &&
             m_selectedIconID.index() == g_dynamicIconSeat)
         {
-            getCurrentSelectedDynamicIcon().bitmap.restore();
+            getCurrentSelectedDynamicIcon().bitmapData.restore();
             increaseAnimationCount();
         }
         else if (m_lastSelectedIconID.index() == g_dynamicIconSeat &&
@@ -268,12 +277,13 @@ namespace d14engine::uikit
             auto& icon = getCurrentSelectedStaticIcon();
             auto rect = math_utils::offset(m_absoluteRect, icon.displayOffset);
 
-            rect = math_utils::roundf(rect);
             if (!useSystemIcons)
             {
+                auto& bmpobj = icon.bitmapData;
                 rndr->d2d1DeviceContext()->DrawBitmap(
-                    icon.bitmap.Get(), rect, icon.bitmapOpacity,
-                    BitmapObject::g_interpolationMode);
+                    // round to fit pixel size
+                    bmpobj.bitmap.Get(), math_utils::roundf(rect),
+                    bmpobj.opacity, bmpobj.getInterpolationMode());
             }
         }
         else if (m_selectedIconID.index() == g_dynamicIconSeat)
@@ -281,8 +291,7 @@ namespace d14engine::uikit
             auto& icon = getCurrentSelectedDynamicIcon();
             auto rect = math_utils::offset(m_absoluteRect, icon.displayOffset);
 
-            icon.bitmap.rect = math_utils::roundf(rect);
-            if (!useSystemIcons) icon.bitmap.draw(rndr);
+            if (!useSystemIcons) icon.bitmapData.draw(rndr, rect);
         }
     }
 }

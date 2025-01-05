@@ -107,7 +107,7 @@ namespace d14uikit
         Style style,
         Stretch strech)
     {
-        auto rndr = uikit::Application::g_app->dxRenderer();
+        auto rndr = uikit::Application::g_app->dx12Renderer();
         THROW_IF_FAILED(rndr->dwriteFactory()->CreateTextFormat(
             familyName.c_str(),
             nullptr,

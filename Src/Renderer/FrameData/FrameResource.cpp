@@ -1,6 +1,6 @@
 ﻿#include "Common/Precompile.h"
 
-#include "Renderer/FrameResource.h"
+#include "Renderer/FrameData/FrameResource.h"
 
 #include "Common/DirectXError.h"
 

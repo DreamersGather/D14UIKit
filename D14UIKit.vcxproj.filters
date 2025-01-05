@@ -36,9 +36,6 @@
     <ClCompile Include="Src\Renderer\GraphUtils\StaticSampler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Renderer\FrameResource.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Renderer\DebugUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -64,9 +61,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Appearances\Appearance.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\UIKit\AnimationUtils\Sequence.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Application.cpp">
@@ -169,9 +163,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Src\UIKit\Window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\UIKit\AnimationUtils\Motion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Src\UIKit\MenuItem.cpp">
@@ -574,6 +565,30 @@
     <ClCompile Include="Src\Renderer\GraphUtils\Bitmap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\UIKit\FrameAnimPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\AnimationUtils\BitmapSequence.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIKit\AnimationUtils\MotionFunctions.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\FrameData\FrameResource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Renderer\GraphUtils\Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\FrameAnimPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\BasicEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\FrameAnimPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -592,9 +607,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\Renderer\DebugUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Renderer\FrameResource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\Renderer\GpuBuffer.h">
@@ -700,9 +712,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\UIKit\Appearances\Window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\UIKit\AnimationUtils\Sequence.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\UIKit\Application.h">
@@ -835,9 +844,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\UIKit\Window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\UIKit\AnimationUtils\Motion.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\Common\CppLangUtils\EnumClassMap.h">
@@ -1417,6 +1423,42 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\WaterfallView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\FrameAnimPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\AnimationUtils\BitmapSequence.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UIKit\AnimationUtils\MotionFunctions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\FrameData\FrameAnimation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\FrameData\FrameResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\FrameData\FrameSequence.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Renderer\GraphUtils\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\BasicEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\FrameAnimPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\FrameAnimPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\BasicEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\FrameAnimPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

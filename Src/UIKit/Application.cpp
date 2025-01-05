@@ -38,7 +38,7 @@ namespace d14engine::uikit
 
         initWin32Window();
 
-        initMainRenderer();
+        initDirectX12Renderer();
 
         initMiscComponents();
     }
@@ -46,10 +46,12 @@ namespace d14engine::uikit
     void Application::initWin32Window()
     {
         HINSTANCE hInstance = GetModuleHandle(_D14_MODULE_NAME);
+
+        THROW_IF_NULL(hInstance);
         
         WNDCLASSEX wndclass = {};
         wndclass.cbSize = sizeof(wndclass);
-        wndclass.style = CS_DBLCLKS; // The drop shadow has bugs on Windows 11.
+        wndclass.style = CS_DBLCLKS; // CS_DROPSHADOW has bugs on Windows 11.
         wndclass.lpfnWndProc = fnWndProc;
         // We will populate GWLP_USERDATA with the application instance pointer.
         wndclass.cbWndExtra = sizeof(this);
@@ -96,24 +98,27 @@ namespace d14engine::uikit
         auto dpi = (UINT)platform_utils::dpi();
         AdjustWindowRectExForDpi(&wndrect, dwStyle, FALSE, dwExStyle, dpi);
 
-        THROW_IF_NULL(m_win32Window = CreateWindowEx(
-            dwExStyle,
-            createInfo.name.c_str(),
-            createInfo.name.c_str(),
-            dwStyle,
-            wndrect.left,
-            wndrect.top,
-            math_utils::width(wndrect),
-            math_utils::height(wndrect),
-            nullptr,
-            nullptr,
-            hInstance,
-            nullptr));
+        m_win32Window = CreateWindowEx
+        (
+            /* dwExStyle    */ dwExStyle,
+            /* lpClassName  */ createInfo.name.c_str(),
+            /* lpWindowName */ createInfo.name.c_str(),
+            /* dwStyle      */ dwStyle,
+            /* X            */ wndrect.left,
+            /* Y            */ wndrect.top,
+            /* nWidth       */ math_utils::width(wndrect),
+            /* nHeight      */ math_utils::height(wndrect),
+            /* hWndParent   */ nullptr,
+            /* hMenu        */ nullptr,
+            /* hInstance    */ hInstance,
+            /* lpParam      */ nullptr
+        );
+        THROW_IF_NULL(m_win32Window);
 
         SetWindowLongPtr(m_win32Window, GWLP_USERDATA, (LONG_PTR)this);
     }
 
-    void Application::initMainRenderer()
+    void Application::initDirectX12Renderer()
     {
         auto dpi = platform_utils::dpi();
 
@@ -208,6 +213,10 @@ namespace d14engine::uikit
 
     LRESULT CALLBACK Application::fnWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
+        if (RuntimeError::g_flag)
+        {
+            return DefWindowProc(hwnd, message, wParam, lParam);
+        }
         auto app = (Application*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
         
         switch (message)
@@ -924,7 +933,7 @@ namespace d14engine::uikit
         return HTCLIENT;
     }
 
-    Renderer* Application::dxRenderer() const
+    Renderer* Application::dx12Renderer() const
     {
         return m_renderer.get();
     }

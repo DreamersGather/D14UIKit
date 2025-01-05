@@ -71,7 +71,7 @@ Global
 		{C2E17895-E0A5-490C-815A-800FE0801AA6}.Rebug|x64.ActiveCfg = Debug|Any CPU
 		{C2E17895-E0A5-490C-815A-800FE0801AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E17895-E0A5-490C-815A-800FE0801AA6}.Release|x64.ActiveCfg = Release|Any CPU
-		{C2E17895-E0A5-490C-815A-800FE0801AA6}.RPyBind|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E17895-E0A5-490C-815A-800FE0801AA6}.RPyBind|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E17895-E0A5-490C-815A-800FE0801AA6}.RPyBind|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

@@ -1042,7 +1042,8 @@ namespace d14engine::renderer
 
     void Renderer::createSceneBuffer()
     {
-        D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D
+        auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+        auto desc = CD3DX12_RESOURCE_DESC::Tex2D
         (
             /* format    */ g_renderTargetFormat,
             /* width     */ getSceneWidth(),
@@ -1056,27 +1057,43 @@ namespace d14engine::renderer
         clearValue.Format = g_renderTargetFormat;
         memcpy(clearValue.Color, m_sceneColor, 4 * sizeof(FLOAT));
 
-        THROW_IF_FAILED(m_d3d12Device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
-            D3D12_HEAP_FLAG_NONE,
-            &desc,
-            D3D12_RESOURCE_STATE_COMMON,
-            &clearValue,
-            IID_PPV_ARGS(&m_sceneBuffer)));
-
-        m_d3d12Device->CreateRenderTargetView(m_sceneBuffer.Get(), nullptr, sceneRtvHandle());
-
+        THROW_IF_FAILED(m_d3d12Device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &prop,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &desc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_COMMON,
+            /* pOptimizedClearValue */ &clearValue,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&m_sceneBuffer)
+        ));
+        m_d3d12Device->CreateRenderTargetView
+        (
+            /* pResource      */ m_sceneBuffer.Get(),
+            /* pDesc          */ nullptr,
+            /* DestDescriptor */ sceneRtvHandle()
+        );
         if (m_d3d12DeviceInfo.setting.m_resolutionScaling)
         {
-            m_d3d12Device->CreateShaderResourceView(m_sceneBuffer.Get(), nullptr, sceneSrvhandle());
+            m_d3d12Device->CreateShaderResourceView
+            (
+                /* pResource      */ m_sceneBuffer.Get(),
+                /* pDesc          */ nullptr,
+                /* DestDescriptor */ sceneSrvhandle()
+            );
         }
     }
 
     void Renderer::createWrappedBuffer()
     {
-        auto dpi = createInfo.dpi.has_value() ? createInfo.dpi.value() : (FLOAT)GetDpiForWindow(m_window.ptr);
+        FLOAT dpi = 96.0f;
+        if (createInfo.dpi.has_value())
+        {
+            dpi = createInfo.dpi.value();
+        }
+        else dpi = (FLOAT)GetDpiForWindow(m_window.ptr);
 
-        D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
+        auto props = D2D1::BitmapProperties1
         (
             /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
             /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
@@ -1092,11 +1109,18 @@ namespace d14engine::renderer
             /* pFlags11     */ &flags,
             /* InState      */ D3D12_RESOURCE_STATE_COMMON,
             /* OutState     */ D3D12_RESOURCE_STATE_COMMON,
+            /* riid         */      
             /* ppResource11 */ IID_PPV_ARGS(&m_wrappedBuffer)
         ));
         ComPtr<IDXGISurface> surface;
         THROW_IF_FAILED(m_wrappedBuffer.As(&surface));
-        THROW_IF_FAILED(m_d2d1DeviceContext->CreateBitmapFromDxgiSurface(surface.Get(), &props, &m_d2d1RenderTarget));
+
+        THROW_IF_FAILED(m_d2d1DeviceContext->CreateBitmapFromDxgiSurface
+        (
+            /* surface          */ surface.Get(),
+            /* bitmapProperties */ &props,
+            /* bitmap           */ &m_d2d1RenderTarget
+        ));
     }
 
     void Renderer::clearInterpStates()
@@ -1392,14 +1416,15 @@ namespace d14engine::renderer
     void Renderer::setTextRenderingMode(const TextRenderingSettings& mode)
     {
         ComPtr<IDWriteRenderingParams> params;
-        THROW_IF_FAILED(m_dwriteFactory->CreateCustomRenderingParams(
+        THROW_IF_FAILED(m_dwriteFactory->CreateCustomRenderingParams
+        (
             mode.gamma,
             mode.enhancedContrast,
             mode.clearTypeLevel,
             mode.pixelGeometry,
             mode.renderingMode,
-            &params));
-
+            &params
+        ));
         m_d2d1DeviceContext->SetTextRenderingParams(params.Get());
     }
 }

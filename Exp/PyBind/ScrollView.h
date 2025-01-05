@@ -22,7 +22,7 @@ namespace d14uikit
     class PyScrollView : public PyResizablePanel<ScrollViewBase>
     {
     public:
-        using PyResizablePanel::PyResizablePanel;
+        using PyResizablePanel<ScrollViewBase>::PyResizablePanel;
 
         void onEndThumbScrolling(const Point& offset) override
         {

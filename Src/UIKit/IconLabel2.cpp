@@ -116,10 +116,10 @@ namespace d14engine::uikit
         }
     }
 
-    bool IconLabel2::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool IconLabel2::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(uiobj, m_label2)) return false;
 
-        return IconLabel::destroyUIObjectHelper(uiobj);
+        return IconLabel::releaseUIObjectHelper(uiobj);
     }
 }

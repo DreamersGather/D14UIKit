@@ -82,7 +82,7 @@ namespace d14engine::uikit
 
     protected:
         void onSizeHelper(SizeEvent& e) override;
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
     };
 }

@@ -21,7 +21,7 @@ namespace d14uikit
     class PyDraggablePanel : public PyPanel<DraggablePanelBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<DraggablePanelBase>::PyPanel;
 
         void onEndDragging() override
         {

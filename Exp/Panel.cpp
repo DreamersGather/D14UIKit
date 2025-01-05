@@ -188,9 +188,9 @@ namespace d14uikit
         };
     }
 
-    bool Panel::destroy()
+    bool Panel::release()
     {
-        return pimpl->uiobj->destroy();
+        return pimpl->uiobj->release();
     }
 
     bool Panel::visible() const
@@ -400,6 +400,24 @@ namespace d14uikit
         pimpl->outline.opacity = value;
     }
 
+    bool Panel::animState() const
+    {
+        return pimpl->animState;
+    }
+
+    void Panel::setAnimState(bool value)
+    {
+        if (pimpl->animState != value)
+        {
+            if (value)
+            {
+                pimpl->uiobj->increaseAnimationCount();
+            }
+            else pimpl->uiobj->decreaseAnimationCount();
+        }
+        pimpl->animState = value;
+    }
+
     Image* Panel::image() const
     {
         return pimpl->image;
@@ -413,6 +431,26 @@ namespace d14uikit
             pimpl->uiobj->bitmap = image->getImpl()->bitmap;
         }
         else pimpl->uiobj->bitmap.Reset();
+    }
+
+    float Panel::bitmapOpacity() const
+    {
+        return pimpl->uiobj->bitmapProperty.opacity;
+    }
+
+    void Panel::setBitmapOpacity(float value)
+    {
+        pimpl->uiobj->bitmapProperty.opacity = value;
+    }
+
+    BitmapInterpMode Panel::bitmapInterpMode() const
+    {
+        return pimpl->bitmapInterpMode;
+    }
+
+    void Panel::setBitmapInterpMode(BitmapInterpMode mode)
+    {
+        pimpl->uiobj->bitmapProperty.interpolationMode = (D2D1_INTERPOLATION_MODE)mode;
     }
 
     int Panel::roundRadius() const

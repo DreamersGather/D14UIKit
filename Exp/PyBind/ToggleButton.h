@@ -20,7 +20,7 @@ namespace d14uikit
     class PyToggleButton : public PyClickablePanel<ToggleButtonBase>
     {
     public:
-        using PyClickablePanel::PyClickablePanel;
+        using PyClickablePanel<ToggleButtonBase>::PyClickablePanel;
 
         void onStateChange(ToggleButton::State state) override
         {

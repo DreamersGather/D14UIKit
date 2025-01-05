@@ -25,12 +25,6 @@ int main(int argc, char* argv[])
     }
     Application app(DEMO_NAME, dpi);
 
-    // The concept-cursor has the resolution of HD,
-    // so it's not recommended to use it under UHD.
-    if (dpi == 96.0f)
-    {
-        app.cursor()->setUseSystemIcons(false);
-    }
     //------------------------------------------- Initialize UI objects.
 
     MainWindow mwnd(DEMO_NAME);

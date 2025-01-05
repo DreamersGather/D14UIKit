@@ -17,7 +17,9 @@ namespace d14engine::uikit
 
     void MaskStyle::loadBitmap(UINT width, UINT height)
     {
-        auto rndr = Application::g_app->dxRenderer();
+        THROW_IF_NULL(Application::g_app);
+
+        auto rndr = Application::g_app->dx12Renderer();
         rndr->beginGpuCommand();
 
         auto dipSize = SIZE{ (LONG)width, (LONG)height };

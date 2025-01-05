@@ -295,11 +295,11 @@ namespace d14engine::uikit
         updateLayout();
     }
 
-    bool IconLabel::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool IconLabel::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(uiobj, m_label)) return false;
 
-        return Panel::destroyUIObjectHelper(uiobj);
+        return Panel::releaseUIObjectHelper(uiobj);
     }
 
     void IconLabel::onRendererDrawD2d1ObjectHelper(Renderer* rndr)

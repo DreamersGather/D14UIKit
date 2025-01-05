@@ -155,7 +155,7 @@ namespace d14engine::cpp_lang_utils
         {
             m_pList = nullptr;
             index = SIZE_MAX;
-            iterator = T::iterator{};
+            iterator = typename T::iterator{};
             return *this;
         }
 

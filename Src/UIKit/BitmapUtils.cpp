@@ -17,6 +17,8 @@ namespace d14engine::uikit::bitmap_utils
 {
     void saveBitmap(ID2D1Bitmap1* bitmap, WstrParam imagePath, const GUID& format)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto factory = graph_utils::bitmap::factory();
 
         // Create file and stream.
@@ -47,7 +49,7 @@ namespace d14engine::uikit::bitmap_utils
 
         THROW_IF_FAILED(frameEncode->Initialize(nullptr));
 
-        auto device = Application::g_app->dxRenderer()->d2d1Device();
+        auto device = Application::g_app->dx12Renderer()->d2d1Device();
 
         ComPtr<IWICImageEncoder> imageEncoder;
         THROW_IF_FAILED(factory->CreateImageEncoder(
@@ -76,6 +78,8 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadBitmap(UINT width, UINT height, BYTE* data, D2D1_BITMAP_OPTIONS options)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto dpi = platform_utils::dpi();
 
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
@@ -88,7 +92,7 @@ namespace d14engine::uikit::bitmap_utils
         ComPtr<ID2D1Bitmap1> bitmap;
         // Hardcode the pixel format as R8G8B8A8 for simplicity, so the pitch
         // (byte count of each scanline) is set to "4 * width" directly.
-        THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmap
+        THROW_IF_FAILED(Application::g_app->dx12Renderer()->d2d1DeviceContext()->CreateBitmap
         (
             /* size             */ { width, height },
             /* sourceData       */ data,
@@ -101,6 +105,8 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadBitmap(WstrParam imagePath, D2D1_BITMAP_OPTIONS options)
     {
+        THROW_IF_NULL(Application::g_app);
+
         auto source = graph_utils::bitmap::load(imagePath);
 
         D2D1_BITMAP_PROPERTIES1 props = D2D1::BitmapProperties1
@@ -111,7 +117,7 @@ namespace d14engine::uikit::bitmap_utils
             /* dpiY          */ 0.0f
         );
         ComPtr<ID2D1Bitmap1> bitmap;
-        THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
+        THROW_IF_FAILED(Application::g_app->dx12Renderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
         (
             /* wicBitmapSource  */ source.Get(),
             /* bitmapProperties */ props,
@@ -122,6 +128,8 @@ namespace d14engine::uikit::bitmap_utils
 
     ComPtr<ID2D1Bitmap1> loadPackedBitmap(WstrParam resName, WstrParam resType, D2D1_BITMAP_OPTIONS options)
     {
+        THROW_IF_NULL(Application::g_app);
+
         // Create stream from memory.
 
         auto src = loadResource(resName, resType);
@@ -149,7 +157,7 @@ namespace d14engine::uikit::bitmap_utils
             /* dpiY          */ 0.0f
         );
         ComPtr<ID2D1Bitmap1> bitmap;
-        THROW_IF_FAILED(Application::g_app->dxRenderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
+        THROW_IF_FAILED(Application::g_app->dx12Renderer()->d2d1DeviceContext()->CreateBitmapFromWicBitmap
         (
             /* wicBitmapSource  */ source.Get(),
             /* bitmapProperties */ props,

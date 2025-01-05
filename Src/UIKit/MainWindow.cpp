@@ -4,6 +4,7 @@
 
 #include "Common/MathUtils/2D.h"
 #include "Common/MathUtils/GDI.h"
+#include "Common/RuntimeError.h"
 
 #include "UIKit/Application.h"
 #include "UIKit/IconLabel.h"
@@ -22,6 +23,8 @@ namespace d14engine::uikit
         Panel({}, resource_utils::g_solidColorBrush),
         Window(caption, {}, captionPanelHeight, decorativeBarHeight)
     {
+        THROW_IF_NULL(Application::g_app);
+
         setCornerState(ROUND); // adapt win11 geometry
 
         operationTarget = OperationTarget::GlobalWin32Window;
@@ -52,6 +55,8 @@ namespace d14engine::uikit
 
     void MainWindow::onInitializeFinish()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Window::onInitializeFinish();
 
         RECT wndrect = {};
@@ -72,6 +77,8 @@ namespace d14engine::uikit
 
     void MainWindow::setDisplayStateHelper(DisplayState state)
     {
+        THROW_IF_NULL(Application::g_app);
+
         switch (state)
         {
         case DisplayState::Normal:
@@ -130,6 +137,8 @@ namespace d14engine::uikit
 
     void MainWindow::setCornerState(CornerState state)
     {
+        THROW_IF_NULL(Application::g_app);
+
         if (SUCCEEDED(DwmSetWindowAttribute(
             Application::g_app->win32Window(),
             DWMWA_WINDOW_CORNER_PREFERENCE,
@@ -141,6 +150,8 @@ namespace d14engine::uikit
 
     void MainWindow::onCloseHelper()
     {
+        THROW_IF_NULL(Application::g_app);
+
         Window::onCloseHelper();
 
         Application::g_app->exit();

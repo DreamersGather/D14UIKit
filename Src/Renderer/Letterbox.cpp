@@ -30,81 +30,14 @@ namespace d14engine::renderer
 
     void Letterbox::setEnabled(bool value)
     {
+        THROW_IF_NULL(rndr);
+
         m_enabled = value;
         if (m_enabled)
         {
-            // Create root signature.
-            CD3DX12_ROOT_PARAMETER1 rootParam = {};
-            CD3DX12_DESCRIPTOR_RANGE1 descRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
-            rootParam.InitAsDescriptorTable(1, &descRange, D3D12_SHADER_VISIBILITY_PIXEL);
-
-            D3D12_ROOT_SIGNATURE_FLAGS rootSigFlags =
-            (
-                D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT |
-
-                // We only need VS and PS to perform the resampling.
-                D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS |
-                D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS |
-                D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS
-            );
-            CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSigDesc = {};
-            rootSigDesc.Init_1_1(1, &rootParam, 1, &graph_utils::static_sampler::linearBorder(0), rootSigFlags);
-
-            auto& maxVersion = rndr->d3d12DeviceInfo().feature.rootSignature.HighestVersion;
-
-            ComPtr<ID3DBlob> rootSigBlob;
-            THROW_IF_ERROR(D3DX12SerializeVersionedRootSignature(&rootSigDesc, maxVersion, &rootSigBlob, &error));
-            THROW_IF_FAILED(rndr->d3d12Device()->CreateRootSignature(0, BLB_PSZ_ARGS(rootSigBlob), IID_PPV_ARGS(&m_rootSigature)));
-
-            // Create pipeline state.
-            auto VS = loadResource(L"VS", L"Shader");
-            auto PS = loadResource(L"PS", L"Shader");
-
-            D3D12_INPUT_ELEMENT_DESC inputElemDescs[] =
-            {
-                {
-                    /* SemanticName         */ "POSITION",
-                    /* SemanticIndex        */ 0,
-                    /* Format               */ DXGI_FORMAT_R32G32B32A32_FLOAT,
-                    /* InputSlot            */ 0,
-                    /* AlignedByteOffset    */ 0,
-                    /* InputSlotClass       */ D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-                    /* InstanceDataStepRate */ 0
-                },
-                {
-                    /* SemanticName         */ "TEXCOORD",
-                    /* SemanticIndex        */ 0,
-                    /* Format               */ DXGI_FORMAT_R32G32_FLOAT,
-                    /* InputSlot            */ 0,
-                    /* AlignedByteOffset    */ D3D12_APPEND_ALIGNED_ELEMENT,
-                    /* InputSlotClass       */ D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-                    /* InstanceDataStepRate */ 0
-                }
-            };
-            auto psoDesc = graph_utils::graphicsPipelineStateDescTemplate();
-
-            psoDesc.pRootSignature = m_rootSigature.Get();
-            psoDesc.VS = { VS.data, VS.size };
-            psoDesc.PS = { PS.data, PS.size };
-            psoDesc.InputLayout = { ARR_NUM_ARGS(inputElemDescs) };
-            psoDesc.DepthStencilState.DepthEnable = FALSE;
-
-            THROW_IF_FAILED(rndr->d3d12Device()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&m_pipelineState)));
-
-            // Create quadrangle vertex buffer.
-            Vertex quad[] =
-            {
-                /* Top    Left  */ { { -1.0f, +1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f } },
-                /* Top    Right */ { { +1.0f, +1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
-                /* Bottom Left  */ { { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
-                /* Bottom Right */ { { +1.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } }
-            };
-            m_vertexBuffer = std::make_unique<DefaultBuffer>(rndr->d3d12Device(), sizeof(quad));
-            m_vertexBuffer->uploadData(rndr->cmdList(), quad, sizeof(quad));
-
-            m_vertexBufferView.BufferLocation = m_vertexBuffer->resource()->GetGPUVirtualAddress();
-            m_vertexBufferView.SizeInBytes = sizeof(quad);
-            m_vertexBufferView.StrideInBytes = sizeof(Vertex);
+            createRootSignature();
+            createPipelineState();
+            createVertexBuffer();
         }
         else // Clear created components.
         {
@@ -146,8 +79,114 @@ namespace d14engine::renderer
         m_scissors.bottom = (LONG)(m_viewport.TopLeftY + m_viewport.Height);
     }
 
+    void Letterbox::createRootSignature()
+    {
+        CD3DX12_ROOT_PARAMETER1 rootParam = {};
+        CD3DX12_DESCRIPTOR_RANGE1 descRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+        rootParam.InitAsDescriptorTable(1, &descRange, D3D12_SHADER_VISIBILITY_PIXEL);
+
+        CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSigDesc = {};
+        auto sampler = graph_utils::static_sampler::linearBorder(0);
+        D3D12_ROOT_SIGNATURE_FLAGS rootSigFlags =
+        (
+            D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT |
+
+            // We only need VS and PS to perform the resampling.
+            D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS |
+            D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS |
+            D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS
+        );
+        rootSigDesc.Init_1_1
+        (
+            /* numParameters     */ 1,
+            /* _pParameters      */ &rootParam,
+            /* numStaticSamplers */ 1,
+            /* _pStaticSamplers  */ &sampler,
+            /* flags             */ rootSigFlags
+        );
+        ComPtr<ID3DBlob> rootSigBlob;
+        auto& maxVersion = rndr->d3d12DeviceInfo().feature.rootSignature.HighestVersion;
+
+        THROW_IF_ERROR(D3DX12SerializeVersionedRootSignature
+        (
+            /* pRootSignatureDesc */ &rootSigDesc,
+            /* MaxVersion         */ maxVersion,
+            /* ppBlob             */ &rootSigBlob,
+            /* ppErrorBlob        */ &error
+        ));
+        THROW_IF_FAILED(rndr->d3d12Device()->CreateRootSignature
+        (
+            /* nodeMask               */ 0,
+            /* pBlobWithRootSignature */ 
+            /* blobLengthInBytes      */ BLB_PSZ_ARGS(rootSigBlob),
+            /* riid                   */
+            /* ppvRootSignature       */ IID_PPV_ARGS(&m_rootSigature)
+        ));
+    }
+
+    void Letterbox::createPipelineState()
+    {
+        auto VS = loadResource(L"VS", L"Shader");
+        auto PS = loadResource(L"PS", L"Shader");
+
+        D3D12_INPUT_ELEMENT_DESC inputElemDescs[] =
+        {
+            {
+                /* SemanticName         */ "POSITION",
+                /* SemanticIndex        */ 0,
+                /* Format               */ DXGI_FORMAT_R32G32B32A32_FLOAT,
+                /* InputSlot            */ 0,
+                /* AlignedByteOffset    */ 0,
+                /* InputSlotClass       */ D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+                /* InstanceDataStepRate */ 0
+            },
+            {
+                /* SemanticName         */ "TEXCOORD",
+                /* SemanticIndex        */ 0,
+                /* Format               */ DXGI_FORMAT_R32G32_FLOAT,
+                /* InputSlot            */ 0,
+                /* AlignedByteOffset    */ D3D12_APPEND_ALIGNED_ELEMENT,
+                /* InputSlotClass       */ D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+                /* InstanceDataStepRate */ 0
+            }
+        };
+        auto psoDesc = graph_utils::GPSODescTemplate();
+
+        psoDesc.pRootSignature = m_rootSigature.Get();
+        psoDesc.VS = { VS.data, VS.size };
+        psoDesc.PS = { PS.data, PS.size };
+        psoDesc.InputLayout = { ARR_NUM_ARGS(inputElemDescs) };
+        psoDesc.DepthStencilState.DepthEnable = FALSE;
+
+        THROW_IF_FAILED(rndr->d3d12Device()->CreateGraphicsPipelineState
+        (
+            /* pDesc                */ &psoDesc,
+            /* riid                 */
+            /* ppPipelineState      */ IID_PPV_ARGS(&m_pipelineState)
+        ));
+    }
+
+    void Letterbox::createVertexBuffer()
+    {
+        Vertex quad[] =
+        {
+            /* Top    Left  */ { { -1.0f, +1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f } },
+            /* Top    Right */ { { +1.0f, +1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
+            /* Bottom Left  */ { { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+            /* Bottom Right */ { { +1.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } }
+        };
+        m_vertexBuffer = std::make_unique<DefaultBuffer>(rndr->d3d12Device(), sizeof(quad));
+        m_vertexBuffer->uploadData(rndr->cmdList(), quad, sizeof(quad));
+
+        m_vertexBufferView.BufferLocation = m_vertexBuffer->resource()->GetGPUVirtualAddress();
+        m_vertexBufferView.SizeInBytes = sizeof(quad);
+        m_vertexBufferView.StrideInBytes = sizeof(Vertex);
+    }
+
     void Letterbox::present()
     {
+        THROW_IF_NULL(rndr);
+
         auto& cmdAlloc = m_cmdAllocs.at(rndr->currFrameIndex());
 
         THROW_IF_FAILED(cmdAlloc->Reset());
@@ -166,15 +205,18 @@ namespace d14engine::renderer
     {
         D3D12_RESOURCE_BARRIER barriers[] =
         {
-            CD3DX12_RESOURCE_BARRIER::Transition(
+            CD3DX12_RESOURCE_BARRIER::Transition
+            (
                 rndr->currBackBuffer(),
                 D3D12_RESOURCE_STATE_PRESENT,
-                D3D12_RESOURCE_STATE_COPY_DEST),
-
-            CD3DX12_RESOURCE_BARRIER::Transition(
+                D3D12_RESOURCE_STATE_COPY_DEST
+            ),
+            CD3DX12_RESOURCE_BARRIER::Transition
+            (
                 rndr->sceneBuffer(),
                 D3D12_RESOURCE_STATE_COMMON,
-                D3D12_RESOURCE_STATE_COPY_SOURCE),
+                D3D12_RESOURCE_STATE_COPY_SOURCE
+            ),
         };
         rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers));
 
@@ -192,15 +234,18 @@ namespace d14engine::renderer
     {
         D3D12_RESOURCE_BARRIER barriers[] =
         {
-            CD3DX12_RESOURCE_BARRIER::Transition(
+            CD3DX12_RESOURCE_BARRIER::Transition
+            (
                 rndr->currBackBuffer(),
                 D3D12_RESOURCE_STATE_PRESENT,
-                D3D12_RESOURCE_STATE_RENDER_TARGET),
-
-            CD3DX12_RESOURCE_BARRIER::Transition(
+                D3D12_RESOURCE_STATE_RENDER_TARGET
+            ),
+            CD3DX12_RESOURCE_BARRIER::Transition
+            (
                 rndr->sceneBuffer(),
                 D3D12_RESOURCE_STATE_COMMON,
-                D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE)
+                D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
+            )
         };
         rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers));
 

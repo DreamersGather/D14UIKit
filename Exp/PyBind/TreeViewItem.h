@@ -20,7 +20,7 @@ namespace d14uikit
     class PyTreeViewItem : public PyPanel<TreeViewItemBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<TreeViewItemBase>::PyPanel;
 
         void onStateChange(TreeViewItem::State state) override
         {

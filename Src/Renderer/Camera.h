@@ -4,7 +4,7 @@
 
 #include "Common/MathUtils/3D.h"
 
-#include "Renderer/FrameResource.h"
+#include "Renderer/FrameData/FrameResource.h"
 #include "Renderer/Interfaces/DrawObject.h"
 #include "Renderer/Interfaces/ICamera.h"
 
@@ -20,14 +20,15 @@ namespace d14engine::renderer
         // prevent std::unique_ptr from generating default deleter
         virtual ~Camera() = default;
 
+    public:
         Viewport viewport() const override;
 
         Scissors scissors() const override;
 
         void onViewResize(UINT viewWidth, UINT viewHeight) override;
 
+    protected:
         void onRendererUpdateObjectHelper(Renderer* rndr) override;
-
         void onRendererDrawD3d12ObjectHelper(Renderer* rndr) override;
 
     public:
@@ -72,7 +73,8 @@ namespace d14engine::renderer
         UINT dirtyFrameCount = FrameResource::g_bufferCount;
 
     protected:
-        using BufferArray = FrameResource::Array<UniquePtr<ConstantBuffer>>;
+        using Buffer = UniquePtr<ConstantBuffer>;
+        using BufferArray = FrameResource::Array<Buffer>;
 
         BufferArray m_buffers = {};
 

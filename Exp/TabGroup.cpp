@@ -52,7 +52,7 @@ namespace d14uikit
             w->isMinimizeEnabled = false;
             w->isMaximizeEnabled = false;
 
-            w->f_onClose = [](uikit::Window* w) { w->destroy(); };
+            w->f_onClose = [](uikit::Window* w) { w->release(); };
         };
         pimpl->uiobj->f_onSelectedTabIndexChange = [this]
         (uikit::TabGroup* tg, uikit::TabGroup::TabIndexParam index)

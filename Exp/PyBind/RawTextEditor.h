@@ -20,7 +20,7 @@ namespace d14uikit
     class PyRawTextEditor : public PyPanel<RawTextEditorBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<RawTextEditorBase>::PyPanel;
 
         void onTextChange(const std::wstring& text) override
         {

@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "BasicEnum.h"
 #include "BasicType.h"
 #include "Event.h"
 
@@ -15,7 +16,7 @@ namespace d14uikit
 
         virtual ~Panel() = default;
 
-        bool destroy();
+        bool release();
 
         bool visible() const;
         void setVisible(bool value);
@@ -77,8 +78,17 @@ namespace d14uikit
         float outlineOpacity() const;
         void setOutlineOpacity(float value);
 
+        bool animState() const;
+        void setAnimState(bool value);
+
         Image* image() const;
         void setImage(Image* image);
+
+        float bitmapOpacity() const;
+        void setBitmapOpacity(float value);
+
+        BitmapInterpMode bitmapInterpMode() const;
+        void setBitmapInterpMode(BitmapInterpMode mode);
 
         int roundRadius() const;
         void setRoundRadius(int value);

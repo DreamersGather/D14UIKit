@@ -1,6 +1,6 @@
 ﻿#include "Common/Precompile.h"
 
-#include "UIKit/AnimationUtils/Motion.h"
+#include "UIKit/AnimationUtils/MotionFunctions.h"
 
 namespace d14engine::uikit::animation_utils
 {

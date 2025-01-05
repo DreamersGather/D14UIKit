@@ -11,11 +11,6 @@ if __name__ == '__main__':
 
     app = Application(DEMO_NAME, dpi)
 
-    # The concept-cursor has the resolution of HD,
-    # so it's not recommended to use it under UHD.
-    if dpi == 96.0:
-        app.cursor.useSystemIcons = False
-
     #------------------------------------------- Initialize UI objects.
 
     mwnd = MainWindow(DEMO_NAME)
@@ -143,12 +138,14 @@ if __name__ == '__main__':
         # It is actually static Event.lbutton.
         if e.lbutton():
             drawPixels(e.cursorPoint)
+
     canvas.f_onMouseMove = holdMoveToDrawPixels
 
     def pressToDrawPixels(p, e):
         # leftDown is a property, not a method!
         if e.leftDown:
             drawPixels(e.cursorPoint)
+
     canvas.f_onMouseButton = pressToDrawPixels
 
     def changeText(obj, state):
@@ -156,6 +153,7 @@ if __name__ == '__main__':
             obj.text = 'Eraser'
         elif state == ToggleButton.Deactivated:
             obj.text = 'Pencil'
+
     modeSelector.f_onStateChange = changeText
 
     def clearCanvas(clkp, e):
@@ -171,6 +169,7 @@ if __name__ == '__main__':
 
         blank = Image(w, h)
         bkgn.copy(Point(0, 0), blank, Rect(0, 0, w, h ))
+
     clearButton.f_onMouseButtonRelease = clearCanvas
 
     exit(app.run())

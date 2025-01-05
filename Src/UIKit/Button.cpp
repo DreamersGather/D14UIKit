@@ -115,11 +115,11 @@ namespace d14engine::uikit
         return math_utils::isInside(p, m_absoluteRect);
     }
 
-    bool Button::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool Button::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(m_content, uiobj)) return false;
 
-        return Panel::destroyUIObjectHelper(uiobj);
+        return Panel::releaseUIObjectHelper(uiobj);
     }
 
     void Button::onSizeHelper(SizeEvent& e)

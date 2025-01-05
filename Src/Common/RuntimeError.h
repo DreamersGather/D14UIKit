@@ -6,6 +6,9 @@ namespace d14engine
 {
     struct RuntimeError
     {
+        // The flag will be set when a RuntimeError exception is thrown.
+        static bool g_flag;
+
         Wstring fileName = {};
         UINT lineNumber = {};
 
@@ -19,6 +22,22 @@ namespace d14engine
 #define THROW_ERROR(Desc_Text) \
 do { \
     throw RuntimeError(__FILEW__, __LINE__, Desc_Text); \
+} while (0)
+
+#define THROW_IF_TRUE(Expression) \
+do { \
+    if (Expression) \
+    { \
+        THROW_ERROR(L"Unexpected FALSE encountered: " L#Expression); \
+    } \
+} while (0)
+
+#define THROW_IF_FALSE(Expression) \
+do { \
+    if (!(Expression)) \
+    { \
+        THROW_ERROR(L"Unexpected TRUE encountered: " L#Expression); \
+    } \
 } while (0)
 
 #define THROW_IF_NULL(Expression) \

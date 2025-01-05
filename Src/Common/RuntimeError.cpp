@@ -4,8 +4,10 @@
 
 namespace d14engine
 {
+    bool RuntimeError::g_flag = false;
+
     RuntimeError::RuntimeError(WstrParam fileName, UINT lineNumber, WstrParam descText)
-        : fileName(fileName), lineNumber(lineNumber), descText(descText) { }
+        : fileName(fileName), lineNumber(lineNumber), descText(descText) { g_flag = true; }
 
     Wstring RuntimeError::message() const
     {

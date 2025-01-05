@@ -13,7 +13,7 @@ namespace d14engine::uikit
     {
         WaterfallView::onInitializeFinish();
 
-        m_layout->f_destroyUIObject = [this](Panel* p, ShrdPtrParam<Panel> uiobj)
+        m_layout->f_onReleaseUIObject = [this](Panel* p, ShrdPtrParam<Panel> uiobj)
         {
             auto itemobj = std::static_pointer_cast<TreeViewItem>(uiobj);
             if (itemobj)

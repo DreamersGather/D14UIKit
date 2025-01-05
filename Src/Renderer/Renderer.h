@@ -5,7 +5,7 @@
 #include "Common/CppLangUtils/EnableMasterPtr.h"
 #include "Common/Interfaces/ISortable.h"
 
-#include "Renderer/FrameResource.h"
+#include "Renderer/FrameData/FrameResource.h"
 
 namespace d14engine::renderer
 {
@@ -19,7 +19,7 @@ namespace d14engine::renderer
     {
         struct CreateInfo
         {
-            // Def-resources (shader etc.) are loaded from this path.
+            // Resources (such as shaders) are loaded from this path.
             Wstring binaryPath = L"Bin/";
 
             Optional<float> dpi = std::nullopt;
@@ -34,7 +34,7 @@ namespace d14engine::renderer
             // 1 through 4 - Synchronize presentation after the nth vertical blank.
             UINT syncInterval = 0;
 
-            // VRR displays require to allow tearing.
+            // Allowing tearing is required for VRR displays.
             bool allowTearing = false;
 
             // The scene is resized to:

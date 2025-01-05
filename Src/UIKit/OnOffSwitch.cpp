@@ -6,7 +6,7 @@
 
 #include "Renderer/TickTimer.h"
 
-#include "UIKit/AnimationUtils/Motion.h"
+#include "UIKit/AnimationUtils/MotionFunctions.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine::renderer;

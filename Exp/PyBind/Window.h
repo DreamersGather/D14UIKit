@@ -23,7 +23,7 @@ namespace d14uikit
     class PyWindow : public PyPanel<WindowBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<WindowBase>::PyPanel;
 
         void onEndDragging() override
         {

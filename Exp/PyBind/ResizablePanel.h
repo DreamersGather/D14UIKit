@@ -21,7 +21,7 @@ namespace d14uikit
     class PyResizablePanel : public PyPanel<ResizablePanelBase>
     {
     public:
-        using PyPanel::PyPanel;
+        using PyPanel<ResizablePanelBase>::PyPanel;
 
         void onEndResizing() override
         {

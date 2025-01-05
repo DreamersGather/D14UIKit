@@ -20,7 +20,7 @@ namespace d14uikit
     class PyCheckBox : public PyClickablePanel<CheckBoxBase>
     {
     public:
-        using PyClickablePanel::PyClickablePanel;
+        using PyClickablePanel<CheckBoxBase>::PyClickablePanel;
 
         void onStateChange(CheckBox::State state) override
         {

@@ -9,52 +9,6 @@
 
 namespace d14engine::uikit
 {
-    template<typename T = Panel>
-    SharedPtr<T> nullUIObj() { return nullptr; }
-
-    template<typename T, typename... Types>
-    SharedPtr<T> makeUIObject(Types&& ...args)
-    {
-        auto uiobj = std::make_shared<T>(args...);
-        uiobj->onInitializeFinish();
-        return uiobj;
-    }
-
-    // The UI object created with makeUIObject is in the standby state, and
-    // it can not display or receive UI events until beging registered.
-    // 
-    // To activate the UI object, it must be configed as one of the following:
-    // 
-    // 1. makeRootUIObject:
-    // 
-    //    Registered as a root UI object of the application.
-    // 
-    //    Enable display: registerDrawObjects
-    //    Enable UI events: registerApplicationEvents
-    //    
-    // 2. makeManagedUIObject:
-    // 
-    //    Registered as a child of another activated UI object.
-    //
-    //    Enable display & UI events: setParent/addUIObject
-
-    template<typename T, typename... Types>
-    SharedPtr<T> makeRootUIObject(Types&& ...args)
-    {
-        auto uiobj = makeUIObject<T>(args...);
-        uiobj->registerDrawObjects();
-        uiobj->registerApplicationEvents();
-        return uiobj;
-    }
-
-    template<typename T, typename... Types>
-    SharedPtr<T> makeManagedUIObject(ShrdPtrParam<Panel> parent, Types&& ...args)
-    {
-        auto uiobj = makeUIObject<T>(args...);
-        parent->addUIObject(uiobj);
-        return uiobj;
-    }
-
     struct Panel : cpp_lang_utils::NonCopyable, renderer::IDrawObject2D,
                    std::enable_shared_from_this<Panel>, ISortable<Panel>
     {
@@ -72,19 +26,21 @@ namespace d14engine::uikit
             ComPtrParam<ID2D1Brush> brush = nullptr,
             ComPtrParam<ID2D1Bitmap1> bitmap = nullptr);
 
-        virtual ~Panel() = default;
-
-        virtual void onInitializeFinish();
-        
-        // Return whether the UI object is destroyed successfully.
-
-        bool destroy();
+        virtual ~Panel();
 
         Function<void(Panel*)> f_onDestroy = {};
 
-        bool destroyUIObject(ShrdPtrParam<Panel> uiobj);
+        virtual void onInitializeFinish();
+        
+        // Return whether the UI object is released successfully.
 
-        Function<bool(Panel*, ShrdPtrParam<Panel>)> f_destroyUIObject = {};
+        bool release();
+
+        Function<void(Panel*)> f_onRelease = {};
+
+        bool releaseUIObject(ShrdPtrParam<Panel> uiobj);
+
+        Function<bool(Panel*, ShrdPtrParam<Panel>)> f_onReleaseUIObject = {};
 
     public:
         bool isD2d1ObjectVisible() const override;
@@ -273,18 +229,18 @@ namespace d14engine::uikit
 
     protected:
         virtual bool isHitHelper(const Event::Point& p) const;
-        virtual bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj);
+        virtual bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj);
 
         // Introduce onXxxHelper to solve the inheritance conflicts of
         // the "override", "before" and "after" event callback lambdas.
         // 
-        // *----------*---------------------------------------*-------------------------------------*
+        // *--------*-----------------------------------------*-------------------------------------*
         // | Class  | onSize                                  | onSizeHelper                        |
-        // *----------*---------------------------------------*-------------------------------------*
+        // *--------*-----------------------------------------*-------------------------------------*
         // | Panel  | "before"; Panel::onSizeHelper; "after"  | Panel's works                       |
-        // *----------*---------------------------------------*-------------------------------------*
+        // *--------*-----------------------------------------*-------------------------------------*
         // | Window | "before"; Window::onSizeHelper; "after" | Panel::onSizeHelper; Window's works |
-        // *----------*---------------------------------------*-------------------------------------*
+        // *--------*-----------------------------------------*-------------------------------------*
         // 
         // To sum up, do the actual works in onXxxHelper methods and wrap them into onXxx methods.
 
@@ -337,7 +293,12 @@ namespace d14engine::uikit
         ComPtr<ID2D1Brush> brush = {};
 
         ComPtr<ID2D1Bitmap1> bitmap = {};
-        float bitmapOpacity = 1.0f;
+        struct BitmapProperty
+        {
+            float opacity = 1.0f;
+            Optional<D2D1_INTERPOLATION_MODE> interpolationMode = {};
+        }
+        bitmapProperty = {};
 
         float roundRadiusX = 0.0f, roundRadiusY = 0.0f;
 
@@ -475,4 +436,32 @@ namespace d14engine::uikit
         void updateDiffPinnedUIObjects();
         void updateDiffPinnedUIObjectsLater();  
     };
+
+    template<typename T = Panel>
+    SharedPtr<T> nullUIObj() { return nullptr; }
+
+    template<typename T, typename... Types>
+    SharedPtr<T> makeUIObject(Types&& ...args)
+    {
+        auto uiobj = std::make_shared<T>(args...);
+        uiobj->onInitializeFinish();
+        return uiobj;
+    }
+
+    template<typename T, typename... Types>
+    SharedPtr<T> makeRootUIObject(Types&& ...args)
+    {
+        auto uiobj = makeUIObject<T>(args...);
+        uiobj->registerDrawObjects();
+        uiobj->registerApplicationEvents();
+        return uiobj;
+    }
+
+    template<typename T, typename... Types>
+    SharedPtr<T> makeManagedUIObject(ShrdPtrParam<Panel> parent, Types&& ...args)
+    {
+        auto uiobj = makeUIObject<T>(args...);
+        parent->addUIObject(uiobj);
+        return uiobj;
+    }
 }

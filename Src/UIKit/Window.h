@@ -145,7 +145,7 @@ namespace d14engine::uikit
         D2D1_RECT_F nonClientAreaMinimalSelfcoordRect() const;
 
         constexpr static float nonClientAreaMinimalWidth() { return 144.0f; }
-        constexpr static float nonClientAreaDefaultHeight() { return 40.0f; }
+        constexpr static float nonClientAreaDefaultHeight() { return 36.0f; }
 
     protected:
         DisplayState m_displayState = DisplayState::Normal;
@@ -213,7 +213,7 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
         // Panel
-        bool destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
+        bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
 
         void onSizeHelper(SizeEvent& e) override;
 

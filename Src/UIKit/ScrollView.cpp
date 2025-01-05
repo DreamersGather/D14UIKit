@@ -4,6 +4,7 @@
 
 #include "Common/CppLangUtils/PointerEquality.h"
 #include "Common/MathUtils/2D.h"
+#include "Common/RuntimeError.h"
 
 #include "Renderer/Renderer.h"
 
@@ -331,11 +332,11 @@ namespace d14engine::uikit
         ResizablePanel::drawD2d1ObjectPosterior(rndr);
     }
 
-    bool ScrollView::destroyUIObjectHelper(ShrdPtrParam<Panel> uiobj)
+    bool ScrollView::releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj)
     {
         if (cpp_lang_utils::isMostDerivedEqual(m_content, uiobj)) m_content.reset();
 
-        return ResizablePanel::destroyUIObjectHelper(uiobj);
+        return ResizablePanel::releaseUIObjectHelper(uiobj);
     }
 
     void ScrollView::onSizeHelper(SizeEvent& e)
@@ -455,6 +456,8 @@ namespace d14engine::uikit
 
     void ScrollView::onMouseWheelHelper(MouseWheelEvent& e)
     {
+        THROW_IF_NULL(Application::g_app);
+
         ResizablePanel::onMouseWheelHelper(e);
 
         D2D1_POINT_2F nextOffset = m_viewportOffset;

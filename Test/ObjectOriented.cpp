@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     mwnd.setContent(&clntArea);
 
     // Image is also an object indeed, although not a UI object.
-    Image img(L"test.png");
+    Image img(L"images/test.png");
 
     // To display the image on the screen, we need to create
     // an associated panel (graphic rectangle area) for it.

@@ -11,21 +11,32 @@ namespace d14engine::renderer
 {
     DefaultBuffer::DefaultBuffer(ID3D12Device* device, UINT64 byteSize)
     {
-        THROW_IF_FAILED(device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
-            D3D12_HEAP_FLAG_NONE,
-            &CD3DX12_RESOURCE_DESC::Buffer(byteSize),
-            D3D12_RESOURCE_STATE_GENERIC_READ,
-            nullptr,
-            IID_PPV_ARGS(&m_resource)));
+        auto resourceProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+        auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
 
-        THROW_IF_FAILED(device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
-            D3D12_HEAP_FLAG_NONE,
-            &CD3DX12_RESOURCE_DESC::Buffer(byteSize),
-            D3D12_RESOURCE_STATE_GENERIC_READ,
-            nullptr,
-            IID_PPV_ARGS(&m_intermediate)));
+        THROW_IF_FAILED(device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &resourceProp,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &resourceDesc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_GENERIC_READ,
+            /* pOptimizedClearValue */ nullptr,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&m_resource)
+        ));
+        auto intermediateProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+        auto intermediateDesc = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
+
+        THROW_IF_FAILED(device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &intermediateProp,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &intermediateDesc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_GENERIC_READ,
+            /* pOptimizedClearValue */ nullptr,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&m_intermediate)
+        ));
     }
 
     void DefaultBuffer::uploadData(ID3D12GraphicsCommandList* cmdList, void* pSrc, UINT64 byteSize)
@@ -56,14 +67,19 @@ namespace d14engine::renderer
     UploadBuffer::UploadBuffer(ID3D12Device* device, UINT elemCount, UINT64 elemByteSize)
         : m_elemCount(elemCount), m_elemByteSize(elemByteSize)
     {
-        THROW_IF_FAILED(device->CreateCommittedResource(
-            &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
-            D3D12_HEAP_FLAG_NONE,
-            &CD3DX12_RESOURCE_DESC::Buffer(elemCount * elemByteSize),
-            D3D12_RESOURCE_STATE_GENERIC_READ,
-            nullptr,
-            IID_PPV_ARGS(&m_resource)));
+        auto resourceProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+        auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(elemCount * elemByteSize);
 
+        THROW_IF_FAILED(device->CreateCommittedResource
+        (
+            /* pHeapProperties      */ &resourceProp,
+            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+            /* pDesc                */ &resourceDesc,
+            /* InitialResourceState */ D3D12_RESOURCE_STATE_GENERIC_READ,
+            /* pOptimizedClearValue */ nullptr,
+            /* riidResource         */
+            /* ppvResource          */ IID_PPV_ARGS(&m_resource)
+        ));
         THROW_IF_FAILED(m_resource->Map(0, nullptr, (void**)&m_mapped));
     }
 

@@ -2,6 +2,7 @@
 
 #include "Common.h"
 
+#include "BasicEnum.h"
 #include "BasicType.h"
 
 namespace d14uikit
@@ -72,6 +73,10 @@ namespace d14uikit
 
         int fps() const;
 
+        int animCount() const;
+        bool animState() const;
+        void setAnimState(bool value);
+
         const std::wstring& themeMode() const;
         void setThemeMode(const std::wstring& name);
 
@@ -84,14 +89,14 @@ namespace d14uikit
         const std::wstring& langLocale() const;
         void setLangLocale(const std::wstring& name);
 
-        bool clearType() const;
-        void setClearType(bool value);
+        TextAntialiasMode textAntialiasMode() const;
+        void setTextAntialiasMode(TextAntialiasMode mode);
 
-        bool textVertSmooth() const;
-        void setTextVertSmooth(bool value);
+        D2DRenderingMode d2dRenderingMode() const;
+        void setD2dRenderingMode(D2DRenderingMode mode);
 
-        bool bmpQualityInterp() const;
-        void setBmpQualityInterp(bool value);
+        BitmapInterpMode bitmapInterpMode() const;
+        void setBitmapInterpMode(BitmapInterpMode mode);
 
         std::unique_ptr<Image> capture() const;
     };
