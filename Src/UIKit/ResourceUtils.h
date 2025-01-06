@@ -27,11 +27,13 @@ namespace d14engine::uikit::resource_utils
 
     extern TextFormatMap g_textFormats;
 
-    void loadSystemTextFormat(
-        WstrParam   textFormatName,     WstrParam   fontFamilyName,
-        FLOAT       fontSize,           WstrParam   localeName,
-        DWRITE_FONT_WEIGHT  fontWeight  = DWRITE_FONT_WEIGHT_NORMAL,
-        DWRITE_FONT_STYLE   fontStyle   = DWRITE_FONT_STYLE_NORMAL,
+    ComPtr<IDWriteTextFormat> loadSystemTextFormat(
+        WstrParam textFormatName,
+        WstrParam fontFamilyName,
+        FLOAT fontSize,
+        WstrParam localeName,
+        DWRITE_FONT_WEIGHT fontWeight = DWRITE_FONT_WEIGHT_NORMAL,
+        DWRITE_FONT_STYLE fontStyle = DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH fontStretch = DWRITE_FONT_STRETCH_NORMAL);
 
     void loadBasicSystemTextFormats();

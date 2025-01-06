@@ -65,13 +65,13 @@ namespace d14engine::uikit::resource_utils
 
     TextFormatMap g_textFormats = {};
 
-    void loadSystemTextFormat(
-        WstrParam           textFormatName,
-        WstrParam           fontFamilyName,
-        FLOAT /* pt */      fontSize,
-        WstrParam           localeName,
-        DWRITE_FONT_WEIGHT  fontWeight,
-        DWRITE_FONT_STYLE   fontStyle,
+    ComPtr<IDWriteTextFormat> loadSystemTextFormat(
+        WstrParam textFormatName,
+        WstrParam fontFamilyName,
+        FLOAT fontSize,
+        WstrParam localeName,
+        DWRITE_FONT_WEIGHT fontWeight,
+        DWRITE_FONT_STYLE fontStyle,
         DWRITE_FONT_STRETCH fontStretch)
     {
         THROW_IF_NULL(Application::g_app);
@@ -86,6 +86,8 @@ namespace d14engine::uikit::resource_utils
             fontSize * 96.0f / 72.0f,
             localeName.c_str(),
             &g_textFormats[textFormatName]));
+
+        return g_textFormats[textFormatName];
     }
 
     void loadBasicSystemTextFormats()

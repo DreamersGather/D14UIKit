@@ -49,19 +49,19 @@ namespace d14engine::uikit
 
         D2D1_SIZE_F textAreaSize() const;
         
-        enum class HorzAlignment { None, Left, Center, Right };
-        enum class VertAlignment { None, Top, Center, Bottom };
+        enum class HorzAlignment { Left, Right, Center, None };
+        enum class VertAlignment { Top, Bottom, Center, None };
 
 #define CONST_ENUM constexpr static auto
 
-        CONST_ENUM HNone = HorzAlignment::None;
         CONST_ENUM Left = HorzAlignment::Left;
-        CONST_ENUM HCenter = HorzAlignment::Center;
         CONST_ENUM Right = HorzAlignment::Right;
-        CONST_ENUM VNone = VertAlignment::None;
+        CONST_ENUM HCenter = HorzAlignment::Center;
+        CONST_ENUM HNone = HorzAlignment::None;
         CONST_ENUM Top = VertAlignment::Top;
-        CONST_ENUM VCenter = VertAlignment::Center;
         CONST_ENUM Bottom = VertAlignment::Bottom;
+        CONST_ENUM VCenter = VertAlignment::Center;
+        CONST_ENUM VNone = VertAlignment::None;
 
 #undef CONST_ENUM
 
