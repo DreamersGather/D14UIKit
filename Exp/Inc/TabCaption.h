@@ -1,26 +1,25 @@
 ﻿#pragma once
 
 #include "Panel.h"
-#include "TextFormat.h"
+
+_D14_UIKIT_FWDEF(TabCaption)
 
 namespace d14uikit
 {
+    class IconLabel;
+
     class DllExport TabCaption : public Panel
     {
+        friend class TabGroup;
+
         _D14_UIKIT_PIMPL(TabCaption)
 
         explicit TabCaption(const std::wstring& title = L"Untitled");
 
-        Image* icon() const;
-        void setIcon(Image* icon);
+        IconLabel* title() const;
 
-        Size iconSize() const;
-        void setIconSize(const std::optional<Size>& value);
-
-        const std::wstring& title() const;
-        void setTitle(const std::wstring& title);
-
-        _D14_UIKIT_TEXT_FORMAT_DECL_CONCRETE()
+        const std::wstring& text() const;
+        void setText(const std::wstring& text);
 
         bool closable() const;
         void setClosable(bool value);

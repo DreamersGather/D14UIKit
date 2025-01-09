@@ -2,10 +2,7 @@
 
 #include "MainWindow.h"
 
-#include "DraggablePanel.h"
-#include "Panel.h"
-#include "ResizablePanel.h"
-#include "Window.h"
+#include "Common.h"
 
 #include "UIKit/MainWindow.h"
 
@@ -15,47 +12,29 @@ namespace d14uikit
 {
     MainWindow::MainWindow(const std::wstring& title)
         :
-        MainWindow(Passkey{})
-    {
-        MainWindow::pimpl->uiobj =
-        uikit::makeRootUIObject
-        <uikit::MainWindow>(title);
+        MainWindow(uikit::makeRootUIObject<uikit::MainWindow>(title)) { }
 
-        Panel::pimpl->uiobj = pimpl->uiobj;
-        DraggablePanel::pimpl->uiobj = pimpl->uiobj;
-        ResizablePanel::pimpl->uiobj = pimpl->uiobj;
-        Window::pimpl->uiobj = pimpl->uiobj;
-
-        Panel::initialize();
-        DraggablePanel::initialize();
-        ResizablePanel::initialize();
-        Window::initialize();
-        MainWindow::initialize();
-    }
-
-    MainWindow::MainWindow(Passkey)
+    _D14_UIKIT_CTOR(MainWindow)
         :
-        Panel(Panel::Passkey{}),
-        Window(Window::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void MainWindow::initialize() { }
+        Panel(uiobj),
+        Window(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 
     void MainWindow::showNormal()
     {
-        pimpl->uiobj->setDisplayState(
-            uikit::Window::DisplayState::Normal);
+        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Normal);
     }
 
     void MainWindow::showMinimized()
     {
-        pimpl->uiobj->setDisplayState(
-            uikit::Window::DisplayState::Minimized);
+        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Minimized);
     }
 
     void MainWindow::showMaximized()
     {
-        pimpl->uiobj->setDisplayState(
-            uikit::Window::DisplayState::Maximized);
+        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Maximized);
     }
 }

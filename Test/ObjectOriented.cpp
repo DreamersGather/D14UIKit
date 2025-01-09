@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     // Font is also an object, of course.  For performance reasons,
     // the library only loads some limited default fonts when
     // initialized, so we must load the specific fonts manually.
-    Font::load(
+    auto font1 = Font::load(
         // alias for query
         L"MyFont",
         // font properties
@@ -87,7 +87,14 @@ int main(int argc, char* argv[])
 
     // To create a font object, we actually query and load it from
     // the global font map maintained by the library.
-    textArea.setFont(Font(L"MyFont"));
+    auto font2 = Font(L"MyFont");
+
+    // Both methods are acceptable, but it is recommended to
+    // reference the font directly through Font(name) after loading,
+    // because Font::load will fetch and cache the actual font data,
+    // while Font(name) only references the cache, which is faster.
+    textArea.setFont(font1.get());
+    //textArea.setFont(&font2);
 
     Label busyArea;
     busyArea.setParent(&clntArea);

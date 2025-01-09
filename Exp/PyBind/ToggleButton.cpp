@@ -2,7 +2,8 @@
 
 #include "ToggleButton.h"
 
-#include "Callback.h"
+#include "EnumBind.h"
+#include "StatefulObject.h"
 
 namespace d14uikit
 {
@@ -10,17 +11,13 @@ namespace d14uikit
     {
         py::class_<ToggleButton, FilledButton, PyToggleButton<>> i(m, "ToggleButton");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"Button");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"ToggleButton");
 
         py::enum_<ToggleButton::State>(i, "State")
-            .value("Activated", ToggleButton::Activated)
-            .value("Deactivated", ToggleButton::Deactivated)
+            _D14_UIKIT_PYBIND_ENUM(ToggleButton, Activated)
+            _D14_UIKIT_PYBIND_ENUM(ToggleButton, Deactivated)
             .export_values();
 
-        i.def_property("state", &ToggleButton::state, &ToggleButton::setState);
-
-        _D14_CALLBACK_PROPERTY(ToggleButton, onStateChange);
-
-        i.def("onStateChange", &ExToggleButton::onStateChange, "state"_a);
+        _D14_UIKIT_PYBIND_STATEFUL_OBJECT(ToggleButton)
     }
 }

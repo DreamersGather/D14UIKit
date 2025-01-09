@@ -2,8 +2,7 @@
 
 #include "CheckBox.h"
 
-#include "ClickablePanel.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/CheckBox.h"
 
@@ -13,27 +12,17 @@ namespace d14uikit
 {
     CheckBox::CheckBox(bool tripleState)
         :
-        CheckBox(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        CheckBox::pimpl->uiobj =
-        uikit::makeUIObject<uikit::CheckBox>(tripleState);
+        CheckBox(uikit::makeUIObject<uikit::CheckBox>(tripleState)) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        CheckBox::initialize();
-    }
-
-    CheckBox::CheckBox(Passkey)
+    _D14_UIKIT_CTOR(CheckBox)
         :
-        Panel(Panel::Passkey{}),
-        ClickablePanel(ClickablePanel::Passkey{}),
+        Panel(uiobj),
+        ClickablePanel(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void CheckBox::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStateChange = [this]
         (uikit::CheckBox::StatefulObject* obj,
          uikit::CheckBox::StatefulObject::Event& e)

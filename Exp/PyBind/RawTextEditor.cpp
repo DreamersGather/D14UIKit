@@ -4,14 +4,14 @@
 
 #include "RawTextInput.h"
 
+#include "Inc/RawTextEditor.h"
+
 namespace d14uikit
 {
     void Py_InitRawTextEditor(py::module_& m)
     {
-        py::class_<RawTextEditor, LabelArea, PyRawTextEditor<>> i(m, "RawTextEditor");
+        py::class_<RawTextEditor, RawTextInput, PyRawTextInput<RawTextEditor>> i(m, "RawTextEditor");
 
         i.def(py::init());
-
-        _D14_UIKIT_PYBIND_RAW_TEXT_INPUT(RawTextEditor)
     }
 }

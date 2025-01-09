@@ -2,8 +2,7 @@
 
 #include "OnOffSwitch.h"
 
-#include "ClickablePanel.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/OnOffSwitch.h"
 
@@ -13,27 +12,17 @@ namespace d14uikit
 {
     OnOffSwitch::OnOffSwitch()
         :
-        OnOffSwitch(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        OnOffSwitch::pimpl->uiobj =
-        uikit::makeUIObject<uikit::OnOffSwitch>();
+        OnOffSwitch(uikit::makeUIObject<uikit::OnOffSwitch>()) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        OnOffSwitch::initialize();
-    }
-
-    OnOffSwitch::OnOffSwitch(Passkey)
+    _D14_UIKIT_CTOR(OnOffSwitch)
         :
-        Panel(Panel::Passkey{}),
-        ClickablePanel(ClickablePanel::Passkey{}),
+        Panel(uiobj),
+        ClickablePanel(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void OnOffSwitch::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStateChange = [this]
         (uikit::OnOffSwitch::StatefulObject* obj,
          uikit::OnOffSwitch::StatefulObject::Event& e)

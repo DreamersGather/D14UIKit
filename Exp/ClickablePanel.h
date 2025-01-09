@@ -4,8 +4,6 @@
 
 #include "Inc/ClickablePanel.h"
 
-namespace d14engine::uikit { struct ClickablePanel; }
-
 namespace d14uikit
 {
     struct ClickablePanel::Impl

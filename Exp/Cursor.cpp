@@ -2,7 +2,7 @@
 
 #include "Cursor.h"
 
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/Cursor.h"
 
@@ -10,22 +10,17 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    Cursor::Cursor() : Cursor(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        Cursor::pimpl->uiobj =
-        uikit::makeRootUIObject<uikit::Cursor>();
-
-        Panel::initialize();
-        Cursor::initialize();
-    }
-
-    Cursor::Cursor(Passkey)
+    Cursor::Cursor()
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
+        Cursor(uikit::makeRootUIObject<uikit::Cursor>()) { }
 
-    void Cursor::initialize() { }
+    _D14_UIKIT_CTOR(Cursor)
+        :
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 
     bool Cursor::useSystemIcons() const
     {
@@ -39,13 +34,11 @@ namespace d14uikit
 
     void Cursor::setIcon(StaticIconIndex index)
     {
-        pimpl->uiobj->setIcon(
-            uikit::Cursor::StaticIconIndex(index));
+        pimpl->uiobj->setIcon((uikit::Cursor::StaticIconIndex)index);
     }
 
     void Cursor::setIcon(DynamicIconIndex index)
     {
-        pimpl->uiobj->setIcon(
-            uikit::Cursor::DynamicIconIndex(index));
+        pimpl->uiobj->setIcon((uikit::Cursor::DynamicIconIndex)index);
     }
 }

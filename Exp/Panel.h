@@ -7,8 +7,6 @@
 #include "UIKit/SolidStyle.h"
 #include "UIKit/StrokeStyle.h"
 
-namespace d14engine::uikit { struct Panel; }
-
 namespace d14uikit
 {
     struct Panel::Impl

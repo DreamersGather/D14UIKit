@@ -2,6 +2,8 @@
 
 #include "Panel.h"
 
+_D14_UIKIT_FWDEF(DraggablePanel)
+
 namespace d14uikit
 {
     class DllExport DraggablePanel : virtual public Panel

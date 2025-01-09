@@ -2,6 +2,16 @@
 
 namespace d14uikit
 {
+    enum class BitmapInterpMode
+    {
+        NearestNeighbor = 0,
+        Linear = 1,
+        Cubic = 2,
+        MultiSampleLinear = 3,
+        Anisotropic = 4,
+        HighQualityCubic = 5
+    };
+
     enum class TextAntialiasMode
     {
         Default = 0,
@@ -10,7 +20,7 @@ namespace d14uikit
         Aliased = 3
     };
 
-    enum class D2DRenderingMode
+    enum class RenderingMode
     {
         Default = 0,
         Aliased = 1,
@@ -21,13 +31,8 @@ namespace d14uikit
         Outline = 6
     };
 
-    enum class BitmapInterpMode
+    enum class DrawTextOption
     {
-        NearestNeighbor = 0,
-        Linear = 1,
-        Cubic = 2,
-        MultiSampleLinear = 3,
-        Anisotropic = 4,
-        HighQualityCubic = 5
+        None = 0, Clip = 2
     };
 }

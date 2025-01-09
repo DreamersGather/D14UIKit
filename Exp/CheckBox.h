@@ -4,8 +4,6 @@
 
 #include "Inc/CheckBox.h"
 
-namespace d14engine::uikit { struct CheckBox; }
-
 namespace d14uikit
 {
     struct CheckBox::Impl

@@ -4,6 +4,12 @@
 
 #include "Inc/Event.h"
 
+#define DEF_PROPERTY_READONLY(Class_Name, Prop_Name) \
+i.def_property_readonly(#Prop_Name, &Class_Name::Prop_Name)
+
+#define DEF_PROPERTY_READONLY_STATIC(Class_Name, Prop_Name) \
+i.def_property_readonly_static(#Prop_Name, [](py::object) { return Class_Name::Prop_Name(); })
+
 namespace d14uikit
 {
     void Py_InitEvent(py::module_& m)
@@ -14,67 +20,27 @@ namespace d14uikit
 
             i.def(py::init());
 
-            i.def_static(
-                "isKeyDown",
-                &Event::isKeyDown,
-                "vkey"_a);
+            i.def_static( "isKeyDown", &Event::isKeyDown, "vkey"_a);
+            i.def_static("isKeyToggled", &Event::isKeyToggled, "vkey"_a);
 
-            i.def_static(
-                "isKeyToggled",
-                &Event::isKeyToggled,
-                "vkey"_a);
+            DEF_PROPERTY_READONLY_STATIC(Event, lbutton);
+            DEF_PROPERTY_READONLY_STATIC(Event, rbutton);
+            DEF_PROPERTY_READONLY_STATIC(Event, mbutton);
 
-            i.def_static(
-                "lbutton",
-                &Event::lbutton);
+            DEF_PROPERTY_READONLY_STATIC(Event, alt);
+            DEF_PROPERTY_READONLY_STATIC(Event, lalt);
+            DEF_PROPERTY_READONLY_STATIC(Event, ralt);
 
-            i.def_static(
-                "rbutton",
-                &Event::rbutton);
 
-            i.def_static(
-                "mbutton",
-                &Event::mbutton);
+            DEF_PROPERTY_READONLY_STATIC(Event, ctrl);
+            DEF_PROPERTY_READONLY_STATIC(Event, lctrl);
+            DEF_PROPERTY_READONLY_STATIC(Event, rctrl);
 
-            i.def_static(
-                "alt",
-                &Event::alt);
+            DEF_PROPERTY_READONLY_STATIC(Event, shift);
+            DEF_PROPERTY_READONLY_STATIC(Event, lshift);
+            DEF_PROPERTY_READONLY_STATIC(Event, rshift);
 
-            i.def_static(
-                "lalt",
-                &Event::lalt);
-
-            i.def_static(
-                "ralt",
-                &Event::ralt);
-
-            i.def_static(
-                "ctrl",
-                &Event::ctrl);
-
-            i.def_static(
-                "lctrl",
-                &Event::lctrl);
-
-            i.def_static(
-                "rctrl",
-                &Event::rctrl);
-
-            i.def_static(
-                "shift",
-                &Event::shift);
-
-            i.def_static(
-                "lshift",
-                &Event::lshift);
-
-            i.def_static(
-                "rshift",
-                &Event::rshift);
-
-            i.def_static(
-                "capslock",
-                &Event::capslock);
+            DEF_PROPERTY_READONLY_STATIC(Event, capslock);
         }
         // SizeEvent
         {
@@ -82,9 +48,7 @@ namespace d14uikit
 
             i.def(py::init());
 
-            i.def_property_readonly(
-                "size",
-                &SizeEvent::size);
+            DEF_PROPERTY_READONLY(SizeEvent, size);
         }
         // MoveEvent
         {
@@ -92,9 +56,7 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "position",
-                &MoveEvent::position);
+            DEF_PROPERTY_READONLY(MoveEvent, position);
         }
         // MouseEvent
         {
@@ -102,9 +64,7 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "cursorPoint",
-                &MouseEvent::cursorPoint);
+            DEF_PROPERTY_READONLY(MouseEvent, cursorPoint);
         }
         // KeyboardEvent
         {
@@ -112,17 +72,9 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "vkey",
-                &KeyboardEvent::vkey);
-
-            i.def_property_readonly(
-                "pressed",
-                &KeyboardEvent::pressed);
-
-            i.def_property_readonly(
-                "released",
-                &KeyboardEvent::released);
+            DEF_PROPERTY_READONLY(KeyboardEvent, vkey);
+            DEF_PROPERTY_READONLY(KeyboardEvent, pressed);
+            DEF_PROPERTY_READONLY(KeyboardEvent, released);
         }
         // MouseMoveEvent
         {
@@ -130,9 +82,7 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "lastCursorPoint",
-                &MouseMoveEvent::lastCursorPoint);
+            DEF_PROPERTY_READONLY(MouseMoveEvent, lastCursorPoint);
         }
         // MouseWheelEvent
         {
@@ -140,9 +90,7 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "deltaCount",
-                &MouseWheelEvent::deltaCount);
+            DEF_PROPERTY_READONLY(MouseWheelEvent, deltaCount);
         }
         // MouseButtonEvent
         {
@@ -150,41 +98,15 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "leftDown",
-                &MouseButtonEvent::leftDown);
-
-            i.def_property_readonly(
-                "leftUp",
-                &MouseButtonEvent::leftUp);
-
-            i.def_property_readonly(
-                "leftDblclk",
-                &MouseButtonEvent::leftDblclk);
-
-            i.def_property_readonly(
-                "rightDown",
-                &MouseButtonEvent::rightDown);
-
-            i.def_property_readonly(
-                "rightUp",
-                &MouseButtonEvent::rightUp);
-
-            i.def_property_readonly(
-                "rightDblclk",
-                &MouseButtonEvent::rightDblclk);
-
-            i.def_property_readonly(
-                "middleDown",
-                &MouseButtonEvent::middleDown);
-
-            i.def_property_readonly(
-                "middleUp",
-                &MouseButtonEvent::middleUp);
-
-            i.def_property_readonly(
-                "middleDblclk",
-                &MouseButtonEvent::middleDblclk);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, leftDown);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, leftUp);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, leftDblclk);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, rightDown);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, rightUp);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, rightDblclk);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, middleDown);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, middleUp);
+            DEF_PROPERTY_READONLY(MouseButtonEvent, middleDblclk);
         }
         // MouseButtonClickEvent
         {
@@ -192,17 +114,12 @@ namespace d14uikit
         
             i.def(py::init());
 
-            i.def_property_readonly(
-                "left",
-                &MouseButtonClickEvent::left);
-
-            i.def_property_readonly(
-                "right",
-                &MouseButtonClickEvent::right);
-
-            i.def_property_readonly(
-                "middle",
-                &MouseButtonClickEvent::middle);
+            DEF_PROPERTY_READONLY(MouseButtonClickEvent, left);
+            DEF_PROPERTY_READONLY(MouseButtonClickEvent, right);
+            DEF_PROPERTY_READONLY(MouseButtonClickEvent, middle);
         }
     }
 }
+
+#undef DEF_PROPERTY_READONLY
+#undef DEF_PROPERTY_READONLY_STATIC

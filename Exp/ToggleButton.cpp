@@ -2,11 +2,7 @@
 
 #include "ToggleButton.h"
 
-#include "Button.h"
-#include "ClickablePanel.h"
-#include "FilledButton.h"
-#include "FlatButton.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/ToggleButton.h"
 
@@ -16,33 +12,17 @@ namespace d14uikit
 {
     ToggleButton::ToggleButton(const std::wstring& text)
         :
-        ToggleButton(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        Button::pimpl->uiobj =
-        FlatButton::pimpl->uiobj =
-        FilledButton::pimpl->uiobj =
-        ToggleButton::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ToggleButton>(text);
+        ToggleButton(uikit::makeUIObject<uikit::ToggleButton>(text)) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        Button::initialize();
-        FlatButton::initialize();
-        FilledButton::initialize();
-        ToggleButton::initialize();
-    }
-
-    ToggleButton::ToggleButton(Passkey)
+    _D14_UIKIT_CTOR(ToggleButton)
         :
-        Panel(Panel::Passkey{}),
-        FilledButton(FilledButton::Passkey{}),
+        Panel(uiobj),
+        FilledButton(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void ToggleButton::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStateChange = [this]
         (uikit::ToggleButton::StatefulObject* obj,
          uikit::ToggleButton::StatefulObject::Event& e)

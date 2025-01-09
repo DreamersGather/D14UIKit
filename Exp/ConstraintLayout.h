@@ -4,8 +4,6 @@
 
 #include "Inc/ConstraintLayout.h"
 
-namespace d14engine::uikit { struct ConstraintLayout; }
-
 namespace d14uikit
 {
     struct ConstraintLayout::Impl

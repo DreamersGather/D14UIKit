@@ -4,14 +4,11 @@
 
 namespace d14uikit
 {
-    class DllExport Font
+    class DllExport Font : public NonCopyable
     {
-        _D14_UIKIT_PIMPL(Font)
+        _D14_UIKIT_CUSTOM(Font)
 
         explicit Font(const std::wstring& name);
-
-        Font(const Font& other);
-        Font& operator=(const Font& rhs);
 
         std::wstring familyName() const;
         int size() const;
@@ -98,10 +95,13 @@ namespace d14uikit
 
 #undef SET_STRETCH
 
-        // Returns "family/locale" paried-style strings.
+        // Returns "family/locale" paired-style strings.
         static std::set<std::wstring> querySystemFontNames();
 
-        static void load(
+        // After loading a font, its data is cached by the application.
+        // Therefore, when the font is needed again, it can be directly
+        // accessed throught Font(name) without redundant data loading.
+        static std::unique_ptr<Font> load(
             const std::wstring& name,
             const std::wstring& familyName,
             int size, // in point

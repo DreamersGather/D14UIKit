@@ -12,6 +12,6 @@ namespace d14uikit
     {
         py::class_<OutlinedButton, FlatButton, PyClickablePanel<OutlinedButton>> i(m, "OutlinedButton");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"Button");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"OutlinedButton");
     }
 }

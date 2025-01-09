@@ -2,6 +2,8 @@
 
 #include "Panel.h"
 
+_D14_UIKIT_FWDEF(Cursor)
+
 namespace d14uikit
 {
     class DllExport Cursor : public Panel

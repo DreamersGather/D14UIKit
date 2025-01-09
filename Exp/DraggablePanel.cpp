@@ -2,7 +2,7 @@
 
 #include "DraggablePanel.h"
 
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/DraggablePanel.h"
 #include "UIKit/ResourceUtils.h"
@@ -11,26 +11,19 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    DraggablePanel::DraggablePanel() : DraggablePanel(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        DraggablePanel::pimpl->uiobj =
-        uikit::makeUIObject<uikit::DraggablePanel>(
-            D2D1_RECT_F{},
-            uikit::resource_utils::g_solidColorBrush);
-
-        Panel::initialize();
-        DraggablePanel::initialize();
-    }
-
-    DraggablePanel::DraggablePanel(Passkey)
+    DraggablePanel::DraggablePanel()
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
+        DraggablePanel(uikit::makeUIObject<uikit::DraggablePanel>(
+            D2D1_RECT_F{}, uikit::resource_utils::g_solidColorBrush)) { }
 
-    void DraggablePanel::initialize()
+    _D14_UIKIT_CTOR(DraggablePanel)
+        :
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>()),
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStartDragging = [this]
         (uikit::DraggablePanel* dgp)
         {
@@ -63,7 +56,7 @@ namespace d14uikit
 
     DraggablePanel::Callback& DraggablePanel::callback() const { return *pcallback; }
 
-    void DraggablePanel::onStartDragging() { }
-
     void DraggablePanel::onEndDragging() { }
+
+    void DraggablePanel::onStartDragging() { }
 }

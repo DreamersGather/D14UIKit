@@ -2,6 +2,8 @@
 
 #include "Font.h"
 
+#include "EnumBind.h"
+
 #include "Inc/Font.h"
 
 namespace d14uikit
@@ -17,36 +19,36 @@ namespace d14uikit
         i.def_property_readonly("localeName", &Font::localeName);
 
         py::enum_<Font::Weight>(i, "Weight")
-            .value("Thin",          Font::Thin)
-            .value("ExtraLight",    Font::ExtraLight)
-            .value("Light",         Font::Light)
-            .value("SemiLight",     Font::SemiLight)
-            .value("Regular",       Font::Regular)
-            .value("SemiBold",      Font::SemiBold)
-            .value("Bold",          Font::Bold)
-            .value("ExtraBold",     Font::ExtraBold)
-            .value("Black",         Font::Black)
-            .value("ExtraBlack",    Font::ExtraBlack)
+            _D14_UIKIT_PYBIND_ENUM(Font, Thin)
+            _D14_UIKIT_PYBIND_ENUM(Font, ExtraLight)
+            _D14_UIKIT_PYBIND_ENUM(Font, Light)
+            _D14_UIKIT_PYBIND_ENUM(Font, SemiLight)
+            _D14_UIKIT_PYBIND_ENUM(Font, Regular)
+            _D14_UIKIT_PYBIND_ENUM(Font, SemiBold)
+            _D14_UIKIT_PYBIND_ENUM(Font, Bold)
+            _D14_UIKIT_PYBIND_ENUM(Font, ExtraBold)
+            _D14_UIKIT_PYBIND_ENUM(Font, Black)
+            _D14_UIKIT_PYBIND_ENUM(Font, ExtraBlack)
             .export_values();
 
         i.def_property_readonly("weight", &Font::weight);
 
         py::enum_<Font::Style>(i, "Style")
-            .value("Normal",    Font::Normal)
-            .value("Oblique",   Font::Oblique)
-            .value("Italic",    Font::Italic)
+            _D14_UIKIT_PYBIND_ENUM(Font, Normal)
+            _D14_UIKIT_PYBIND_ENUM(Font, Oblique)
+            _D14_UIKIT_PYBIND_ENUM(Font, Italic)
             .export_values();
 
         i.def_property_readonly("style", &Font::style);
 
         py::enum_<Font::Stretch>(i, "Stretch")
-            .value("ExtraCondensed",    Font::ExtraCondensed)
-            .value("Condensed",         Font::Condensed)
-            .value("SemiCondensed",     Font::SemiCondensed)
-            .value("Medium",            Font::Medium)
-            .value("SemiExpanded",      Font::SemiExpanded)
-            .value("Expanded",          Font::Expanded)
-            .value("ExtraExpanded",     Font::ExtraExpanded)
+            _D14_UIKIT_PYBIND_ENUM(Font, ExtraCondensed)
+            _D14_UIKIT_PYBIND_ENUM(Font, Condensed)
+            _D14_UIKIT_PYBIND_ENUM(Font, SemiCondensed)
+            _D14_UIKIT_PYBIND_ENUM(Font, Medium)
+            _D14_UIKIT_PYBIND_ENUM(Font, SemiExpanded)
+            _D14_UIKIT_PYBIND_ENUM(Font, Expanded)
+            _D14_UIKIT_PYBIND_ENUM(Font, ExtraExpanded)
             .export_values();
 
         i.def_property_readonly("stretch", &Font::stretch);

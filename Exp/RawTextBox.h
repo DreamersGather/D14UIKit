@@ -4,14 +4,10 @@
 
 #include "Inc/RawTextBox.h"
 
-namespace d14engine::uikit { struct RawTextBox; }
-
 namespace d14uikit
 {
     struct RawTextBox::Impl
     {
         std::shared_ptr<d14engine::uikit::RawTextBox> uiobj = {};
-
-        std::shared_ptr<Label> placeholder = nullptr;
     };
 }

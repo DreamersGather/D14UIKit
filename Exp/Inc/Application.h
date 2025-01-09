@@ -5,6 +5,8 @@
 #include "BasicEnum.h"
 #include "BasicType.h"
 
+_D14_UIKIT_FWDEF(Application)
+
 namespace d14uikit
 {
     class Cursor;
@@ -22,7 +24,10 @@ namespace d14uikit
 
         static Application* app();
 
-        Cursor* cursor() const;
+        int dpi() const;
+
+        BitmapInterpMode bitmapInterpMode() const;
+        void setBitmapInterpMode(BitmapInterpMode mode);
 
         int run() const;
         void exit() const;
@@ -35,8 +40,6 @@ namespace d14uikit
 
         bool maximized() const;
         void setMaximized(bool value);
-
-        int dpi() const;
 
         Size size() const;
         void setSize(const Size& value);
@@ -73,9 +76,29 @@ namespace d14uikit
 
         int fps() const;
 
+        // This method requires flushing the GPU command list,
+        // so it cannot be called in the update routine of each frame.
+        std::unique_ptr<Image> capture() const;
+
+        TextAntialiasMode textAntialiasMode() const;
+        void setTextAntialiasMode(TextAntialiasMode mode);
+
+        RenderingMode renderingMode() const;
+        void setRenderingMode(RenderingMode mode);
+
+        // Returns the number of UI objects
+        // with animState=true in the entire application
         int animCount() const;
+
+        // The global animation state of the application,
+        // which is at the same level as the animation state of UI objects.
+        // Therefore, when this value is false, an animation may still be playing.
+        // To determine the actual animation state, use animCount;
+        // a value greater than 0 indicates that there is an animation.
         bool animState() const;
         void setAnimState(bool value);
+
+        Cursor* cursor() const;
 
         const std::wstring& themeMode() const;
         void setThemeMode(const std::wstring& name);
@@ -88,16 +111,5 @@ namespace d14uikit
 
         const std::wstring& langLocale() const;
         void setLangLocale(const std::wstring& name);
-
-        TextAntialiasMode textAntialiasMode() const;
-        void setTextAntialiasMode(TextAntialiasMode mode);
-
-        D2DRenderingMode d2dRenderingMode() const;
-        void setD2dRenderingMode(D2DRenderingMode mode);
-
-        BitmapInterpMode bitmapInterpMode() const;
-        void setBitmapInterpMode(BitmapInterpMode mode);
-
-        std::unique_ptr<Image> capture() const;
     };
 }

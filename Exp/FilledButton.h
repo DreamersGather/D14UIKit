@@ -4,8 +4,6 @@
 
 #include "Inc/FilledButton.h"
 
-namespace d14engine::uikit { struct FilledButton; }
-
 namespace d14uikit
 {
     struct FilledButton::Impl

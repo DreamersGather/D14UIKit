@@ -1,14 +1,19 @@
 ﻿#pragma once
 
+#include "StatefulObject.h"
 #include "ViewItem.h"
+
+_D14_UIKIT_FWDEF(TreeViewItem)
 
 namespace d14uikit
 {
     class DllExport TreeViewItem : public ViewItem
     {
+        friend class TreeView;
+
         _D14_UIKIT_PIMPL(TreeViewItem)
 
-        explicit TreeViewItem(const std::wstring& text = L"ViewItem");
+        explicit TreeViewItem(const std::wstring& text = L"TreeViewItem");
 
         int nodeLevel() const;
 
@@ -27,18 +32,6 @@ namespace d14uikit
         constexpr static auto Folded = State::Folded;
         constexpr static auto Unfolded = State::Unfolded;
 
-        State state() const;
-        void setState(State state);
-
-        struct Callback
-        {
-            std::function<void(TreeViewItem*, State)> onStateChange = {};
-        };
-        Callback& callback() const;
-
-    protected:
-        std::unique_ptr<Callback> pcallback = {};
-
-        virtual void onStateChange(State state);
+        _D14_UIKIT_STATEFUL_OBJECT_DECL(TreeViewItem)
     };
 }

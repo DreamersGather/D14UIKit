@@ -14,8 +14,6 @@ namespace d14uikit
         py::class_<ConstraintLayout, ResizablePanel,
             PyResizablePanel<ConstraintLayout>> i(m, "ConstraintLayout");
 
-        i.def(py::init());
-
         _D14_UIKIT_PYBIND_LAYOUT(ConstraintLayout)
 
         // Geometry Info
@@ -53,12 +51,5 @@ namespace d14uikit
             i2.def_readwrite("Top", &GeoInfo::Top);
             i2.def_readwrite("Bottom", &GeoInfo::Bottom);
         }
-
-        i.def("addElement", &ConstraintLayout::addElement);
-
-        i.def("removeElement", &ConstraintLayout::removeElement);
-        i.def("clearAllElements", &ConstraintLayout::clearAllElements);
-
-        i.def("updateElement", &ConstraintLayout::updateElement);
     }
 }

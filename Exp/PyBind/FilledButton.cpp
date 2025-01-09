@@ -12,6 +12,6 @@ namespace d14uikit
     {
         py::class_<FilledButton, FlatButton, PyClickablePanel<FilledButton>> i(m, "FilledButton");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"Button");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"FilledButton");
     }
 }

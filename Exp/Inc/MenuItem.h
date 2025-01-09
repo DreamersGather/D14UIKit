@@ -2,18 +2,26 @@
 
 #include "ViewItem.h"
 
+_D14_UIKIT_FWDEF(MenuItem)
+
 namespace d14uikit
 {
-    class PopupMenu;
+    class Label;
 
     class DllExport MenuItem : public ViewItem
     {
+        friend class ComboBox;
+        friend class PopupMenu;
+
         _D14_UIKIT_PIMPL(MenuItem)
 
         MenuItem(
-            const std::wstring& labelText = L"ViewItem",
+            const std::wstring& labelText = L"MenuItem",
             const std::wstring& hotkeyText = {});
 
+        Label* hotkey() const;
+
+        // The return value may be null
         PopupMenu* associatedMenu() const;
         void setAssociatedMenu(PopupMenu* menu);
 
@@ -22,10 +30,5 @@ namespace d14uikit
 
         bool trigger() const;
         void setTrigger(bool value);
-
-        const std::wstring& hotkeyText() const;
-        void setHotkeyText(const std::wstring& text);
-
-        _D14_UIKIT_TEXT_FORMAT_DECL_OPTIONAL(Hotkey)
     };
 }

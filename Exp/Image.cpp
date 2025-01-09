@@ -28,16 +28,14 @@ namespace d14uikit
         load(path, cpuRead);
     }
 
-    bool Image::cpuRead() const
-    {
-        return pimpl->cpuRead;
-    }
-
     Image::Image(Passkey)
         :
         pimpl(std::make_shared<Impl>()) { }
 
-    void Image::initialize() { }
+    bool Image::cpuRead() const
+    {
+        return pimpl->cpuRead;
+    }
 
     Size Image::size() const
     {

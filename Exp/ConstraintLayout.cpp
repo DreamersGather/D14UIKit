@@ -3,6 +3,7 @@
 #include "ConstraintLayout.h"
 
 #include "Layout.h"
+#include "Panel.h"
 
 #include "UIKit/ConstraintLayout.h"
 

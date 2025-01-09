@@ -13,8 +13,6 @@ namespace d14uikit
     {
         py::class_<ListView, ScrollView, PyScrollView<ListView>> i(m, "ListView");
 
-        i.def(py::init());
-
         _D14_UIKIT_PYBIND_WATERFALL_VIEW(ListView)
 
         i.def(

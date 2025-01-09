@@ -3,6 +3,8 @@
 #include "ScrollView.h"
 #include "WaterfallView.h"
 
+_D14_UIKIT_FWDEF(TreeView)
+
 namespace d14uikit
 {
     class TreeViewItem;
@@ -11,14 +13,16 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL(TreeView)
 
-        void insertRootItem(const std::list<TreeViewItem*>& items, int rootIndex = 0);
-        void appendRootItem(const std::list<TreeViewItem*>& items);
+        int rootItemCount() const;
+        // The return value may be null
+        TreeViewItem* getRootItem(int rootIndex) const;
+
+        void insertRootItem(const std::list<TreeViewItem*>& rootItems, int rootIndex = 0);
+        void appendRootItem(const std::list<TreeViewItem*>& rootItems);
 
         void removeRootItem(int rootIndex, int count = 1);
         void clearAllItems();
 
-        int rootItemCount() const;
-
-        _D14_UIKIT_WATERFALL_VIEW_DECL(TreeView)
+        _D14_UIKIT_WATERFALL_VIEW_DECL(TreeView, TreeViewItem)
     };
 }

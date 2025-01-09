@@ -12,6 +12,6 @@ namespace d14uikit
     {
         py::class_<ElevatedButton, FilledButton, PyClickablePanel<ElevatedButton>> i(m, "ElevatedButton");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"Button");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"ElevatedButton");
     }
 }

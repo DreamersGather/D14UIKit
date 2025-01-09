@@ -10,8 +10,6 @@ namespace d14uikit
     {
         py::class_<VertSlider, Panel, PyVertSlider<>> i(m, "VertSlider");
 
-        i.def(py::init());
-
         _D14_UIKIT_PYBIND_SLIDER(VertSlider)
     }
 }

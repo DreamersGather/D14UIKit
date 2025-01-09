@@ -36,7 +36,9 @@ namespace d14uikit
 
         i.def_property_readonly("tabCount", &TabGroup::tabCount);
 
+        i.def_property_readonly("currSelected", &TabGroup::currSelected);
         i.def("setCurrSelected", &TabGroup::setCurrSelected, "index"_a);
+
         i.def_property_readonly("currSelectedTitle", &TabGroup::currSelectedTitle);
 
         _D14_CALLBACK_PROPERTY(TabGroup, onSelectedChange);

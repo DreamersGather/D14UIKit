@@ -12,6 +12,6 @@ namespace d14uikit
     {
         py::class_<ListViewItem, ViewItem, PyPanel<ListViewItem>> i(m, "ListViewItem");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"ViewItem");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"ListViewItem");
     }
 }

@@ -4,12 +4,16 @@
 #include "BasicType.h"
 #include "Event.h"
 
+_D14_UIKIT_FWDEF(Panel)
+
 namespace d14uikit
 {
     class Image;
 
     class DllExport Panel : public NonCopyable
     {
+        friend class TabGroup;
+
         _D14_UIKIT_PIMPL(Panel)
 
         Panel();
@@ -81,6 +85,7 @@ namespace d14uikit
         bool animState() const;
         void setAnimState(bool value);
 
+        // The return value may be null
         Image* image() const;
         void setImage(Image* image);
 
@@ -97,6 +102,7 @@ namespace d14uikit
         void setPinned(bool value);
         void setFocused(bool value);
 
+        // The return value may be null
         Panel* parent() const;
         void setParent(Panel* uiobj);
 

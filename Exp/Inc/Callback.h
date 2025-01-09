@@ -63,9 +63,12 @@ Panel::callback().onMove = [__VA_ARGS__](Panel* p, MoveEvent* e)
 #define D14_onRestore(w, ...) \
 Window::callback().onRestore = [__VA_ARGS__](Window* w)
 
+// type = Any instance of WaterfallView
+// For example: [ListView, TreeView, PopupMenu]
 #define D14_onSelectChange(type, obj, selected, ...) \
 type::callback().onSelectChange = [__VA_ARGS__](type* obj, const std::set<int>& selected)
 
+// type = [ComboBox, TabGroup]
 #define D14_onSelectedChange(type, obj, text, ...) \
 type::callback().onSelectedChange = [__VA_ARGS__](type* obj, const std::wstring& text)
 
@@ -78,17 +81,20 @@ DraggablePanel::callback().onStartDragging = [__VA_ARGS__](DraggablePanel* dgp)
 #define D14_onStartResizing(rsp, ...) \
 ResizablePanel::callback().onStartResizing = [__VA_ARGS__](ResizablePanel* rsp)
 
+// type = [HorzSlider, VertSlider]
 #define D14_onStartSliding(type, sldr, value, ...) \
 type::callback().onStartSliding = [__VA_ARGS__](type* sldr, float value)
 
 #define D14_onStartThumbScrolling(sv, offset, ...) \
 ScrollView::callback().onStartThumbScrolling = [__VA_ARGS__](ScrollView* sv, const D2D1_POINT_2F& offset)
 
+// type = Any instance of StatefulObject
+// For example: [CheckBox, OnOffSwitch, ToggleButton, TreeViewItem]
 #define D14_onStateChange(type, obj, state, ...) \
 type::callback().onStateChange = [__VA_ARGS__](type* obj, type::State state)
 
-#define D14_onTextChange(type, obj, text, ...) \
-type::callback().onTextChange = [__VA_ARGS__](type* obj, const std::wstring& text)
+#define D14_onTextChange(obj, text, ...) \
+RawTextInput::callback().onTextChange = [__VA_ARGS__](RawTextInput* input, const std::wstring& text)
 
 #define D14_onTriggerMenuItem(menu, text, ...) \
 PopupMenu::callback().onTriggerMenuItem = [__VA_ARGS__](PopupMenu* menu, const std::wstring& text)
@@ -96,6 +102,7 @@ PopupMenu::callback().onTriggerMenuItem = [__VA_ARGS__](PopupMenu* menu, const s
 #define D14_onUpdate(p, ...) \
 Panel::callback().onUpdate = [__VA_ARGS__](Panel* p)
 
+// type = [HorzSlider, VertSlider]
 #define D14_onValueChange(type, obj, value, ...) \
 type::callback().onValueChange = [__VA_ARGS__](type* obj, float value)
 

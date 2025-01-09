@@ -2,5 +2,14 @@
 
 #include "RawTextInput.h"
 
-#define _D14_UIKIT_TEXT_INPUT_DECL(Type_Name) \
-        _D14_UIKIT_RAW_TEXT_INPUT_DECL(Type_Name)
+_D14_UIKIT_FWDEF(TextInput)
+
+namespace d14uikit
+{
+    class DllExport TextInput : public RawTextInput
+    {
+        _D14_UIKIT_PIMPL(TextInput)
+
+        explicit TextInput(bool multiline);
+    };
+}

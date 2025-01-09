@@ -3,13 +3,13 @@
 #include "TabGroup.h"
 
 #include "Common.h"
+#include "IconLabel.h"
+#include "Label.h"
 #include "Panel.h"
-#include "ResizablePanel.h"
 #include "TabCaption.h"
 
 #include "UIKit/IconLabel.h"
 #include "UIKit/Label.h"
-#include "UIKit/ResourceUtils.h"
 #include "UIKit/TabCaption.h"
 #include "UIKit/TabGroup.h"
 #include "UIKit/Window.h"
@@ -20,27 +20,17 @@ namespace d14uikit
 {
     TabGroup::TabGroup()
         :
-        TabGroup(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        TabGroup::pimpl->uiobj =
-        uikit::makeUIObject<uikit::TabGroup>();
+        TabGroup(uikit::makeUIObject<uikit::TabGroup>()) { }
 
-        Panel::initialize();
-        ResizablePanel::initialize();
-        TabGroup::initialize();
-    }
-
-    TabGroup::TabGroup(Passkey)
+    _D14_UIKIT_CTOR(TabGroup)
         :
-        Panel(Panel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
+        Panel(uiobj),
+        ResizablePanel(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void TabGroup::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onTriggerTabPromoting = []
         (uikit::TabGroup* tg, uikit::Window* w)
         {
@@ -146,19 +136,38 @@ namespace d14uikit
         return (int)pimpl->uiobj->tabs().size();
     }
 
+    std::optional<TabGroup::Tab> TabGroup::currSelected() const
+    {
+        auto& index = pimpl->uiobj->currActiveCardTabIndex();
+        if (index.valid())
+        {
+            pimpl->caption = std::shared_ptr<TabCaption>(new TabCaption(index->caption));
+            pimpl->content = std::shared_ptr<Panel>(new Panel(index->content));
+
+            pimpl->currSelected = Tab{ pimpl->caption.get(), pimpl->content.get() };
+        }
+        else pimpl->currSelected.reset();
+
+        return pimpl->currSelected;
+    }
+
     void TabGroup::setCurrSelected(int index)
     {
         pimpl->uiobj->selectTab(index);
     }
 
-    const std::wstring& TabGroup::currSelectedTitle() const
+    std::optional<std::wstring_view> TabGroup::currSelectedTitle() const
     {
-        auto& index = pimpl->uiobj->currActiveCardTabIndex();
-        if (index.valid())
+        std::optional<std::wstring_view> title = {};
+
+        // Must call this to update the variable
+        auto selected = currSelected();
+        if (selected.has_value())
         {
-            return index->caption->title()->label()->text();
+            // No need to check because TabCaption::title is guaranteed to be valid
+            title = selected.value().caption->title()->label()->text();
         }
-        else return uikit::resource_utils::emptyWstrRef();
+        return title;
     }
 
     TabGroup::Callback& TabGroup::callback() const { return *pcallback; }

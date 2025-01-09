@@ -1,8 +1,9 @@
 ﻿#include "Common/Precompile.h"
 
 #include "CheckBox.h"
+#include "EnumBind.h"
 
-#include "Callback.h"
+#include "StatefulObject.h"
 
 namespace d14uikit
 {
@@ -13,17 +14,13 @@ namespace d14uikit
         i.def(py::init<bool>(), "tripleState"_a = false);
 
         py::enum_<CheckBox::State>(i, "State")
-            .value("Unchecked", CheckBox::Unchecked)
-            .value("Intermediate", CheckBox::Intermediate)
-            .value("Checked", CheckBox::Checked)
+            _D14_UIKIT_PYBIND_ENUM(CheckBox, Unchecked)
+            _D14_UIKIT_PYBIND_ENUM(CheckBox, Intermediate)
+            _D14_UIKIT_PYBIND_ENUM(CheckBox, Checked)
             .export_values();
-
-        i.def_property("state", &CheckBox::state, &CheckBox::setState);
 
         i.def_property("tripleState", &CheckBox::tripleState, &CheckBox::setTripleState);
 
-        _D14_CALLBACK_PROPERTY(CheckBox, onStateChange);
-
-        i.def("onStateChange", &ExCheckBox::onStateChange, "state"_a);
+        _D14_UIKIT_PYBIND_STATEFUL_OBJECT(CheckBox)
     }
 }

@@ -4,8 +4,6 @@
 
 #include "Inc/Cursor.h"
 
-namespace d14engine::uikit { struct Cursor; }
-
 namespace d14uikit
 {
     struct Cursor::Impl

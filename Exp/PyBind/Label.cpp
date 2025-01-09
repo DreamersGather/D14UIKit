@@ -2,6 +2,7 @@
 
 #include "Label.h"
 
+#include "EnumBind.h"
 #include "Panel.h"
 
 #include "Inc/Label.h"
@@ -34,21 +35,32 @@ namespace d14uikit
             &Label::frgnOpacity,
             &Label::setFrgnOpacity);
 
-        i.def_property("text", &Label::text, &Label::setText);
+        i.def_property(
+            "text",
+            &Label::text,
+            &Label::setText);
 
-        i.def_property("font", &Label::font, &Label::setFont);
+        i.def_property(
+            "drawTextOption",
+            &Label::drawTextOption,
+            &Label::setDrawTextOption);
+
+        i.def_property(
+            "font",
+            &Label::font,
+            &Label::setFont);
 
         py::enum_<Label::HorzAlign>(i, "HorzAlign")
-            .value("Left",      Label::Left)
-            .value("HCenter",   Label::HCenter)
-            .value("Right",     Label::Right)
-            .value("Justified", Label::Justified)
+            _D14_UIKIT_PYBIND_ENUM(Label, Left)
+            _D14_UIKIT_PYBIND_ENUM(Label, Right)
+            _D14_UIKIT_PYBIND_ENUM(Label, HCenter)
+            _D14_UIKIT_PYBIND_ENUM(Label, Justified)
             .export_values();
 
         py::enum_<Label::VertAlign>(i, "VertAlign")
-            .value("Top",       Label::Top)
-            .value("VCenter",   Label::VCenter)
-            .value("Bottom",    Label::Bottom)
+            _D14_UIKIT_PYBIND_ENUM(Label, Top)
+            _D14_UIKIT_PYBIND_ENUM(Label, Bottom)
+            _D14_UIKIT_PYBIND_ENUM(Label, VCenter)
             .export_values();
 
         i.def_property(
@@ -72,11 +84,11 @@ namespace d14uikit
             &Label::setVertHardAlign);
 
         py::enum_<Label::WordWrapping>(i, "WordWrapping")
-            .value("Character",         Label::Character)
-            .value("NoWrap",            Label::NoWrap)
-            .value("WholeWord",         Label::WholeWord)
-            .value("Wrap",              Label::Wrap)
-            .value("EmergencyBreak",    Label::EmergencyBreak)
+            _D14_UIKIT_PYBIND_ENUM(Label, Wrap)
+            _D14_UIKIT_PYBIND_ENUM(Label, NoWrap)
+            _D14_UIKIT_PYBIND_ENUM(Label, EmergencyBreak)
+            _D14_UIKIT_PYBIND_ENUM(Label, WholeWord)
+            _D14_UIKIT_PYBIND_ENUM(Label, Character)
             .export_values();
 
         i.def_property(
@@ -201,10 +213,5 @@ namespace d14uikit
             &Label::setStrikethrough,
             "value"_a,
             "range"_a = std::nullopt);
-
-        i.def_property(
-            "drawTextClip",
-            &Label::drawTextClip,
-            &Label::setDrawTextClip);
     }
 }

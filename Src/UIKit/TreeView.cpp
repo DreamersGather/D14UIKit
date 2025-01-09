@@ -54,29 +54,29 @@ namespace d14engine::uikit
         return m_rootItems;
     }
 
-    void TreeView::insertRootItem(const ItemList& items, size_t rootIndex)
+    void TreeView::insertRootItem(const ItemList& rootitems, size_t rootIndex)
     {
         // "index == m_rootItems.size()" ---> append.
         rootIndex = std::clamp(rootIndex, 0ull, m_rootItems.size());
 
         auto insertIndex = getRootItemGlobalIndex(rootIndex);
 
-        insertItem(getExpandedTreeViewItems(items), insertIndex.index);
+        insertItem(getExpandedTreeViewItems(rootitems), insertIndex.index);
 
-        for (auto& item : items)
+        for (auto& rootItem : rootitems)
         {
-            item->m_parentView = std::dynamic_pointer_cast<TreeView>(shared_from_this());
-            item->m_nodeLevel = 0;
-            item->m_parentItem.reset();
-            item->updateSelfContentHorzIndent();
-            item->updateChildrenMiscellaneousFields();
+            rootItem->m_parentView = std::dynamic_pointer_cast<TreeView>(shared_from_this());
+            rootItem->m_nodeLevel = 0;
+            rootItem->m_parentItem.reset();
+            rootItem->updateSelfContentHorzIndent();
+            rootItem->updateChildrenMiscellaneousFields();
         }
-        m_rootItems.insert(std::next(m_rootItems.begin(), rootIndex), items.begin(), items.end());
+        m_rootItems.insert(std::next(m_rootItems.begin(), rootIndex), rootitems.begin(), rootitems.end());
     }
 
-    void TreeView::appendRootItem(const ItemList& items)
+    void TreeView::appendRootItem(const ItemList& rootitems)
     {
-        insertRootItem(items, m_rootItems.size());
+        insertRootItem(rootitems, m_rootItems.size());
     }
 
     void TreeView::removeRootItem(size_t rootIndex, size_t count)
@@ -183,7 +183,12 @@ namespace d14engine::uikit
                 start.value().moveNext((*start.value())->getExpandedChildrenCount() + 1);
                 if (start.value() >= m_items.size()) return ItemIndex::end((ItemList*)&m_items);
             }
+#pragma warning(push)
+#pragma warning(disable : 26816)
+            // Warning C26816: The pointer points to memory allocated on the stack (ES.65)
+            // The result returned here is a copy. Not sure why MSVC gives this warning.
             return start.value();
+#pragma warning(pop)
         }
         else return ItemIndex::end((ItemList*)&m_items);
     }

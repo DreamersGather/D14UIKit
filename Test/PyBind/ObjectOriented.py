@@ -68,12 +68,27 @@ if __name__ == '__main__':
     # Font is also an object, of course.  For performance reasons,
     # the library only loads some limited default fonts when
     # initialized, so we must load the specific fonts manually.
-    Font.load("MyFont", "Times New Roman", 20, "en-us", \
-              Font.ExtraBold, Font.Italic, Font.Expanded)
+    font1 = Font.load( \
+        # alias for query
+        "MyFont", \
+        # font properties
+        "Times New Roman", \
+        20, \
+        "en-us", \
+        Font.ExtraBold, \
+        Font.Italic, \
+        Font.Expanded)
 
     # To create a font object, we actually query and load it from
     # the global font map maintained by the library.
-    textArea.font = Font('MyFont')
+    font2 = Font('MyFont')
+
+    # Both methods are acceptable, but it is recommended to
+    # reference the font directly through Font(name) after loading,
+    # because Font.load will fetch and cache the actual font data,
+    # while Font(name) only references the cache, which is faster.
+    textArea.font = font1
+    # textArea.font = font2
 
     busyArea = Label()
     busyArea.parent = clntArea

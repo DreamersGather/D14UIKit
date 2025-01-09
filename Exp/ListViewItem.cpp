@@ -2,8 +2,7 @@
 
 #include "ListViewItem.h"
 
-#include "Panel.h"
-#include "ViewItem.h"
+#include "Common.h"
 
 #include "UIKit/ListViewItem.h"
 
@@ -13,22 +12,13 @@ namespace d14uikit
 {
     ListViewItem::ListViewItem(const std::wstring& text)
         :
-        ListViewItem(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ViewItem::pimpl->uiobj =
-        ListViewItem::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ListViewItem>(text);
+        ListViewItem(uikit::makeUIObject<uikit::ListViewItem>(text)) { }
 
-        Panel::initialize();
-        ViewItem::initialize();
-        ListViewItem::initialize();
-    }
-
-    ListViewItem::ListViewItem(Passkey)
+    _D14_UIKIT_CTOR(ListViewItem)
         :
-        ViewItem(ViewItem::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void ListViewItem::initialize() { }
+        ViewItem(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 }

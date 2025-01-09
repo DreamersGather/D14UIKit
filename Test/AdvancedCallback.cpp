@@ -90,8 +90,9 @@ int main(int argc, char* argv[])
     // The solution is replacing the font totally
     // instead of only changing the size property.
     // (setText is called when slider changes it value).
+    auto font = Font(L"Default/Normal/14");
     auto vlabel = strokeSlider.valueLabel();
-    vlabel->setFont(Font(L"Default/Normal/14"));
+    vlabel->setFont(&font);
 
     // Call this after other methods to make sure
     // the geometry of the value label is updated.

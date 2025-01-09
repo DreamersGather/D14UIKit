@@ -354,6 +354,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)HorzSliderPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\IconLabel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)IconLabelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)IconLabelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)IconLabelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)IconLabelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)IconLabelPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\Image.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ImagePrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ImagePrivate</ObjectFileName>
@@ -454,6 +461,9 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)BasicEnumBinding</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\BasicType.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)BasicTypeBinding</ObjectFileName>
@@ -611,6 +621,9 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)FrameAnimPanelBinding</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\GridLayout.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -772,6 +785,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextEditorBinding</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\RawTextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
@@ -831,6 +851,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextEditorBinding</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\TextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextInputBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextInputBinding</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ToggleButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -921,6 +948,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextEditorPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\RawTextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RawTextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RawTextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextInputPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
@@ -962,6 +996,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextEditorPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\TextInput.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)TextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)TextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextInputPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextInputPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ToggleButton.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ToggleButtonPrivate</ObjectFileName>
@@ -1300,6 +1341,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
     <ClInclude Include="Exp\FrameAnimPanel.h" />
     <ClInclude Include="Exp\GridLayout.h" />
     <ClInclude Include="Exp\HorzSlider.h" />
+    <ClInclude Include="Exp\IconLabel.h" />
     <ClInclude Include="Exp\Image.h" />
     <ClInclude Include="Exp\Inc\AppEntry.h" />
     <ClInclude Include="Exp\Inc\Application.h" />
@@ -1323,6 +1365,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
     <ClInclude Include="Exp\Inc\FrameAnimPanel.h" />
     <ClInclude Include="Exp\Inc\GridLayout.h" />
     <ClInclude Include="Exp\Inc\HorzSlider.h" />
+    <ClInclude Include="Exp\Inc\IconLabel.h" />
     <ClInclude Include="Exp\Inc\Image.h" />
     <ClInclude Include="Exp\Inc\Label.h" />
     <ClInclude Include="Exp\Inc\LabelArea.h" />
@@ -1342,11 +1385,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
     <ClInclude Include="Exp\Inc\ScrollView.h" />
     <ClInclude Include="Exp\Inc\Slider.h" />
+    <ClInclude Include="Exp\Inc\StatefulObject.h" />
     <ClInclude Include="Exp\Inc\TabCaption.h" />
     <ClInclude Include="Exp\Inc\TabGroup.h" />
     <ClInclude Include="Exp\Inc\TextBox.h" />
     <ClInclude Include="Exp\Inc\TextEditor.h" />
-    <ClInclude Include="Exp\Inc\TextFormat.h" />
     <ClInclude Include="Exp\Inc\TextInput.h" />
     <ClInclude Include="Exp\Inc\ToggleButton.h" />
     <ClInclude Include="Exp\Inc\TreeView.h" />
@@ -1373,7 +1416,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\BasicEnum.h" />
+    <ClInclude Include="Exp\PyBind\BasicEnum.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\BasicType.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1434,6 +1481,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\EnumBind.h" />
     <ClInclude Include="Exp\PyBind\Event.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1454,7 +1502,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\FrameAnimPanel.h" />
+    <ClInclude Include="Exp\PyBind\FrameAnimPanel.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\GridLayout.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1480,7 +1532,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\Layout.h" />
+    <ClInclude Include="Exp\PyBind\Layout.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\ListView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1556,6 +1612,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Exp\PyBind\StatefulObject.h" />
     <ClInclude Include="Exp\PyBind\TabCaption.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1576,7 +1633,6 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\TextFormat.h" />
     <ClInclude Include="Exp\PyBind\TextInput.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1607,7 +1663,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\WaterfallView.h" />
+    <ClInclude Include="Exp\PyBind\WaterfallView.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\Window.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1633,7 +1693,6 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
     <ClInclude Include="Exp\TabGroup.h" />
     <ClInclude Include="Exp\TextBox.h" />
     <ClInclude Include="Exp\TextEditor.h" />
-    <ClInclude Include="Exp\TextFormat.h" />
     <ClInclude Include="Exp\TextInput.h" />
     <ClInclude Include="Exp\ToggleButton.h" />
     <ClInclude Include="Exp\TreeView.h" />

@@ -4,8 +4,6 @@
 
 #include "Inc/ToggleButton.h"
 
-namespace d14engine::uikit { struct ToggleButton; }
-
 namespace d14uikit
 {
     struct ToggleButton::Impl

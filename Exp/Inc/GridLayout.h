@@ -3,12 +3,13 @@
 #include "Layout.h"
 #include "ResizablePanel.h"
 
+_D14_UIKIT_FWDEF(GridLayout)
+
 namespace d14uikit
 {
     class DllExport GridLayout : public ResizablePanel
     {
         _D14_UIKIT_PIMPL(GridLayout)
-        _D14_UIKIT_LAYOUT_DECL(GridLayout)
 
         int horzCellCount() const;
         void setHorzCellCount(int value);
@@ -36,11 +37,6 @@ namespace d14uikit
 
             Rect spacing = { 0, 0, 0, 0 };
         };
-        void addElement(Panel* elem, const GeoInfo& geoInfo);
-
-        void removeElement(Panel* elem);
-        void clearAllElements();
-
-        void updateElement(Panel* elem, const GeoInfo& geoInfo);
+        _D14_UIKIT_LAYOUT_DECL(GridLayout)
     };
 }

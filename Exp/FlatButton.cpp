@@ -2,9 +2,7 @@
 
 #include "FlatButton.h"
 
-#include "Button.h"
-#include "ClickablePanel.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/FlatButton.h"
 
@@ -14,25 +12,14 @@ namespace d14uikit
 {
     FlatButton::FlatButton(const std::wstring& text)
         :
-        FlatButton(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        Button::pimpl->uiobj =
-        FlatButton::pimpl->uiobj =
-        uikit::makeUIObject<uikit::FlatButton>(text);
+        FlatButton(uikit::makeUIObject<uikit::FlatButton>(text)) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        Button::initialize();
-        FlatButton::initialize();
-    }
-
-    FlatButton::FlatButton(Passkey)
+    _D14_UIKIT_CTOR(FlatButton)
         :
-        Panel(Panel::Passkey{}),
-        Button(Button::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void FlatButton::initialize() { }
+        Panel(uiobj),
+        Button(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 }

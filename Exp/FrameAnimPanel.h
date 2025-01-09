@@ -4,8 +4,6 @@
 
 #include "Inc/FrameAnimPanel.h"
 
-namespace d14engine::uikit { struct FrameAnimPanel; }
-
 namespace d14uikit
 {
     struct FrameAnimPanel::Impl

@@ -12,6 +12,6 @@ namespace d14uikit
     {
         py::class_<ComboBoxItem, MenuItem, PyPanel<ComboBoxItem>> i(m, "ComboBoxItem");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"ViewItem");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"ComboBoxItem");
     }
 }

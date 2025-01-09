@@ -2,8 +2,7 @@
 
 #include "LabelArea.h"
 
-#include "Label.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/LabelArea.h"
 
@@ -13,24 +12,15 @@ namespace d14uikit
 {
     LabelArea::LabelArea(const std::wstring& text)
         :
-        LabelArea(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        Label::pimpl->uiobj =
-        LabelArea::pimpl->uiobj =
-        uikit::makeUIObject<uikit::LabelArea>(text);
+        LabelArea(uikit::makeUIObject<uikit::LabelArea>(text)) { }
 
-        Panel::initialize();
-        Label::initialize();
-        LabelArea::initialize();
-    }
-
-    LabelArea::LabelArea(Passkey)
+    _D14_UIKIT_CTOR(LabelArea)
         :
-        Label(Label::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void LabelArea::initialize() { }
+        Label(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 
     int LabelArea::caretOffset() const
     {

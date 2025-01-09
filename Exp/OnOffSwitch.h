@@ -4,8 +4,6 @@
 
 #include "Inc/OnOffSwitch.h"
 
-namespace d14engine::uikit { struct OnOffSwitch; }
-
 namespace d14uikit
 {
     struct OnOffSwitch::Impl

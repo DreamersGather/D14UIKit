@@ -2,8 +2,11 @@
 
 #include "FlatButton.h"
 
+_D14_UIKIT_FWDEF(ComboBox)
+
 namespace d14uikit
 {
+    class MenuItem;
     class PopupMenu;
 
     class DllExport ComboBox : public FlatButton
@@ -12,10 +15,14 @@ namespace d14uikit
 
         ComboBox();
 
-        PopupMenu* dropDownMenu() const;
-
+        // The return value may be null
+        MenuItem* currSelected() const;
         void setCurrSelected(int index);
-        const std::wstring& currSelectedText() const;
+
+        // Use wstring_view to avoid the overhead of copying strings
+        std::optional<std::wstring_view> currSelectedText() const;
+
+        PopupMenu* dropDownMenu() const;
 
         struct Callback
         {

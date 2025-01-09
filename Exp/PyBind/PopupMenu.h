@@ -13,6 +13,7 @@ namespace d14uikit
     class ExPopupMenu : public PopupMenu
     {
     public:
+        using PopupMenu::onSelectChange;
         using PopupMenu::onTriggerMenuItem;
     };
 
@@ -22,6 +23,10 @@ namespace d14uikit
     public:
         using PyScrollView<PopupMenuBase>::PyScrollView;
 
+        void onSelectChange(const std::set<int>& selected) override
+        {
+            PYBIND11_OVERRIDE(void, PopupMenuBase, onSelectChange, selected);
+        }
         void onTriggerMenuItem(const std::wstring& text) override
         {
             PYBIND11_OVERRIDE(void, PopupMenuBase, onTriggerMenuItem, text);

@@ -2,11 +2,13 @@
 
 #include "Common.h"
 
-#define _D14_UIKIT_WATERFALL_VIEW_DECL(Type_Name)                                       \
-                                                                                        \
-Type_Name();                                                                            \
+// Raw Declaration
+
+#define _D14_UIKIT_WATERFALL_VIEW_RAWD(Type_Name, Item_Type_Name)                       \
                                                                                         \
 int itemCount() const;                                                                  \
+/* The return value may be null */                                                      \
+Item_Type_Name* getItem(int index) const;                                               \
                                                                                         \
 std::set<int> selectedIndicies() const;                                                 \
                                                                                         \
@@ -21,6 +23,13 @@ constexpr static auto None = SelectMode::None;                                  
 constexpr static auto Single = SelectMode::Single;                                      \
 constexpr static auto Multiple = SelectMode::Multiple;                                  \
 constexpr static auto Extended = SelectMode::Extended;                                  \
+
+// Full Declaration
+
+#define _D14_UIKIT_WATERFALL_VIEW_DECL(Type_Name, Item_Type_Name)                       \
+        _D14_UIKIT_WATERFALL_VIEW_RAWD(Type_Name, Item_Type_Name)                       \
+                                                                                        \
+Type_Name();                                                                            \
                                                                                         \
 struct Callback                                                                         \
 {                                                                                       \

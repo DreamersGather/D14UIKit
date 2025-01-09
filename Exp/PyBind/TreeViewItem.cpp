@@ -2,7 +2,7 @@
 
 #include "TreeViewItem.h"
 
-#include "Callback.h"
+#include "StatefulObject.h"
 
 namespace d14uikit
 {
@@ -10,7 +10,7 @@ namespace d14uikit
     {
         py::class_<TreeViewItem, ViewItem, PyTreeViewItem<>> i(m, "TreeViewItem");
 
-        i.def(py::init<const std::wstring&>(), "text"_a = L"ViewItem");
+        i.def(py::init<const std::wstring&>(), "text"_a = L"TreeViewItem");
 
         i.def_property_readonly(
             "nodeLevel",
@@ -41,13 +41,6 @@ namespace d14uikit
             "itemCount",
             &TreeViewItem::itemCount);
 
-        i.def_property(
-            "state",
-            &TreeViewItem::state,
-            &TreeViewItem::setState);
-
-        _D14_CALLBACK_PROPERTY(TreeViewItem, onStateChange);
-
-        i.def("onStateChange", &ExTreeViewItem::onStateChange, "state"_a);
+        _D14_UIKIT_PYBIND_STATEFUL_OBJECT(TreeViewItem)
     }
 }

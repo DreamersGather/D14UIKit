@@ -4,8 +4,6 @@
 
 #include "Inc/Application.h"
 
-namespace d14engine::uikit { struct Application; }
-
 namespace d14uikit
 {
     struct Application::Impl
@@ -16,12 +14,13 @@ namespace d14uikit
 
         bool animState = false;
 
-        bool useSystemTheme = true;
-
         std::shared_ptr<Cursor> cursor = {};
 
-        TextAntialiasMode textAntialiasMode = TextAntialiasMode::Default;
-        D2DRenderingMode d2dRenderingMode = D2DRenderingMode::Default;
+        bool useSystemTheme = true;
+
         BitmapInterpMode bitmapInterpMode = BitmapInterpMode::Linear;
+
+        TextAntialiasMode textAntialiasMode = TextAntialiasMode::Default;
+        RenderingMode renderingMode = RenderingMode::Default;
     };
 }

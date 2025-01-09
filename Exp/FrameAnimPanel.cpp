@@ -2,8 +2,8 @@
 
 #include "FrameAnimPanel.h"
 
+#include "Common.h"
 #include "Image.h"
-#include "Panel.h"
 
 #include "UIKit/FrameAnimPanel.h"
 #include "UIKit/ResourceUtils.h"
@@ -12,24 +12,18 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    FrameAnimPanel::FrameAnimPanel() : FrameAnimPanel(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        FrameAnimPanel::pimpl->uiobj =
-        uikit::makeUIObject<uikit::FrameAnimPanel>(
-            D2D1_RECT_F{},
-            uikit::resource_utils::g_solidColorBrush);
-
-        Panel::initialize();
-        FrameAnimPanel::initialize();
-    }
-
-    FrameAnimPanel::FrameAnimPanel(Passkey)
+    FrameAnimPanel::FrameAnimPanel()
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
+        FrameAnimPanel(uikit::makeUIObject<uikit::FrameAnimPanel>(
+            D2D1_RECT_F{}, uikit::resource_utils::g_solidColorBrush)) { }
 
-    void FrameAnimPanel::initialize() { }
+    _D14_UIKIT_CTOR(FrameAnimPanel)
+        :
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 
     void FrameAnimPanel::resetFrameState()
     {
