@@ -3,12 +3,13 @@
 #include "Layout.h"
 #include "ResizablePanel.h"
 
+_D14_UIKIT_FWDEF(ConstraintLayout)
+
 namespace d14uikit
 {
     class DllExport ConstraintLayout : public ResizablePanel
     {
         _D14_UIKIT_PIMPL(ConstraintLayout)
-        _D14_UIKIT_LAYOUT_DECL(ConstraintLayout)
 
         struct GeoInfo
         {
@@ -30,11 +31,6 @@ namespace d14uikit
             }
             Top = {}, Bottom = {};
         };
-        void addElement(Panel* elem, const GeoInfo& geoInfo);
-
-        void removeElement(Panel* elem);
-        void clearAllElements();
-
-        void updateElement(Panel* elem, const GeoInfo& geoInfo);
+        _D14_UIKIT_LAYOUT_DECL(ConstraintLayout)
     };
 }

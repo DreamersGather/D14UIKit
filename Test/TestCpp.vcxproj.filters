@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdvancedCallback.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="FrameAnimation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

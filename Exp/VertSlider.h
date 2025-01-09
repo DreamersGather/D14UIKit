@@ -4,8 +4,6 @@
 
 #include "Inc/VertSlider.h"
 
-namespace d14engine::uikit { struct VertSlider; }
-
 namespace d14uikit
 {
     struct VertSlider::Impl

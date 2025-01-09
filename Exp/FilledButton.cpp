@@ -2,10 +2,7 @@
 
 #include "FilledButton.h"
 
-#include "Button.h"
-#include "ClickablePanel.h"
-#include "FlatButton.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/FilledButton.h"
 
@@ -15,27 +12,14 @@ namespace d14uikit
 {
     FilledButton::FilledButton(const std::wstring& text)
         :
-        FilledButton(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        Button::pimpl->uiobj =
-        FlatButton::pimpl->uiobj =
-        FilledButton::pimpl->uiobj =
-        uikit::makeUIObject<uikit::FilledButton>(text);
+        FilledButton(uikit::makeUIObject<uikit::FilledButton>(text)) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        Button::initialize();
-        FlatButton::initialize();
-        FilledButton::initialize();
-    }
-
-    FilledButton::FilledButton(Passkey)
+    _D14_UIKIT_CTOR(FilledButton)
         :
-        Panel(Panel::Passkey{}),
-        FlatButton(FlatButton::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void FilledButton::initialize() { }
+        Panel(uiobj),
+        FlatButton(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 }

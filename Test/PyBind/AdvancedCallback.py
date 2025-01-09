@@ -134,15 +134,12 @@ if __name__ == '__main__':
 
     def holdMoveToDrawPixels(p, e):
         app.cursor.setIcon(Cursor.Pen)
-        # lbutton is a method, not a property!
-        # It is actually static Event.lbutton.
-        if e.lbutton():
+        if e.lbutton:
             drawPixels(e.cursorPoint)
 
     canvas.f_onMouseMove = holdMoveToDrawPixels
 
     def pressToDrawPixels(p, e):
-        # leftDown is a property, not a method!
         if e.leftDown:
             drawPixels(e.cursorPoint)
 

@@ -49,8 +49,8 @@ int main(int argc, char* argv[])
     // be the capture-list of the actual lambda.
 
     //titleInput.callback().onTextChange =
-    //[&](TextBox* obj, const std::wstring& text)
-    titleInput.D14_onTextChange(TextBox, obj, text, &)
+    //[&](RawTextInput* obj, const std::wstring& text)
+    titleInput.D14_onTextChange(obj, text, &)
     {
         mwnd.setTitle(text);
     };

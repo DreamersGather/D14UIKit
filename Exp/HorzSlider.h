@@ -4,8 +4,6 @@
 
 #include "Inc/HorzSlider.h"
 
-namespace d14engine::uikit { struct HorzSlider; }
-
 namespace d14uikit
 {
     struct HorzSlider::Impl

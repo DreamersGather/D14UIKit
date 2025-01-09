@@ -2,15 +2,12 @@
 
 #include "MenuItem.h"
 
-#include "Panel.h"
+#include "Common.h"
+#include "Label.h"
 #include "PopupMenu.h"
-#include "TextFormat.h"
-#include "ViewItem.h"
 
 #include "UIKit/IconLabel2.h"
-#include "UIKit/Label.h"
 #include "UIKit/MenuItem.h"
-#include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
 
@@ -20,25 +17,28 @@ namespace d14uikit
         const std::wstring& labelText,
         const std::wstring& hotkeyText)
         :
-        MenuItem(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ViewItem::pimpl->uiobj =
-        MenuItem::pimpl->uiobj =
-        uikit::makeUIObject<uikit::MenuItem>(
-        uikit::IconLabel2::menuItemLayout(labelText, hotkeyText));
+        MenuItem(uikit::makeUIObject<uikit::MenuItem>(
+            uikit::IconLabel2::menuItemLayout(labelText, hotkeyText))) { }
 
-        Panel::initialize();
-        ViewItem::initialize();
-        MenuItem::initialize();
+    _D14_UIKIT_CTOR(MenuItem)
+        :
+        ViewItem(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+
+        auto content = pimpl->uiobj->getContent<uikit::IconLabel2>();
+        if (!content.expired())
+        {
+            auto& hotkey = content.lock()->label2();
+            pimpl->hotkey = std::shared_ptr<Label>(new Label(hotkey));
+        }
     }
 
-    MenuItem::MenuItem(Passkey)
-        :
-        ViewItem(ViewItem::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void MenuItem::initialize() { }
+    Label* MenuItem::hotkey() const
+    {
+        return pimpl->hotkey.get();
+    }
 
     PopupMenu* MenuItem::associatedMenu() const
     {
@@ -74,29 +74,4 @@ namespace d14uikit
     {
         pimpl->uiobj->isTriggerItem = value;
     }
-
-    // Some UIObject types inherited from MenuItem
-    // may not create the content as IconLabel2.
-
-    const std::wstring& MenuItem::hotkeyText() const
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel2>();
-        if (!content.expired())
-        {
-            return content.lock()->label2()->text();
-        }
-        else return uikit::resource_utils::emptyWstrRef();
-    }
-
-    void MenuItem::setHotkeyText(const std::wstring& text)
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel2>();
-        if (!content.expired())
-        {
-            content.lock()->label2()->setText(text);
-        }
-    }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL_OPTIONAL(MenuItem, Hotkey, label2,
-        pimpl->uiobj->getContent<uikit::IconLabel2>().lock())
 }

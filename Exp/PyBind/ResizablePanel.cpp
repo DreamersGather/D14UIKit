@@ -3,6 +3,7 @@
 #include "ResizablePanel.h"
 
 #include "Callback.h"
+#include "EnumBind.h"
 
 namespace d14uikit
 {
@@ -16,18 +17,27 @@ namespace d14uikit
         i.def(py::init());
 
         py::enum_<ResizablePanel::Border>(i, "Border")
-            .value("All", ResizablePanel::All)
-            .value("Left", ResizablePanel::Left)
-            .value("Right", ResizablePanel::Right)
-            .value("Top", ResizablePanel::Top)
-            .value("Bottom", ResizablePanel::Bottom)
+            _D14_UIKIT_PYBIND_ENUM(ResizablePanel, All)
+            _D14_UIKIT_PYBIND_ENUM(ResizablePanel, Left)
+            _D14_UIKIT_PYBIND_ENUM(ResizablePanel, Right)
+            _D14_UIKIT_PYBIND_ENUM(ResizablePanel, Top)
+            _D14_UIKIT_PYBIND_ENUM(ResizablePanel, Bottom)
             .export_values();
 
-        i.def(
+        i.def_property(
             "resizable",
+            [](ResizablePanel& self)
+            {
+                return self.resizable();
+            },
+            [](ResizablePanel& self, bool value)
+            {
+                self.setResizable(value);
+            });
+        i.def(
+            "getResizable",
             &ResizablePanel::resizable,
             "border"_a = ResizablePanel::All);
-
         i.def(
             "setResizable",
             &ResizablePanel::setResizable,

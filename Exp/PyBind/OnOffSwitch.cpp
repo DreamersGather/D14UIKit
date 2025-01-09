@@ -2,7 +2,8 @@
 
 #include "OnOffSwitch.h"
 
-#include "Callback.h"
+#include "EnumBind.h"
+#include "StatefulObject.h"
 
 namespace d14uikit
 {
@@ -13,14 +14,10 @@ namespace d14uikit
         i.def(py::init());
 
         py::enum_<OnOffSwitch::State>(i, "State")
-            .value("On", OnOffSwitch::On)
-            .value("Off", OnOffSwitch::Off)
+            _D14_UIKIT_PYBIND_ENUM(OnOffSwitch, On)
+            _D14_UIKIT_PYBIND_ENUM(OnOffSwitch, Off)
             .export_values();
 
-        i.def_property("state", &OnOffSwitch::state, &OnOffSwitch::setState);
-
-        _D14_CALLBACK_PROPERTY(OnOffSwitch, onStateChange);
-
-        i.def("onStateChange", &ExOnOffSwitch::onStateChange, "state"_a);
+        _D14_UIKIT_PYBIND_STATEFUL_OBJECT(OnOffSwitch)
     }
 }

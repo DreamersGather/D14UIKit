@@ -5,7 +5,6 @@
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/Basic.h"
 
-#include "UIKit/Application.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
@@ -31,24 +30,6 @@ namespace d14uikit
     Font::Font(Passkey)
         :
         pimpl(std::make_shared<Impl>()) { }
-
-    void Font::initialize() { }
-
-    Font::Font(const Font& other) : Font(Passkey{})
-    {
-        pimpl->textFormat = other.pimpl->textFormat;
-    }
-
-    Font& Font::operator=(const Font& rhs)
-    {
-        if (this == &rhs)
-        {
-            return *this;
-        }
-        pimpl->textFormat = rhs.pimpl->textFormat;
-
-        return *this;
-    }
 
     std::wstring Font::familyName() const
     {
@@ -98,7 +79,7 @@ namespace d14uikit
         return dstNames;
     }
 
-    void Font::load(
+    std::unique_ptr<Font> Font::load(
         const std::wstring& name,
         const std::wstring& familyName,
         int size,
@@ -107,16 +88,16 @@ namespace d14uikit
         Style style,
         Stretch strech)
     {
-        auto rndr = uikit::Application::g_app->dx12Renderer();
-        THROW_IF_FAILED(rndr->dwriteFactory()->CreateTextFormat(
-            familyName.c_str(),
-            nullptr,
-            (DWRITE_FONT_WEIGHT)weight,
-            (DWRITE_FONT_STYLE)style,
-            (DWRITE_FONT_STRETCH)strech,
-            // 1 inch == 72 pt == 96 dip
-            size * 96.0f / 72.0f,
-            localeName.c_str(),
-            &uikit::resource_utils::g_textFormats[name]));
+        uikit::resource_utils::loadSystemTextFormat
+        (
+            /* textFormatName */ name,
+            /* fontFamilyName */ familyName,
+            /* fontSize       */ (float)size,
+            /* localeName     */ localeName,
+            /* fontWeight     */ (DWRITE_FONT_WEIGHT)weight,
+            /* fontStyle      */ (DWRITE_FONT_STYLE)style,
+            /* fontStretch    */ (DWRITE_FONT_STRETCH)strech
+        );
+        return std::make_unique<Font>(name);
     }
 }

@@ -10,8 +10,6 @@
 #include "Common/MathUtils/2D.h"
 
 #include "UIKit/Application.h"
-#include "UIKit/ColorUtils.h"
-#include "UIKit/Panel.h"
 #include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
@@ -19,22 +17,18 @@ using namespace d14engine::renderer;
 
 namespace d14uikit
 {
-    Panel::Panel() : Panel(Passkey{})
-    {
-        pimpl->uiobj = uikit::makeUIObject<uikit::Panel>(
-            D2D1_RECT_F{},
-            uikit::resource_utils::g_solidColorBrush);
+    Panel::Panel()
+        :
+        Panel(uikit::makeUIObject<uikit::Panel>(
+            D2D1_RECT_F{}, uikit::resource_utils::g_solidColorBrush)) { }
 
-        initialize();
-    }
-
-    Panel::Panel(Passkey)
+    _D14_UIKIT_CTOR(Panel)
         :
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void Panel::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onRendererUpdateObject2DAfter = [this]
         (uikit::Panel* p, Renderer* rndr)
         {

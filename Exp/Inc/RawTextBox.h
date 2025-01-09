@@ -1,13 +1,15 @@
 ﻿#pragma once
 
-#include "LabelArea.h"
 #include "RawTextInput.h"
+
+_D14_UIKIT_FWDEF(RawTextBox)
 
 namespace d14uikit
 {
-    class DllExport RawTextBox : public LabelArea
+    class DllExport RawTextBox : public RawTextInput
     {
         _D14_UIKIT_PIMPL(RawTextBox)
-        _D14_UIKIT_RAW_TEXT_INPUT_DECL(RawTextBox)
+
+        RawTextBox();
     };
 }

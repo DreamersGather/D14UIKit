@@ -4,7 +4,6 @@
 
 #include "Common.h"
 #include "Panel.h"
-#include "ResizablePanel.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -16,27 +15,17 @@ namespace d14uikit
 {
     ScrollView::ScrollView()
         :
-        ScrollView(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        ScrollView::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ScrollView>();
+        ScrollView(uikit::makeUIObject<uikit::ScrollView>()) { }
 
-        Panel::initialize();
-        ResizablePanel::initialize();
-        ScrollView::initialize();
-    }
-
-    ScrollView::ScrollView(Passkey)
+    _D14_UIKIT_CTOR(ScrollView)
         :
-        Panel(Panel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
+        Panel(uiobj),
+        ResizablePanel(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void ScrollView::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStartThumbScrolling = [this]
         (uikit::ScrollView* sv, const D2D1_POINT_2F& offset)
         {

@@ -4,8 +4,6 @@
 
 #include "Inc/GridLayout.h"
 
-namespace d14engine::uikit { struct GridLayout; }
-
 namespace d14uikit
 {
     struct GridLayout::Impl

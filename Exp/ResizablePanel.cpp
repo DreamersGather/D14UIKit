@@ -2,7 +2,7 @@
 
 #include "ResizablePanel.h"
 
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/ResizablePanel.h"
 #include "UIKit/ResourceUtils.h"
@@ -11,35 +11,19 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    ResizablePanel::ResizablePanel() : ResizablePanel(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ResizablePanel::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ResizablePanel>(
-            D2D1_RECT_F{},
-            uikit::resource_utils::g_solidColorBrush);
-
-        Panel::initialize();
-        ResizablePanel::initialize();
-    }
-
-    ResizablePanel::ResizablePanel(Passkey)
+    ResizablePanel::ResizablePanel()
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
+        ResizablePanel(uikit::makeUIObject<uikit::ResizablePanel>(
+            D2D1_RECT_F{}, uikit::resource_utils::g_solidColorBrush)) { }
 
-    void ResizablePanel::initialize()
+    _D14_UIKIT_CTOR(ResizablePanel)
+        :
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>()),
+        pcallback(std::make_unique<Callback>())
     {
-        pimpl->uiobj->f_onStartResizing = [this]
-        (uikit::ResizablePanel* rsp)
-        {
-            onStartResizing();
-            if (pcallback->onStartResizing)
-            {
-                pcallback->onStartResizing(this);
-            }
-        };
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onEndResizing = [this]
         (uikit::ResizablePanel* rsp)
         {
@@ -47,6 +31,15 @@ namespace d14uikit
             if (pcallback->onEndResizing)
             {
                 pcallback->onEndResizing(this);
+            }
+        };
+        pimpl->uiobj->f_onStartResizing = [this]
+        (uikit::ResizablePanel* rsp)
+        {
+            onStartResizing();
+            if (pcallback->onStartResizing)
+            {
+                pcallback->onStartResizing(this);
             }
         };
     }
@@ -101,10 +94,9 @@ namespace d14uikit
         pimpl->uiobj->enableDynamicSizing = value;
     }
 
-    ResizablePanel::Callback&
-    ResizablePanel::callback() const { return *pcallback; }
+    ResizablePanel::Callback& ResizablePanel::callback() const { return *pcallback; }
+
+    void ResizablePanel::onEndResizing() {}
 
     void ResizablePanel::onStartResizing() { }
-
-    void ResizablePanel::onEndResizing() { }
 }

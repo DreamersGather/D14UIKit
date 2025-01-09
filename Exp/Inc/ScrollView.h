@@ -2,6 +2,8 @@
 
 #include "ResizablePanel.h"
 
+_D14_UIKIT_FWDEF(ScrollView)
+
 namespace d14uikit
 {
     class DllExport ScrollView : public ResizablePanel
@@ -16,6 +18,7 @@ namespace d14uikit
         int vertDeltaPixel() const;
         void setVertDeltaPixel(int value);
 
+        // The return value may be null
         Panel* content() const;
         void setContent(Panel* uiobj);
 

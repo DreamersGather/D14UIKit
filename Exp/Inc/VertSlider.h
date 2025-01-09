@@ -3,6 +3,8 @@
 #include "Panel.h"
 #include "Slider.h"
 
+_D14_UIKIT_FWDEF(VertSlider)
+
 namespace d14uikit
 {
     class DllExport VertSlider : public Panel

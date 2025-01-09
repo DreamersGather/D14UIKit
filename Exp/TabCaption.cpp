@@ -3,12 +3,10 @@
 #include "TabCaption.h"
 
 #include "Common.h"
-#include "Image.h"
-#include "Panel.h"
-#include "TextFormat.h"
+#include "IconLabel.h"
+#include "Label.h"
 
 #include "UIKit/IconLabel.h"
-#include "UIKit/Label.h"
 #include "UIKit/TabCaption.h"
 
 using namespace d14engine;
@@ -17,84 +15,32 @@ namespace d14uikit
 {
     TabCaption::TabCaption(const std::wstring& title)
         :
-        TabCaption(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        TabCaption::pimpl->uiobj =
-        uikit::makeUIObject<uikit::TabCaption>(title);
+        TabCaption(uikit::makeUIObject<uikit::TabCaption>(title)) { }
 
-        Panel::initialize();
-        TabCaption::initialize();
-    }
-
-    TabCaption::TabCaption(Passkey)
+    _D14_UIKIT_CTOR(TabCaption)
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void TabCaption::initialize() { }
-
-    Image* TabCaption::icon() const
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>())
     {
-        return pimpl->icon;
+        pimpl->uiobj = uiobj;
+
+        _D14_UIKIT_BIND(IconLabel, title);
     }
 
-    void TabCaption::setIcon(Image* icon)
+    IconLabel* TabCaption::title() const
     {
-        pimpl->icon = icon;
-        auto& targetIcon = pimpl->uiobj->title()->icon;
-        if (icon != nullptr && !icon->cpuRead())
-        {
-            targetIcon.bitmap = icon->getImpl()->bitmap;
-        }
-        else targetIcon.bitmap.Reset();
-
-        pimpl->uiobj->title()->updateLayout();
+        return pimpl->title.get();
     }
 
-    Size TabCaption::iconSize() const
+    const std::wstring& TabCaption::text() const
     {
-        auto& icon = pimpl->uiobj->title()->icon;
-
-        D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-        if (icon.customSize.has_value())
-        {
-            iconSize = icon.customSize.value();
-        }
-        else if (icon.bitmap != nullptr)
-        {
-            iconSize = icon.bitmap->GetSize();
-        }
-        return convert(iconSize);
+        return pimpl->title->label()->text();
     }
 
-    void TabCaption::setIconSize(const std::optional<Size>& value)
+    void TabCaption::setText(const std::wstring& text)
     {
-        auto& icon = pimpl->uiobj->title()->icon;
-
-        if (value.has_value())
-        {
-            icon.customSize = convert(value.value());
-        }
-        else icon.customSize.reset();
-
-        pimpl->uiobj->title()->updateLayout();
+        pimpl->title->label()->setText(text);
     }
-
-    const std::wstring& TabCaption::title() const
-    {
-        return pimpl->uiobj->title()->label()->text();
-    }
-
-    void TabCaption::setTitle(const std::wstring& title)
-    {
-        auto& icolbl = pimpl->uiobj->title();
-        icolbl->label()->setText(title);
-        icolbl->updateLayout();
-    }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(
-        TabCaption, , label, pimpl->uiobj->title())
 
     bool TabCaption::closable() const
     {

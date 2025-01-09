@@ -2,6 +2,8 @@
 
 #include "Image.h"
 
+#include "EnumBind.h"
+
 #include "Inc/Image.h"
 
 namespace d14uikit
@@ -46,16 +48,16 @@ namespace d14uikit
             &Image::dipHeight);
 
         py::enum_<Image::Format>(i, "Format")
-            .value("Adng",  Image::Adng)
-            .value("Bmp",   Image::Bmp)
-            .value("Png",   Image::Png)
-            .value("Ico",   Image::Ico)
-            .value("Jpeg",  Image::Jpeg)
-            .value("Tiff",  Image::Tiff)
-            .value("Gif",   Image::Gif)
-            .value("Wmp",   Image::Wmp)
-            .value("Heif",  Image::Heif)
-            .value("Webp",  Image::Webp)
+            _D14_UIKIT_PYBIND_ENUM(Image, Adng)
+            _D14_UIKIT_PYBIND_ENUM(Image, Bmp)
+            _D14_UIKIT_PYBIND_ENUM(Image, Png)
+            _D14_UIKIT_PYBIND_ENUM(Image, Ico)
+            _D14_UIKIT_PYBIND_ENUM(Image, Jpeg)
+            _D14_UIKIT_PYBIND_ENUM(Image, Tiff)
+            _D14_UIKIT_PYBIND_ENUM(Image, Gif)
+            _D14_UIKIT_PYBIND_ENUM(Image, Wmp)
+            _D14_UIKIT_PYBIND_ENUM(Image, Heif)
+            _D14_UIKIT_PYBIND_ENUM(Image, Webp)
             .export_values();
 
         i.def(

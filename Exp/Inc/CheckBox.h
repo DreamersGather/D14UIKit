@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include "ClickablePanel.h"
+#include "StatefulObject.h"
+
+_D14_UIKIT_FWDEF(CheckBox)
 
 namespace d14uikit
 {
@@ -20,21 +23,9 @@ namespace d14uikit
         constexpr static auto Intermediate = State::Intermediate;
         constexpr static auto Checked = State::Checked;
 
-        State state() const;
-        void setState(State state);
-
         bool tripleState() const;
         void setTripleState(bool value);
 
-        struct Callback
-        {
-            std::function<void(CheckBox*, State)> onStateChange = {};
-        };
-        Callback& callback() const;
-
-    protected:
-        std::unique_ptr<Callback> pcallback = {};
-
-        virtual void onStateChange(State state);
+        _D14_UIKIT_STATEFUL_OBJECT_DECL(CheckBox)
     };
 }

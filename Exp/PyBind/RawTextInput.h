@@ -2,24 +2,29 @@
 
 #include "Common/Precompile.h"
 
-#include "Common.h"
+#include "Panel.h"
 
-#include "Callback.h"
+#include "Inc/RawTextInput.h"
 
-#include "Inc/Label.h"
+namespace d14uikit
+{
+    void Py_InitRawTextInput(py::module_& m);
 
-#define _D14_UIKIT_PYBIND_RAW_TEXT_INPUT(Type_Name)                                     \
-                                                                                        \
-i.def_property("editable", &Type_Name::editable, &Type_Name::setEditable);              \
-                                                                                        \
-i.def_property("textRect", &Type_Name::textRect, &Type_Name::setTextRect);              \
-                                                                                        \
-i.def_property_readonly("placeholder", &Type_Name::placeholder);                        \
-                                                                                        \
-i.def("performCommandCtrlX", &Type_Name::performCommandCtrlX);                          \
-                                                                                        \
-i.def("performCommandCtrlV", &Type_Name::performCommandCtrlV);                          \
-                                                                                        \
-_D14_CALLBACK_PROPERTY(Type_Name, onTextChange);                                        \
-                                                                                        \
-i.def("onTextChange", &Ex##Type_Name::onTextChange, "text"_a);                          \
+    class ExRawTextInput : public RawTextInput
+    {
+    public:
+        using RawTextInput::onTextChange;
+    };
+
+    template<typename RawTextInputBase = RawTextInput>
+    class PyRawTextInput : public PyPanel<RawTextInputBase>
+    {
+    public:
+        using PyPanel<RawTextInputBase>::PyPanel;
+
+        void onTextChange(const std::wstring& text) override
+        {
+            PYBIND11_OVERRIDE(void, RawTextInputBase, onTextChange, text);
+        }
+    };
+}

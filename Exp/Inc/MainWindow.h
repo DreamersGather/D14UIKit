@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+_D14_UIKIT_FWDEF(MainWindow)
+
 namespace d14uikit
 {
     class DllExport MainWindow : public Window

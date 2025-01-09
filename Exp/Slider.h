@@ -4,7 +4,6 @@
 
 #include "Common.h"
 #include "Label.h"
-#include "Panel.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -12,26 +11,20 @@
 
 #define _D14_UIKIT_SLIDER_IMPL(Type_Name)                                               \
                                                                                         \
-Type_Name::Type_Name() : Type_Name(Passkey{})                                           \
-{                                                                                       \
-    Panel::pimpl->uiobj =                                                               \
-    Type_Name::pimpl->uiobj =                                                           \
-    uikit::makeUIObject<uikit::Type_Name>();                                            \
-                                                                                        \
-    Panel::initialize();                                                                \
-    Type_Name::initialize();                                                            \
-}                                                                                       \
-                                                                                        \
-Type_Name::Type_Name(Passkey)                                                           \
+Type_Name::Type_Name()                                                                  \
     :                                                                                   \
-    Panel(Panel::Passkey{}),                                                            \
-    pimpl(std::make_shared<Impl>()),                                                    \
-    pcallback(std::make_unique<Callback>()) { }                                         \
+    Type_Name(uikit::makeUIObject<uikit::Type_Name>()) { }                              \
                                                                                         \
-void Type_Name::initialize()                                                            \
+_D14_UIKIT_CTOR(Type_Name)                                                              \
+    :                                                                                   \
+    Panel(uiobj),                                                                       \
+    pimpl(std::make_shared<Impl>()),                                                    \
+    pcallback(std::make_unique<Callback>())                                             \
 {                                                                                       \
+    pimpl->uiobj = uiobj;                                                               \
+                                                                                        \
     pimpl->uiobj->f_onValueChange = [this]                                              \
-    (uikit::Slider::ValuefulObject* obj, float value)                                   \
+    (uikit::Slider::ValuefulObject * obj, float value)                                  \
     {                                                                                   \
         onValueChange(value);                                                           \
         if (pcallback->onValueChange)                                                   \
@@ -40,7 +33,7 @@ void Type_Name::initialize()                                                    
         }                                                                               \
     };                                                                                  \
     pimpl->uiobj->f_onStartSliding = [this]                                             \
-    (uikit::Slider* sldr, float value)                                                  \
+    (uikit::Slider * sldr, float value)                                                 \
     {                                                                                   \
         onStartSliding(value);                                                          \
         if (pcallback->onStartSliding)                                                  \
@@ -49,7 +42,7 @@ void Type_Name::initialize()                                                    
         }                                                                               \
     };                                                                                  \
     pimpl->uiobj->f_onEndSliding = [this]                                               \
-    (uikit::Slider* sldr, float value)                                                  \
+    (uikit::Slider * sldr, float value)                                                 \
     {                                                                                   \
         onEndSliding(value);                                                            \
         if (pcallback->onEndSliding)                                                    \
@@ -57,17 +50,7 @@ void Type_Name::initialize()                                                    
             pcallback->onEndSliding(this, value);                                       \
         }                                                                               \
     };                                                                                  \
-    /* Bind the existing label implementation to the interface. */                      \
-    {                                                                                   \
-        pimpl->valueLabel = std::shared_ptr<Label>(new Label(Label::Passkey{}));        \
-                                                                                        \
-        pimpl->valueLabel->Panel::pimpl->uiobj =                                        \
-        pimpl->valueLabel->Label::pimpl->uiobj =                                        \
-        pimpl->uiobj->valueLabel();                                                     \
-                                                                                        \
-        pimpl->valueLabel->Panel::initialize();                                         \
-        pimpl->valueLabel->Label::initialize();                                         \
-    }                                                                                   \
+    _D14_UIKIT_BIND(Label, valueLabel);                                                 \
 }                                                                                       \
                                                                                         \
 float Type_Name::value() const                                                          \
@@ -210,4 +193,3 @@ void Type_Name::onValueChange(float value) { }                                  
 void Type_Name::onEndSliding(float value) { }                                           \
                                                                                         \
 void Type_Name::onStartSliding(float value) { }                                         \
-                                                                                        \

@@ -3,9 +3,9 @@
 #include "MenuItem.h"
 
 #include "Panel.h"
-#include "TextFormat.h"
 #include "ViewItem.h"
 
+#include "Inc/Label.h"
 #include "Inc/MenuItem.h"
 #include "Inc/PopupMenu.h"
 
@@ -19,8 +19,12 @@ namespace d14uikit
             py::init<
             const std::wstring&,
             const std::wstring&>(),
-            "labelText"_a = L"ViewItem",
+            "labelText"_a = L"MenuItem",
             "hotkeyText"_a = L"");
+
+        i.def_property_readonly(
+            "hotkey",
+            &MenuItem::hotkey);
 
         i.def_property(
             "associatedMenu",
@@ -36,12 +40,5 @@ namespace d14uikit
             "trigger",
             &MenuItem::trigger,
             &MenuItem::setTrigger);
-
-        i.def_property(
-            "hotkeyText",
-            &MenuItem::hotkeyText,
-            &MenuItem::setHotkeyText);
-
-        _D14_UIKIT_PYBIND_TEXT_FORMAT(MenuItem, Hotkey)
     }
 }

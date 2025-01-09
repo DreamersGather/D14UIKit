@@ -589,6 +589,21 @@
     <ClCompile Include="Exp\PyBind\FrameAnimPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\IconLabel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\RawTextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\TextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\RawTextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Exp\PyBind\TextInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -1221,16 +1236,7 @@
     <ClInclude Include="Exp\Inc\ComboBoxItem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Exp\TextFormat.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Exp\Inc\TextFormat.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Exp\PyBind\ComboBoxItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Exp\PyBind\TextFormat.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\Inc\GridLayout.h">
@@ -1459,6 +1465,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\FrameAnimPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\IconLabel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\IconLabel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\Inc\StatefulObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\StatefulObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\EnumBind.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

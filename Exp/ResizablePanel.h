@@ -4,8 +4,6 @@
 
 #include "Inc/ResizablePanel.h"
 
-namespace d14engine::uikit { struct ResizablePanel; }
-
 namespace d14uikit
 {
     struct ResizablePanel::Impl

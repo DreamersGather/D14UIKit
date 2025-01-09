@@ -3,16 +3,13 @@
 #include "Window.h"
 
 #include "Common.h"
-#include "DraggablePanel.h"
-#include "Image.h"
+#include "IconLabel.h"
+#include "Label.h"
 #include "Panel.h"
-#include "ResizablePanel.h"
-#include "TextFormat.h"
 
 #include "Common/MathUtils/Basic.h"
 
 #include "UIKit/IconLabel.h"
-#include "UIKit/Label.h"
 #include "UIKit/Window.h"
 
 using namespace d14engine;
@@ -21,32 +18,18 @@ namespace d14uikit
 {
     Window::Window(const std::wstring& title)
         :
-        Window(Passkey{})
-    {
-        Window::pimpl->uiobj =
-        uikit::makeUIObject
-        <uikit::Window>(title);
+        Window(uikit::makeUIObject<uikit::Window>(title)) { }
 
-        Panel::pimpl->uiobj = pimpl->uiobj;
-        DraggablePanel::pimpl->uiobj = pimpl->uiobj;
-        ResizablePanel::pimpl->uiobj = pimpl->uiobj;
-
-        Panel::initialize();
-        DraggablePanel::initialize();
-        ResizablePanel::initialize();
-        Window::initialize();
-    }
-
-    Window::Window(Passkey)
+    _D14_UIKIT_CTOR(Window)
         :
-        Panel(Panel::Passkey{}),
-        DraggablePanel(DraggablePanel::Passkey{}),
-        ResizablePanel(ResizablePanel::Passkey{}),
+        Panel(uiobj),
+        DraggablePanel(uiobj),
+        ResizablePanel(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void Window::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onMinimize = [this]
         (uikit::Window* w)
         {
@@ -83,6 +66,7 @@ namespace d14uikit
                 pcallback->onClose(this);
             }
         };
+        _D14_UIKIT_BIND(IconLabel, caption);
     }
 
     int Window::captionHeight() const
@@ -105,65 +89,20 @@ namespace d14uikit
         pimpl->uiobj->setDecorativeBarHeight((float)value);
     }
 
-    Image* Window::icon() const
+    IconLabel* Window::caption() const
     {
-        return pimpl->icon;
-    }
-
-    void Window::setIcon(Image* icon)
-    {
-        pimpl->icon = icon;
-        auto& targetIcon = pimpl->uiobj->caption()->icon;
-        if (icon != nullptr && !icon->cpuRead())
-        {
-            targetIcon.bitmap = icon->getImpl()->bitmap;
-        }
-        else targetIcon.bitmap.Reset();
-
-        pimpl->uiobj->caption()->updateLayout();
-    }
-
-    Size Window::iconSize() const
-    {
-        auto& icon = pimpl->uiobj->caption()->icon;
-
-        D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-        if (icon.customSize.has_value())
-        {
-            iconSize = icon.customSize.value();
-        }
-        else if (icon.bitmap != nullptr)
-        {
-            iconSize = icon.bitmap->GetSize();
-        }
-        return convert(iconSize);
-    }
-
-    void Window::setIconSize(const std::optional<Size>& value)
-    {
-        auto& icon = pimpl->uiobj->caption()->icon;
-
-        if (value.has_value())
-        {
-            icon.customSize = convert(value.value());
-        }
-        else icon.customSize.reset();
-
-        pimpl->uiobj->caption()->updateLayout();
+        return pimpl->caption.get();
     }
 
     const std::wstring& Window::title() const
     {
-        return pimpl->uiobj->caption()->label()->text();
+        return pimpl->caption->label()->text();
     }
 
     void Window::setTitle(const std::wstring& title)
     {
-        pimpl->uiobj->caption()->label()->setText(title);
+        pimpl->caption->label()->setText(title);
     }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(
-        Window, Title, label, pimpl->uiobj->caption())
 
     int Window::nonContentHeight() const
     {

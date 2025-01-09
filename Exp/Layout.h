@@ -2,32 +2,24 @@
 
 #include "Common/Precompile.h"
 
-#include "Panel.h"
-#include "ResizablePanel.h"
+#include "Common.h"
 
 #include "Common/MathUtils/Basic.h"
 
 #define _D14_UIKIT_LAYOUT_IMPL(Type_Name)                                               \
                                                                                         \
-Type_Name::Type_Name() : Type_Name(Passkey{})                                           \
-{                                                                                       \
-    Panel::pimpl->uiobj =                                                               \
-    ResizablePanel::pimpl->uiobj =                                                      \
-    Type_Name::pimpl->uiobj =                                                           \
-    uikit::makeUIObject<uikit::Type_Name>();                                            \
-                                                                                        \
-    Panel::initialize();                                                                \
-    ResizablePanel::initialize();                                                       \
-    Type_Name::initialize();                                                            \
-}                                                                                       \
-                                                                                        \
-Type_Name::Type_Name(Passkey)                                                           \
+Type_Name::Type_Name()                                                                  \
     :                                                                                   \
-    Panel(Panel::Passkey{}),                                                            \
-    ResizablePanel(ResizablePanel::Passkey{}),                                          \
-    pimpl(std::make_shared<Impl>()) { }                                                 \
+    Type_Name(uikit::makeUIObject<uikit::Type_Name>()) { }                              \
                                                                                         \
-void Type_Name::initialize() { }                                                        \
+_D14_UIKIT_CTOR(Type_Name)                                                              \
+    :                                                                                   \
+    Panel(uiobj),                                                                       \
+    ResizablePanel(uiobj),                                                              \
+    pimpl(std::make_shared<Impl>())                                                     \
+{                                                                                       \
+    pimpl->uiobj = uiobj;                                                               \
+}                                                                                       \
                                                                                         \
 float Type_Name::opacity() const                                                        \
 {                                                                                       \

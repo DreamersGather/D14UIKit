@@ -1,4 +1,6 @@
-﻿namespace d14uikit
+﻿#pragma once
+
+namespace d14uikit
 {
     using VirtualKeyCode = int;
 

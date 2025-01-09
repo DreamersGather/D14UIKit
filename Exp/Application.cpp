@@ -5,7 +5,6 @@
 #include "Common.h"
 #include "Cursor.h"
 #include "Image.h"
-#include "Panel.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -24,25 +23,41 @@ namespace d14uikit
 {
     Application* Application::Impl::app = nullptr;
 
+    using CreateInfo = uikit::Application::CreateInfo;
+
     Application::Application(
         const std::wstring& name,
         const std::optional<float>& dpi)
         :
-        Application(Passkey{})
-    {
-        using CreateInfo = uikit::Application::CreateInfo;
+        Application(std::make_shared<uikit::Application>(
+            0, nullptr, CreateInfo{ .name = name, .dpi = dpi })) { }
 
-        pimpl->uiobj = std::make_shared<uikit::Application>(
-            0, nullptr, CreateInfo{ .name = name, .dpi = dpi });
-
-        initialize();
-    }
-
-    Application::Application(Passkey)
+    _D14_UIKIT_CTOR(Application)
         :
         pimpl(std::make_shared<Impl>())
     {
         Impl::app = this;
+
+        pimpl->uiobj = uiobj;
+
+        pimpl->uiobj->f_onSystemThemeStyleChange = [this]
+        {
+            if (pimpl->useSystemTheme)
+            {
+                auto& mode = pimpl->uiobj->systemThemeStyle().mode;
+                using ThemeMode = uikit::Application::ThemeStyle::Mode;
+
+                if (mode == ThemeMode::Light)
+                {
+                    pimpl->uiobj->changeTheme(L"Light");
+                }
+                else if (mode == ThemeMode::Dark)
+                {
+                    pimpl->uiobj->changeTheme(L"Dark");
+                }
+            }
+        };
+        _D14_UIKIT_BIND(Cursor, cursor);
     }
 
     Application::~Application()
@@ -54,48 +69,24 @@ namespace d14uikit
         uikit::resource_utils::g_shadowEffect.Reset();
     }
 
-    void Application::initialize()
-    {
-        pimpl->uiobj->f_onSystemThemeStyleChange = [this]
-        {
-        if (pimpl->useSystemTheme)
-        {
-        auto& mode = pimpl->uiobj->systemThemeStyle().mode;
-        using ThemeMode = uikit::Application::ThemeStyle::Mode;
-
-        if (mode == ThemeMode::Light)
-        {
-            pimpl->uiobj->changeTheme(L"Light");
-        }
-        else if (mode == ThemeMode::Dark)
-        {
-            pimpl->uiobj->changeTheme(L"Dark");
-        }}};
-        // Bind the existing cursor implementation to the interface.
-        {
-            auto& c = pimpl->cursor;
-
-            c = std::shared_ptr<Cursor>(new Cursor(Cursor::Passkey{}));
-
-            auto uiobj1 = pimpl->uiobj->cursor()->shared_from_this();
-            auto uiobj2 = std::static_pointer_cast<uikit::Cursor>(uiobj1);
-
-            c->Panel::pimpl->uiobj = uiobj1;
-            c->Cursor::pimpl->uiobj = uiobj2;
-        
-            c->Panel::initialize();
-            c->Cursor::initialize();
-        }
-    }
-
     Application* Application::app()
     {
         return Impl::app;
     }
 
-    Cursor* Application::cursor() const
+    int Application::dpi() const
     {
-        return pimpl->cursor.get();
+        return math_utils::round(uikit::platform_utils::dpi());
+    }
+
+    BitmapInterpMode Application::bitmapInterpMode() const
+    {
+        return pimpl->bitmapInterpMode;
+    }
+
+    void Application::setBitmapInterpMode(BitmapInterpMode mode)
+    {
+        uikit::BitmapObject::g_interpolationMode = (D2D1_INTERPOLATION_MODE)mode;
     }
 
     int Application::run() const
@@ -143,12 +134,7 @@ namespace d14uikit
         ShowWindow(pimpl->uiobj->win32Window(), showFlag);
     }
 
-    int Application::dpi() const
-    {
-        return math_utils::round(uikit::platform_utils::dpi());
-    }
-
-    Size scaledByDpi(const Size& sz)
+    static Size scaledByDpi(const Size& sz)
     {
         auto factor = uikit::platform_utils::dpi() / 96.0f;
         return
@@ -158,7 +144,7 @@ namespace d14uikit
         };
     }
 
-    Size restoredByDpi(const Size& sz)
+    static Size restoredByDpi(const Size& sz)
     {
         auto factor = 96.0f / uikit::platform_utils::dpi();
         return
@@ -168,7 +154,7 @@ namespace d14uikit
         };
     }
 
-    Point scaledByDpi(const Point& pt)
+    static Point scaledByDpi(const Point& pt)
     {
         auto factor = uikit::platform_utils::dpi() / 96.0f;
         return
@@ -178,7 +164,7 @@ namespace d14uikit
         };
     }
 
-    Point restoredByDpi(const Point& pt)
+    static Point restoredByDpi(const Point& pt)
     {
         auto factor = 96.0f / uikit::platform_utils::dpi();
         return
@@ -342,6 +328,44 @@ namespace d14uikit
         return pimpl->uiobj->dx12Renderer()->timer()->fps();
     }
 
+    std::unique_ptr<Image> Application::capture() const
+    {
+        std::unique_ptr<Image> screenshot(new Image(Image::Passkey{}));
+        screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
+        return screenshot;
+    }
+
+    TextAntialiasMode Application::textAntialiasMode() const
+    {
+        return pimpl->textAntialiasMode;
+    }
+
+    void Application::setTextAntialiasMode(TextAntialiasMode mode)
+    {
+        if (pimpl->textAntialiasMode != mode)
+        {
+            auto rndr = pimpl->uiobj->dx12Renderer();
+            rndr->setTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE)mode);
+        }
+        pimpl->textAntialiasMode = mode;
+    }
+
+    RenderingMode Application::renderingMode() const
+    {
+        return pimpl->renderingMode;
+    }
+
+    void Application::setRenderingMode(RenderingMode mode)
+    {
+        if (pimpl->renderingMode != mode)
+        {
+            auto defMode = pimpl->uiobj->dx12Renderer()->getDefaultTextRenderingMode();
+            defMode.renderingMode = (DWRITE_RENDERING_MODE)mode;
+            pimpl->uiobj->dx12Renderer()->setTextRenderingMode(defMode);
+        }
+        pimpl->renderingMode = mode;
+    }
+
     int Application::animCount() const
     {
         return pimpl->uiobj->animationCount();
@@ -363,6 +387,11 @@ namespace d14uikit
             else pimpl->uiobj->decreaseAnimationCount();
         }
         pimpl->animState = value;
+    }
+
+    Cursor* Application::cursor() const
+    {
+        return pimpl->cursor.get();
     }
 
     const std::wstring& Application::themeMode() const
@@ -435,53 +464,5 @@ namespace d14uikit
     void Application::setLangLocale(const std::wstring& name)
     {
         pimpl->uiobj->changeLangLocale(name);
-    }
-
-    TextAntialiasMode Application::textAntialiasMode() const
-    {
-        return pimpl->textAntialiasMode;
-    }
-
-    void Application::setTextAntialiasMode(TextAntialiasMode mode)
-    {
-        if (pimpl->textAntialiasMode != mode)
-        {
-            auto rndr = pimpl->uiobj->dx12Renderer();
-            rndr->setTextAntialiasMode((D2D1_TEXT_ANTIALIAS_MODE)mode);
-        }
-        pimpl->textAntialiasMode = mode;
-    }
-
-    D2DRenderingMode Application::d2dRenderingMode() const
-    {
-        return pimpl->d2dRenderingMode;
-    }
-
-    void Application::setD2dRenderingMode(D2DRenderingMode mode)
-    {
-        if (pimpl->d2dRenderingMode != mode)
-        {
-            auto defMode = pimpl->uiobj->dx12Renderer()->getDefaultTextRenderingMode();
-            defMode.renderingMode = (DWRITE_RENDERING_MODE)mode;
-            pimpl->uiobj->dx12Renderer()->setTextRenderingMode(defMode);
-        }
-        pimpl->d2dRenderingMode = mode;
-    }
-
-    BitmapInterpMode Application::bitmapInterpMode() const
-    {
-        return pimpl->bitmapInterpMode;
-    }
-
-    void Application::setBitmapInterpMode(BitmapInterpMode mode)
-    {
-        uikit::BitmapObject::g_interpolationMode = (D2D1_INTERPOLATION_MODE)mode;
-    }
-
-    std::unique_ptr<Image> Application::capture() const
-    {
-        std::unique_ptr<Image> screenshot(new Image(Image::Passkey{}));
-        screenshot->getImpl()->bitmap = pimpl->uiobj->screenshot();
-        return screenshot;
     }
 }

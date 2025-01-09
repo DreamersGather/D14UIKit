@@ -11,7 +11,7 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    _D14_UIKIT_WATERFALL_VIEW_IMPL(ListView)
+    _D14_UIKIT_WATERFALL_VIEW_IMPL(ListView, ListViewItem)
 
     void ListView::insertItem(const std::list<ListViewItem*>& items, int index)
     {

@@ -16,13 +16,45 @@
 #define DllExport // used as interfaces
 #endif
 
+// UI_Object from UIKit @ D14Engine
+//
+// _D14_UIKIT_FWDEF(UI_Object)
+// 
+// namespace d14uikit
+// {
+//     class DllExport UI_Object
+//     {
+//         _D14_UIKIT_PIMPL(UI_Object)
+//     };
+// }
+
+#define _D14_UIKIT_FWDEF(Type_Name) \
+namespace d14engine::uikit { struct Type_Name; }
+
 #define _D14_UIKIT_PIMPL(Type_Name) \
 protected: \
     struct Impl; \
     std::shared_ptr<Impl> pimpl = {}; \
-    struct Passkey { }; \
+    explicit Type_Name(const std::shared_ptr<d14engine::uikit::Type_Name>& uiobj); \
+public: \
+    Impl* getImpl() const { return pimpl.get(); }
+
+// Custom_Object from D14UIKit
+//
+// namespace d14uikit
+// {
+//     class DllExport Custom_Object
+//     {
+//         _D14_UIKIT_CUSTOM(Custom_Object)
+//     };
+// }
+
+#define _D14_UIKIT_CUSTOM(Type_Name) \
+protected: \
+    struct Impl; \
+    std::shared_ptr<Impl> pimpl = {}; \
+    struct Passkey {}; \
     explicit Type_Name(Passkey); \
-    void initialize(); \
 public: \
     Impl* getImpl() const { return pimpl.get(); }
 

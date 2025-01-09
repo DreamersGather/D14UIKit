@@ -2,6 +2,8 @@
 
 #include "Panel.h"
 
+_D14_UIKIT_FWDEF(FrameAnimPanel)
+
 namespace d14uikit
 {
     class DllExport FrameAnimPanel : public Panel

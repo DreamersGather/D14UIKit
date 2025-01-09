@@ -4,8 +4,6 @@
 
 #include "Inc/ElevatedButton.h"
 
-namespace d14engine::uikit { struct ElevatedButton; }
-
 namespace d14uikit
 {
     struct ElevatedButton::Impl

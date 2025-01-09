@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include "ClickablePanel.h"
+#include "StatefulObject.h"
+
+_D14_UIKIT_FWDEF(OnOffSwitch)
 
 namespace d14uikit
 {
@@ -17,18 +20,6 @@ namespace d14uikit
         constexpr static auto On = State::On;
         constexpr static auto Off = State::Off;
 
-        State state() const;
-        void setState(State state);
-
-        struct Callback
-        {
-            std::function<void(OnOffSwitch*, State)> onStateChange = {};
-        };
-        Callback& callback() const;
-
-    protected:
-        std::unique_ptr<Callback> pcallback = {};
-
-        virtual void onStateChange(State state);
+        _D14_UIKIT_STATEFUL_OBJECT_DECL(OnOffSwitch)
     };
 }

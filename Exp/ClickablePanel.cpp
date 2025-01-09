@@ -2,8 +2,8 @@
 
 #include "ClickablePanel.h"
 
+#include "Common.h"
 #include "Event.h"
-#include "Panel.h"
 
 #include "UIKit/ClickablePanel.h"
 #include "UIKit/ResourceUtils.h"
@@ -12,26 +12,19 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    ClickablePanel::ClickablePanel() : ClickablePanel(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ClickablePanel>(
-            D2D1_RECT_F{},
-            uikit::resource_utils::g_solidColorBrush);
-
-        Panel::initialize();
-        ClickablePanel::initialize();
-    }
-
-    ClickablePanel::ClickablePanel(Passkey)
+    ClickablePanel::ClickablePanel()
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
+        ClickablePanel(uikit::makeUIObject<uikit::ClickablePanel>(
+            D2D1_RECT_F{}, uikit::resource_utils::g_solidColorBrush)) { }
 
-    void ClickablePanel::initialize()
+    _D14_UIKIT_CTOR(ClickablePanel)
+        :
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>()),
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onMouseButtonPress = [this]
         (uikit::ClickablePanel* clkp, uikit::ClickablePanel::Event& e)
         {

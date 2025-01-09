@@ -2,9 +2,7 @@
 
 #include "MenuSeparator.h"
 
-#include "MenuItem.h"
-#include "Panel.h"
-#include "ViewItem.h"
+#include "Common.h"
 
 #include "UIKit/MenuSeparator.h"
 
@@ -14,26 +12,15 @@ namespace d14uikit
 {
     MenuSeparator::MenuSeparator()
         :
-        MenuSeparator(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ViewItem::pimpl->uiobj =
-        MenuItem::pimpl->uiobj =
-        MenuSeparator::pimpl->uiobj =
-        uikit::makeUIObject<uikit::MenuSeparator>();
+        MenuSeparator(uikit::makeUIObject<uikit::MenuSeparator>()) { }
 
-        Panel::initialize();
-        ViewItem::initialize();
-        MenuItem::initialize();
-        MenuSeparator::initialize();
-    }
-
-    MenuSeparator::MenuSeparator(Passkey)
+    _D14_UIKIT_CTOR(MenuSeparator)
         :
-        MenuItem(MenuItem::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
+        MenuItem(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
 
-
-    void MenuSeparator::initialize()
-        { setHeight(11); } // better odd height
+        setHeight(11);
+    }
 }

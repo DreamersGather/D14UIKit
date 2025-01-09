@@ -3,6 +3,8 @@
 #include "Panel.h"
 #include "Slider.h"
 
+_D14_UIKIT_FWDEF(HorzSlider)
+
 namespace d14uikit
 {
     class DllExport HorzSlider : public Panel

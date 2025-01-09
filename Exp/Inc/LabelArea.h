@@ -2,6 +2,8 @@
 
 #include "Label.h"
 
+_D14_UIKIT_FWDEF(LabelArea)
+
 namespace d14uikit
 {
     class DllExport LabelArea : public Label

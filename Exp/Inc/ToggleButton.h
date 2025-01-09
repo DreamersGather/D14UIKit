@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include "FilledButton.h"
+#include "StatefulObject.h"
+
+_D14_UIKIT_FWDEF(ToggleButton)
 
 namespace d14uikit
 {
@@ -8,7 +11,7 @@ namespace d14uikit
     {
         _D14_UIKIT_PIMPL(ToggleButton)
 
-        explicit ToggleButton(const std::wstring& text = L"Button");
+        explicit ToggleButton(const std::wstring& text = L"ToggleButton");
 
         enum class State
         {
@@ -18,18 +21,6 @@ namespace d14uikit
         constexpr static auto Activated = State::Activated;
         constexpr static auto Deactivated = State::Deactivated;
 
-        State state() const;
-        void setState(State state);
-
-        struct Callback
-        {
-            std::function<void(ToggleButton*, State)> onStateChange = {};
-        };
-        Callback& callback() const;
-
-    protected:
-        std::unique_ptr<Callback> pcallback = {};
-
-        virtual void onStateChange(State state);
+        _D14_UIKIT_STATEFUL_OBJECT_DECL(ToggleButton)
     };
 }

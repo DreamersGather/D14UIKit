@@ -2,6 +2,7 @@
 
 #include "Cursor.h"
 
+#include "EnumBind.h"
 #include "Panel.h"
 
 #include "Inc/Cursor.h"
@@ -15,26 +16,26 @@ namespace d14uikit
         i.def(py::init());
 
         py::enum_<Cursor::StaticIconIndex>(i, "StaticIconIndex")
-            .value("Alternate", Cursor::Alternate)
-            .value("Arrow",     Cursor::Arrow)
-            .value("BackDiag",  Cursor::BackDiag)
-            .value("Beam",      Cursor::Beam)
-            .value("Hand",      Cursor::Hand)
-            .value("Help",      Cursor::Help)
-            .value("HorzSize",  Cursor::HorzSize)
-            .value("MainDiag",  Cursor::MainDiag)
-            .value("Move",      Cursor::Move)
-            .value("Pen",       Cursor::Pen)
-            .value("Person",    Cursor::Person)
-            .value("Pin",       Cursor::Pin)
-            .value("Select",    Cursor::Select)
-            .value("Stop",      Cursor::Stop)
-            .value("VertSize",  Cursor::VertSize)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Alternate)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Arrow)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, BackDiag)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Beam)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Hand)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Help)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, HorzSize)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, MainDiag)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Move)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Pen)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Person)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Pin)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Select)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Stop)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, VertSize)
             .export_values();
 
         py::enum_<Cursor::DynamicIconIndex>(i, "DynamicIconIndex")
-            .value("Busy",      Cursor::Busy)
-            .value("Working",   Cursor::Working)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Busy)
+            _D14_UIKIT_PYBIND_ENUM(Cursor, Working)
             .export_values();
 
         i.def_property(

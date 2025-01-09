@@ -4,8 +4,6 @@
 
 #include "Inc/MenuSeparator.h"
 
-namespace d14engine::uikit { struct MenuSeparator; }
-
 namespace d14uikit
 {
     struct MenuSeparator::Impl

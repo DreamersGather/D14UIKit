@@ -2,7 +2,12 @@
 
 #include "Common/Precompile.h"
 
-#include "RawTextInput.h"
+#include "Inc/TextInput.h"
 
-#define _D14_UIKIT_TEXT_INPUT_IMPL(Type_Name) \
-        _D14_UIKIT_RAW_TEXT_INPUT_IMPL(Type_Name)
+namespace d14uikit
+{
+    struct TextInput::Impl
+    {
+        std::shared_ptr<d14engine::uikit::TextInput> uiobj = {};
+    };
+}

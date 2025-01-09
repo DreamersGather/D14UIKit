@@ -3,6 +3,7 @@
 #include "PopupMenu.h"
 
 #include "Callback.h"
+#include "WaterfallView.h"
 
 #include "Inc/MenuItem.h"
 
@@ -12,7 +13,7 @@ namespace d14uikit
     {
         py::class_<PopupMenu, ScrollView, PyPopupMenu<>> i(m, "PopupMenu");
 
-        i.def(py::init());
+        _D14_UIKIT_PYBIND_WATERFALL_VIEW(PopupMenu)
 
         i.def_property(
             "roundExtension",

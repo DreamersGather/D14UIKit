@@ -22,7 +22,7 @@ namespace d14uikit
     public:
         using PyPanel<TreeViewBase>::PyPanel;
 
-        void onSelectChange(const std::set<int> selected) override
+        void onSelectChange(const std::set<int>& selected) override
         {
             PYBIND11_OVERRIDE(void, TreeViewBase, onSelectChange, selected);
         }

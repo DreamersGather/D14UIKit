@@ -14,8 +14,6 @@ namespace d14uikit
         py::class_<GridLayout, ResizablePanel,
             PyResizablePanel<GridLayout>> i(m, "GridLayout");
 
-        i.def(py::init());
-
         _D14_UIKIT_PYBIND_LAYOUT(GridLayout)
 
         i.def_property(
@@ -62,12 +60,5 @@ namespace d14uikit
 
             i2.def_readwrite("spacing", &GeoInfo::spacing);
         }
-
-        i.def("addElement", &GridLayout::addElement);
-
-        i.def("removeElement", &GridLayout::removeElement);
-        i.def("clearAllElements", &GridLayout::clearAllElements);
-
-        i.def("updateElement", &GridLayout::updateElement);
     }
 }

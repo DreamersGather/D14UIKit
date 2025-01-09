@@ -3,9 +3,8 @@
 #include "TabCaption.h"
 
 #include "Panel.h"
-#include "TextFormat.h"
 
-#include "Inc/Image.h"
+#include "Inc/IconLabel.h"
 #include "Inc/TabCaption.h"
 
 namespace d14uikit
@@ -16,22 +15,14 @@ namespace d14uikit
 
         i.def(py::init<const std::wstring&>(), "title"_a = L"Untitled");
 
-        i.def_property(
-            "icon",
-            &TabCaption::icon,
-            &TabCaption::setIcon);
-
-        i.def_property(
-            "iconSize",
-            &TabCaption::iconSize,
-            &TabCaption::setIconSize);
-
-        i.def_property(
+        i.def_property_readonly(
             "title",
-            &TabCaption::title,
-            &TabCaption::setTitle);
+            &TabCaption::title);
 
-        _D14_UIKIT_PYBIND_TEXT_FORMAT(TabCaption)
+        i.def_property(
+            "text",
+            &TabCaption::text,
+            &TabCaption::setText);
 
         i.def_property(
             "closable",

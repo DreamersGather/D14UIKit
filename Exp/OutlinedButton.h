@@ -4,8 +4,6 @@
 
 #include "Inc/OutlinedButton.h"
 
-namespace d14engine::uikit { struct OutlinedButton; }
-
 namespace d14uikit
 {
     struct OutlinedButton::Impl

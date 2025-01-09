@@ -2,10 +2,13 @@
 
 #include "DraggablePanel.h"
 #include "ResizablePanel.h"
-#include "TextFormat.h"
+
+_D14_UIKIT_FWDEF(Window)
 
 namespace d14uikit
 {
+    class IconLabel;
+
     class DllExport Window : public DraggablePanel, public ResizablePanel
     {
         _D14_UIKIT_PIMPL(Window)
@@ -18,16 +21,10 @@ namespace d14uikit
         int decoBarHeight() const;
         void setDecoBarHeight(int value);
 
-        Image* icon() const;
-        void setIcon(Image* icon);
-
-        Size iconSize() const;
-        void setIconSize(const std::optional<Size>& value);
+        IconLabel* caption() const;
 
         const std::wstring& title() const;
         void setTitle(const std::wstring& title);
-
-        _D14_UIKIT_TEXT_FORMAT_DECL_CONCRETE(Title)
 
         int contentHeight() const;
         int nonContentHeight() const;

@@ -2,8 +2,7 @@
 
 #include "TreeViewItem.h"
 
-#include "Panel.h"
-#include "ViewItem.h"
+#include "Common.h"
 
 #include "UIKit/TreeViewItem.h"
 
@@ -13,26 +12,16 @@ namespace d14uikit
 {
     TreeViewItem::TreeViewItem(const std::wstring& text)
         :
-        TreeViewItem(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ViewItem::pimpl->uiobj =
-        TreeViewItem::pimpl->uiobj =
-        uikit::makeUIObject<uikit::TreeViewItem>(text);
+        TreeViewItem(uikit::makeUIObject<uikit::TreeViewItem>(text)) { }
 
-        Panel::initialize();
-        ViewItem::initialize();
-        TreeViewItem::initialize();
-    }
-
-    TreeViewItem::TreeViewItem(Passkey)
+    _D14_UIKIT_CTOR(TreeViewItem)
         :
-        ViewItem(ViewItem::Passkey{}),
+        ViewItem(uiobj),
         pimpl(std::make_shared<Impl>()),
-        pcallback(std::make_unique<Callback>()) { }
-
-    void TreeViewItem::initialize()
+        pcallback(std::make_unique<Callback>())
     {
+        pimpl->uiobj = uiobj;
+
         pimpl->uiobj->f_onStateChange = [this]
         (uikit::TreeViewItem::StatefulObject* obj,
          uikit::TreeViewItem::StatefulObject::Event& e)

@@ -2,7 +2,7 @@
 
 #include "RawTextEditor.h"
 
-#include "RawTextInput.h"
+#include "Common.h"
 
 #include "UIKit/RawTextEditor.h"
 
@@ -10,5 +10,15 @@ using namespace d14engine;
 
 namespace d14uikit
 {
-    _D14_UIKIT_RAW_TEXT_INPUT_IMPL(RawTextEditor)
+    RawTextEditor::RawTextEditor()
+        :
+        RawTextEditor(uikit::makeUIObject<uikit::RawTextEditor>()) { }
+
+    _D14_UIKIT_CTOR(RawTextEditor)
+        :
+        RawTextInput(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 }

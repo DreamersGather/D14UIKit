@@ -2,10 +2,7 @@
 
 #include "OutlinedButton.h"
 
-#include "Button.h"
-#include "ClickablePanel.h"
-#include "FlatButton.h"
-#include "Panel.h"
+#include "Common.h"
 
 #include "UIKit/OutlinedButton.h"
 
@@ -15,27 +12,14 @@ namespace d14uikit
 {
     OutlinedButton::OutlinedButton(const std::wstring& text)
         :
-        OutlinedButton(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ClickablePanel::pimpl->uiobj =
-        Button::pimpl->uiobj =
-        FlatButton::pimpl->uiobj =
-        OutlinedButton::pimpl->uiobj =
-        uikit::makeUIObject<uikit::OutlinedButton>(text);
+        OutlinedButton(uikit::makeUIObject<uikit::OutlinedButton>(text)) { }
 
-        Panel::initialize();
-        ClickablePanel::initialize();
-        Button::initialize();
-        FlatButton::initialize();
-        OutlinedButton::initialize();
-    }
-
-    OutlinedButton::OutlinedButton(Passkey)
+    _D14_UIKIT_CTOR(OutlinedButton)
         :
-        Panel(Panel::Passkey{}),
-        FlatButton(FlatButton::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void OutlinedButton::initialize() { }
+        Panel(uiobj),
+        FlatButton(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 }

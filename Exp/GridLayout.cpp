@@ -3,6 +3,7 @@
 #include "GridLayout.h"
 
 #include "Layout.h"
+#include "Panel.h"
 
 #include "Common/MathUtils/Basic.h"
 

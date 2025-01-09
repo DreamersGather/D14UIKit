@@ -3,12 +3,10 @@
 #include "ViewItem.h"
 
 #include "Common.h"
-#include "Image.h"
-#include "Panel.h"
-#include "TextFormat.h"
+#include "IconLabel.h"
+#include "Label.h"
 
 #include "UIKit/IconLabel.h"
-#include "UIKit/Label.h"
 #include "UIKit/ViewItem.h"
 
 using namespace d14engine;
@@ -17,85 +15,36 @@ namespace d14uikit
 {
     ViewItem::ViewItem(const std::wstring& text)
         :
-        ViewItem(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        ViewItem::pimpl->uiobj =
-        uikit::makeUIObject<uikit::ViewItem>(text);
+        ViewItem(uikit::makeUIObject<uikit::ViewItem>(text)) { }
 
-        Panel::initialize();
-        ViewItem::initialize();
-    }
-
-    ViewItem::ViewItem(Passkey)
+    _D14_UIKIT_CTOR(ViewItem)
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void ViewItem::initialize() { setHeight(30); }
-
-    Image* ViewItem::icon() const
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>())
     {
-        return pimpl->icon;
+        pimpl->uiobj = uiobj;
+
+        setHeight(30);
+
+        auto content = pimpl->uiobj->getContent<uikit::IconLabel>();
+        if (!content.expired())
+        {
+            pimpl->content = std::shared_ptr<IconLabel>(new IconLabel(content.lock()));
+        }
     }
 
-    void ViewItem::setIcon(Image* icon)
+    IconLabel* ViewItem::content() const
     {
-        pimpl->icon = icon;
-
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-
-        if (icon != nullptr && !icon->cpuRead())
-        {
-            content->icon.bitmap = icon->getImpl()->bitmap;
-        }
-        else content->icon.bitmap.Reset();
-
-        content->updateLayout();
-    }
-
-    Size ViewItem::iconSize() const
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-        auto& icon = content->icon;
-
-        D2D1_SIZE_F iconSize = { 0.0f, 0.0f };
-        if (icon.customSize.has_value())
-        {
-            iconSize = icon.customSize.value();
-        }
-        else if (icon.bitmap != nullptr)
-        {
-            iconSize = icon.bitmap->GetSize();
-        }
-        return convert(iconSize);
-    }
-
-    void ViewItem::setIconSize(const std::optional<Size>& value)
-    {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-
-        if (value.has_value())
-        {
-            content->icon.customSize = convert(value.value());
-        }
-        else content->icon.customSize.reset();
-        
-        content->updateLayout();
+        return pimpl->content.get();
     }
 
     const std::wstring& ViewItem::text() const
     {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-        return content->label()->text();
+        return pimpl->content->label()->text();
     }
 
     void ViewItem::setText(const std::wstring& text)
     {
-        auto content = pimpl->uiobj->getContent<uikit::IconLabel>().lock();
-        return content->label()->setText(text);
+        pimpl->content->label()->setText(text);
     }
-
-    _D14_UIKIT_TEXT_FORMAT_IMPL_CONCRETE(ViewItem, , label,
-        pimpl->uiobj->getContent<uikit::IconLabel>().lock())
 }

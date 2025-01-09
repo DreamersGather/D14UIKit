@@ -26,8 +26,13 @@ namespace d14uikit
             });
 
         i.def_property_readonly(
-            "cursor",
-            &Application::cursor);
+            "dpi",
+            &Application::dpi);
+
+        i.def_property(
+            "bitmapInterpMode",
+            &Application::bitmapInterpMode,
+            &Application::setBitmapInterpMode);
 
         i.def(
             "run",
@@ -51,10 +56,6 @@ namespace d14uikit
             "maximized",
             &Application::maximized,
             &Application::setMaximized);
-
-        i.def_property_readonly(
-            "dpi",
-            &Application::dpi);
 
         i.def_property(
             "size",
@@ -115,6 +116,20 @@ namespace d14uikit
             "fps",
             &Application::fps);
 
+        i.def(
+            "capture",
+            &Application::capture);
+
+        i.def_property(
+            "textAntialiasMode",
+            &Application::textAntialiasMode,
+            &Application::setTextAntialiasMode);
+
+        i.def_property(
+            "renderingMode",
+            &Application::renderingMode,
+            &Application::setRenderingMode);
+
         i.def_property_readonly(
             "animCount",
             &Application::animCount);
@@ -123,6 +138,10 @@ namespace d14uikit
             "animState",
             &Application::animState,
             &Application::setAnimState);
+
+        i.def_property_readonly(
+            "cursor",
+            &Application::cursor);
 
         i.def_property(
             "themeMode",
@@ -143,24 +162,5 @@ namespace d14uikit
             "langLocale",
             &Application::langLocale,
             &Application::setLangLocale);
-
-        i.def_property(
-            "textAntialiasMode",
-            &Application::textAntialiasMode,
-            &Application::setTextAntialiasMode);
-
-        i.def_property(
-            "d2dRenderingMode",
-            &Application::d2dRenderingMode,
-            &Application::setD2dRenderingMode);
-
-        i.def_property(
-            "bitmapInterpMode",
-            &Application::bitmapInterpMode,
-            &Application::setBitmapInterpMode);
-
-        i.def(
-            "capture",
-            &Application::capture);
     }
 }

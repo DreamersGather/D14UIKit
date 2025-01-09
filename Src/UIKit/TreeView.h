@@ -19,8 +19,8 @@ namespace d14engine::uikit
     public:
         const ItemList& rootItems() const;
 
-        void insertRootItem(const ItemList& items, size_t rootIndex = 0);
-        void appendRootItem(const ItemList& items);
+        void insertRootItem(const ItemList& rootItems, size_t rootIndex = 0);
+        void appendRootItem(const ItemList& rootItems);
 
         void removeRootItem(size_t rootIndex, size_t count = 1);
         void clearAllItems() override;
@@ -38,8 +38,8 @@ namespace d14engine::uikit
         void setHorzIndentEachNodelLevel(float value);
 
     protected:
-        // You can insert/erase only root items with the master tree-view.
-        // To insert/erase child-items, you should use their parent items.
+        // You can insert/erase only root-items with the master tree-view.
+        // To insert/erase child-items, you should use their parent-items.
         using WaterfallView::insertItem;
         using WaterfallView::removeItem;
 

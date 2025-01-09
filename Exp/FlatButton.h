@@ -4,8 +4,6 @@
 
 #include "Inc/FlatButton.h"
 
-namespace d14engine::uikit { struct FlatButton; }
-
 namespace d14uikit
 {
     struct FlatButton::Impl

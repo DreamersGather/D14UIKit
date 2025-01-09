@@ -22,7 +22,7 @@ namespace d14uikit
     public:
         using PyScrollView<ListViewBase>::PyScrollView;
 
-        void onSelectChange(const std::set<int> selected) override
+        void onSelectChange(const std::set<int>& selected) override
         {
             PYBIND11_OVERRIDE(void, ListViewBase, onSelectChange, selected);
         }

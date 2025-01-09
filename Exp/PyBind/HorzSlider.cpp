@@ -10,8 +10,6 @@ namespace d14uikit
     {
         py::class_<HorzSlider, Panel, PyHorzSlider<>> i(m, "HorzSlider");
 
-        i.def(py::init());
-
         _D14_UIKIT_PYBIND_SLIDER(HorzSlider)
     }
 }

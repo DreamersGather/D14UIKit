@@ -4,8 +4,6 @@
 
 #include "Inc/TreeViewItem.h"
 
-namespace d14engine::uikit { struct TreeViewItem; }
-
 namespace d14uikit
 {
     struct TreeViewItem::Impl

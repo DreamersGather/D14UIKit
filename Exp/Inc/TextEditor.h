@@ -1,13 +1,15 @@
 ﻿#pragma once
 
-#include "LabelArea.h"
 #include "TextInput.h"
+
+_D14_UIKIT_FWDEF(TextEditor)
 
 namespace d14uikit
 {
-    class DllExport TextEditor : public LabelArea
+    class DllExport TextEditor : public TextInput
     {
         _D14_UIKIT_PIMPL(TextEditor)
-        _D14_UIKIT_TEXT_INPUT_DECL(TextEditor)
+
+        TextEditor();
     };
 }

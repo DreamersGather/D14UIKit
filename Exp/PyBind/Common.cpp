@@ -38,12 +38,14 @@
 #include "PopupMenu.h"
 #include "RawTextBox.h"
 #include "RawTextEditor.h"
+#include "RawTextInput.h"
 #include "ResizablePanel.h"
 #include "ScrollView.h"
 #include "TabCaption.h"
 #include "TabGroup.h"
 #include "TextBox.h"
 #include "TextEditor.h"
+#include "TextInput.h"
 #include "ToggleButton.h"
 #include "TreeView.h"
 #include "TreeViewItem.h"
@@ -93,10 +95,12 @@ namespace d14uikit
             Py_InitHorzSlider(m);
             Py_InitLabel(m);
                 Py_InitLabelArea(m);
-                    Py_InitRawTextBox(m);
-                    Py_InitRawTextEditor(m);
-                    Py_InitTextBox(m);
-                    Py_InitTextEditor(m);
+                    Py_InitRawTextInput(m);
+                        Py_InitRawTextBox(m);
+                        Py_InitRawTextEditor(m);
+                        Py_InitTextInput(m);
+                            Py_InitTextBox(m);
+                            Py_InitTextEditor(m);
             Py_InitResizablePanel(m);
                 Py_InitConstraintLayout(m);
                 Py_InitGridLayout(m);

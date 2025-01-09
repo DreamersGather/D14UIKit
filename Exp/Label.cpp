@@ -4,12 +4,12 @@
 
 #include "Common.h"
 #include "Font.h"
-#include "Panel.h"
 
 #include "Common/DirectXError.h"
 #include "Common/MathUtils/Basic.h"
 
 #include "UIKit/Label.h"
+#include "UIKit/ResourceUtils.h"
 
 using namespace d14engine;
 
@@ -17,22 +17,15 @@ namespace d14uikit
 {
     Label::Label(const std::wstring& text)
         :
-        Label(Passkey{})
-    {
-        Panel::pimpl->uiobj =
-        Label::pimpl->uiobj =
-        uikit::makeUIObject<uikit::Label>(text);
+        Label(uikit::makeUIObject<uikit::Label>(text)) { }
 
-        Panel::initialize();
-        Label::initialize();
-    }
-
-    Label::Label(Passkey)
+    _D14_UIKIT_CTOR(Label)
         :
-        Panel(Panel::Passkey{}),
-        pimpl(std::make_shared<Impl>()) { }
-
-    void Label::initialize() { }
+        Panel(uiobj),
+        pimpl(std::make_shared<Impl>())
+    {
+        pimpl->uiobj = uiobj;
+    }
 
     Color Label::frgnColor() const
     {
@@ -92,41 +85,36 @@ namespace d14uikit
         pimpl->uiobj->setText(text);
     }
 
-    const Font& Label::font() const
+    DrawTextOption Label::drawTextOption() const
     {
-        return pimpl->font; // ref
+        return (DrawTextOption)pimpl->uiobj->drawTextOptions;
     }
 
-    void Label::setFont(const Font& font)
+    void Label::setDrawTextOption(DrawTextOption option)
+    {
+        pimpl->uiobj->drawTextOptions = (D2D1_DRAW_TEXT_OPTIONS)option;
+    }
+
+    Font* Label::font() const { return pimpl->font; }
+
+    void Label::setFont(Font* font)
     {
         pimpl->font = font;
-        pimpl->uiobj->setTextFormat(font.getImpl()->textFormat.Get());
+        if (font != nullptr)
+        {
+            pimpl->uiobj->setTextFormat(font->getImpl()->textFormat.Get());
+        }
+        else pimpl->uiobj->setTextFormat(D14_FONT(L"Default/Normal/16"));
     }
 
     Label::HorzAlign Label::horzAlign() const
     {
-        switch (pimpl->uiobj->textLayout()->GetTextAlignment())
-        {
-        case DWRITE_TEXT_ALIGNMENT_LEADING: return Left;
-        case DWRITE_TEXT_ALIGNMENT_CENTER: return HCenter;
-        case DWRITE_TEXT_ALIGNMENT_TRAILING: return Right;
-        case DWRITE_TEXT_ALIGNMENT_JUSTIFIED: return Justified;
-        default: return Left;
-        }
+        return (HorzAlign)pimpl->uiobj->textLayout()->GetTextAlignment();
     }
 
     void Label::setHorzAlign(HorzAlign value)
     {
-        DWRITE_TEXT_ALIGNMENT dst = {};
-        switch (value)
-        {
-        case Left: dst = DWRITE_TEXT_ALIGNMENT_LEADING; break;
-        case HCenter: dst = DWRITE_TEXT_ALIGNMENT_CENTER; break;
-        case Right: dst = DWRITE_TEXT_ALIGNMENT_TRAILING; break;
-        case Justified: dst = DWRITE_TEXT_ALIGNMENT_JUSTIFIED; break;
-        default: dst = DWRITE_TEXT_ALIGNMENT_LEADING; break;
-        }
-        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetTextAlignment(dst));
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetTextAlignment((DWRITE_TEXT_ALIGNMENT)value));
 
         // Updates horz hard alignment state.
         setHorzHardAlign(horzHardAlign());
@@ -142,41 +130,19 @@ namespace d14uikit
         auto& dst = pimpl->uiobj->hardAlignment.horz;
         if (value)
         {
-            auto src = pimpl->uiobj->textLayout()->GetTextAlignment();
-            switch (src)
-            {
-            case DWRITE_TEXT_ALIGNMENT_LEADING: dst = uikit::Label::Left; break;
-            case DWRITE_TEXT_ALIGNMENT_CENTER: dst = uikit::Label::HCenter; break;
-            case DWRITE_TEXT_ALIGNMENT_TRAILING: dst = uikit::Label::Right; break;
-            case DWRITE_TEXT_ALIGNMENT_JUSTIFIED: dst = uikit::Label::HNone; break;
-            default: dst = uikit::Label::HNone; break;
-            }
+            dst = (uikit::Label::HorzAlignment)pimpl->uiobj->textLayout()->GetTextAlignment();
         }
         else dst = uikit::Label::HNone;
     }
 
     Label::VertAlign Label::vertAlign() const
     {
-        switch (pimpl->uiobj->textLayout()->GetParagraphAlignment())
-        {
-        case DWRITE_PARAGRAPH_ALIGNMENT_NEAR: return Top;
-        case DWRITE_PARAGRAPH_ALIGNMENT_CENTER: return VCenter;
-        case DWRITE_PARAGRAPH_ALIGNMENT_FAR: return Bottom;
-        default: return VCenter;
-        }
+        return (VertAlign)pimpl->uiobj->textLayout()->GetParagraphAlignment();
     }
 
     void Label::setVertAlign(VertAlign value)
     {
-        DWRITE_PARAGRAPH_ALIGNMENT dst = {};
-        switch (value)
-        {
-        case Top: dst = DWRITE_PARAGRAPH_ALIGNMENT_NEAR; break;
-        case VCenter: dst = DWRITE_PARAGRAPH_ALIGNMENT_CENTER; break;
-        case Bottom: dst = DWRITE_PARAGRAPH_ALIGNMENT_FAR; break;
-        default: dst = DWRITE_PARAGRAPH_ALIGNMENT_CENTER; break;
-        }
-        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetParagraphAlignment(dst));
+        THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetParagraphAlignment((DWRITE_PARAGRAPH_ALIGNMENT)value));
 
         // Updates vert hard alignment state.
         setVertHardAlign(vertHardAlign());
@@ -192,14 +158,7 @@ namespace d14uikit
         auto& dst = pimpl->uiobj->hardAlignment.vert;
         if (value)
         {
-            auto src = pimpl->uiobj->textLayout()->GetParagraphAlignment();
-            switch (src)
-            {
-            case DWRITE_PARAGRAPH_ALIGNMENT_NEAR: dst = uikit::Label::Top; break;
-            case DWRITE_PARAGRAPH_ALIGNMENT_FAR: dst = uikit::Label::Bottom; break;
-            case DWRITE_PARAGRAPH_ALIGNMENT_CENTER: dst = uikit::Label::VCenter; break;
-            default: dst = uikit::Label::VNone; break;
-            }
+            dst = (uikit::Label::VertAlignment)pimpl->uiobj->textLayout()->GetParagraphAlignment();
         }
         else dst = uikit::Label::VNone;
     }
@@ -350,16 +309,5 @@ namespace d14uikit
             textRange = { (UINT32)rangeValue.offset, (UINT32)rangeValue.count };
         }
         THROW_IF_FAILED(pimpl->uiobj->textLayout()->SetStrikethrough(value, textRange));
-    }
-
-    bool Label::drawTextClip() const
-    {
-        return pimpl->uiobj->drawTextOptions == D2D1_DRAW_TEXT_OPTIONS_CLIP;
-    }
-
-    void Label::setDrawTextClip(bool value)
-    {
-        pimpl->uiobj->drawTextOptions =
-            value ? D2D1_DRAW_TEXT_OPTIONS_CLIP : D2D1_DRAW_TEXT_OPTIONS_NONE;
     }
 }

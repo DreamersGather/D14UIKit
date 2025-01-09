@@ -5,6 +5,16 @@
 #include "BasicType.h"
 #include "VirtualKeyCode.h"
 
+_D14_UIKIT_FWDEF(Event)
+_D14_UIKIT_FWDEF(SizeEvent)
+_D14_UIKIT_FWDEF(MoveEvent)
+_D14_UIKIT_FWDEF(MouseEvent)
+_D14_UIKIT_FWDEF(MouseMoveEvent)
+_D14_UIKIT_FWDEF(MouseButtonEvent)
+_D14_UIKIT_FWDEF(MouseWheelEvent)
+_D14_UIKIT_FWDEF(KeyboardEvent)
+_D14_UIKIT_FWDEF(MouseButtonClickEvent)
+
 namespace d14uikit
 {
     class DllExport Event : public NonCopyable

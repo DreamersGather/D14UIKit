@@ -2,6 +2,8 @@
 
 #include "ResizablePanel.h"
 
+_D14_UIKIT_FWDEF(TabGroup)
+
 namespace d14uikit
 {
     class TabCaption;
@@ -28,8 +30,11 @@ namespace d14uikit
 
         int tabCount() const;
 
+        std::optional<Tab> currSelected() const;
         void setCurrSelected(int index);
-        const std::wstring& currSelectedTitle() const;
+
+        // Use wstring_view to avoid the overhead of copying strings
+        std::optional<std::wstring_view> currSelectedTitle() const;
 
         struct Callback
         {
