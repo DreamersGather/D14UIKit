@@ -94,7 +94,7 @@ ScrollView::callback().onStartThumbScrolling = [__VA_ARGS__](ScrollView* sv, con
 type::callback().onStateChange = [__VA_ARGS__](type* obj, type::State state)
 
 #define D14_onTextChange(obj, text, ...) \
-RawTextInput::callback().onTextChange = [__VA_ARGS__](RawTextInput* input, const std::wstring& text)
+RawTextInput::callback().onTextChange = [__VA_ARGS__](RawTextInput* obj, const std::wstring& text)
 
 #define D14_onTriggerMenuItem(menu, text, ...) \
 PopupMenu::callback().onTriggerMenuItem = [__VA_ARGS__](PopupMenu* menu, const std::wstring& text)
