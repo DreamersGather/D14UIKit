@@ -15,12 +15,7 @@ namespace d14engine::uikit
 
         MouseButtonClickEvent(const ClickablePanel::Event& rhs)
             :
-            ClickablePanel::Event(rhs) {}
-
-        MouseButtonClickEvent& operator=(const ClickablePanel::Event& rhs)
-        {
-            (ClickablePanel::Event)(*this) = rhs; return *this;
-        }
+            ClickablePanel::Event(rhs) { }
     };
 }
 namespace d14uikit
@@ -41,7 +36,6 @@ namespace d14uikit
     DECLARE_DUMMY_PIMPL(MouseWheelEvent)
     DECLARE_DUMMY_PIMPL(MouseButtonEvent)
     DECLARE_DUMMY_PIMPL(MouseButtonClickEvent)
-
 
 #undef DECLARE_PIMPL
 #undef DECLARE_DUMMY_PIMPL

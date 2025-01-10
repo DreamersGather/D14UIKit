@@ -604,6 +604,9 @@
     <ClCompile Include="Exp\PyBind\TextInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\IconLabel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Precompile.h">
@@ -1480,6 +1483,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\EnumBind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\IconLabel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

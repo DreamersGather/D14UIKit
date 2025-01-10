@@ -1,7 +1,7 @@
 ﻿param($version)
 
-Remove-Item -Recurse -Force 'Out\cpp' | Out-Null
-Remove-Item -Recurse -Force 'Out\python' | Out-Null
+if (Test-Path -Path 'Out\cpp') { Remove-Item -Recurse -Force 'Out\cpp' | Out-Null }
+if (Test-Path -Path 'Out\python') { Remove-Item -Recurse -Force 'Out\python' | Out-Null }
 
 New-Item -Path 'Out\cpp\include' -ItemType 'directory' | Out-Null
 Copy-Item -Recurse -Path 'Exp\Inc\*' -Destination 'Out\cpp\include' | Out-Null
@@ -19,6 +19,7 @@ Write-Output "C++ wrapper is packed to Out\d14uikit_cpp_$version.zip"
 
 New-Item -Path 'Out\python' -ItemType 'directory' | Out-Null
 Copy-Item 'x64\RPyBind\D14UIKit.pyd' -Destination 'Out\python' | Out-Null
+Copy-Item 'Test\PyBind\D14UIKit.pyi' -Destination 'Out\python' | Out-Null
 New-Item -Path 'Out\python\demo' -ItemType 'directory' | Out-Null
 Copy-Item -Recurse -Path 'Test\PyBind\*.py' -Destination 'Out\python\demo' | Out-Null
 Copy-Item -Recurse -Path 'Test\images' -Destination 'Out\python\demo\images' | Out-Null

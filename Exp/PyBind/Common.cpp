@@ -24,6 +24,7 @@
 #include "FrameAnimPanel.h"
 #include "GridLayout.h"
 #include "HorzSlider.h"
+#include "IconLabel.h"
 #include "Image.h"
 #include "Label.h"
 #include "LabelArea.h"
@@ -93,6 +94,7 @@ namespace d14uikit
             Py_InitDraggablePanel(m);
             Py_InitFrameAnimPanel(m);
             Py_InitHorzSlider(m);
+            Py_InitIconLabel(m);
             Py_InitLabel(m);
                 Py_InitLabelArea(m);
                     Py_InitRawTextInput(m);

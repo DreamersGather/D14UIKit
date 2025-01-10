@@ -645,6 +645,16 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)HorzSliderBinding</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\PyBind\IconLabel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)IconLabelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)IconLabelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)IconLabelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)IconLabelBinding</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)IconLabelBinding</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Exp\PyBind\Image.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -791,6 +801,9 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RawTextInputBinding</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelBinding</ObjectFileName>
@@ -858,6 +871,9 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)TextInputBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)TextInputBinding</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)TextInputBinding</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Exp\PyBind\ToggleButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -1481,7 +1497,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\EnumBind.h" />
+    <ClInclude Include="Exp\PyBind\EnumBind.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\Event.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -1513,6 +1533,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Exp\PyBind\HorzSlider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Exp\PyBind\IconLabel.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
@@ -1612,7 +1637,11 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Exp\PyBind\StatefulObject.h" />
+    <ClInclude Include="Exp\PyBind\StatefulObject.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Exp\PyBind\TabCaption.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
