@@ -1,4 +1,4 @@
-# D14UIKit
+﻿# D14UIKit
 
 [![Documentation Status](https://readthedocs.org/projects/d14uikit/badge/?version=latest)](https://d14std.io/projects/uikit/en/latest/?badge=latest)
 
@@ -30,7 +30,7 @@ Finally, run `python3 HelloWindow.py`, and you're all set!
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14Docs.Res/main/d14uikit/tutorials/hello_window.png">
 
-If you are familiar with C++/Python 3 and want to build your own GUI application, D14UIKit is a great choice: it is based on DirectX 12 and Direct2D for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
+If you are familiar with C++/Python3 and want to build your own GUI application, D14UIKit is a great choice: it is based on DirectX 12 and Direct2D for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
 
 ## Roadmap
 
