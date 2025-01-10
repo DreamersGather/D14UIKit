@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # because Font.load will fetch and cache the actual font data,
     # while Font(name) only references the cache, which is faster.
     textArea.font = font1
-    # textArea.font = font2
+    #textArea.font = font2
 
     busyArea = Label()
     busyArea.parent = clntArea
