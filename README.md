@@ -1,5 +1,9 @@
 ﻿# D14UIKit
 
+[![Static Badge](https://img.shields.io/badge/C++-20-blue)](https://en.cppreference.com/w/cpp/20)
+[![Static Badge](https://img.shields.io/badge/DirectX-12-logoColor%3D%252376B900)](https://github.com/microsoft/DirectX-Graphics-Samples)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DreamersGather/D14UIKit/msbuild.yml)](https://github.com/DreamersGather/D14UIKit/actions)
+[![GitHub Release](https://img.shields.io/github/v/release/DreamersGather/D14UIKit)](https://github.com/DreamersGather/D14UIKit/releases)
 [![Documentation Status](https://readthedocs.org/projects/d14uikit/badge/?version=latest)](https://d14std.io/projects/uikit/en/latest/?badge=latest)
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14UIKit.Res/main/logo.png" height="41"/>

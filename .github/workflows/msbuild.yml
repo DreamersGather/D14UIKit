@@ -1,4 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
+﻿# This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
@@ -18,17 +18,13 @@ env:
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-  # BUILD_CONFIGURATION: [Release, RPyBind]
+  BUILD_CONFIGURATION: Release
 
 permissions:
   contents: read
 
-jobs:
+jobs:     
   build:
-    strategy:
-      matrix:
-        BUILD_CONFIGURATION: [Release, RPyBind]
-          
     runs-on: windows-latest
 
     steps:
