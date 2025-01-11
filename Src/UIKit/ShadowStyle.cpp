@@ -28,7 +28,7 @@ namespace d14engine::uikit
         auto dipSize = SIZE{ (LONG)width, (LONG)height };
         auto pixSize = platform_utils::scaledByDpi(dipSize);
 
-        bitmap = bitmap_utils::loadBitmap(
+        data = bitmap_utils::loadBitmap(
             (UINT)pixSize.cx, (UINT)pixSize.cy,
             nullptr, D2D1_BITMAP_OPTIONS_TARGET);
 
@@ -45,7 +45,7 @@ namespace d14engine::uikit
         // It is recommended to call SetTarget before BeginDraw.
         // The program may crash if the previous target is a synchronized
         // resource and still bound to the context when calling BeginDraw.
-        context->SetTarget(bitmap.Get());
+        context->SetTarget(data.Get());
 
         context->BeginDraw();
         context->SetTransform(transform);
@@ -62,7 +62,7 @@ namespace d14engine::uikit
 
     void ShadowStyle::configEffectInput(ID2D1Effect* effect)
     {
-        effect->SetInput(0, bitmap.Get());
+        effect->SetInput(0, data.Get());
 
         THROW_IF_FAILED(effect->SetValue(D2D1_SHADOW_PROP_COLOR, color));
         THROW_IF_FAILED(effect->SetValue(D2D1_SHADOW_PROP_BLUR_STANDARD_DEVIATION, standardDeviation));

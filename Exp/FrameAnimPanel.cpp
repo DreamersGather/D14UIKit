@@ -45,7 +45,7 @@ namespace d14uikit
         frames.resize(images.size());
         for (size_t i = 0; i < images.size(); ++i)
         {
-            frames[i].bitmap = images[i]->getImpl()->bitmap;
+            frames[i].data = images[i]->getImpl()->bitmap;
             frames[i].opacity = pimpl->bitmapOpacity;
             frames[i].interpolationMode = (D2D1_INTERPOLATION_MODE)pimpl->bitmapInterpMode;
         }

@@ -50,8 +50,8 @@ namespace d14engine::uikit
 
     void GridLayout::setCellCount(size_t horz, size_t vert)
     {
-        m_horzCellCount = std::max(horz, (size_t)1);
-        m_vertCellCount = std::max(vert, (size_t)1);
+        m_horzCellCount = std::max(horz, 1uz);
+        m_vertCellCount = std::max(vert, 1uz);
 
         updateCellDeltaInfo();
         updateAllElements();

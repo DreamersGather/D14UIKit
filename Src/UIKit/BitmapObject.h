@@ -10,10 +10,11 @@ namespace d14engine::uikit
 
         // This constructor is intentionally declared as implicit
         // to facilitate the initialization from multiple bitmaps.
-        BitmapObject(ComPtrParam<ID2D1Bitmap1> bitmap);
+        BitmapObject(ComPtrParam<ID2D1Bitmap1> data);
 
-        ComPtr<ID2D1Bitmap1> bitmap = {};
+        ComPtr<ID2D1Bitmap1> data = {};
 
+        // Requires bitmap exists and size is greater than 0
         bool empty() const;
 
         float opacity = 1.0f;
@@ -23,4 +24,5 @@ namespace d14engine::uikit
 
         D2D1_INTERPOLATION_MODE getInterpolationMode() const;
     };
+    using BmpObjParam = const BitmapObject&;
 }

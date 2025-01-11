@@ -39,9 +39,9 @@ namespace d14uikit
         auto& targetIcon = pimpl->uiobj->icon;
         if (icon != nullptr && !icon->cpuRead())
         {
-            targetIcon.bitmap = icon->getImpl()->bitmap;
+            targetIcon.bitmap.data = icon->getImpl()->bitmap;
         }
-        else targetIcon.bitmap.Reset();
+        else targetIcon.bitmap.data.Reset();
 
         pimpl->uiobj->updateLayout();
     }
@@ -55,9 +55,9 @@ namespace d14uikit
         {
             iconSize = icon.customSize.value();
         }
-        else if (icon.bitmap != nullptr)
+        else if (icon.bitmap.data != nullptr)
         {
-            iconSize = icon.bitmap->GetSize();
+            iconSize = icon.bitmap.data->GetSize();
         }
         return convert(iconSize);
     }

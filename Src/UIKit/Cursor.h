@@ -45,11 +45,11 @@ namespace d14engine::uikit
 #undef SET_STATIC
 #undef SET_DYNAMIC
 
-        template<typename T>
+        template<typename BitmapData>
         struct Icon
         {
             D2D1_POINT_2F displayOffset = {};
-            T bitmapData = {};
+            BitmapData bitmapData = {};
         };
         using StaticIcon = Icon<BitmapObject>;
         using DynamicIcon = Icon<animation_utils::BitmapSequence>;

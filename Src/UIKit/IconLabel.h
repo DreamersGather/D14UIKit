@@ -2,6 +2,7 @@
 
 #include "Common/Precompile.h"
 
+#include "UIKit/BitmapObject.h"
 #include "UIKit/Panel.h"
 
 namespace d14engine::uikit
@@ -12,8 +13,7 @@ namespace d14engine::uikit
     {
         IconLabel(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
         void onInitializeFinish() override;
@@ -24,9 +24,7 @@ namespace d14engine::uikit
         struct Icon
         {
             D2D1_RECT_F rect = {};
-
-            ComPtr<ID2D1Bitmap1> bitmap = {};
-            float bitmapOpacity = {};
+            BitmapObject bitmap = {};
 
             Optional<D2D1_SIZE_F> customSize = std::nullopt;
         }
@@ -50,34 +48,29 @@ namespace d14engine::uikit
     public:
         static SharedPtr<IconLabel> uniformLayout(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
         static SharedPtr<IconLabel> compactLayout(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             float iconHeadPadding = 0.0f,
             float iconTailPadding = 0.0f,
             const D2D1_RECT_F& rect = {});
 
         static SharedPtr<IconLabel> iconExpandedLayout(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
         static SharedPtr<IconLabel> labelExpandedLayout(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
         static SharedPtr<IconLabel> comboBoxLayout(
             WstrParam labelText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
     protected:

@@ -630,7 +630,7 @@ namespace d14engine::uikit
                 mask.opacity : getAppearance().maskOpacityWhenDragAboveTabGroup;
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                mask.bitmap.Get(), math_utils::roundf(m_absoluteRect),
+                mask.data.Get(), math_utils::roundf(m_absoluteRect),
                 maskOpacity, mask.getInterpolationMode());
         }
     }

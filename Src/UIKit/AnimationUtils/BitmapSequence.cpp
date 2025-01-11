@@ -16,11 +16,11 @@ namespace d14engine::uikit::animation_utils
             if (index.has_value())
             {
                 auto& f = fanim.frames[index.value()];
-                if (f.bitmap)
+                if (f.data)
                 {
                     rndr->d2d1DeviceContext()->DrawBitmap(
                         // round to fit pixel size
-                        f.bitmap.Get(), math_utils::roundf(rect),
+                        f.data.Get(), math_utils::roundf(rect),
                         f.opacity, f.getInterpolationMode());
                 }
             }

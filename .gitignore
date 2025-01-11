@@ -1,8 +1,16 @@
-﻿*.dll
-*.exe
-*.lib
-*.pyd
-*.pyi
+﻿D14UIKit
+Debug
+DPyBind
+Rebug
+Release
+RPyBind
+
+D14UIKit.lib
+D14UIKit.dll
+D14UIKit.exe
+D14UIKit.pyd
+D14UIKit.pyi
+TestCpp.exe
 
 Out
 

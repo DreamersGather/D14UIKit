@@ -279,7 +279,7 @@ namespace d14engine::uikit
             auto destinationRect = math_utils::roundf(vlblRect);
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                valueLabelShadow.bitmap.Get(), destinationRect,
+                valueLabelShadow.data.Get(), destinationRect,
                 valueLabelShadow.opacity, valueLabelShadow.getInterpolationMode());
 
             // Text

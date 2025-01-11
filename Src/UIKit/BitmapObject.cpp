@@ -4,13 +4,13 @@
 
 namespace d14engine::uikit
 {
-    BitmapObject::BitmapObject(ComPtrParam<ID2D1Bitmap1> bitmap) : bitmap(bitmap) {}
+    BitmapObject::BitmapObject(ComPtrParam<ID2D1Bitmap1> data) : data(data) {}
 
     bool BitmapObject::empty() const
     {
-        if (bitmap != nullptr)
+        if (data != nullptr)
         {
-            auto pixSize = bitmap->GetPixelSize();
+            auto pixSize = data->GetPixelSize();
             return pixSize.width == 0 || pixSize.height == 0;
         }
         else return true;

@@ -282,7 +282,7 @@ namespace d14engine::uikit
                 auto& bmpobj = icon.bitmapData;
                 rndr->d2d1DeviceContext()->DrawBitmap(
                     // round to fit pixel size
-                    bmpobj.bitmap.Get(), math_utils::roundf(rect),
+                    bmpobj.data.Get(), math_utils::roundf(rect),
                     bmpobj.opacity, bmpobj.getInterpolationMode());
             }
         }

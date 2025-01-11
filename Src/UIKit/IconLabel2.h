@@ -11,8 +11,7 @@ namespace d14engine::uikit
         IconLabel2(
             WstrParam labelText = {},
             WstrParam label2Text = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             const D2D1_RECT_F& rect = {});
 
         void onInitializeFinish() override;
@@ -30,8 +29,7 @@ namespace d14engine::uikit
         static SharedPtr<IconLabel2> menuItemLayout(
             WstrParam labelText = {},
             WstrParam hotkeyText = {},
-            ComPtrParam<ID2D1Bitmap1> iconBitmap = nullptr,
-            float iconBitmapOpacity = 1.0f,
+            BmpObjParam iconBitmap = {},
             float textHeadPadding = 30.0f,
             float hotkeyTailPadding = 30.0f,
             const D2D1_RECT_F& rect = {});

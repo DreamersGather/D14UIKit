@@ -184,7 +184,7 @@ namespace d14engine::uikit
         if (m_content && m_content->isD2d1ObjectVisible())
         {
             rndr->d2d1DeviceContext()->DrawBitmap(
-                contentMask.bitmap.Get(), math_utils::roundf(m_absoluteRect),
+                contentMask.data.Get(), math_utils::roundf(m_absoluteRect),
                 contentMask.opacity, contentMask.getInterpolationMode());
         }
         // Outline

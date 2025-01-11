@@ -90,12 +90,8 @@
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest />
-    <PostBuildEvent>
-      <Command>copy /Y $(TargetPath)  $(ProjectDir)$(TargetFileName) &gt;nul</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying Target to Project Directory</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,12 +109,8 @@
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest />
-    <PostBuildEvent>
-      <Command>copy /Y $(TargetPath)  $(ProjectDir)$(TargetFileName) &gt;nul</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying Target to Project Directory</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -140,12 +132,8 @@
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest />
-    <PostBuildEvent>
-      <Command>copy /Y $(TargetPath)  $(ProjectDir)$(TargetFileName) &gt;nul</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying Target to Project Directory</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -167,12 +155,8 @@
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest />
-    <PostBuildEvent>
-      <Command>copy /Y $(TargetPath)  $(ProjectDir)$(TargetFileName) &gt;nul</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying Target to Project Directory</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -280,7 +280,7 @@ namespace d14engine::uikit
         auto dstRect = math_utils::roundf(selfCoordToAbsolute(m_visibleTextRect));
 
         rndr->d2d1DeviceContext()->DrawBitmap(
-            m_visibleTextMask.bitmap.Get(), dstRect,
+            m_visibleTextMask.data.Get(), dstRect,
             m_visibleTextMask.opacity, m_visibleTextMask.getInterpolationMode());
 
         // Indicator(|)

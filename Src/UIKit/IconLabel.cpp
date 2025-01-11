@@ -8,7 +8,6 @@
 
 #include "Renderer/Renderer.h"
 
-#include "UIKit/BitmapObject.h"
 #include "UIKit/Label.h"
 #include "UIKit/ResourceUtils.h"
 
@@ -18,8 +17,7 @@ namespace d14engine::uikit
 {
     IconLabel::IconLabel(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
         :
         Panel(rect, resource_utils::g_solidColorBrush)
@@ -28,7 +26,6 @@ namespace d14engine::uikit
 
         icon.rect = selfCoordRect();
         icon.bitmap = iconBitmap;
-        icon.bitmapOpacity = iconBitmapOpacity;
 
         m_label = makeUIObject<Label>(labelText);
     }
@@ -83,17 +80,16 @@ namespace d14engine::uikit
 
     SharedPtr<IconLabel> IconLabel::uniformLayout(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
     {
-        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, iconBitmapOpacity, rect);
+        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, rect);
 
         THROW_IF_FAILED(iconLabel->m_label->textLayout()->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
 
         iconLabel->f_updateLayout = [](IconLabel* pIconLabel)
         {
-            if (pIconLabel->icon.bitmap)
+            if (pIconLabel->icon.bitmap.data)
             {
                 D2D1_SIZE_F iconSize = {};
                 if (pIconLabel->icon.customSize.has_value())
@@ -102,7 +98,7 @@ namespace d14engine::uikit
                 }
                 else // use the original size of the bitmap
                 {
-                    iconSize = pIconLabel->icon.bitmap->GetSize();
+                    iconSize = pIconLabel->icon.bitmap.data->GetSize();
                 }
                 float textWidth = pIconLabel->m_label->textMetrics().widthIncludingTrailingWhitespace;
 
@@ -143,13 +139,12 @@ namespace d14engine::uikit
 
     SharedPtr<IconLabel> IconLabel::compactLayout(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         float iconHeadPadding,
         float iconTailPadding,
         const D2D1_RECT_F& rect)
     {
-        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, iconBitmapOpacity, rect);
+        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, rect);
 
         iconLabel->f_updateLayout = [iconHeadPadding, iconTailPadding](IconLabel* pIconLabel)
         {
@@ -158,9 +153,9 @@ namespace d14engine::uikit
             {
                 iconSize = pIconLabel->icon.customSize.value();
             }
-            else if (pIconLabel->icon.bitmap != nullptr)
+            else if (pIconLabel->icon.bitmap.data != nullptr)
             {
-                iconSize = pIconLabel->icon.bitmap->GetSize();
+                iconSize = pIconLabel->icon.bitmap.data->GetSize();
             }
             float iconRectRight = std::min(iconHeadPadding + iconSize.width, pIconLabel->width());
             float labelRectLeft = std::min(iconRectRight + iconTailPadding, pIconLabel->width());
@@ -190,11 +185,10 @@ namespace d14engine::uikit
 
     SharedPtr<IconLabel> IconLabel::iconExpandedLayout(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
     {
-        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, iconBitmapOpacity, rect);
+        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, rect);
 
         iconLabel->f_updateLayout = [](IconLabel* pIconLabel)
         {
@@ -203,9 +197,9 @@ namespace d14engine::uikit
             {
                 iconSize = pIconLabel->icon.customSize.value();
             }
-            else if (pIconLabel->icon.bitmap != nullptr)
+            else if (pIconLabel->icon.bitmap.data != nullptr)
             {
-                iconSize = pIconLabel->icon.bitmap->GetSize();
+                iconSize = pIconLabel->icon.bitmap.data->GetSize();
             }
             float textWidth = pIconLabel->m_label->textMetrics().width;
             float boundaryOffset = pIconLabel->width() - std::min(textWidth, pIconLabel->width());
@@ -235,11 +229,10 @@ namespace d14engine::uikit
 
     SharedPtr<IconLabel> IconLabel::labelExpandedLayout(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
     {
-        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, iconBitmapOpacity, rect);
+        auto iconLabel = makeUIObject<IconLabel>(labelText, iconBitmap, rect);
 
         THROW_IF_FAILED(iconLabel->m_label->textLayout()->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
 
@@ -250,9 +243,9 @@ namespace d14engine::uikit
             {
                 iconSize = pIconLabel->icon.customSize.value();
             }
-            else if (pIconLabel->icon.bitmap != nullptr)
+            else if (pIconLabel->icon.bitmap.data != nullptr)
             {
-                iconSize = pIconLabel->icon.bitmap->GetSize();
+                iconSize = pIconLabel->icon.bitmap.data->GetSize();
             }
             float boundaryOffset = std::min(iconSize.width, pIconLabel->width());
 
@@ -281,11 +274,10 @@ namespace d14engine::uikit
 
     SharedPtr<IconLabel> IconLabel::comboBoxLayout(
         WstrParam labelText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
     {
-        return compactLayout(labelText, iconBitmap, iconBitmapOpacity, 12.0f, 0.0f, rect);
+        return compactLayout(labelText, iconBitmap, 12.0f, 0.0f, rect);
     }
 
     void IconLabel::onSizeHelper(SizeEvent& e)
@@ -310,13 +302,13 @@ namespace d14engine::uikit
             m_label->onRendererDrawD2d1Object(rndr);
         }
         // Icon Bitmap
-        if (icon.bitmap)
+        if (icon.bitmap.data)
         {
             auto rect = math_utils::roundf(selfCoordToAbsolute(icon.rect));
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                icon.bitmap.Get(), rect, icon.bitmapOpacity,
-                BitmapObject::g_interpolationMode);
+                icon.bitmap.data.Get(), rect, icon.bitmap.opacity,
+                icon.bitmap.getInterpolationMode());
         }
     }
 }

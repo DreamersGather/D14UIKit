@@ -57,7 +57,7 @@ namespace d14engine::uikit
     void TreeView::insertRootItem(const ItemList& rootitems, size_t rootIndex)
     {
         // "index == m_rootItems.size()" ---> append.
-        rootIndex = std::clamp(rootIndex, (size_t)0, m_rootItems.size());
+        rootIndex = std::clamp(rootIndex, 0uz, m_rootItems.size());
 
         auto insertIndex = getRootItemGlobalIndex(rootIndex);
 

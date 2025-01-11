@@ -109,6 +109,18 @@ namespace d14engine
 #pragma comment(lib, "imm32.lib")
 #pragma comment(lib, "WindowsCodecs.lib")
 
+#if __cplusplus <= 202002L // "uz" was introduced in C++23
+#pragma warning(push)
+// warning C4455: literal suffix identifiers that
+// do not start with an underscore are reserved
+#pragma warning(disable : 4455)
+constexpr size_t operator""uz(unsigned long long num)
+{
+    return (size_t)num;
+}
+#pragma warning(pop) // simply falls to std::uz when >= C++23
+#endif
+
 // Allows virtual inheritance to solve diamond problem.
 #pragma warning(disable : 4250)
 

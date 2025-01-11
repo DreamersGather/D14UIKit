@@ -120,7 +120,7 @@ namespace d14engine::uikit
         if (!tab.caption || !tab.content) return;
 
         // "index == m_tabs.size()" ---> append
-        index = std::clamp(index, (size_t)0, m_tabs.size());
+        index = std::clamp(index, 0uz, m_tabs.size());
 
         insertTab(tab, { &m_tabs, index });
     }
@@ -756,7 +756,7 @@ do { \
             auto& setting = getAppearance().tabBar.card.main[(size_t)CardState::Active];
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                activeCardShadow.bitmap.Get(), cardAbsoluteRect(m_currActiveCardTabIndex),
+                activeCardShadow.data.Get(), cardAbsoluteRect(m_currActiveCardTabIndex),
                 setting.background.opacity, activeCardShadow.getInterpolationMode());
         }
         // Background

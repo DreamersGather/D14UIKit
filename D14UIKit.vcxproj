@@ -242,7 +242,7 @@ copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;Inc/Python310</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -250,11 +250,13 @@ copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Lib/_x64_;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>cd $(OutDir) &gt;nul
+$(SolutionDir)Bin\stubgen\_x64_\stubgen -m D14UIKit -o . &gt;nul
+copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+copy /Y $(OutDir)$(TargetName).pyi $(SolutionDir)Test\PyBind &gt;nul</Command>
       <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -267,7 +269,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;Inc/Python310</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -275,11 +277,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Lib/_x86_;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>cd $(OutDir) &gt;nul
+$(SolutionDir)Bin\stubgen\_x86_\stubgen -m D14UIKit -o . &gt;nul
+copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+copy /Y $(OutDir)$(TargetName).pyi $(SolutionDir)Test\PyBind &gt;nul</Command>
       <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -404,7 +408,7 @@ copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;Inc/Python310</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -413,11 +417,13 @@ copy /Y $(OutDir)$(TargetName).lib $(SolutionDir)Test &gt;nul</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Lib/_x64_;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>cd $(OutDir) &gt;nul
+$(SolutionDir)Bin\stubgen\_x64_\stubgen -m D14UIKit -o . &gt;nul
+copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+copy /Y $(OutDir)$(TargetName).pyi $(SolutionDir)Test\PyBind &gt;nul</Command>
       <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -432,7 +438,7 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common/Precompile.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>Exp;Inc;Src;%UserProfile%\AppData\Local\Programs\Python\Python310\include;%UserProfile%\AppData\Local\Programs\Python\Python310\lib\site-packages\pybind11\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Exp;Inc;Src;Inc/Python310</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -441,11 +447,13 @@ cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Comman
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%UserProfile%\AppData\Local\Programs\Python\Python310\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Lib/_x86_;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
-cd $(SolutionDir)Test\PyBind &amp;&amp; stubgen -m D14UIKit -o . &gt;nul</Command>
+      <Command>cd $(OutDir) &gt;nul
+$(SolutionDir)Bin\stubgen\_x86_\stubgen -m D14UIKit -o . &gt;nul
+copy /Y $(OutDir)$(TargetName).pyd $(SolutionDir)Test\PyBind &gt;nul
+copy /Y $(OutDir)$(TargetName).pyi $(SolutionDir)Test\PyBind &gt;nul</Command>
       <Message>Copying Library to Test Directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>

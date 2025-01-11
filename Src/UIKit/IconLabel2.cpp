@@ -11,12 +11,12 @@
 namespace d14engine::uikit
 {
     IconLabel2::IconLabel2(
-        WstrParam labelText, WstrParam label2Text,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        WstrParam labelText,
+        WstrParam label2Text,
+        BmpObjParam iconBitmap,
         const D2D1_RECT_F& rect)
         :
-        IconLabel(labelText, iconBitmap, iconBitmapOpacity, rect)
+        IconLabel(labelText, iconBitmap, rect)
     {
         m_label2 = makeUIObject<Label>(label2Text);
     }
@@ -58,13 +58,12 @@ namespace d14engine::uikit
     SharedPtr<IconLabel2> IconLabel2::menuItemLayout(
         WstrParam labelText,
         WstrParam hotkeyText,
-        ComPtrParam<ID2D1Bitmap1> iconBitmap,
-        float iconBitmapOpacity,
+        BmpObjParam iconBitmap,
         float textHeadPadding,
         float hotkeyTailPadding,
         const D2D1_RECT_F& rect)
     {
-        auto iconLabel = makeUIObject<IconLabel2>(labelText, hotkeyText, iconBitmap, iconBitmapOpacity, rect);
+        auto iconLabel = makeUIObject<IconLabel2>(labelText, hotkeyText, iconBitmap, rect);
 
         THROW_IF_FAILED(iconLabel->m_label2->textLayout()->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING));
 
@@ -75,9 +74,9 @@ namespace d14engine::uikit
             {
                 iconSize = pIconLabel->icon.customSize.value();
             }
-            else if (pIconLabel->icon.bitmap != nullptr)
+            else if (pIconLabel->icon.bitmap.data != nullptr)
             {
-                iconSize = pIconLabel->icon.bitmap->GetSize();
+                iconSize = pIconLabel->icon.bitmap.data->GetSize();
             }
             pIconLabel->icon.rect = math_utils::centered(
             {

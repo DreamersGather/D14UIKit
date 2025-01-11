@@ -90,7 +90,7 @@ namespace d14engine::uikit
         // Content
         auto& foreground = getAppearance().foreground;
 
-        m_content->icon.bitmapOpacity = foreground.opacity;
+        m_content->icon.bitmap.opacity = foreground.opacity;
         m_content->label()->getAppearance().foreground = foreground;
 
         if (m_content->isD2d1ObjectVisible())
