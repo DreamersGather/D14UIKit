@@ -1,9 +1,4 @@
-﻿# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: MSBuild
+﻿name: MSBuild
 
 on:
   push:
@@ -30,6 +25,6 @@ jobs:
 
     - name: Build
       working-directory: .
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m D14UIKit.vcxproj /p:Configuration=${{matrix.Configuration}}
+      # The 'cd' command seems to fail on the target host, causing the action to fail.
+      # Not sure what's causing this, so we temporarily canceled the post-build event.
+      run: msbuild /m D14UIKit.vcxproj /p:Configuration=${{matrix.Configuration}} /p:PostBuildEvent=""
