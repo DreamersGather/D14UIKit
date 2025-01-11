@@ -56,7 +56,7 @@ namespace d14engine::uikit
 
     void LabelArea::setIndicatorPosition(size_t characterOffset)
     {
-        m_indicatorCharacterOffset = std::clamp(characterOffset, 0ull, m_text.size());
+        m_indicatorCharacterOffset = std::clamp(characterOffset, (size_t)0, m_text.size());
 
         auto result = hitTestTextPos((UINT32)m_indicatorCharacterOffset, false);
         m_indicatorGeometry.first = { result.pointX, result.pointY };

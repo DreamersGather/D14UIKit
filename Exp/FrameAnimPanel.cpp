@@ -43,7 +43,7 @@ namespace d14uikit
         auto& frames = pimpl->uiobj->bitmapData.fanim.frames;
 
         frames.resize(images.size());
-        for (int i = 0; i < images.size(); ++i)
+        for (size_t i = 0; i < images.size(); ++i)
         {
             frames[i].bitmap = images[i]->getImpl()->bitmap;
             frames[i].opacity = pimpl->bitmapOpacity;

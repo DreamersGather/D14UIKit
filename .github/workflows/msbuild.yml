@@ -23,11 +23,9 @@ jobs:
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-      with:
-        msbuild-architecture: x64
 
     - name: Build
       working-directory: .
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m D14UIKit.vcxproj /p:Configuration=Release /p:PreferredToolArchitecture=x64
+      run: msbuild /m D14UIKit.vcxproj /p:Configuration=Release

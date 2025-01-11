@@ -45,7 +45,7 @@ namespace d14engine::renderer
         BYTE* mapped = nullptr;
         THROW_IF_FAILED(m_intermediate->Map(0, nullptr, (void**)&mapped));
 
-        memcpy(mapped, pSrc, byteSize);
+        memcpy(mapped, pSrc, (size_t)byteSize);
 
         m_intermediate->Unmap(0, nullptr);
 
@@ -85,6 +85,6 @@ namespace d14engine::renderer
 
     void UploadBuffer::copyData(UINT dstIndexOffset, void* pSrc, UINT64 byteSize)
     {
-        memcpy(&m_mapped[dstIndexOffset * m_elemByteSize], pSrc, byteSize);
+        memcpy(&m_mapped[dstIndexOffset * m_elemByteSize], pSrc, (size_t)byteSize);
     }        
 }

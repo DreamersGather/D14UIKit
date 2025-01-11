@@ -89,7 +89,7 @@ namespace d14engine::uikit
         virtual void insertItem(const ItemList& items, size_t index = 0)
         {
             // "index == m_items.size()" ---> append
-            index = std::clamp(index, 0ull, m_items.size());
+            index = std::clamp(index, (size_t)0, m_items.size());
             
             float height = 0.0f;
             for (auto& item : items)

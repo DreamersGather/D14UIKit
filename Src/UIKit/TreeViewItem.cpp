@@ -158,7 +158,7 @@ namespace d14engine::uikit
     void TreeViewItem::insertItem(const ChildItemList& items, size_t index)
     {
         // "index == m_childrenItems.size()" ---> append
-        index = std::clamp(index, 0ull, m_childrenItems.size());
+        index = std::clamp(index, (size_t)0, m_childrenItems.size());
 
         auto childItor = std::next(m_childrenItems.begin(), index);
 
