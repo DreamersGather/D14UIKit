@@ -35,7 +35,7 @@ If you are familiar with C++/Python3 and want to build your own GUI application,
 ## Roadmap
 
 - [x] Migrate UIKit @ D14Engine to build a basic GUI development framework.
-- [x] Implement PyBind wrapping to provide Python 3 development interface.
+- [x] Implement PyBind wrapping to provide Python3 development interface.
 - [x] Set up the basic project website and write the introduction and getting started documentation.
 - [ ] Support asynchronous UI event handling.
 - [ ] Complete the development documentation (feeling too lazy to do it 😂).
