@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        Configuration: [Rebug, Release, RPyBind]
+        Configuration: [Rebug, Release]
 
     runs-on: windows-latest
 
@@ -25,6 +25,4 @@ jobs:
 
     - name: Build
       working-directory: .
-      # The 'cd' command seems to fail on the target host, causing the action to fail.
-      # Not sure what's causing this, so we temporarily canceled the post-build event.
-      run: msbuild /m D14UIKit.vcxproj /p:Configuration=${{matrix.Configuration}} /p:PostBuildEvent=""
+      run: msbuild /m D14UIKit.vcxproj /p:Configuration=${{matrix.Configuration}}
