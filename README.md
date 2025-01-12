@@ -1,12 +1,16 @@
 ﻿# D14UIKit
 
 [![Static Badge](https://img.shields.io/badge/C++-20-white)](https://en.cppreference.com/w/cpp/20)
+[![Static Badge](https://img.shields.io/badge/Direct-3D12_|_2D1-purple)](https://github.com/microsoft/DirectX-Graphics-Samples)
 [![Static Badge](https://img.shields.io/badge/Python-_3.10_|_3.11_|_3.12_|_3.13_-FFD343?labelColor=3776AB)](https://www.python.org/)
 [![Static Badge](https://img.shields.io/badge/pybind-11-E7E0CD?labelColor=765B2F)](https://github.com/pybind/pybind11)
-[![Static Badge](https://img.shields.io/badge/Direct-3D12_|_2D1-purple?labelColor=black)](https://github.com/microsoft/DirectX-Graphics-Samples)
+
+![GitHub License](https://img.shields.io/github/license/DreamersGather/D14UIKit)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DreamersGather/D14UIKit/msbuild.yml)](https://github.com/DreamersGather/D14UIKit/actions)
 [![GitHub Release](https://img.shields.io/github/v/release/DreamersGather/D14UIKit)](https://github.com/DreamersGather/D14UIKit/releases)
 [![Documentation Status](https://readthedocs.org/projects/d14uikit/badge/?version=latest)](https://d14std.io/projects/uikit/en/latest/?badge=latest)
+![GitHub Repo stars](https://img.shields.io/github/stars/DreamersGather/D14UIKit)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/DreamersGather/D14UIKit/total)
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14UIKit.Res/main/logo.png" height="41"/>
 
