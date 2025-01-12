@@ -1,72 +1,83 @@
 ﻿param($version)
 
-if (Test-Path -Path 'Out\cpp-x86') { Remove-Item -Recurse -Force 'Out\cpp-x86' | Out-Null }
-if (Test-Path -Path 'Out\cpp-x64') { Remove-Item -Recurse -Force 'Out\cpp-x64' | Out-Null }
-if (Test-Path -Path 'Out\python-x86') { Remove-Item -Recurse -Force 'Out\python-x86' | Out-Null }
-if (Test-Path -Path 'Out\python-x64') { Remove-Item -Recurse -Force 'Out\python-x64' | Out-Null }
+function D14UIKit-Remove-Expired
+{
+    param($DistName)
+    if (Test-Path -Path "Dist\\$DistName")
+    {
+        Remove-Item -Recurse -Force "Dist\\$DistName" | Out-Null
+    }
+}
+D14UIKit-Remove-Expired -DistName "cpp-x86"
+D14UIKit-Remove-Expired -DistName "cpp-x64"
 
-###########
-# cpp-x86 #
-###########
-# include
-New-Item -Path 'Out\cpp-x86\include' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Exp\Inc\*' -Destination 'Out\cpp-x86\include' | Out-Null
-# library
-New-Item -Path 'Out\cpp-x86\lib\debug' -ItemType 'directory' | Out-Null
-New-Item -Path 'Out\cpp-x86\lib\release' -ItemType 'directory' | Out-Null
-Copy-Item 'Rebug\D14UIKit.dll' -Destination 'Out\cpp-x86\lib\debug' | Out-Null
-Copy-Item 'Release\D14UIKit.lib' -Destination 'Out\cpp-x86\lib' | Out-Null
-Copy-Item 'Release\D14UIKit.dll' -Destination 'Out\cpp-x86\lib\release' | Out-Null
-# example
-New-Item -Path 'Out\cpp-x86\demo' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Test\*.cpp' -Destination 'Out\cpp-x86\demo' | Out-Null
-Copy-Item -Recurse -Path 'Test\images' -Destination 'Out\cpp-x86\demo\images' | Out-Null
-# archive
-Compress-Archive -Force -Path 'Out\cpp-x86\*' -DestinationPath "Out\d14uikit_cpp_$version-x86.zip" | Out-Null
+D14UIKit-Remove-Expired -DistName "py310-x86"
+D14UIKit-Remove-Expired -DistName "py311-x86"
+D14UIKit-Remove-Expired -DistName "py312-x86"
+D14UIKit-Remove-Expired -DistName "py313-x86"
 
-###########
-# cpp-x64 #
-###########
-# include
-New-Item -Path 'Out\cpp-x64\include' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Exp\Inc\*' -Destination 'Out\cpp-x64\include' | Out-Null
-# library
-New-Item -Path 'Out\cpp-x64\lib\debug' -ItemType 'directory' | Out-Null
-New-Item -Path 'Out\cpp-x64\lib\release' -ItemType 'directory' | Out-Null
-Copy-Item 'x64\Rebug\D14UIKit.dll' -Destination 'Out\cpp-x64\lib\debug' | Out-Null
-Copy-Item 'x64\Release\D14UIKit.lib' -Destination 'Out\cpp-x64\lib' | Out-Null
-Copy-Item 'x64\Release\D14UIKit.dll' -Destination 'Out\cpp-x64\lib\release' | Out-Null
-# example
-New-Item -Path 'Out\cpp-x64\demo' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Test\*.cpp' -Destination 'Out\cpp-x64\demo' | Out-Null
-Copy-Item -Recurse -Path 'Test\images' -Destination 'Out\cpp-x64\demo\images' | Out-Null
-# archive
-Compress-Archive -Force -Path 'Out\cpp-x64\*' -DestinationPath "Out\d14uikit_cpp_$version-x64.zip" | Out-Null
+D14UIKit-Remove-Expired -DistName "py310-x64"
+D14UIKit-Remove-Expired -DistName "py311-x64"
+D14UIKit-Remove-Expired -DistName "py312-x64"
+D14UIKit-Remove-Expired -DistName "py313-x64"
 
-##############
-# python-x86 #
-##############
-# library
-New-Item -Path 'Out\python-x86' -ItemType 'directory' | Out-Null
-Copy-Item 'RPyBind\D14UIKit.pyd' -Destination 'Out\python-x86' | Out-Null
-Copy-Item 'RPyBind\D14UIKit.pyi' -Destination 'Out\python-x86' | Out-Null
-# example
-New-Item -Path 'Out\python-x86\demo' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Test\PyBind\*.py' -Destination 'Out\python-x86\demo' | Out-Null
-Copy-Item -Recurse -Path 'Test\images' -Destination 'Out\python-x86\demo\images' | Out-Null
-# archive
-Compress-Archive -Force -Path 'Out\python-x86\*' -DestinationPath "Out\d14uikit_python_$version-x86.zip" | Out-Null
+function D14UIKit-Pack-Cpp
+{
+    param($ArchName)
+    # include
+    New-Item -Path "Dist\\cpp-$ArchName\\include" -ItemType "directory" | Out-Null
+    Copy-Item -Recurse -Path "Exp\\Inc\\*" -Destination "Dist\\cpp-$ArchName\\include" | Out-Null
+    # library
+    New-Item -Path "Dist\\cpp-$ArchName\\lib\\debug" -ItemType "directory" | Out-Null
+    New-Item -Path "Dist\\cpp-$ArchName\\lib\\release" -ItemType "directory" | Out-Null
+    Copy-Item "Out\\$ArchName\\Rebug\\D14UIKit.dll" -Destination "Dist\\cpp-$ArchName\\lib\\debug" | Out-Null
+    Copy-Item "Out\\$ArchName\\Release\\D14UIKit.lib" -Destination "Dist\\cpp-$ArchName\\lib" | Out-Null
+    Copy-Item "Out\\$ArchName\\Release\\D14UIKit.dll" -Destination "Dist\\cpp-$ArchName\\lib\\release" | Out-Null
+    # example
+    New-Item -Path "Dist\\cpp-$ArchName\\demo" -ItemType "directory" | Out-Null
+    Copy-Item -Recurse -Path "Test\\*.cpp" -Destination "Dist\\cpp-$ArchName\\demo" | Out-Null
+    Copy-Item -Recurse -Path "Test\\images" -Destination "Dist\\cpp-$ArchName\\demo\\images" | Out-Null
+    # archive
+    Compress-Archive -Force -Path "Dist\\cpp-$ArchName\\*" -DestinationPath "Dist\\d14uikit_cpp_$version-$ArchName.zip" | Out-Null
+}
+D14UIKit-Pack-Cpp -ArchName "x86"
+D14UIKit-Pack-Cpp -ArchName "x64"
 
-##############
-# python-x64 #
-##############
-# library
-New-Item -Path 'Out\python-x64' -ItemType 'directory' | Out-Null
-Copy-Item 'x64\RPyBind\D14UIKit.pyd' -Destination 'Out\python-x64' | Out-Null
-Copy-Item 'x64\RPyBind\D14UIKit.pyi' -Destination 'Out\python-x64' | Out-Null
-# example
-New-Item -Path 'Out\python-x64\demo' -ItemType 'directory' | Out-Null
-Copy-Item -Recurse -Path 'Test\PyBind\*.py' -Destination 'Out\python-x64\demo' | Out-Null
-Copy-Item -Recurse -Path 'Test\images' -Destination 'Out\python-x64\demo\images' | Out-Null
-# archive
-Compress-Archive -Force -Path 'Out\python-x64\*' -DestinationPath "Out\d14uikit_python_$version-x64.zip" | Out-Null
+# Attempt to generate a stub file using mypy's stubgen.exe.
+$executablePath = Get-Command "stubgen.exe" -ErrorAction SilentlyContinue
+if ($executablePath)
+{
+    Set-Location -Path "Test\\PyBind"
+    # Choose any library (must match the mypy version on the host).
+    Copy-Item "..\\..\\Out\\x64\\RPy310\\D14UIKit.pyd" -Destination "." | Out-Null
+    Start-Process -Wait -FilePath $executablePath -ArgumentList "-m D14UIKit -o ." | Out-Null
+    Set-Location -Path "..\\.." # back
+}
+else # If stubgen.exe is not found, generate a dummy stub file instead.
+{
+    New-Item -Path "Test\\PyBind\\D14UIKit.pyi" -ItemType "file" | Out-Null
+}
+
+function D14UIKit-Pack-Python
+{
+    param($PyVerNum, $ArchName)
+    # library
+    New-Item -Path "Dist\\py$PyVerNum-$ArchName" -ItemType "directory" | Out-Null
+    Copy-Item "Out\\$ArchName\\RPy$PyVerNum\\D14UIKit.pyd" -Destination "Dist\\py$PyVerNum-$ArchName" | Out-Null
+    Copy-Item "Test\\PyBind\\D14UIKit.pyi" -Destination "Dist\\py$PyVerNum-$ArchName" | Out-Null
+    # example
+    New-Item -Path "Dist\\py$PyVerNum-$ArchName\\demo" -ItemType "directory" | Out-Null
+    Copy-Item -Recurse -Path "Test\\PyBind\\*.py" -Destination "Dist\\py$PyVerNum-$ArchName\\demo" | Out-Null
+    Copy-Item -Recurse -Path "Test\\images" -Destination "Dist\\py$PyVerNum-$ArchName\\demo\\images" | Out-Null
+    # archive
+    Compress-Archive -Force -Path "Dist\\py$PyVerNum-$ArchName\\*" -DestinationPath "Dist\\d14uikit_py$($PyVerNum)_$version-$ArchName.zip" | Out-Null
+}
+D14UIKit-Pack-Python -PyVerNum "310" -ArchName "x86"
+D14UIKit-Pack-Python -PyVerNum "311" -ArchName "x86"
+D14UIKit-Pack-Python -PyVerNum "312" -ArchName "x86"
+D14UIKit-Pack-Python -PyVerNum "313" -ArchName "x86"
+
+D14UIKit-Pack-Python -PyVerNum "310" -ArchName "x64"
+D14UIKit-Pack-Python -PyVerNum "311" -ArchName "x64"
+D14UIKit-Pack-Python -PyVerNum "312" -ArchName "x64"
+D14UIKit-Pack-Python -PyVerNum "313" -ArchName "x64"

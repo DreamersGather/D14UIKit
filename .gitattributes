@@ -1,5 +1,4 @@
-﻿*.exe filter=lfs diff=lfs merge=lfs -text
-*.lib filter=lfs diff=lfs merge=lfs -text
+﻿*.lib filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 Bin/Shaders/PS filter=lfs diff=lfs merge=lfs -text
 Bin/Shaders/VS filter=lfs diff=lfs merge=lfs -text

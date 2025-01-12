@@ -1,7 +1,9 @@
 ﻿# D14UIKit
 
-[![Static Badge](https://img.shields.io/badge/C++-20-blue)](https://en.cppreference.com/w/cpp/20)
-[![Static Badge](https://img.shields.io/badge/DirectX-12-logoColor%3D%252376B900)](https://github.com/microsoft/DirectX-Graphics-Samples)
+[![Static Badge](https://img.shields.io/badge/C++-20-white)](https://en.cppreference.com/w/cpp/20)
+[![Static Badge](https://img.shields.io/badge/Python-_3.10_|_3.11_|_3.12_|_3.13_-FFD343?labelColor=3776AB)](https://www.python.org/)
+[![Static Badge](https://img.shields.io/badge/pybind-11-E7E0CD?labelColor=765B2F)](https://github.com/pybind/pybind11)
+[![Static Badge](https://img.shields.io/badge/Direct-3D12_|_2D1-purple?labelColor=black)](https://github.com/microsoft/DirectX-Graphics-Samples)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DreamersGather/D14UIKit/msbuild.yml)](https://github.com/DreamersGather/D14UIKit/actions)
 [![GitHub Release](https://img.shields.io/github/v/release/DreamersGather/D14UIKit)](https://github.com/DreamersGather/D14UIKit/releases)
 [![Documentation Status](https://readthedocs.org/projects/d14uikit/badge/?version=latest)](https://d14std.io/projects/uikit/en/latest/?badge=latest)
@@ -34,7 +36,7 @@ Finally, run `python3 HelloWindow.py`, and you're all set!
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14Docs.Res/main/d14uikit/tutorials/hello_window.png"/>
 
-If you are familiar with C++/Python3 and want to build your own GUI application, D14UIKit is a great choice: it is based on DirectX 12 and Direct2D for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
+If you are familiar with C++/Python3 development and want to build your own GUI application on modern Windows platform, D14UIKit is a great choice: it is based on DirectX 12 and Direct2D for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
 
 ## Roadmap
 
@@ -42,6 +44,7 @@ If you are familiar with C++/Python3 and want to build your own GUI application,
 - [x] Implement PyBind wrapping to provide Python3 development interface.
 - [x] Set up the basic project website and write the introduction and getting started documentation.
 - [ ] Support asynchronous UI event handling.
+- [ ] Support interactive development and building of UI (e.g. dynamic creation via Python interpreter).
 - [ ] Complete the development documentation (feeling too lazy to do it 😂).
 - [ ] Provide high-performance geometric drawing interfaces to help render complex dynamic charts.
 - [ ] Support better 2D/3D real-time rendering, introducing programmable rendering pipeline interfaces.
