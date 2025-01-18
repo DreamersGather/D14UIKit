@@ -53,7 +53,7 @@ So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is 
 
 ## Features
 
-* C++20 and Python 3 makes it more elegant. Take `callback` as an example:
+* C++20 and Python 3 make it more elegant:
 
   ```cpp
   // C++20
@@ -71,14 +71,29 @@ So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is 
   titleInput.f_onTextChange = changeWindowTitle
   ```
 
-* OOP-style  makes it more convenient. Take `FrameAnimation` as an example:
+* OOP-style makes it more convenient:
 
   ```python
   # Setup a frame animation
   animArea.frames = [Image(f'{i}.png') for i in range(12)]
   animArea.frameTimeSpan = 0.06
   ```
-  Quickly import images using list comprehension (a.k.a list's generator function)
+  Quickly import images using list comprehension.
+
+* Hybrid-Architecture: Switch between run-modes:
+
+  ```python
+  # Asynchronous Waiting
+  app.animState = False
+  # Immediate Processing
+  app.animState = True
+  ```
+
+* High-Performance: Render based on DirectX 12:
+
+  ```python
+  app.fps # for real-time app
+  ```
 
 ## Roadmap
 
