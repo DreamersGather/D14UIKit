@@ -45,11 +45,11 @@ If you are familiar with C++/Python3 development and want to build your own GUI 
 
 We know that:
 
-* The [Qt](https://www.qt.io/)-like framework constructs UI through objects and handles events.
+* The [Qt](https://www.qt.io/)-like framework constructs application through UI objects and handles events.
 
-* The [imgui](https://github.com/ocornut/imgui)-like framework implements a render-loop where all events and rendering are processed in a single flow.
+* The [imgui](https://github.com/ocornut/imgui)-like framework implements a render-loop where all draws and events are processed in a single flow.
 
-So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between ① **Asynchronous Waiting** and ② **Immediate Processing** through the `animState` switch.
+So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between ① **Asynchronous Waiting** and ② **Immediate Processing** through the `animState` variable.
 
 ## Features
 
