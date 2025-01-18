@@ -27,7 +27,7 @@ First, download the latest development package for Python3:
 
 Then, write your Python3 code (HelloWindow.py) as follows:
 
-```python3
+```python
 # Preferably Python 3.10.x and later versions.
 from D14UIKit import *
 app = Application('HelloWindow')
@@ -40,6 +40,45 @@ Finally, run `python3 HelloWindow.py`, and you're all set!
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14Docs.Res/main/d14uikit/tutorials/hello_window.png"/>
 
 If you are familiar with C++/Python3 development and want to build your own GUI application on modern Windows platform, D14UIKit is a great choice: it is based on DirectX 12 and Direct2D for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
+
+## How It Works
+
+We know that:
+
+* The [Qt](https://www.qt.io/)-like framework constructs UI through objects and handles events.
+
+* The [imgui](https://github.com/ocornut/imgui)-like framework implements a render-loop where all events and rendering are processed in a single flow.
+
+So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between ① **Asynchronous Waiting** and ② **Immediate Processing** through the `animState` switch.
+
+## Features
+
+* C++20 and Python 3 makes it more elegant. Take `callback` as an example:
+
+  ```cpp
+  // C++20
+  titleInput.callback().onTextChange =
+  [&](auto obj, auto text)
+  {
+      window.setTitle(text);
+  };
+  ```
+  ```python
+  # Python 3
+  def changeWindowTitle(obj, text):
+      window.title = text
+
+  titleInput.f_onTextChange = changeWindowTitle
+  ```
+
+* OOP-style  makes it more convenient. Take `FrameAnimation` as an example:
+
+  ```python
+  # Setup a frame animation
+  animArea.frames = [Image(f'{i}.png') for i in range(12)]
+  animArea.frameTimeSpan = 0.06
+  ```
+  Quickly import images using list comprehension (a.k.a list's generator function)
 
 ## Roadmap
 
