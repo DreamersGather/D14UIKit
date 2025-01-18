@@ -49,7 +49,7 @@ We know that:
 
 * The [imgui](https://github.com/ocornut/imgui)-like framework implements a render-loop where all draws and events are processed in a single flow.
 
-So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between ① **Asynchronous Waiting** and ② **Immediate Processing** through the `animState` variable.
+So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between (1) **Asynchronous Waiting** and (2) **Immediate Processing** through the `animState` variable.
 
 ## Features
 
