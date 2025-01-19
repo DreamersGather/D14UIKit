@@ -100,6 +100,7 @@ So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is 
 - [x] Migrate UIKit @ D14Engine to build a basic GUI development framework.
 - [x] Implement PyBind wrapping to provide Python3 development interface.
 - [x] Set up the basic project website and write the introduction and getting started documentation.
+- [ ] Provide DirectX 12 and Direct2D interfaces for C++ developers.
 - [ ] Support asynchronous UI event handling.
 - [ ] Support interactive development and building of UI (e.g. dynamic creation via Python interpreter).
 - [ ] Complete the development documentation (feeling too lazy to do it 😂).
