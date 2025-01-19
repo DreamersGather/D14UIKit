@@ -478,8 +478,6 @@ namespace d14engine::renderer
         public:
             bool enabled = true;
 
-            void setPriority(int value);
-
         public:
             using DrawObjectSet = ISortable<IDrawObject>::ShrdPrioritySet;
 

@@ -1305,11 +1305,6 @@ namespace d14engine::renderer
         }
     }
 
-    void Renderer::CommandLayer::setPriority(int value)
-    {
-        m_priority = value;
-    }
-
     void Renderer::CommandLayer::resetCmdList(ID3D12GraphicsCommandList* cmdList, size_t index)
     {
         auto& cmdAlloc = m_cmdAllocs.at(index);

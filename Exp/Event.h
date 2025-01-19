@@ -9,7 +9,7 @@
 namespace d14engine::uikit
 {
     // Define a dummy subclass to avoid the forward declaration of inner class.
-    struct MouseButtonClickEvent : public ClickablePanel::Event
+    struct MouseButtonClickEvent : ClickablePanel::Event
     {
         using ClickablePanel::Event::Event;
 

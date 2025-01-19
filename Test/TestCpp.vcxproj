@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FrameAnimation.cpp" />
+    <ClCompile Include="SceneTemplate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -132,12 +132,13 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />
@@ -162,12 +163,13 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />
@@ -192,12 +194,13 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />
@@ -222,12 +225,13 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />
@@ -254,7 +258,7 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -262,6 +266,7 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />
@@ -288,7 +293,7 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -296,6 +301,7 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D14UIKit.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>dxcompiler.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <Manifest />
     <PostBuildEvent />

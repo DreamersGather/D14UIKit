@@ -12,6 +12,8 @@ namespace d14uikit
 
         std::shared_ptr<d14engine::uikit::Application> uiobj = {};
 
+        std::shared_ptr<Renderer> rndr = {};
+
         bool animState = false;
 
         std::shared_ptr<Cursor> cursor = {};

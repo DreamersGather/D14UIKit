@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <windef.h>
+
 #include "Common.h"
 
 #include "BasicEnum.h"
@@ -11,6 +13,7 @@ namespace d14uikit
 {
     class Cursor;
     class Image;
+    class Renderer;
 
     class DllExport Application : public NonCopyable
     {
@@ -31,6 +34,8 @@ namespace d14uikit
 
         int run() const;
         void exit() const;
+
+        HWND win32Window() const;
 
         bool visible() const;
         void setVisible(bool value);
@@ -70,6 +75,8 @@ namespace d14uikit
 
         bool resizable() const;
         void setResizable(bool value);
+
+        Renderer* dx12Renderer() const;
 
         bool fullscreen() const;
         void setFullscreen(bool value);

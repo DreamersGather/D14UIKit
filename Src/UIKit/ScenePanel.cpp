@@ -9,11 +9,13 @@
 #include "Renderer/GraphUtils/Barrier.h"
 #include "Renderer/GraphUtils/ParamHelper.h"
 #include "Renderer/Interfaces/DrawLayer.h"
-#include "Renderer/Interfaces/IDrawObject.h"
 
 #include "UIKit/Application.h"
 #include "UIKit/BitmapObject.h"
 #include "UIKit/PlatformUtils.h"
+
+// Template deduction depends on IDrawObject
+#include "Renderer/Interfaces/IDrawObject.h"
 
 using namespace d14engine::renderer;
 

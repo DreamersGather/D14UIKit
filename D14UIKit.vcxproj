@@ -3735,6 +3735,34 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|Win32'">$(IntDir)RawTextInputPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|Win32'">$(IntDir)RawTextInputPrivate</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Exp\RenderObject.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|Win32'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RenderObjectPrivate</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Exp\ResizablePanel.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
@@ -3762,6 +3790,34 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|Win32'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|Win32'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">$(IntDir)ResizablePanelPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\ScenePanel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|Win32'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)ScenePanelPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Exp\ScrollView.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)ScrollViewPrivate</ObjectFileName>
@@ -4098,6 +4154,34 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|Win32'">$(IntDir)WindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|Win32'">$(IntDir)WindowPrivate</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">$(IntDir)WindowPrivate</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Exp\Renderer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|Win32'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPyBind|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy310|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy311|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy312|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy310|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPy313|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy311|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy312|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='RPy313|x64'">$(IntDir)RendererPrivate</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">$(IntDir)RendererPrivate</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Src\Common\ResourcePack.cpp" />
     <None Include=".editorconfig" />
@@ -5002,7 +5086,10 @@
     <ClInclude Include="Exp\Inc\RawTextBox.h" />
     <ClInclude Include="Exp\Inc\RawTextEditor.h" />
     <ClInclude Include="Exp\Inc\RawTextInput.h" />
+    <ClInclude Include="Exp\Inc\Renderer.h" />
+    <ClInclude Include="Exp\Inc\RenderObject.h" />
     <ClInclude Include="Exp\Inc\ResizablePanel.h" />
+    <ClInclude Include="Exp\Inc\ScenePanel.h" />
     <ClInclude Include="Exp\Inc\ScrollView.h" />
     <ClInclude Include="Exp\Inc\Slider.h" />
     <ClInclude Include="Exp\Inc\StatefulObject.h" />
@@ -5490,7 +5577,10 @@
     <ClInclude Include="Exp\RawTextBox.h" />
     <ClInclude Include="Exp\RawTextEditor.h" />
     <ClInclude Include="Exp\RawTextInput.h" />
+    <ClInclude Include="Exp\Renderer.h" />
+    <ClInclude Include="Exp\RenderObject.h" />
     <ClInclude Include="Exp\ResizablePanel.h" />
+    <ClInclude Include="Exp\ScenePanel.h" />
     <ClInclude Include="Exp\ScrollView.h" />
     <ClInclude Include="Exp\Slider.h" />
     <ClInclude Include="Exp\TabCaption.h" />

@@ -5,6 +5,7 @@
 #include "Common.h"
 #include "Cursor.h"
 #include "Image.h"
+#include "Renderer.h"
 
 #include "Common/MathUtils/Basic.h"
 
@@ -40,6 +41,12 @@ namespace d14uikit
 
         pimpl->uiobj = uiobj;
 
+        // Binds renderer::Renderer to d14uikit::Renderer
+        {
+            auto rndr = pimpl->uiobj->dx12Renderer();
+            auto rndrCast = std::make_shared<uikit::Renderer>(rndr);
+            pimpl->rndr = std::shared_ptr<Renderer>(new Renderer(rndrCast));
+        }
         pimpl->uiobj->f_onSystemThemeStyleChange = [this]
         {
             if (pimpl->useSystemTheme)
@@ -97,6 +104,11 @@ namespace d14uikit
     void Application::exit() const
     {
         pimpl->uiobj->exit();
+    }
+
+    HWND Application::win32Window() const
+    {
+        return pimpl->uiobj->win32Window();
     }
 
     bool Application::visible() const
@@ -309,6 +321,11 @@ namespace d14uikit
             szframe.frameWidth = 6;
         }
         else szframe.frameWidth.reset();
+    }
+
+    Renderer* Application::dx12Renderer() const
+    {
+        return pimpl->rndr.get();
     }
 
     bool Application::fullscreen() const

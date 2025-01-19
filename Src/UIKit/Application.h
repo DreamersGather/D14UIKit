@@ -21,9 +21,9 @@ namespace d14engine::uikit
             // Resources (such as cursors) are loaded from this path.
             Wstring binaryPath = L"Bin/";
 #ifdef _WIN64
-            Wstring libraryPath = L"Lib/_x64_";
+            Wstring libraryPath = L"Lib/x64";
 #else
-            Wstring libraryPath = L"Lib/_x86_";
+            Wstring libraryPath = L"Lib/x86";
 #endif
             Optional<float> dpi = std::nullopt;
 
