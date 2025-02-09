@@ -20,11 +20,10 @@ namespace d14engine::uikit
 
             // Resources (such as cursors) are loaded from this path.
             Wstring binaryPath = L"Bin/";
-#ifdef _WIN64
-            Wstring libraryPath = L"Lib/x64";
-#else
-            Wstring libraryPath = L"Lib/x86";
-#endif
+
+            using LibraryPathArray = std::vector<Wstring>;
+            LibraryPathArray libraryPaths = {};
+
             Optional<float> dpi = std::nullopt;
 
             bool showCentered = true;

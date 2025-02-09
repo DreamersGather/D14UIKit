@@ -132,7 +132,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,7 +163,7 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -194,7 +194,7 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -225,7 +225,7 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -258,7 +258,7 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -293,7 +293,7 @@ copy /Y $(SolutionDir)Out\x64\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>include;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\DirectX;$(SolutionDir)Exp\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

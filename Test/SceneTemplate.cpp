@@ -1,4 +1,6 @@
-﻿#include <Windows.h>
+﻿// Refer to https://devblogs.microsoft.com/directx/gettingstarted-dx12agility/#header-include-order
+// It is recommended to include Agility SDK headers before the Windows 10 SDK to avoid conflicts.
+#include "DirectX-Header.h"
 
 #include "Application.h"
 #include "Callback.h"
@@ -7,11 +9,6 @@
 #include "Renderer.h"
 #include "RenderObject.h"
 #include "ScenePanel.h"
-
-#include "DirectX-Headers/d3dx12.h"
-#include "DirectXShaderCompiler/dxcapi.h"
-
-#pragma comment(lib, "dxcompiler.lib")
 
 using namespace d14uikit;
 
@@ -25,11 +22,16 @@ int main(int argc, char* argv[])
         dpi = 192.0f;
     }
     Application app(DEMO_NAME, dpi);
+    app.setMinSize(app.size());
+    app.setResizable(true);
 
+    // Set this before calling AddDllDirectory to ensure that
+    // subsequent LoadLibrary calls search user-defined paths.
+    SetDefaultDllDirectories(LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 #ifdef _WIN64
-    SetDllDirectory(L"library/x64");
+    AddDllDirectory(L"library/DirectXShaderCompiler/x64");
 #else
-    SetDllDirectory(L"library/x86");
+    AddDllDirectory(L"library/DirectXShaderCompiler/x86");
 #endif
     //------------------------------------------- Initialize UI objects.
 

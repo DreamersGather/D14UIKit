@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+// Refer to https://devblogs.microsoft.com/directx/gettingstarted-dx12agility/#header-include-order
+// It is recommended to include Agility SDK headers before the Windows 10 SDK to avoid conflicts.
+#include <d3d12.h>
+
 #include <DirectXColors.h>
 #include <DirectXMath.h>
 
@@ -7,7 +11,6 @@
 #include <d2d1_1.h>
 #include <d3d11.h>
 #include <d3d11on12.h>
-#include <d3d12.h>
 #include <dwrite_3.h>
 #include <dxgi1_6.h>
 

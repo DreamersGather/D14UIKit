@@ -5,13 +5,37 @@ Renderer/GraphUtils/Shader.h
 
 ========= Modified =========
 
-Common/Precompile.h (Add macro definition for module name)
-Common/ResourcePack.cpp (Adapt related module name)
+Common/Precompile.h
+-------------------
+Remove DirectX 12 Agility SDK
+Add macro definition for module name
 
-Renderer/Letterbox.cpp (Load CSO instead of compiling HLSL)
-Renderer/Renderer.cpp (Remove shader initialization; Adapt related module name)
+Common/ResourcePack.cpp
+-----------------------
+Adapt related module name
 
-UIKit/AppEntry.h (Change entry from 'wmain' to 'main')
-UIKit/Application.cpp (Adapt related module name)
-UIKit/Cursor.cpp (Load cursor from resource instead of images)
-UIKit/Cursor.h (Load cursor from resource instead of images)
+Renderer/Letterbox.cpp
+----------------------
+Load CSO instead of compiling HLSL
+
+Renderer/Renderer.cpp
+---------------------
+Remove shader initialization
+Adapt related module name
+
+UIKit/AppEntry.h
+----------------
+Change entry from 'wmain' to 'main'
+
+UIKit/Application.cpp
+---------------------
+Adapt related module name
+
+UIKit/Application.h
+-------------------
+Clear default libraryPaths
+
+UIKit/Cursor.cpp
+UIKit/Cursor.h
+----------------
+Load cursor from resource instead of images

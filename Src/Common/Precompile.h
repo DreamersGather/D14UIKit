@@ -1,6 +1,9 @@
 ﻿#pragma once
 
-// Standard Library
+//////////////////////
+// Standard Library //
+//////////////////////
+
 #include <algorithm>
 #include <array>
 #include <exception>
@@ -65,7 +68,10 @@ namespace d14engine
     using WstrViewParam = const WstringView&;
 }
 
-// Windows & DirectX SDK
+///////////////////////////
+// Windows & DirectX SDK //
+///////////////////////////
+
 #include <comdef.h>
 #include <d2d1.h>
 #include <d2d1_1.h>
@@ -108,6 +114,10 @@ namespace d14engine
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "imm32.lib")
 #pragma comment(lib, "WindowsCodecs.lib")
+
+///////////////////
+// Miscellaneous //
+///////////////////
 
 #if __cplusplus <= 202002L // "uz" was introduced in C++23
 #pragma warning(push)
