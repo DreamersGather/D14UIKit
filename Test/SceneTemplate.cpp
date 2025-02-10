@@ -1,4 +1,14 @@
-﻿// Refer to https://devblogs.microsoft.com/directx/gettingstarted-dx12agility/#header-include-order
+﻿#define AGILITY_SDK false
+
+#if AGILITY_SDK
+#define AGILITY_VER 615
+#ifdef _WIN64
+#define AGILITY_PATH "library/DirectX/x64/"
+#else
+#define AGILITY_PATH "library/DirectX/x86/"
+#endif
+#endif
+// Refer to https://devblogs.microsoft.com/directx/gettingstarted-dx12agility/#header-include-order
 // It is recommended to include Agility SDK headers before the Windows 10 SDK to avoid conflicts.
 #include "DirectX-Header.h"
 
@@ -6,7 +16,6 @@
 #include "Callback.h"
 #include "Label.h"
 #include "MainWindow.h"
-#include "Renderer.h"
 #include "RenderObject.h"
 #include "ScenePanel.h"
 
