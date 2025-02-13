@@ -39,7 +39,8 @@ namespace d14engine::uikit::appearance
                     {
                         struct Geometry
                         {
-                            // Call loadActiveCardShadowBitmap after changing size of active-card.
+                            // Call activeCard.loadMaskBitmap after changing fields of active-card.
+                            // Call activeCard.loadPathGeo after changing fields of active-card.
                             D2D1_SIZE_F size = {};
                             float roundRadius = {};
                         }

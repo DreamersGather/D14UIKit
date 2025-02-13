@@ -63,6 +63,10 @@ namespace d14engine::uikit
 
         void exit(); // The exit code is returned by calling run.
 
+    /////////////////////////////////
+    // Win32 Window & Message Loop //
+    /////////////////////////////////
+
     private:
         static LRESULT CALLBACK fnWndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -99,6 +103,10 @@ namespace d14engine::uikit
         win32WindowSettings = {};
 
         LRESULT defWin32NCHITTESTMessageHandler(const POINT& pt);
+
+    ///////////////////////////
+    // Renderer & UI Objects //
+    ///////////////////////////
 
     private:
         UniquePtr<renderer::Renderer> m_renderer = {};
@@ -264,16 +272,36 @@ namespace d14engine::uikit
 
         void handleImmediateMouseMoveEventCallback();
 
+    //////////////////////////////
+    // Additional Functionality //
+    //////////////////////////////
+
     public:
         enum class CustomWin32Message
         {
-            AwakeGetMessage = WM_USER,
+            // Messages below WM_USER are reserved.
+            _UserDefinedStart_ = WM_USER,
 
-            UpdateRootDiffPinnedUIObjects = WM_USER + 1,
-            UpdateMiscDiffPinnedUIObjects = WM_USER + 2
+            // When there is no regular user input event,
+            // this can be used to activate the message loop.
+            // For example, when switching to animation mode,
+            // this ensures running the update-draw loop.
+            AwakeGetMessage,
+
+            // Used to help update diff-pinned UI object set.
+            UpdateRootDiffPinnedUIObjects,
+            UpdateMiscDiffPinnedUIObjects,
+
+            // Used to implement non-blocking callbacks
+            // for events triggered within other threads.
+            HandleThreadEvent
         };
-        void postCustomWin32Message(CustomWin32Message message);
+        void postCustomWin32Message(
+            CustomWin32Message message,
+            WPARAM wParam = 0,
+            LPARAM lParam = 0);
 
+    // Update Diff-Pinned UI Objects
     private:
         // Similar to updateDiffPinnedUIObjectsLater, non-root UI objects may
         // need to change their diff-pinned children while handling UI events.
@@ -285,5 +313,27 @@ namespace d14engine::uikit
 
     public:
         void pushDiffPinnedUpdateCandidate(ShrdPtrParam<Panel> uiobj);
+
+    // Handle Thread Event
+    public:
+        using ThreadEventID = UINT64; // matches WPARAM
+
+        using ThreadCallback = Function<void()>;
+        using ThreadCallbackParam = const ThreadCallback&;
+
+    private:
+        using ThreadCallbackMap = std::unordered_map<ThreadEventID, ThreadCallback>;
+
+        ThreadCallbackMap m_threadCallbacks = {};
+
+    public:
+        // this override will retain the existed callback
+        void registerThreadCallback(const ThreadCallbackMap& callbacks);
+        // this override will update the existed callback
+        void registerThreadCallback(ThreadEventID id, ThreadCallbackParam callback);
+
+        void triggerThreadEvent(ThreadEventID id);
+
+        void startThread(Thread&& thread, const ThreadCallbackMap& callbacks);
     };
 }

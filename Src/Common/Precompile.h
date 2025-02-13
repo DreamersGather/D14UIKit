@@ -18,6 +18,7 @@
 #include <sstream>
 #include <string_view>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <unordered_set>
 #include <variant>
@@ -45,6 +46,9 @@ namespace d14engine
 
     using StringView = std::string_view;
     using StrViewParam = const StringView&;
+
+    using Thread = std::thread;
+    using ThreadParam = const std::thread&;
 
     template<typename T>
     using UniquePtr = std::unique_ptr<T>;

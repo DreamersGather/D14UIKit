@@ -4,7 +4,7 @@
 
 #include "UIKit/Appearances/ElevatedButton.h"
 #include "UIKit/FilledButton.h"
-#include "UIKit/ShadowStyle.h"
+#include "UIKit/ShadowMask.h"
 
 namespace d14engine::uikit
 {
@@ -20,7 +20,7 @@ namespace d14engine::uikit
             float roundRadius = 0.0f,
             const D2D1_RECT_F& rect = {});
 
-        ShadowStyle shadow = {};
+        ShadowMask shadow = {};
 
         _D14_SET_APPEARANCE_GETTER(ElevatedButton)
 

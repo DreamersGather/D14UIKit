@@ -25,8 +25,7 @@ namespace d14engine::uikit
         Panel(rect, resource_utils::g_solidColorBrush),
         DraggablePanel(rect, resource_utils::g_solidColorBrush),
         ResizablePanel(rect, resource_utils::g_solidColorBrush),
-        mask(math_utils::roundu(size())),
-        shadow(math_utils::roundu(size())),
+        contentMask(math_utils::roundu(size())),
         m_caption(caption),
         m_captionPanelHeight(captionPanelHeight),
         m_decorativeBarHeight(decorativeBarHeight)
@@ -445,21 +444,11 @@ namespace d14engine::uikit
     {
         Panel::drawChildrenLayers(rndr);
 
-        if (associatedTabGroup.expired())
-        {
-            // Shape of Shadow
-            shadow.beginDraw(rndr->d2d1DeviceContext());
-            {
-                rndr->d2d1DeviceContext()->Clear(D2D1::ColorF{ 0x000000, 1.0f });
-            }
-            shadow.endDraw(rndr->d2d1DeviceContext());
-        }
-        // Content on Mask
         auto maskDrawTrans = D2D1::Matrix3x2F::Translation
         (
             -m_absoluteRect.left, -m_absoluteRect.top
         );
-        mask.beginDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
+        contentMask.beginDraw(rndr->d2d1DeviceContext(), maskDrawTrans);
         {
             // Background
             {
@@ -605,7 +594,7 @@ namespace d14engine::uikit
             // Children
             Panel::drawChildrenObjects(rndr);
         }
-        mask.endDraw(rndr->d2d1DeviceContext());
+        contentMask.endDraw(rndr->d2d1DeviceContext());
     }
 
     void Window::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
@@ -615,10 +604,10 @@ namespace d14engine::uikit
         {
             auto& shadowSetting = getAppearance().shadow;
 
-            shadow.color = shadowSetting.color;
-            shadow.standardDeviation = shadowSetting.standardDeviation;
+            contentMask.color = shadowSetting.color;
+            contentMask.standardDeviation = shadowSetting.standardDeviation;
 
-            shadow.configEffectInput(resource_utils::g_shadowEffect.Get());
+            contentMask.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             rndr->d2d1DeviceContext()->DrawImage(
                 resource_utils::g_shadowEffect.Get(),
@@ -627,11 +616,11 @@ namespace d14engine::uikit
         // Content
         {
             float maskOpacity = associatedTabGroup.expired() ?
-                mask.opacity : getAppearance().maskOpacityWhenDragAboveTabGroup;
+                contentMask.opacity : getAppearance().maskOpacityWhenDragAboveTabGroup;
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                mask.data.Get(), math_utils::roundf(m_absoluteRect),
-                maskOpacity, mask.getInterpolationMode());
+                contentMask.data.Get(), math_utils::roundf(m_absoluteRect),
+                maskOpacity, contentMask.getInterpolationMode());
         }
     }
 
@@ -648,8 +637,7 @@ namespace d14engine::uikit
 
         auto bitmapSize = math_utils::roundu(e.size);
 
-        mask.loadBitmap(bitmapSize);
-        shadow.loadBitmap(bitmapSize);
+        contentMask.loadBitmap(bitmapSize);
 
         m_caption->transform(captionIconLabelSelfcoordRect());
         if (m_centerUIObject) m_centerUIObject->transform(clientAreaSelfcoordRect());

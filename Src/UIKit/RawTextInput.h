@@ -4,7 +4,7 @@
 
 #include "UIKit/Appearances/RawTextInput.h"
 #include "UIKit/LabelArea.h"
-#include "UIKit/MaskStyle.h"
+#include "UIKit/MaskObject.h"
 #include "UIKit/TextInputObject.h"
 
 namespace d14engine::uikit
@@ -36,7 +36,7 @@ namespace d14engine::uikit
         void setText(WstrParam text) override;
 
     protected:
-        MaskStyle m_visibleTextMask = {};
+        MaskObject m_visibleTextMask = {};
 
         D2D1_RECT_F m_visibleTextRect = {};
 

@@ -54,7 +54,9 @@ namespace d14engine::uikit
         m_valueLabel->setText(ss.str());
 
         loadHandleShadowBitmap();
-        loadValueLabelShadowBitmap();
+        loadValueLabelMaskBitmap();
+
+        loadSideTrianglePathGeo();
     }
 
     void Slider::onStartSliding(float value)
@@ -86,6 +88,25 @@ namespace d14engine::uikit
         auto& geoSetting = getAppearance().handle.geometry;
 
         handleShadow.loadBitmap(math_utils::roundu(geoSetting.size));
+    }
+
+    void Slider::loadSideTrianglePathGeo()
+    {
+        auto factory = Application::g_app->dx12Renderer()->d2d1Factory();
+        THROW_IF_FAILED(factory->CreatePathGeometry(&sideTrianglePathGeo));
+
+        ComPtr<ID2D1GeometrySink> geoSink;
+        THROW_IF_FAILED(sideTrianglePathGeo->Open(&geoSink));
+        {
+            auto triangleVertices = valueLabelSideTriangleInShadow();
+
+            geoSink->BeginFigure(triangleVertices[2], D2D1_FIGURE_BEGIN_FILLED);
+
+            geoSink->AddLines(triangleVertices.data(), (UINT32)triangleVertices.size());
+
+            geoSink->EndFigure(D2D1_FIGURE_END_CLOSED);
+        }
+        THROW_IF_FAILED(geoSink->Close());
     }
 
     bool Slider::setValue(float value)
@@ -154,10 +175,10 @@ namespace d14engine::uikit
         }
         handleShadow.endDraw(rndr->d2d1DeviceContext());
 
-        // Value Label Shadow
+        // Value Label Mask
         if (m_valueLabel->isD2d1ObjectVisible())
         {
-            valueLabelShadow.beginDraw(rndr->d2d1DeviceContext());
+            valueLabelMask.beginDraw(rndr->d2d1DeviceContext());
             {
                 auto& setting = getAppearance().valueLabel;
 
@@ -176,31 +197,16 @@ namespace d14engine::uikit
                 resource_utils::g_solidColorBrush.Get());
 
                 // Side Triangle
-                ComPtr<ID2D1PathGeometry> pathGeo;
-                THROW_IF_FAILED(rndr->d2d1Factory()->CreatePathGeometry(&pathGeo));
-
-                ComPtr<ID2D1GeometrySink> geoSink;
-                THROW_IF_FAILED(pathGeo->Open(&geoSink));
-                {
-                    auto triangleVertices = valueLabelSideTriangleInShadow();
-
-                    geoSink->BeginFigure(triangleVertices[2], D2D1_FIGURE_BEGIN_FILLED);
-
-                    geoSink->AddLines(triangleVertices.data(), (UINT32)triangleVertices.size());
-
-                    geoSink->EndFigure(D2D1_FIGURE_END_CLOSED);
-                }
-                THROW_IF_FAILED(geoSink->Close());
-
                 auto& trngBkgn = setting.sideTriangle.background;
 
                 resource_utils::g_solidColorBrush->SetColor(trngBkgn.color);
                 resource_utils::g_solidColorBrush->SetOpacity(trngBkgn.opacity);
 
                 rndr->d2d1DeviceContext()->FillGeometry(
-                    pathGeo.Get(), resource_utils::g_solidColorBrush.Get());
+                    sideTrianglePathGeo.Get(),
+                    resource_utils::g_solidColorBrush.Get());
             }
-            valueLabelShadow.endDraw(rndr->d2d1DeviceContext());
+            valueLabelMask.endDraw(rndr->d2d1DeviceContext());
         }
     }
 
@@ -266,10 +272,10 @@ namespace d14engine::uikit
             // Shadow
             auto& shadowSetting = getAppearance().valueLabel.shadow;
 
-            valueLabelShadow.color = shadowSetting.color;
-            valueLabelShadow.standardDeviation = shadowSetting.standardDeviation;
+            valueLabelMask.color = shadowSetting.color;
+            valueLabelMask.standardDeviation = shadowSetting.standardDeviation;
 
-            valueLabelShadow.configEffectInput(resource_utils::g_shadowEffect.Get());
+            valueLabelMask.configEffectInput(resource_utils::g_shadowEffect.Get());
 
             auto targetOffset = math_utils::roundf(math_utils::leftTop(vlblRect));
 
@@ -279,8 +285,8 @@ namespace d14engine::uikit
             auto destinationRect = math_utils::roundf(vlblRect);
 
             rndr->d2d1DeviceContext()->DrawBitmap(
-                valueLabelShadow.data.Get(), destinationRect,
-                valueLabelShadow.opacity, valueLabelShadow.getInterpolationMode());
+                valueLabelMask.data.Get(), destinationRect,
+                valueLabelMask.opacity, valueLabelMask.getInterpolationMode());
 
             // Text
             m_valueLabel->onRendererDrawD2d1Object(rndr);
@@ -299,7 +305,7 @@ namespace d14engine::uikit
         m_valueLabel->transform(valueLabelSelfCoordRect());
 
         loadHandleShadowBitmap();
-        loadValueLabelShadowBitmap();
+        loadValueLabelMaskBitmap();
     }
 
     void Slider::onChangeThemeHelper(WstrParam themeName)

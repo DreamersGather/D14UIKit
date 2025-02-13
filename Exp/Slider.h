@@ -170,7 +170,7 @@ void Type_Name::setVlabelRectSize(const Size& value)                            
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
     appear.mainRect.geometry.size = convert(value);                                     \
-    pimpl->uiobj->loadValueLabelShadowBitmap();                                         \
+    pimpl->uiobj->loadValueLabelMaskBitmap();                                           \
 }                                                                                       \
                                                                                         \
 Size Type_Name::vlabelTipSize() const                                                   \
@@ -183,7 +183,7 @@ void Type_Name::setVlabelTipSize(const Size& value)                             
 {                                                                                       \
     auto& appear = pimpl->uiobj->getAppearance().valueLabel;                            \
     appear.sideTriangle.size = convert(value);                                          \
-    pimpl->uiobj->loadValueLabelShadowBitmap();                                         \
+    pimpl->uiobj->loadValueLabelMaskBitmap();                                           \
 }                                                                                       \
                                                                                         \
 Type_Name::Callback& Type_Name::callback() const { return *pcallback; }                 \

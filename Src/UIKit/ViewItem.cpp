@@ -19,6 +19,7 @@ namespace d14engine::uikit
         const D2D1_RECT_F& rect)
         :
         Panel(rect, resource_utils::g_solidColorBrush),
+        contentMask(math_utils::roundu(size())),
         m_content(content)
     {
         m_takeOverChildrenDrawing = true;

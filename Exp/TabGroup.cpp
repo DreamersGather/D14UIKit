@@ -86,7 +86,8 @@ namespace d14uikit
 
 #undef SET_CARD_SIZE
 
-        pimpl->uiobj->loadActiveCardShadowBitmap();
+        pimpl->uiobj->activeCard.loadMaskBitmap();
+        pimpl->uiobj->activeCard.loadPathGeo();
 
         auto& barGeo = barAppear.geometry;
         auto& sprtGeo = barAppear.separator.geometry;

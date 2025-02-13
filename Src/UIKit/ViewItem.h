@@ -5,7 +5,7 @@
 #include "Common/CppLangUtils/EnumClassMap.h"
 
 #include "UIKit/Appearances/ViewItem.h"
-#include "UIKit/MaskStyle.h"
+#include "UIKit/MaskObject.h"
 #include "UIKit/Panel.h"
 
 namespace d14engine::uikit
@@ -21,7 +21,7 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
-        MaskStyle contentMask = {};
+        MaskObject contentMask = {};
 
         _D14_SET_APPEARANCE_GETTER(ViewItem)
 

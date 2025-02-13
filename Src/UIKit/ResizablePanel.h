@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnableMasterPtr.h"
+
 #include "UIKit/Appearances/ResizablePanel.h"
 #include "UIKit/Panel.h"
 
@@ -16,13 +18,15 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
-        struct StaticSizingGuideFrame
+        struct StaticSizingGuideFrame : cpp_lang_utils::EnableMasterPtr<ResizablePanel>
         {
-            ComPtr<ID2D1StrokeStyle> strokeStyle = {};
-        }
-        staticSizingGuideFrame = {};
+            using EnableMasterPtr::EnableMasterPtr;
 
-        void loadStaticSizingGuideFrameStrokeStyle();
+            ComPtr<ID2D1StrokeStyle> strokeStyle = {};
+
+            void loadStrokeStyle();
+        }
+        staticSizingGuideFrame{ this };
 
         D2D1_RECT_F sizingFrameExtendedRect(const D2D1_RECT_F& flatRect) const;
 

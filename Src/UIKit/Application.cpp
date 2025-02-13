@@ -876,6 +876,21 @@ namespace d14engine::uikit
             }
             return 0;
         }
+        case (UINT)CustomWin32Message::HandleThreadEvent:
+        {
+            if (app != nullptr)
+            {
+                auto id = (ThreadEventID)wParam;
+
+                auto callback = app->m_threadCallbacks.find(id);
+                if (callback != app->m_threadCallbacks.end())
+                {
+                    callback->second();
+                }
+                app->m_threadCallbacks.erase(callback);
+            }
+            return 0;
+        }
         case WM_DESTROY:
         {
             PostQuitMessage(0);
@@ -1232,13 +1247,33 @@ namespace d14engine::uikit
         }
     }
 
-    void Application::postCustomWin32Message(CustomWin32Message message)
+    void Application::postCustomWin32Message(CustomWin32Message message, WPARAM wParam, LPARAM lParam)
     {
-        PostMessage(m_win32Window, (UINT)message, 0, 0);
+        PostMessage(m_win32Window, (UINT)message, wParam, lParam);
     }
 
     void Application::pushDiffPinnedUpdateCandidate(ShrdPtrParam<Panel> uiobj)
     {
         m_diffPinnedUpdateCandidates.insert(uiobj);
+    }
+
+    void Application::registerThreadCallback(const ThreadCallbackMap& callbacks)
+    {
+        m_threadCallbacks.insert(callbacks.begin(), callbacks.end());
+    }
+
+    void Application::registerThreadCallback(ThreadEventID id, ThreadCallbackParam callback)
+    {
+        m_threadCallbacks[id] = callback;
+    }
+
+    void Application::triggerThreadEvent(ThreadEventID id)
+    {
+        postCustomWin32Message(CustomWin32Message::HandleThreadEvent, id);
+    }
+
+    void Application::startThread(Thread&& thread, const ThreadCallbackMap& callbacks)
+    {
+        registerThreadCallback(callbacks); thread.detach();
     }
 }

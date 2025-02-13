@@ -3,7 +3,7 @@
 #include "Common/Precompile.h"
 
 #include "UIKit/Appearances/ScrollView.h"
-#include "UIKit/MaskStyle.h"
+#include "UIKit/MaskObject.h"
 #include "UIKit/ResizablePanel.h"
 #include "UIKit/StrokeStyle.h"
 
@@ -15,7 +15,7 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
-        MaskStyle contentMask = {};
+        MaskObject contentMask = {};
 
         _D14_SET_APPEARANCE_GETTER(ScrollView)
 

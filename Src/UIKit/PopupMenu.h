@@ -4,7 +4,7 @@
 
 #include "UIKit/Appearances/PopupMenu.h"
 #include "UIKit/MenuItem.h"
-#include "UIKit/ShadowStyle.h"
+#include "UIKit/ShadowMask.h"
 #include "UIKit/WaterfallView.h"
 
 namespace d14engine::uikit
@@ -18,7 +18,7 @@ namespace d14engine::uikit
     {
         explicit PopupMenu(const D2D1_RECT_F& rect = {});
 
-        ShadowStyle shadow = {};
+        ShadowMask shadow = {};
 
         D2D1_SIZE_F extendedSize(const D2D1_SIZE_F& rawSize) const;
         D2D1_SIZE_F narrowedSize(const D2D1_SIZE_F& rawSize) const;

@@ -6,7 +6,7 @@
 
 namespace d14engine::uikit
 {
-    void VertSlider::loadValueLabelShadowBitmap()
+    void VertSlider::loadValueLabelMaskBitmap()
     {
         auto& rectSize = getAppearance().valueLabel.mainRect.geometry.size;
         auto& trngSize = getAppearance().valueLabel.sideTriangle.size;
@@ -14,7 +14,7 @@ namespace d14engine::uikit
         auto bitmapWidth = math_utils::round<UINT>(rectSize.width + trngSize.height);
         auto bitmapHeight = math_utils::round<UINT>(rectSize.height);
 
-        valueLabelShadow.loadBitmap(bitmapWidth, bitmapHeight);
+        valueLabelMask.loadBitmap(bitmapWidth, bitmapHeight);
     }
 
     D2D1_RECT_F VertSlider::thumbAreaExtendedRect(const D2D1_RECT_F& flatRect) const

@@ -4,9 +4,8 @@
 
 #include "UIKit/Appearances/Window.h"
 #include "UIKit/DraggablePanel.h"
-#include "UIKit/MaskStyle.h"
 #include "UIKit/ResizablePanel.h"
-#include "UIKit/ShadowStyle.h"
+#include "UIKit/ShadowMask.h"
 
 namespace d14engine::uikit
 {
@@ -31,8 +30,7 @@ namespace d14engine::uikit
 
         void onInitializeFinish() override;
 
-        MaskStyle mask = {};
-        ShadowStyle shadow = {};
+        ShadowMask contentMask = {};
 
         ComPtr<ID2D1LinearGradientBrush> decorativeBarBrush = {};
 

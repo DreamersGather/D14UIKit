@@ -50,7 +50,7 @@ namespace d14engine::uikit::appearance
 
                 struct Shadow
                 {
-                    // Call loadValueLabelShadowBitmap after changing this field.
+                    // Call loadHandleShadowBitmap after changing this field.
                     D2D1_RECT_F offset = { 2.0f, 2.0f, -2.0f, -2.0f };
 
                     D2D1_COLOR_F color = {};
@@ -81,6 +81,8 @@ namespace d14engine::uikit::appearance
                 {
                     struct Geometry
                     {
+                        // Call loadValueLabelMaskBitmap after changing this field.
+                        // Call loadSideTrianglePathGeo after changing this field.
                         D2D1_SIZE_F size = { 35.0f, 21.0f };
                         float roundRadius = 5.0f;
                     }
@@ -92,6 +94,8 @@ namespace d14engine::uikit::appearance
 
                 struct SideTriangle
                 {
+                    // Call loadValueLabelMaskBitmap after changing this field.
+                    // Call loadSideTrianglePathGeo after changing this field.
                     D2D1_SIZE_F size = { 9.0f, 5.0f };
 
                     SolidStyle background = {};

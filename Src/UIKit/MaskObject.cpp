@@ -1,6 +1,6 @@
 ﻿#include "Common/Precompile.h"
 
-#include "UIKit/MaskStyle.h"
+#include "UIKit/MaskObject.h"
 
 #include "Common/DirectXError.h"
 
@@ -10,12 +10,12 @@
 
 namespace d14engine::uikit
 {
-    MaskStyle::MaskStyle(UINT bitmapWidth, UINT bitmapHeight)
+    MaskObject::MaskObject(UINT bitmapWidth, UINT bitmapHeight)
     {
         loadBitmap(bitmapWidth, bitmapHeight);
     }
 
-    void MaskStyle::loadBitmap(UINT width, UINT height)
+    void MaskObject::loadBitmap(UINT width, UINT height)
     {
         THROW_IF_NULL(Application::g_app);
 
@@ -32,12 +32,12 @@ namespace d14engine::uikit
         rndr->endGpuCommand();
     }
 
-    void MaskStyle::loadBitmap(const D2D1_SIZE_U& size)
+    void MaskObject::loadBitmap(const D2D1_SIZE_U& size)
     {
         loadBitmap(size.width, size.height);
     }
 
-    void MaskStyle::beginDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform)
+    void MaskObject::beginDraw(ID2D1DeviceContext* context, const D2D1_MATRIX_3X2_F& transform)
     {
         // It is recommended to call SetTarget before BeginDraw.
         // The program may crash if the previous target is a synchronized
@@ -48,7 +48,7 @@ namespace d14engine::uikit
         context->Clear(color);
     }
 
-    void MaskStyle::endDraw(ID2D1DeviceContext* context)
+    void MaskObject::endDraw(ID2D1DeviceContext* context)
     {
         THROW_IF_FAILED(context->EndDraw());
         // We do not reset the target here since in beginDraw

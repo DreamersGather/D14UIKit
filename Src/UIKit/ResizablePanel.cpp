@@ -27,10 +27,10 @@ namespace d14engine::uikit
     {
         Panel::onInitializeFinish();
 
-        loadStaticSizingGuideFrameStrokeStyle();
+        staticSizingGuideFrame.loadStrokeStyle();
     }
 
-    void ResizablePanel::loadStaticSizingGuideFrameStrokeStyle()
+    void ResizablePanel::StaticSizingGuideFrame::loadStrokeStyle()
     {
         THROW_IF_NULL(Application::g_app);
 
@@ -38,16 +38,15 @@ namespace d14engine::uikit
 
         auto properties = D2D1::StrokeStyleProperties
         (
-            D2D1_CAP_STYLE_ROUND,
-            D2D1_CAP_STYLE_ROUND,
-            D2D1_CAP_STYLE_ROUND,
-            D2D1_LINE_JOIN_MITER,
-            10.0f, // miterLimit
-            D2D1_DASH_STYLE_DASH,
-            0.0f   // dashOffset
+            /* startCap   */ D2D1_CAP_STYLE_ROUND,
+            /* endCap     */ D2D1_CAP_STYLE_ROUND,
+            /* dashCap    */ D2D1_CAP_STYLE_ROUND,
+            /* lineJoin   */ D2D1_LINE_JOIN_MITER,
+            /* miterLimit */ 10.0f,
+            /* dashStyle  */ D2D1_DASH_STYLE_DASH,
+            /* dashOffset */ 0.0f
         );
-        THROW_IF_FAILED(factory->CreateStrokeStyle(
-            properties, nullptr, 0, &staticSizingGuideFrame.strokeStyle));
+        THROW_IF_FAILED(factory->CreateStrokeStyle(properties, nullptr, 0, &strokeStyle));
     }
 
     D2D1_RECT_F ResizablePanel::sizingFrameExtendedRect(const D2D1_RECT_F& flatRect) const

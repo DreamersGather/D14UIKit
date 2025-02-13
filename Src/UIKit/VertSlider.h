@@ -10,7 +10,7 @@ namespace d14engine::uikit
     {
         using Slider::Slider;
 
-        void loadValueLabelShadowBitmap() override;
+        void loadValueLabelMaskBitmap() override;
 
         D2D1_RECT_F thumbAreaExtendedRect(const D2D1_RECT_F& flatRect) const override;
 
