@@ -32,6 +32,10 @@ namespace d14engine::uikit
     {
         g_app = this;
 
+        // Even though we do not support runtime DPI adjustment,
+        // enabling the latest feature is always a good practice.
+        SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+
         Wstring exePath(MAX_PATH, 0);
         GetModuleFileName(nullptr, exePath.data(), MAX_PATH);
         // There is no need to check the result of find_last_of
@@ -46,13 +50,6 @@ namespace d14engine::uikit
         {
             THROW_IF_NULL(AddDllDirectory((exePath + libPath).c_str()));
         }
-
-        // Even though we do not support runtime DPI adjustment,
-        // enabling the latest feature is always a good practice.
-        SetProcessDpiAwarenessContext
-        (
-            DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2
-        );
         initWin32Window();
 
         initDirectX12Renderer();
