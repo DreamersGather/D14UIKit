@@ -887,7 +887,6 @@ namespace d14engine::uikit
                 {
                     callback->second();
                 }
-                app->m_threadCallbacks.erase(callback);
             }
             return 0;
         }
@@ -1247,7 +1246,8 @@ namespace d14engine::uikit
         }
     }
 
-    void Application::postCustomWin32Message(CustomWin32Message message, WPARAM wParam, LPARAM lParam)
+    void Application::postCustomWin32Message
+    (CustomWin32Message message, WPARAM wParam, LPARAM lParam)
     {
         PostMessage(m_win32Window, (UINT)message, wParam, lParam);
     }
@@ -1257,23 +1257,18 @@ namespace d14engine::uikit
         m_diffPinnedUpdateCandidates.insert(uiobj);
     }
 
-    void Application::registerThreadCallback(const ThreadCallbackMap& callbacks)
-    {
-        m_threadCallbacks.insert(callbacks.begin(), callbacks.end());
-    }
-
     void Application::registerThreadCallback(ThreadEventID id, ThreadCallbackParam callback)
     {
         m_threadCallbacks[id] = callback;
     }
 
+    void Application::unregisterThreadCallback(ThreadEventID id)
+    {
+        m_threadCallbacks.erase(id);
+    }
+
     void Application::triggerThreadEvent(ThreadEventID id)
     {
         postCustomWin32Message(CustomWin32Message::HandleThreadEvent, id);
-    }
-
-    void Application::startThread(Thread&& thread, const ThreadCallbackMap& callbacks)
-    {
-        registerThreadCallback(callbacks); thread.detach();
     }
 }

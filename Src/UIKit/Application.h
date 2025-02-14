@@ -327,13 +327,9 @@ namespace d14engine::uikit
         ThreadCallbackMap m_threadCallbacks = {};
 
     public:
-        // this override will retain the existed callback
-        void registerThreadCallback(const ThreadCallbackMap& callbacks);
-        // this override will update the existed callback
         void registerThreadCallback(ThreadEventID id, ThreadCallbackParam callback);
+        void unregisterThreadCallback(ThreadEventID id);
 
         void triggerThreadEvent(ThreadEventID id);
-
-        void startThread(Thread&& thread, const ThreadCallbackMap& callbacks);
     };
 }
