@@ -4,7 +4,7 @@ from D14UIKit import *
 
 DEMO_NAME = 'ObjectOriented'
 
-if __name__ == '__main__':
+def main():
     dpi = 96.0
     if len(argv) >= 2 and argv[1] == 'HighDPI':
         dpi = 192.0
@@ -114,3 +114,6 @@ if __name__ == '__main__':
     busyArea.f_onMouseMove = setBusyCursor
 
     exit(app.run())
+
+if __name__ == '__main__':
+    main()

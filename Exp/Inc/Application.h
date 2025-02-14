@@ -37,6 +37,12 @@ namespace d14uikit
 
         HWND win32Window() const;
 
+        using ThreadCallback = std::function<void(uint64_t)>;
+        void addThreadCallback(uint64_t id, const ThreadCallback& callback);
+        void removeThreadCallback(uint64_t id);
+
+        void setThreadEvent(uint64_t id, uint64_t data = 0);
+
         bool visible() const;
         void setVisible(bool value);
 

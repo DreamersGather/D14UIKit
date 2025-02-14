@@ -195,7 +195,7 @@ namespace d14uikit
             &Panel::moveTopmost);
 
         i.def(
-            "mostAbove",
+            "moveAbove",
             &Panel::moveAbove,
             "uiobj"_a);
 

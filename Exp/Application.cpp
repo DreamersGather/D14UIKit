@@ -111,6 +111,22 @@ namespace d14uikit
         return pimpl->uiobj->win32Window();
     }
 
+    void Application::addThreadCallback(uint64_t id, const ThreadCallback& callback)
+    {
+        pimpl->uiobj->registerThreadCallback((uikit::Application::ThreadEventID)id, callback);
+    }
+
+    void Application::removeThreadCallback(uint64_t id)
+    {
+        pimpl->uiobj->unregisterThreadCallback((uikit::Application::ThreadEventID)id);
+    }
+
+    void Application::setThreadEvent(uint64_t id, uint64_t data)
+    {
+        pimpl->uiobj->triggerThreadEvent(
+            (uikit::Application::ThreadEventID)id, (uikit::Application::ThreadEventData)data);
+    }
+
     bool Application::visible() const
     {
         return IsWindowVisible(pimpl->uiobj->win32Window());

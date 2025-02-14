@@ -4,7 +4,7 @@ from D14UIKit import *
 
 DEMO_NAME = 'FrameAnimation'
 
-if __name__ == '__main__':
+def main():
     dpi = 96.0
     if len(argv) >= 2 and argv[1] == 'HighDPI':
         dpi = 192.0
@@ -50,3 +50,6 @@ if __name__ == '__main__':
     fpsLbl.f_onUpdate = displayFPS
 
     exit(app.run())
+
+if __name__ == '__main__':
+    main()

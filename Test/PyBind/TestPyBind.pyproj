@@ -5,7 +5,7 @@
     <ProjectGuid>c2e17895-e0a5-490c-815a-800fe0801aa6</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>FrameAnimation.py</StartupFile>
+    <StartupFile>scripts\Startup.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -28,15 +28,21 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AdvancedCallback.py" />
-    <Compile Include="BasicCallback.py" />
-    <Compile Include="DemoTemplate.py" />
-    <Compile Include="FrameAnimation.py" />
-    <Compile Include="HelloWindow.py" />
-    <Compile Include="HelloWindowDPI.py" />
-    <Compile Include="LayoutControl.py" />
-    <Compile Include="ModernTheme.py" />
-    <Compile Include="ObjectOriented.py" />
+    <Compile Include="scripts\advanced\AdvancedCallback.py" />
+    <Compile Include="scripts\advanced\AsyncMessage.py" />
+    <Compile Include="scripts\advanced\AsyncPolling.py" />
+    <Compile Include="scripts\advanced\__init__.py" />
+    <Compile Include="scripts\beginner\__init__.py" />
+    <Compile Include="scripts\intermediate\BasicCallback.py" />
+    <Compile Include="scripts\DemoTemplate.py" />
+    <Compile Include="scripts\intermediate\FrameAnimation.py" />
+    <Compile Include="scripts\beginner\HelloWindow.py" />
+    <Compile Include="scripts\beginner\HelloWindowDPI.py" />
+    <Compile Include="scripts\intermediate\LayoutControl.py" />
+    <Compile Include="scripts\intermediate\ModernTheme.py" />
+    <Compile Include="scripts\intermediate\ObjectOriented.py" />
+    <Compile Include="scripts\intermediate\__init__.py" />
+    <Compile Include="scripts\Startup.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.10" />
@@ -44,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="D14UIKit.pyi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\" />
+    <Folder Include="scripts\advanced\" />
+    <Folder Include="scripts\beginner\" />
+    <Folder Include="scripts\intermediate\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

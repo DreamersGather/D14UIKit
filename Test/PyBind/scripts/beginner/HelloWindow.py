@@ -2,7 +2,7 @@
 
 DEMO_NAME = 'HelloWindow'
 
-if __name__ == '__main__':
+def main():
 
     app = Application(DEMO_NAME)
 
@@ -13,3 +13,6 @@ if __name__ == '__main__':
     #------------------------------------------- Set UI event callbacks.
 
     exit(app.run())
+
+if __name__ == '__main__':
+    main()

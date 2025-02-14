@@ -42,6 +42,23 @@ namespace d14uikit
             "exit",
             &Application::exit);
 
+        i.def(
+            "addThreadCallback",
+            &Application::addThreadCallback,
+            "id"_a,
+            "callback"_a);
+
+        i.def(
+            "removeThreadCallback",
+            &Application::removeThreadCallback,
+            "id"_a);
+
+        i.def(
+            "setThreadEvent",
+            &Application::setThreadEvent,
+            "id"_a,
+            "data"_a = 0);
+
         i.def_property(
             "visible",
             &Application::visible,
