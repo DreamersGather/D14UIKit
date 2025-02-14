@@ -885,7 +885,7 @@ namespace d14engine::uikit
                 auto callback = app->m_threadCallbacks.find(id);
                 if (callback != app->m_threadCallbacks.end())
                 {
-                    callback->second();
+                    callback->second((ThreadEventData)lParam);
                 }
             }
             return 0;
@@ -1267,8 +1267,8 @@ namespace d14engine::uikit
         m_threadCallbacks.erase(id);
     }
 
-    void Application::triggerThreadEvent(ThreadEventID id)
+    void Application::triggerThreadEvent(ThreadEventID id, ThreadEventData data)
     {
-        postCustomWin32Message(CustomWin32Message::HandleThreadEvent, id);
+        postCustomWin32Message(CustomWin32Message::HandleThreadEvent, id, data);
     }
 }
