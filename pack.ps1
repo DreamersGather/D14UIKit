@@ -18,6 +18,8 @@ D14UIKit-Clear-Expired -DistName "cpp-x64"
 D14UIKit-Clear-Expired -DistName "python-x86"
 D14UIKit-Clear-Expired -DistName "python-x64"
 
+D14UIKit-Clear-Expired -DistName "directx_cpp_sdk"
+
 #####################
 # Pack d14uikit_cpp #
 #####################
@@ -60,6 +62,7 @@ if ($executablePath)
 }
 else # If stubgen.exe is not found, generate a dummy stub file instead.
 {
+    Write-Output "stugen.exe not found, generate a dummy stub file instead"
     New-Item -Path "Test\\PyBind\\D14UIKit.pyi" -ItemType "file" | Out-Null
 }
 
@@ -92,3 +95,12 @@ D14UIKit-Copy-Python -PyVerNum "313" -ArchName "x64"
 
 D14UIKit-Pack-Python -ArchName "x86"
 D14UIKit-Pack-Python -ArchName "x64"
+
+########################
+# Pack directx_cpp_sdk #
+########################
+
+New-Item -Path "Dist\\directx_cpp_sdk" -ItemType "directory" | Out-Null
+Copy-Item -Recurse -Path "Test\\include" -Destination "Dist\\directx_cpp_sdk\\include" | Out-Null
+Copy-Item -Recurse -Path "Test\\library" -Destination "Dist\\directx_cpp_sdk\\library" | Out-Null
+Compress-Archive -Force -Path "Dist\\directx_cpp_sdk\\*" -DestinationPath "Dist\\directx_cpp_sdk.zip" | Out-Null
