@@ -55,9 +55,9 @@ namespace d14engine::uikit
 
     void MainWindow::onInitializeFinish()
     {
-        THROW_IF_NULL(Application::g_app);
-
         Window::onInitializeFinish();
+
+        THROW_IF_NULL(Application::g_app);
 
         RECT wndrect = {};
         GetClientRect(Application::g_app->win32Window(), &wndrect);

@@ -179,9 +179,9 @@ namespace d14engine::uikit
 
     void TabCaption::onMouseButtonHelper(MouseButtonEvent& e)
     {
-        THROW_IF_NULL(Application::g_app);
-
         Panel::onMouseButtonHelper(e);
+
+        THROW_IF_NULL(Application::g_app);
 
         if (e.state.leftDown() || e.state.leftDblclk())
         {

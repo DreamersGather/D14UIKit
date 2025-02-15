@@ -16,9 +16,9 @@ namespace d14engine::uikit
 {
     void TextInput::setEnabled(bool value)
     {
-        THROW_IF_NULL(Application::g_app);
-
         RawTextInput::setEnabled(value);
+
+        THROW_IF_NULL(Application::g_app);
 
         if (value)
         {

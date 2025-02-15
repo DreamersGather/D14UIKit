@@ -195,9 +195,9 @@ namespace d14engine::uikit
 
     void LabelArea::onMouseMoveHelper(MouseMoveEvent& e)
     {
-        THROW_IF_NULL(Application::g_app);
-
         Label::onMouseMoveHelper(e);
+
+        THROW_IF_NULL(Application::g_app);
 
         Application::g_app->cursor()->setIcon(Cursor::Beam);
 

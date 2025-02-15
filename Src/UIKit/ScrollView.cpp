@@ -456,9 +456,9 @@ namespace d14engine::uikit
 
     void ScrollView::onMouseWheelHelper(MouseWheelEvent& e)
     {
-        THROW_IF_NULL(Application::g_app);
-
         ResizablePanel::onMouseWheelHelper(e);
+
+        THROW_IF_NULL(Application::g_app);
 
         D2D1_POINT_2F nextOffset = m_viewportOffset;
 

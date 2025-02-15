@@ -49,9 +49,9 @@ namespace d14engine::uikit
 
     void ScenePanel::onInitializeFinish()
     {
-        THROW_IF_NULL(Application::g_app);
-
         Panel::onInitializeFinish();
+
+        THROW_IF_NULL(Application::g_app);
 
         auto rndr = Application::g_app->dx12Renderer();
 
