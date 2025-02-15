@@ -15,6 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="sources\directx_cpp\SimpleTriangle.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sources\directx_cpp\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="sources\directx_cpp\SimpleTriangle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

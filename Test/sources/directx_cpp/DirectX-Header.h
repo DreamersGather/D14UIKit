@@ -15,6 +15,27 @@ extern "C" { __declspec(dllexport) extern const UINT D3D12SDKVersion = AGILITY_V
 extern "C" { __declspec(dllexport) extern const char* D3D12SDKPath = AGILITY_PATH; }
 #endif
 
-#include "DirectXShaderCompiler/dxcapi.h"
+#pragma comment(lib, "D3D12.lib")
 
+#if DX_COMPILER
+#include "DirectXShaderCompiler/dxcapi.h"
+#else
+#include <d3dcompiler.h>
+#endif
+
+#if DX_COMPILER
 #pragma comment(lib, "dxcompiler.lib")
+#else
+#pragma comment(lib, "d3dcompiler.lib")
+#endif
+
+#include <stdexcept>
+
+#define THROW_IF_FAILED(Expression) \
+do { \
+    HRESULT throw_if_failed_hr = (Expression); \
+    if (FAILED(throw_if_failed_hr)) \
+    { \
+        throw std::runtime_error(#Expression); \
+    } \
+} while (0)
