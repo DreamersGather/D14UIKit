@@ -160,9 +160,9 @@ namespace d14engine::renderer
 
         THROW_IF_FAILED(rndr->d3d12Device()->CreateGraphicsPipelineState
         (
-            /* pDesc                */ &psoDesc,
-            /* riid                 */
-            /* ppPipelineState      */ IID_PPV_ARGS(&m_pipelineState)
+            /* pDesc           */ &psoDesc,
+            /* riid            */
+            /* ppPipelineState */ IID_PPV_ARGS(&m_pipelineState)
         ));
     }
 
