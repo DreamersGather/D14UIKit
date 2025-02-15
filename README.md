@@ -1,4 +1,4 @@
-﻿# D14UIKit
+﻿# D14UIKit - Modern GUI on Windows
 
 [![Static Badge](https://img.shields.io/badge/C++-20-white)](https://en.cppreference.com/w/cpp/20)
 [![Static Badge](https://img.shields.io/badge/Direct-3D12_|_2D1-purple)](https://github.com/microsoft/DirectX-Graphics-Samples)
@@ -43,69 +43,25 @@ If you are familiar with C++/Python3 development and want to build your own GUI 
 
 ## How It Works
 
-We know that:
-
-* The [Qt](https://www.qt.io/)-like framework constructs application through UI objects and handles events.
-
-* The [imgui](https://github.com/ocornut/imgui)-like framework implements a render-loop where all draws and events are processed in a single flow.
-
-So, which one is D14UIKit? The answer is that **D14UIKit supports both**. It is a **hybrid** architecture UI framework: when dealing with complex business logic, you can create and manage UI objects based on the OOP style, and control the application switch between (1) **Asynchronous Waiting** and (2) **Immediate Processing** through the `animState` variable.
-
 ## Features
-
-* C++20 and Python 3 make it more elegant:
-
-  ```cpp
-  // C++20
-  titleInput.callback().onTextChange =
-  [&](auto obj, auto text)
-  {
-      window.setTitle(text);
-  };
-  ```
-  ```python
-  # Python 3
-  def changeWindowTitle(obj, text):
-      window.title = text
-
-  titleInput.f_onTextChange = changeWindowTitle
-  ```
-
-* OOP-style makes it more convenient:
-
-  ```python
-  # Setup a frame animation
-  animArea.frames = [Image(f'{i}.png') for i in range(12)]
-  animArea.frameTimeSpan = 0.06
-  ```
-  Quickly import images using list comprehension.
-
-* Hybrid-Architecture: Switch between run-modes:
-
-  ```python
-  # Asynchronous Waiting
-  app.animState = False
-  # Immediate Processing
-  app.animState = True
-  ```
-
-* High-Performance: Render based on DirectX 12:
-
-  ```python
-  app.fps # for real-time app
-  ```
 
 ## Roadmap
 
 - [x] Migrate UIKit @ D14Engine to build a basic GUI development framework.
 - [x] Implement PyBind wrapping to provide Python3 development interface.
 - [x] Set up the basic project website and write the introduction and getting started documentation.
-- [ ] Provide DirectX 12 and Direct2D interfaces for C++ developers.
-- [ ] Support asynchronous UI event handling.
+- [x] Provide Direct2D, Direct3D and DirectWrite interfaces for C++ developers.
+- [x] Support asynchronous UI event handling.
+
+#### Current Work:
+
+- [ ] Support irregular, transparent, special-material (such as Acrylic) window and controls.
+
+#### Future Goals:
+
 - [ ] Support interactive development and building of UI (e.g. dynamic creation via Python interpreter).
 - [ ] Complete the development documentation (feeling too lazy to do it 😂).
 - [ ] Provide high-performance geometric drawing interfaces to help render complex dynamic charts.
-- [ ] Support better 2D/3D real-time rendering, introducing programmable rendering pipeline interfaces.
 - [ ] Introduce more modern UI appearances, such as advanced animations, blur, and shadows.
 - [ ] What's next? 🤔
 
