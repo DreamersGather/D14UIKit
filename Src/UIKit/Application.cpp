@@ -48,6 +48,7 @@ namespace d14engine::uikit
 
         for (auto& libPath : info.libraryPaths)
         {
+            // Special note: AddDllDirectory only accepts absolute paths!
             THROW_IF_NULL(AddDllDirectory((exePath + libPath).c_str()));
         }
         initWin32Window();
