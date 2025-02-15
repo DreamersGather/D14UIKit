@@ -316,9 +316,13 @@ namespace d14engine::uikit
 
     // Handle Thread Event
     public:
+#ifdef _WIN64
         using ThreadEventID = UINT64; // matches WPARAM
         using ThreadEventData = UINT64; // matches LPARAM
-
+#else
+        using ThreadEventID = UINT32; // matches WPARAM
+        using ThreadEventData = UINT32; // matches LPARAM
+#endif
         using ThreadCallback = Function<void(ThreadEventData)>;
         using ThreadCallbackParam = const ThreadCallback&;
 
