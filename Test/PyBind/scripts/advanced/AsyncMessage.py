@@ -1,6 +1,6 @@
-﻿#################
-# D14 IMPORTANT #
-#################
+﻿###############
+# D14 WARNING #
+###############
 # Due to the presence of the GIL (Global Interpreter Lock) in CPython,
 # this demo cannot correctly reflect the behavior of thread-event callbacks!!!
 # The good news is that CPython plans to optimize the GIL in the future;
