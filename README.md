@@ -17,7 +17,7 @@ D14UIKit is a GUI development library for modern Windows platform.
 
 ## Getting Started
 
-First, download the latest development package for Python3:
+First, [download](https://github.com/DreamersGather/D14UIKit/releases) the latest development package for Python3:
 
 * d14uikit_python.zip
   * demo
