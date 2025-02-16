@@ -39,7 +39,7 @@ Finally, run `python3 HelloWindow.py`, and you're all set!
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14Docs.Res/main/d14uikit/tutorials/hello_window.png"/>
 
-If you are familiar with **C++/Python3** development and want to <ins>build your own GUI application on modern Windows platform</ins>, D14UIKit is a great choice: it is based on **DirectX 12** for high-performance rendering, provides a classic **OOP-style** UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
+If you are familiar with **C++/Python3** and want to <ins>build your own GUI application on modern Windows platform</ins>, D14UIKit is a great choice: it is based on **DirectX 12** for high-performance rendering, provides a classic **OOP-style** UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
 
 ## How It Works
 
