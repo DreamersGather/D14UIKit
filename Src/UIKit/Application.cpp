@@ -32,8 +32,8 @@ namespace d14engine::uikit
     {
         g_app = this;
 
-        // Even though we do not support runtime DPI adjustment,
-        // enabling the latest feature is always a good practice.
+        // Place this setting at the very beginning to ensure that the MessageBox
+        // with relevant information for initialization errors also supports HiDPI.
         SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
         Wstring exePath(MAX_PATH, 0);
