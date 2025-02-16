@@ -23,7 +23,7 @@ First, download the latest development package for Python3:
   * demo
   * D14UIKit.pyd
   * D14UIKit.pyi
-  * HelloWindow.py (You need to create this yourself)
+  * <ins>HelloWindow.py (You need to create this yourself)</ins>
 
 Then, write your Python3 code (HelloWindow.py) as follows:
 
@@ -39,11 +39,15 @@ Finally, run `python3 HelloWindow.py`, and you're all set!
 
 <img src="https://media.githubusercontent.com/media/DreamersGather/D14Docs.Res/main/d14uikit/tutorials/hello_window.png"/>
 
-If you are familiar with C++/Python3 development and want to build your own GUI application on modern Windows platform, D14UIKit is a great choice: it is based on DirectX 12 for high-performance rendering, provides a classic OOP-style UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
+If you are familiar with **C++/Python3** development and want to <ins>build your own GUI application on modern Windows platform</ins>, D14UIKit is a great choice: it is based on **DirectX 12** for high-performance rendering, provides a classic **OOP-style** UI framework, and more. If you want to learn details, feel free to visit the project website at https://d14std.io/projects/uikit 😎👍
 
 ## How It Works
 
 ## Features
+
+## How to Build
+
+We use the **Visual Studio IDE** for D14UIKit development. After downloading the code, you can directly open the solution (**D14UIKit.sln**) to build and debug. If you want to learn more details, you can refer to the [complete project build instructions](https://d14std.io/projects/uikit/en/latest/dev_guide/building.html).
 
 ## Roadmap
 
@@ -64,6 +68,10 @@ If you are familiar with C++/Python3 development and want to build your own GUI 
 - [ ] Provide high-performance geometric drawing interfaces to help render complex dynamic charts.
 - [ ] Introduce more modern UI appearances, such as advanced animations, blur, and shadows.
 - [ ] What's next? 🤔
+
+## Contributing
+
+For developers who are not only satisfied with using the existing D14UIKit library but also want to participate in the growth of D14UIKit, you can first refer to [Building](https://d14std.io/projects/uikit/en/latest/dev_guide/building.html) to construct and debug the D14UIKit project. If you want to delve deeper, you can read [Architecture](https://d14std.io/projects/uikit/en/latest/dev_guide/architecture.html) to understand the overall architecture of D14UIKit. After you have made some interesting attempts, you can follow [Contributing](https://d14std.io/projects/uikit/en/latest/dev_guide/contributing.html) to contribute your code to the D14UIKit repository!
 
 ## About
 
