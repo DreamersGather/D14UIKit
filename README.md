@@ -53,9 +53,9 @@ We use the **Visual Studio IDE** for D14UIKit development. After downloading the
 
 - [x] Migrate UIKit @ D14Engine to build a basic GUI development framework.
 - [x] Implement PyBind wrapping to provide Python3 development interface.
-- [x] Set up the basic project website and write the introduction and getting started documentation.
-- [x] Provide Direct2D, Direct3D and DirectWrite interfaces for C++ developers.
-- [x] Support asynchronous UI event handling.
+- [x] Set up the project website and write the basic documentation.
+- [x] Provide DirectX (2D/3D/Write/Composition) interfaces for C++ developers.
+- [x] Support asynchronous UI event handling (Message & Polling).
 
 #### Current Work:
 
@@ -66,7 +66,7 @@ We use the **Visual Studio IDE** for D14UIKit development. After downloading the
 - [ ] Support interactive development and building of UI (e.g. dynamic creation via Python interpreter).
 - [ ] Complete the development documentation (feeling too lazy to do it 😂).
 - [ ] Provide high-performance geometric drawing interfaces to help render complex dynamic charts.
-- [ ] Introduce more modern UI appearances, such as advanced animations, blur, and shadows.
+- [ ] Introduce more modern UI concepts, such as advanced animations.
 - [ ] What's next? 🤔
 
 ## Contributing
