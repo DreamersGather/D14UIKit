@@ -1,14 +1,15 @@
-﻿# Output
-Out
+﻿# Distribution
+Dist
 # Intermediate
 Int
-# Distribution
-Dist
+# Output
+Out
 
-D14UIKit.lib
 D14UIKit.dll
 D14UIKit.exe
+D14UIKit.lib
 D14UIKit.pyd
+sortxml.exe
 TestCpp.exe
 
 ## Ignore Visual Studio temporary files, build results, and
