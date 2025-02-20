@@ -1521,7 +1521,6 @@
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include=".editorconfig" />
-    <None Include="comment.html" />
     <None Include="Bin\Shaders\PS" />
     <None Include="Bin\Shaders\VS" />
     <None Include="README.md" />

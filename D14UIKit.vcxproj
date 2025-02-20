@@ -4193,7 +4193,6 @@
     <None Include="Bin\Shaders\PS" />
     <None Include="Bin\Shaders\VS" />
     <None Include="LICENSE" />
-    <None Include="comment.html" />
     <ClCompile Include="Src\Renderer\FrameData\FrameResource.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Bitmap.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Resource.cpp" />
