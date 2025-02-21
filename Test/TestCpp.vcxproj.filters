@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="sources\directx_cpp\.editorconfig" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="sources\directx_cpp\SimpleTriangle.hlsl" />

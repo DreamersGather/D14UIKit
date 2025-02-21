@@ -49,6 +49,7 @@
     <InterpreterReference Include="Global|PythonCore|3.10-32" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="D14UIKit.pyi" />
   </ItemGroup>
   <ItemGroup>

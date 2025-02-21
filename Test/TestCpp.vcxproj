@@ -316,6 +316,7 @@ copy /Y $(SolutionDir)Out\x86\$(Configuration)\D14UIKit.dll $(ProjectDir) &gt;nu
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="sources\directx_cpp\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
