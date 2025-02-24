@@ -21,7 +21,6 @@ Load CSO instead of compiling HLSL
 Renderer/Renderer.cpp
 ---------------------
 Remove shader initialization
-Adapt related module name
 
 UIKit/AppEntry.h
 ----------------
