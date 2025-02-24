@@ -98,28 +98,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(ProjectDir)Out\x64\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x64\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
-    <OutDir>$(ProjectDir)Out\x64\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x64\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(ProjectDir)Out\x64\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x64\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(ProjectDir)Out\x86\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x86\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x86\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|Win32'">
-    <OutDir>$(ProjectDir)Out\x86\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x86\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x86\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(ProjectDir)Out\x86\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)Int\x86\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)output\x86\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)intermediate\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
