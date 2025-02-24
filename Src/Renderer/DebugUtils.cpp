@@ -61,13 +61,11 @@ namespace d14engine::renderer::debug_utils
 
             D3D12_MESSAGE_ID_DESCRIPTOR_HANDLE_WITH_INVALID_RESOURCE,
 
-            // Creating D2D1 device will trigger this warning. The debugger
-            // outputs the following message ID, but it can not be found in
-            // d3d12sdklayers.h for the time being.
-            //
-            // Maybe the SDK is too old and I will consider update it later...
+            // Creating D2D1 device from D3D11On12 device will trigger this warning,
+            // and it says "Ignoring InitialState D3D12_RESOURCE_STATE_GENERIC_READ.
+            // Buffers are effectively created in state D3D12_RESOURCE_STATE_COMMON"
 
-            D3D12_MESSAGE_ID(1328) // STATE_CREATION WARNING #1328: CREATERESOURCE STATE IGNORED
+            D3D12_MESSAGE_ID_CREATERESOURCE_STATE_IGNORED
         };
 
         D3D12_INFO_QUEUE_FILTER filter = {};
@@ -79,20 +77,26 @@ namespace d14engine::renderer::debug_utils
 
     ComPtr<IDXGIDebug> queryDxgiDebugInterface()
     {
-        using FuncPtr = HRESULT(__stdcall*)(const IID&, void**);
+        HMODULE hDll; // Dxgidebug.dll
 
-        // There is no LIB for dxgidebug, so we have to load DLL manually.
-        HMODULE hDll = LoadLibrary(L"dxgidebug.dll");
+        // CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG) may have already loaded it.
+        hDll = GetModuleHandle(L"Dxgidebug.dll");
+        if (hDll == nullptr)
+        {
+            // Load DLL manually otherwise (DXGI does not provide LIB for Dxgidebug).
+            hDll = LoadLibrary(L"Dxgidebug.dll");
+        }
         THROW_IF_NULL(hDll);
 
+        using FuncPtr = HRESULT(*)(REFIID, void**);
         auto DXGIGetDebugInterface = (FuncPtr)GetProcAddress(hDll, "DXGIGetDebugInterface");
         THROW_IF_NULL(DXGIGetDebugInterface);
 
         ComPtr<IDXGIDebug> dxgiDebugController;
         THROW_IF_FAILED(DXGIGetDebugInterface(IID_PPV_ARGS(&dxgiDebugController)));
 
-        // Since dxgiDebugController is only used in the DEBUG environment,
-        // we will not free "dxgidebug.dll" during the program's lifecycle.
+        // Because dxgiDebugController may only be accessed in the DEBUG environment,
+        // there is no need to free "Dxgidebug.dll" during the application's lifecycle.
         return dxgiDebugController;
     }
 }

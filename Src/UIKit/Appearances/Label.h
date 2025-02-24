@@ -22,7 +22,7 @@ namespace d14engine::uikit::appearance
             // i.e. foreground when disabled
             SolidStyle secondaryForeground = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Foreground
                 {
@@ -31,7 +31,7 @@ namespace d14engine::uikit::appearance
                 foreground = {},
                 secondaryForeground = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

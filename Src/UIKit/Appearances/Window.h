@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/SolidStyle.h"
 
@@ -11,7 +13,7 @@ namespace d14engine::uikit::appearance
     {
         enum class ThreeBrosState
         {
-            Idle, Hover, Down, CloseIdle, CloseHover, CloseDown, Count
+            Idle, Hover, Down, CloseIdle, CloseHover, CloseDown
         };
         struct Appearance : appearance::Appearance
         {
@@ -49,11 +51,11 @@ namespace d14engine::uikit::appearance
                 SolidStyle foreground = {};
                 SolidStyle background = {};
             }
-            threeBrothers[(size_t)ThreeBrosState::Count] = {};
+            threeBrothers[cpp_lang_utils::enumCount<ThreeBrosState>] = {};
 
             float maskOpacityWhenDragAboveTabGroup = 0.5f;
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Background
                 {
@@ -92,9 +94,9 @@ namespace d14engine::uikit::appearance
                     SolidStyle foreground = {};
                     SolidStyle background = {};
                 }
-                threeBrothers[(size_t)ThreeBrosState::Count] = {};
+                threeBrothers[cpp_lang_utils::enumCount<ThreeBrosState>] = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

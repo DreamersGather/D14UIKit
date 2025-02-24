@@ -5,6 +5,7 @@
 #include "Renderer/Interfaces/IDrawObject2D.h"
 #include "Renderer/Renderer.h"
 
+#include "UIKit/Appearances/Appearance.h"
 #include "UIKit/Event.h"
 
 namespace d14engine::uikit
@@ -181,11 +182,13 @@ namespace d14engine::uikit
 
         Function<void(Panel*, MoveEvent&)> f_onParentMove = {};
 
-        void onChangeTheme(WstrParam themeName);
+        using ThemeStyle = appearance::Appearance::ThemeStyle;
 
-        Function<void(Panel*, WstrParam)> f_onChangeTheme = {};
+        void onChangeThemeStyle(const ThemeStyle& style);
 
-        void onChangeLangLocale(WstrParam langLocaleName);
+        Function<void(Panel*, const ThemeStyle&)> f_onChangeThemeStyle = {};
+
+        void onChangeLangLocale(WstrParam codeName);
 
         Function<void(Panel*, WstrParam)> f_onChangeLangLocale = {};
 
@@ -213,7 +216,7 @@ namespace d14engine::uikit
         Function<void(Panel*, MouseMoveEvent&)> f_onMouseLeave = {};
 
         bool forceSingleMouseEnterLeaveEvent = true;
-        bool forceTriggerChildrenMouseLeaveEvents = true;
+        bool forceTriggerChildrenMouseLeaveEvent = true;
 
         void onMouseButton(MouseButtonEvent& e);
 
@@ -248,8 +251,8 @@ namespace d14engine::uikit
         virtual void onParentSizeHelper(SizeEvent& e);
         virtual void onMoveHelper(MoveEvent& e);
         virtual void onParentMoveHelper(MoveEvent& e);
-        virtual void onChangeThemeHelper(WstrParam themeName);
-        virtual void onChangeLangLocaleHelper(WstrParam langLocaleName);
+        virtual void onChangeThemeStyleHelper(const ThemeStyle& style);
+        virtual void onChangeLangLocaleHelper(WstrParam codeName);
         virtual void onGetFocusHelper();
         virtual void onLoseFocusHelper();
         virtual void onMouseEnterHelper(MouseMoveEvent& e);
@@ -259,10 +262,10 @@ namespace d14engine::uikit
         virtual void onMouseWheelHelper(MouseWheelEvent& e);
         virtual void onKeyboardHelper(KeyboardEvent& e);
 
-        bool m_skipChangeChildrenThemes = false;
+        bool m_skipChangeChildrenThemeStyle = false;
         bool m_skipChangeChildrenLangLocale = false;
         bool m_skipDeliverNextMouseMoveEventToChildren = false;
-        bool m_skipUpdateChildrenHitStatesInMouseMoveEvent = false;
+        bool m_skipUpdateChildrenHitStateInMouseMoveEvent = false;
 
     public:
         int d2d1ObjectPriority() const;
@@ -458,7 +461,8 @@ namespace d14engine::uikit
     }
 
     template<typename T, typename... Types>
-    SharedPtr<T> makeManagedUIObject(ShrdPtrParam<Panel> parent, Types&& ...args)
+    SharedPtr<T> makeManagedUIObject
+    (ShrdPtrParam<Panel> parent, Types&& ...args)
     {
         auto uiobj = makeUIObject<T>(args...);
         parent->addUIObject(uiobj);

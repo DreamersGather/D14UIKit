@@ -33,9 +33,7 @@ namespace d14engine::uikit::appearance
             }
             arrow = {};
 
-#pragma warning(push)
-#pragma warning(disable : 26495)
-            struct ThemeStyle : ViewItem::Appearance::ThemeStyle
+            struct ThemeData : ViewItem::Appearance::ThemeData
             {
                 struct Arrow
                 {
@@ -43,8 +41,7 @@ namespace d14engine::uikit::appearance
                 }
                 arrow = {};
             };
-#pragma warning(pop) // C26495: ViewItem::Appearance::ThemeStyle::main is uninitialized.
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(ViewItem::Appearance& appearance, WstrParam themeName) override;
         }

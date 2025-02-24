@@ -225,10 +225,10 @@ namespace d14engine::uikit
         if (m_content) m_content->transform(selfCoordRect());
     }
 
-    void ViewItem::onChangeThemeHelper(WstrParam themeName)
+    void ViewItem::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Panel::onChangeThemeHelper(themeName);
+        Panel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 }

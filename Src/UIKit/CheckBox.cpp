@@ -172,11 +172,11 @@ namespace d14engine::uikit
             outlineRect, resource_utils::g_solidColorBrush.Get(), setting.stroke.width);
     }
 
-    void CheckBox::onChangeThemeHelper(WstrParam themeName)
+    void CheckBox::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ClickablePanel::onChangeThemeHelper(themeName);
+        ClickablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void CheckBox::onMouseEnterHelper(MouseMoveEvent& e)

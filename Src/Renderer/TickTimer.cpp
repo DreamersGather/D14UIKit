@@ -8,6 +8,8 @@ namespace d14engine::renderer
     {
         QueryPerformanceFrequency((LARGE_INTEGER*)&m_tickCountPerSec);
         m_secPerTickCount = 1.0 / m_tickCountPerSec;
+
+        start();
     }
 
     bool TickTimer::isPause() const

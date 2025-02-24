@@ -2,7 +2,7 @@
 
 #include "Common/Precompile.h"
 
-#include "Common/CppLangUtils/EnumClassMap.h"
+#include "Common/CppLangUtils/EnumMagic.h"
 
 #include "UIKit/Appearances/ViewItem.h"
 #include "UIKit/MaskObject.h"
@@ -44,7 +44,7 @@ namespace d14engine::uikit
     public:
         State state = {};
 
-        using StateTransitionMap = cpp_lang_utils::EnumClassMap<State>;
+        using StateTransitionMap = cpp_lang_utils::EnumMap<State>;
 
         const static StateTransitionMap
             ENTER_STATE_TRANS_MAP,
@@ -74,6 +74,6 @@ namespace d14engine::uikit
 
         void onSizeHelper(SizeEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
     };
 }

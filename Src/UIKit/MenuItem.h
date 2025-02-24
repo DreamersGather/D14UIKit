@@ -47,7 +47,7 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
         // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseButtonHelper(MouseButtonEvent& e) override;
     };

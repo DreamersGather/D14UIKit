@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/Appearances/PopupMenu.h"
 #include "UIKit/StrokeStyle.h"
@@ -10,9 +12,9 @@ namespace d14engine::uikit::appearance
 {
     struct TabGroup
     {
-        enum class CardState { Active, Hover, Dormant, Count };
+        enum class CardState { Active, Hover, Dormant };
 
-        enum class ButtonState { Idle, Hover, Down, Count };
+        enum class ButtonState { Idle, Hover, Down };
 
         struct Appearance : appearance::Appearance
         {
@@ -48,7 +50,7 @@ namespace d14engine::uikit::appearance
 
                         SolidStyle background = {};
                     }
-                    main[(size_t)CardState::Count] = {};
+                    main[cpp_lang_utils::enumCount<CardState>] = {};
 
                     D2D1_COLOR_F activeShadowColor = {};
                 }
@@ -92,7 +94,7 @@ namespace d14engine::uikit::appearance
                             }
                             geometry = {};
 
-                            SolidStyle background[(size_t)ButtonState::Count] = {};
+                            SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                         }
                         icon = {};
 
@@ -107,7 +109,7 @@ namespace d14engine::uikit::appearance
                             }
                             geometry = {};
 
-                            SolidStyle background[(size_t)ButtonState::Count] = {};
+                            SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                         }
                         button = {};
                     }
@@ -137,7 +139,7 @@ namespace d14engine::uikit::appearance
 
             SolidStyle maskWhenBelowDragWindow = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Background
                 {
@@ -159,7 +161,7 @@ namespace d14engine::uikit::appearance
                         {
                             SolidStyle background = {};
                         }
-                        main[(size_t)CardState::Count] = {};
+                        main[cpp_lang_utils::enumCount<CardState>] = {};
 
                         D2D1_COLOR_F activeShadowColor = {};
                     }
@@ -171,13 +173,13 @@ namespace d14engine::uikit::appearance
                         {
                             struct Icon
                             {
-                                SolidStyle background[(size_t)ButtonState::Count] = {};
+                                SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                             }
                             icon = {};
 
                             struct Button
                             {
-                                SolidStyle background[(size_t)ButtonState::Count] = {};
+                                SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                             }
                             button = {};
                         }
@@ -189,7 +191,7 @@ namespace d14engine::uikit::appearance
 
                 SolidStyle maskWhenBelowDragWindow = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

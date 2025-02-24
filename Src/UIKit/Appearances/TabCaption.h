@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/SolidStyle.h"
 
@@ -9,7 +11,7 @@ namespace d14engine::uikit::appearance
 {
     struct TabCaption
     {
-        enum class ButtonState { Idle, Hover, Down, Count };
+        enum class ButtonState { Idle, Hover, Down };
 
         struct Appearance : appearance::Appearance
         {
@@ -33,7 +35,7 @@ namespace d14engine::uikit::appearance
                     }
                     geometry = {};
 
-                    SolidStyle background[(size_t)ButtonState::Count] = {};
+                    SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
 
                     float strokeWidth = 1.0f;
                 }
@@ -50,31 +52,31 @@ namespace d14engine::uikit::appearance
                     }
                     geometry = {};
 
-                    SolidStyle background[(size_t)ButtonState::Count] = {};
+                    SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                 }
                 button = {};
             }
             closeX = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct CloseX
                 {
                     struct Icon
                     {
-                        SolidStyle background[(size_t)ButtonState::Count] = {};
+                        SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                     }
                     icon = {};
 
                     struct Button
                     {
-                        SolidStyle background[(size_t)ButtonState::Count] = {};
+                        SolidStyle background[cpp_lang_utils::enumCount<ButtonState>] = {};
                     }
                     button = {};
                 }
                 closeX = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

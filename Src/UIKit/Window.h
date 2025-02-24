@@ -26,8 +26,6 @@ namespace d14engine::uikit
             float captionPanelHeight = 32.0f,
             float decorativeBarHeight = 4.0f);
 
-        enum class DisplayState { Normal, Minimized, Maximized };
-
         void onInitializeFinish() override;
 
         ShadowMask contentMask = {};
@@ -145,15 +143,19 @@ namespace d14engine::uikit
         constexpr static float nonClientAreaMinimalWidth() { return 144.0f; }
         constexpr static float nonClientAreaDefaultHeight() { return 36.0f; }
 
+    public:
+        enum class DisplayState { Normal, Minimized, Maximized };
+
+        constexpr static auto Normal = DisplayState::Normal;
+        constexpr static auto Minimized = DisplayState::Minimized;
+        constexpr static auto Maximized = DisplayState::Maximized;
+
     protected:
-        DisplayState m_displayState = DisplayState::Normal;
+        DisplayState m_displayState = Normal;
 
     public:
-        DisplayState currDisplayState() const;
-
-        bool isDisplayNormal() const;
-        bool isDisplayMinimized() const;
-        bool isDisplayMaximized() const;
+        DisplayState displayState() const;
+        void setDisplayState(DisplayState state);
 
     public:
         bool isMinimizeEnabled = true, isMaximizeEnabled = true, isCloseEnabled = true;
@@ -215,7 +217,7 @@ namespace d14engine::uikit
 
         void onSizeHelper(SizeEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseMoveHelper(MouseMoveEvent& e) override;
 

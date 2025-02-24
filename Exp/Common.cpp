@@ -46,13 +46,13 @@ namespace d14uikit
 
     Color convert(const D2D1_COLOR_F& cl)
     {
-        auto rgb =  uikit::color_utils::convert(cl);
-        return { rgb.R, rgb.G, rgb.B };
+        auto rgb = (uikit::color_utils::iRGB)cl;
+        return { rgb.r, rgb.g, rgb.b };
     }
 
     D2D1_COLOR_F convert(const Color& cl)
     {
-        auto rgb = uikit::color_utils::iRGB{ cl.r, cl.g, cl.b };
-        return uikit::color_utils::convert(rgb);
+        uikit::color_utils::iRGB rgb = { cl.r, cl.g, cl.b };
+        return (D2D1_COLOR_F)rgb;
     }
 }

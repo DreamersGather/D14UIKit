@@ -19,17 +19,16 @@ namespace d14uikit
             Alternate,
             Arrow,
             BackDiag,
-            Beam,
             Hand,
             Help,
             HorzSize,
             MainDiag,
             Move,
-            Pen,
             Person,
             Pin,
             Select,
             Stop,
+            Text,
             VertSize
         };
         enum class DynamicIconIndex
@@ -43,17 +42,16 @@ namespace d14uikit
         SET_STATIC(Alternate)
         SET_STATIC(Arrow)
         SET_STATIC(BackDiag)
-        SET_STATIC(Beam)
         SET_STATIC(Hand)
         SET_STATIC(Help)
         SET_STATIC(HorzSize)
         SET_STATIC(MainDiag)
         SET_STATIC(Move)
-        SET_STATIC(Pen)
         SET_STATIC(Person)
         SET_STATIC(Pin)
         SET_STATIC(Select)
         SET_STATIC(Stop)
+        SET_STATIC(Text)
         SET_STATIC(VertSize)
 
         SET_DYNAMIC(Busy)
@@ -62,8 +60,19 @@ namespace d14uikit
 #undef SET_STATIC
 #undef SET_DYNAMIC
 
-        bool useSystemIcons() const;
-        void setUseSystemIcons(bool value);
+        enum class IconSource
+        {
+            System, UIKit
+        };
+        IconSource iconSource() const;
+        void setIconSource(IconSource src);
+
+#define SET_SOURCE(Name) constexpr static auto Name = IconSource::Name;
+
+        SET_SOURCE(System)
+        SET_SOURCE(UIKit)
+
+#undef SET_SOURCE
         
         void setIcon(StaticIconIndex index);
         void setIcon(DynamicIconIndex index);

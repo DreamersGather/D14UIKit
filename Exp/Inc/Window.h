@@ -32,9 +32,20 @@ namespace d14uikit
         Panel* content() const;
         void setContent(Panel* uiobj);
 
-        bool normal() const;
-        bool minimized() const;
-        bool maximized() const;
+        enum class DisplayState
+        {
+            Normal, Minimized, Maximized
+        };
+#define SET_DISPLAY_STATE(Name) constexpr static auto Name = DisplayState::Name;
+
+        SET_DISPLAY_STATE(Normal)
+        SET_DISPLAY_STATE(Minimized)
+        SET_DISPLAY_STATE(Maximized)
+
+#undef SET_DISPLAY_STATE
+
+        DisplayState displayState() const;
+        void setDisplayState(DisplayState state);
 
         bool minimizeButton() const;
         void setMinimizeButton(bool value);

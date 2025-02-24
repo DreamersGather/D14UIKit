@@ -958,17 +958,17 @@ do { \
         updateCandidateTabInfo();
     }
 
-    void TabGroup::onChangeThemeHelper(WstrParam themeName)
+    void TabGroup::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ResizablePanel::onChangeThemeHelper(themeName);
+        ResizablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
 
         for (auto& tab : m_tabs)
         {
             if (tab.m_previewItem->parent().expired())
             {
-                tab.m_previewItem->onChangeTheme(themeName);
+                tab.m_previewItem->onChangeThemeStyle(style);
             }
         } // The managed preview-items will be updated by the preview-panel.
     }

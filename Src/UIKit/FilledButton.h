@@ -23,6 +23,6 @@ namespace d14engine::uikit
 
     protected:
         // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
     };
 }

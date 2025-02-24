@@ -12,21 +12,21 @@ namespace d14engine::uikit::appearance
 
     void Button::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.foreground.color = D2D1::ColorF{ 0x000000 };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.foreground.color = D2D1::ColorF{ 0xe5e5e5 };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(Button);
+    _D14_SET_THEME_DATA_MAP_IMPL(Button);
 
     void Button::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(foreground.color);
+        _D14_UPDATE_THEME_DATA_1(foreground.color);
     }
 }

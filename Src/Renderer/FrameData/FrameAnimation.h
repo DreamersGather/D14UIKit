@@ -4,6 +4,14 @@
 
 namespace d14engine::renderer
 {
+    namespace anim_literals
+    {
+        // 1 Jiffies == 1/60 Seconds
+        constexpr float operator""_jf(unsigned long long num)
+        {
+            return (float)num / 60.0f;
+        }
+    }
     template<typename FrameType>
     struct FrameAnimation
     {

@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void ToggleButton::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.main[(size_t)uikit::Button::State::Idle] =
             {
@@ -85,7 +85,7 @@ namespace d14engine::uikit::appearance
                 }
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.main[(size_t)uikit::Button::State::Idle] =
             {
@@ -165,11 +165,11 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(ToggleButton);
+    _D14_SET_THEME_DATA_MAP_IMPL(ToggleButton);
 
     void ToggleButton::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
 #define UPDATE_MAIN_BKGN_COLOR(Btn_State, Btn_Color) \
 _ref.main[(size_t)uikit::Button::State::Btn_State].background.color = g_colorGroup.Btn_Color
@@ -178,7 +178,8 @@ _ref.main[(size_t)uikit::Button::State::Btn_State].background.color = g_colorGro
         UPDATE_MAIN_BKGN_COLOR(Hover, secondary);
         UPDATE_MAIN_BKGN_COLOR(Down, tertiary);
 
-#undef MAIN_BKGN_COLOR
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(main);
+#undef UPDATE_MAIN_BKGN_COLOR
+
+        _D14_UPDATE_THEME_DATA_ARRAY_1(main);
     }
 }

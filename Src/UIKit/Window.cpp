@@ -136,17 +136,17 @@ namespace d14engine::uikit
 
     void Window::onMinimizeHelper()
     {
-        m_displayState = DisplayState::Minimized;
+        // This method intentionally left blank.
     }
 
     void Window::onMaximizeHelper()
     {
-        m_displayState = DisplayState::Maximized;
+        // This method intentionally left blank.
     }
 
     void Window::onRestoreHelper()
     {
-        m_displayState = DisplayState::Normal;
+        // This method intentionally left blank.
     }
 
     void Window::onCloseHelper()
@@ -327,24 +327,24 @@ namespace d14engine::uikit
         return { 0.0f, 0.0f, nonClientAreaMinimalWidth(), nonClientAreaHeight() };
     }
 
-    Window::DisplayState Window::currDisplayState() const
+    Window::DisplayState Window::displayState() const
     {
         return m_displayState;
     }
 
-    bool Window::isDisplayNormal() const
+    void Window::setDisplayState(DisplayState state)
     {
-        return m_displayState == DisplayState::Normal;
-    }
-
-    bool Window::isDisplayMinimized() const
-    {
-        return m_displayState == DisplayState::Minimized;
-    }
-
-    bool Window::isDisplayMaximized() const
-    {
-        return m_displayState == DisplayState::Maximized;
+        if (state != m_displayState)
+        {
+            switch (state)
+            {
+            case Normal: onRestore(); break;
+            case Minimized: onMinimize(); break;
+            case Maximized: onMaximize(); break;
+            default: break;
+            }
+            m_displayState = state;
+        }
     }
 
     Window::ThreeBrosState Window::getMinMaxBroState(bool isHover, bool isDown) const
@@ -512,7 +512,7 @@ namespace d14engine::uikit
                     set3BrothersIconBrushState(state);
 
                     // Maximize Button
-                    if (isDisplayNormal())
+                    if (m_displayState == Normal)
                     {
                         rndr->d2d1DeviceContext()->DrawRectangle(
                             maximizeIconAbsoluteRect(),
@@ -643,11 +643,11 @@ namespace d14engine::uikit
         if (m_centerUIObject) m_centerUIObject->transform(clientAreaSelfcoordRect());
     }
 
-    void Window::onChangeThemeHelper(WstrParam themeName)
+    void Window::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ResizablePanel::onChangeThemeHelper(themeName);
+        ResizablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
 
         loadDecorativeBarBrush();
     }
@@ -735,15 +735,15 @@ namespace d14engine::uikit
         {
             if (m_isMinimizeDown)
             {
-                onMinimize();
+                setDisplayState(Minimized);
             }
             else if (m_isMaximizeDown)
             {
-                if (isDisplayNormal())
+                if (m_displayState == Normal)
                 {
-                    onMaximize();
+                    setDisplayState(Maximized);
                 }
-                else onRestore();
+                else setDisplayState(Normal);
             }
             else if (m_isCloseDown)
             {

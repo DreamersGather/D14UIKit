@@ -104,7 +104,7 @@ namespace d14engine::uikit::appearance
             }
             valueLabel = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Bar
                 {
@@ -153,7 +153,7 @@ namespace d14engine::uikit::appearance
                 }
                 valueLabel = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

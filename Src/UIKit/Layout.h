@@ -121,11 +121,11 @@ namespace d14engine::uikit
             updateAllElements();
         }
 
-        void onChangeThemeHelper(WstrParam themeName) override
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override
         {
-            ResizablePanel::onChangeThemeHelper(themeName);
+            ResizablePanel::onChangeThemeStyleHelper(style);
 
-            getAppearance().changeTheme(themeName);
+            getAppearance().changeTheme(style.name);
         }
     };
 }

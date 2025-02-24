@@ -6,24 +6,173 @@
 
 namespace d14engine::uikit::color_utils
 {
-    iRGB convert(const D2D1_COLOR_F& rgb)
+    HEX::HEX(const iRGB& rgb)
+        : abgr(RGB(rgb.r, rgb.g, rgb.b)) { }
+
+    HEX::operator iRGB() const
     {
         return
         {
-            std::clamp(math_utils::round(rgb.r * 255.0f), 0, 255),
-            std::clamp(math_utils::round(rgb.g * 255.0f), 0, 255),
-            std::clamp(math_utils::round(rgb.b * 255.0f), 0, 255)
+            (abgr & 0x00'00'00'ff) >> 0,
+            (abgr & 0x00'00'ff'00) >> 8,
+            (abgr & 0x00'ff'00'00) >> 16
         };
     }
 
-    D2D1_COLOR_F convert(const iRGB& rgb)
+    HEX::operator D2D1_COLOR_F() const
     {
-        fRGB _rgb = {};
-        _rgb.R = std::clamp((float)rgb.R / 255.0f, 0.0f, 1.0f);
-        _rgb.G = std::clamp((float)rgb.G / 255.0f, 0.0f, 1.0f);
-        _rgb.B = std::clamp((float)rgb.B / 255.0f, 0.0f, 1.0f);
+        return
+        {
+            std::clamp((float)((abgr & 0x00'00'00'ff) >> 0) / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)((abgr & 0x00'00'ff'00) >> 8) / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)((abgr & 0x00'ff'00'00) >> 16) / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)((abgr & 0xff'00'00'00) >> 24) / 255.0f, 0.0f, 1.0f)
+        };
+    }
 
-        return D2D1::ColorF(_rgb.R, _rgb.G, _rgb.B);
+    iRGB::iRGB(int r, int g, int b)
+        : r(r), g(g), b(b) { }
+
+    iRGB::iRGB(const D2D1_COLOR_F& c)
+        :
+        r(std::clamp(math_utils::round(c.r * 255.0f), 0, 255)),
+        g(std::clamp(math_utils::round(c.g * 255.0f), 0, 255)),
+        b(std::clamp(math_utils::round(c.b * 255.0f), 0, 255)) { }
+
+    iRGB::operator fRGB() const
+    {
+        return
+        {
+            std::clamp((float)r / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)g / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)b / 255.0f, 0.0f, 1.0f)
+        };
+    }
+
+    iRGB::operator iHSB() const
+    {
+        return rgb2hsb(*this);
+    }
+
+    iRGB::operator fHSB() const
+    {
+        return rgb2hsb(*this);
+    }
+
+    iRGB::operator D2D1_COLOR_F() const
+    {
+        return
+        {
+            std::clamp((float)r / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)g / 255.0f, 0.0f, 1.0f),
+            std::clamp((float)b / 255.0f, 0.0f, 1.0f),
+            1.0f // alpha
+        };
+    }
+
+    fRGB::fRGB(float r, float g, float b)
+        : r(r), g(g), b(b) { }
+
+    fRGB::fRGB(const D2D1_COLOR_F& c)
+        : r(c.r), g(c.g), b(c.b) { }
+
+    fRGB::operator iRGB() const
+    {
+        return
+        {
+            std::clamp(math_utils::round(r * 255.0f), 0, 255),
+            std::clamp(math_utils::round(g * 255.0f), 0, 255),
+            std::clamp(math_utils::round(b * 255.0f), 0, 255)
+        };
+    }
+
+    fRGB::operator iHSB() const
+    {
+        return rgb2hsb(*this);
+    }
+
+    fRGB::operator fHSB() const
+    {
+        return rgb2hsb(*this);
+    }
+
+    fRGB::operator D2D1_COLOR_F() const
+    {
+        return { r, g, b, 1.0f };
+    }
+
+    iHSB::iHSB(int h, int s, int b)
+        : h(h), s(s), b(b) { }
+
+#pragma warning(push)
+// Variable 'variable' is uninitialized. Always initialize a member variable.
+#pragma warning(disable : 26495)
+
+    iHSB::iHSB(const D2D1_COLOR_F& c)
+        : iHSB((iRGB)c) { }
+
+#pragma warning(pop)
+
+    iHSB::operator fHSB() const
+    {
+        return
+        {
+            std::clamp((float)h / 360.0f, 0.0f, 1.0f),
+            std::clamp((float)s / 100.0f, 0.0f, 1.0f),
+            std::clamp((float)b / 100.0f, 0.0f, 1.0f)
+        };
+    }
+
+    iHSB::operator iRGB() const
+    {
+        return hsb2rgb(*this);
+    }
+
+    iHSB::operator fRGB() const
+    {
+        return hsb2rgb(*this);
+    }
+
+    iHSB::operator D2D1_COLOR_F() const
+    {
+        return (D2D1_COLOR_F)hsb2rgb(*this);
+    }
+
+    fHSB::fHSB(float h, float s, float b)
+        : h(h), s(s), b(b) { }
+
+#pragma warning(push)
+    // Variable 'variable' is uninitialized. Always initialize a member variable.
+#pragma warning(disable : 26495)
+
+    fHSB::fHSB(const D2D1_COLOR_F& c)
+        : fHSB((iRGB)c) { }
+
+#pragma warning(pop)
+
+    fHSB::operator iHSB() const
+    {
+        return
+        {
+            std::clamp(math_utils::round(h * 360.0f), 0, 255),
+            std::clamp(math_utils::round(s * 100.0f), 0, 255),
+            std::clamp(math_utils::round(b * 100.0f), 0, 255)
+        };
+    }
+
+    fHSB::operator iRGB() const
+    {
+        return hsb2rgb(*this);
+    }
+
+    fHSB::operator fRGB() const
+    {
+        return hsb2rgb(*this);
+    }
+
+    fHSB::operator D2D1_COLOR_F() const
+    {
+        return (D2D1_COLOR_F)hsb2rgb(*this);
     }
 
     iHSB rgb2hsb(const iRGB& rgb)
@@ -33,50 +182,50 @@ namespace d14engine::uikit::color_utils
         fRGB _rgb = {};
         fHSB _hsb = {};
 
-        _rgb.R = std::clamp((float)rgb.R, 0.0f, 255.0f);
-        _rgb.G = std::clamp((float)rgb.G, 0.0f, 255.0f);
-        _rgb.B = std::clamp((float)rgb.B, 0.0f, 255.0f);
+        _rgb.r = std::clamp((float)rgb.r, 0.0f, 255.0f);
+        _rgb.g = std::clamp((float)rgb.g, 0.0f, 255.0f);
+        _rgb.b = std::clamp((float)rgb.b, 0.0f, 255.0f);
 
-        auto minmax = std::minmax({ _rgb.R, _rgb.G, _rgb.B });
+        auto minmax = std::minmax({ _rgb.r, _rgb.g, _rgb.b });
         auto& min = minmax.first;
         auto& max = minmax.second;
 
         // Calculate H
-        if (min == max) _hsb.H = 0.0f;
-        else if (max == _rgb.R)
+        if (min == max) _hsb.h = 0.0f;
+        else if (max == _rgb.r)
         {
-            if (_rgb.G >= _rgb.B)
+            if (_rgb.g >= _rgb.b)
             {
-                _hsb.H = 60.0f * (_rgb.G - _rgb.B) / (max - min);
+                _hsb.h = 60.0f * (_rgb.g - _rgb.b) / (max - min);
             }
             else // complements
             {
-                _hsb.H = 60.0f * (_rgb.G - _rgb.B) / (max - min) + 360.0f;
+                _hsb.h = 60.0f * (_rgb.g - _rgb.b) / (max - min) + 360.0f;
             }
         }
-        else if (max == _rgb.G)
+        else if (max == _rgb.g)
         {
-            _hsb.H = 60.0f * (_rgb.B - _rgb.R) / (max - min) + 120.0f;
+            _hsb.h = 60.0f * (_rgb.b - _rgb.r) / (max - min) + 120.0f;
         }
-        else if (max == _rgb.B)
+        else if (max == _rgb.b)
         {
-            _hsb.H = 60.0f * (_rgb.R - _rgb.G) / (max - min) + 240.0f;
+            _hsb.h = 60.0f * (_rgb.r - _rgb.g) / (max - min) + 240.0f;
         }
-        hsb.H = std::clamp(math_utils::round(_hsb.H), 0, 360);
+        hsb.h = std::clamp(math_utils::round(_hsb.h), 0, 360);
 
         // Calculate S
         if (max == 0.0f)
         {
-            _hsb.S = 0.0f;
+            _hsb.s = 0.0f;
         }
         else // valid denominator
         {
-            _hsb.S = 100.0f * (max - min) / max;
+            _hsb.s = 100.0f * (max - min) / max;
         }
-        hsb.S = std::clamp(math_utils::round(_hsb.S), 0, 100);
+        hsb.s = std::clamp(math_utils::round(_hsb.s), 0, 100);
 
         // Calculate B
-        hsb.B = std::clamp(math_utils::round(100.0f * max / 255.0f), 0, 100);
+        hsb.b = std::clamp(math_utils::round(100.0f * max / 255.0f), 0, 100);
 
         return hsb;
     }
@@ -88,32 +237,32 @@ namespace d14engine::uikit::color_utils
         fRGB _rgb = {};
         fHSB _hsb = {};
 
-        _hsb.H = std::clamp((float)hsb.H, 0.0f, 360.0f);
-        _hsb.S = std::clamp((float)hsb.S / 100.0f, 0.0f, 1.0f);
-        _hsb.B = std::clamp((float)hsb.B / 100.0f, 0.0f, 1.0f);
+        _hsb.h = std::clamp((float)hsb.h, 0.0f, 360.0f);
+        _hsb.s = std::clamp((float)hsb.s / 100.0f, 0.0f, 1.0f);
+        _hsb.b = std::clamp((float)hsb.b / 100.0f, 0.0f, 1.0f);
 
         // Calculate intermediates.
-        auto N = _hsb.H / 60.0f;
-        auto I = (int)N % 6;
-        auto F = (N - I);
-        auto P = _hsb.B * (1.0f - _hsb.S);
-        auto Q = _hsb.B * (1.0f - F * _hsb.S);
-        auto T = _hsb.B * (1.0f - (1.0f - F) * _hsb.S);
+        auto n = _hsb.h / 60.0f;
+        auto i = (int)n % 6;
+        auto f = (n - i);
+        auto p = _hsb.b * (1.0f - _hsb.s);
+        auto q = _hsb.b * (1.0f - f * _hsb.s);
+        auto t = _hsb.b * (1.0f - (1.0f - f) * _hsb.s);
 
         // Decide RGB order by number.
-        switch (I)
+        switch (i)
         {
-        case 0: _rgb = { _hsb.B, T, P }; break;
-        case 1: _rgb = { Q, _hsb.B, P }; break;
-        case 2: _rgb = { P, _hsb.B, T }; break;
-        case 3: _rgb = { P, Q, _hsb.B }; break;
-        case 4: _rgb = { T, P, _hsb.B }; break;
-        case 5: _rgb = { _hsb.B, P, Q }; break;
+        case 0: _rgb = { _hsb.b, t, p }; break;
+        case 1: _rgb = { q, _hsb.b, p }; break;
+        case 2: _rgb = { p, _hsb.b, t }; break;
+        case 3: _rgb = { p, q, _hsb.b }; break;
+        case 4: _rgb = { t, p, _hsb.b }; break;
+        case 5: _rgb = { _hsb.b, p, q }; break;
         default: break;
         }
-        rgb.R = std::clamp(math_utils::round(_rgb.R * 255.0f), 0, 255);
-        rgb.G = std::clamp(math_utils::round(_rgb.G * 255.0f), 0, 255);
-        rgb.B = std::clamp(math_utils::round(_rgb.B * 255.0f), 0, 255);
+        rgb.r = std::clamp(math_utils::round(_rgb.r * 255.0f), 0, 255);
+        rgb.g = std::clamp(math_utils::round(_rgb.g * 255.0f), 0, 255);
+        rgb.b = std::clamp(math_utils::round(_rgb.b * 255.0f), 0, 255);
 
         return rgb;
     }

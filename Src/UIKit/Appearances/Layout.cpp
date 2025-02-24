@@ -12,24 +12,24 @@ namespace d14engine::uikit::appearance
 
     void Layout::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.background.color = D2D1::ColorF{ 0xf3f3f3 };
             light.stroke.color = D2D1::ColorF{ 0xe5e5e5 };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.background.color = D2D1::ColorF{ 0x202020 };
             dark.stroke.color = D2D1::ColorF{ 0x1d1d1d };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(Layout);
+    _D14_SET_THEME_DATA_MAP_IMPL(Layout);
 
     void Layout::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(background.color);
-        _D14_UPDATE_THEME_STYLE_DATA_1(stroke.color);
+        _D14_UPDATE_THEME_DATA_1(background.color);
+        _D14_UPDATE_THEME_DATA_1(stroke.color);
     }
 }

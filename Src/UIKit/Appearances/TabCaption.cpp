@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void TabCaption::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.closeX.icon.background[(size_t)ButtonState::Idle] =
             {
@@ -39,7 +39,7 @@ namespace d14engine::uikit::appearance
                 0.2f // opacity
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.closeX.icon.background[(size_t)ButtonState::Idle] =
             {
@@ -73,13 +73,13 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(TabCaption);
+    _D14_SET_THEME_DATA_MAP_IMPL(TabCaption);
 
     void TabCaption::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(closeX.icon.background);
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(closeX.button.background);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(closeX.icon.background);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(closeX.button.background);
     }
 }

@@ -2,7 +2,7 @@
 
 #include "Common/Precompile.h"
 
-#include "Common/CppLangUtils/EnumClassMap.h"
+#include "Common/CppLangUtils/EnumMagic.h"
 
 #include "UIKit/AnimationUtils/BitmapSequence.h"
 #include "UIKit/Panel.h"
@@ -11,14 +11,16 @@ namespace d14engine::uikit
 {
     struct Cursor : Panel
     {
+        friend struct Application;
+
         enum class StaticIconIndex
         {
-            Alternate, Arrow, BackDiag, Beam, Hand, Help, HorzSize,
-            MainDiag, Move, Pen, Person, Pin, Select, Stop, VertSize, Count
+            Alternate, Arrow, BackDiag, Hand, Help, HorzSize,
+            MainDiag, Move, Person, Pin, Select, Stop, Text, VertSize
         };
         enum class DynamicIconIndex
         {
-            Busy, Working, Count
+            Busy, Working
         };
 #define SET_STATIC_ALIAS(Name) constexpr static auto Name = StaticIconIndex::Name;
 #define SET_DYNAMIC_ALIAS(Name) constexpr static auto Name = DynamicIconIndex::Name;
@@ -26,36 +28,35 @@ namespace d14engine::uikit
         SET_STATIC_ALIAS(Alternate)
         SET_STATIC_ALIAS(Arrow)
         SET_STATIC_ALIAS(BackDiag)
-        SET_STATIC_ALIAS(Beam)
         SET_STATIC_ALIAS(Hand)
         SET_STATIC_ALIAS(Help)
         SET_STATIC_ALIAS(HorzSize)
         SET_STATIC_ALIAS(MainDiag)
         SET_STATIC_ALIAS(Move)
-        SET_STATIC_ALIAS(Pen)
         SET_STATIC_ALIAS(Person)
         SET_STATIC_ALIAS(Pin)
         SET_STATIC_ALIAS(Select)
         SET_STATIC_ALIAS(Stop)
+        SET_STATIC_ALIAS(Text)
         SET_STATIC_ALIAS(VertSize)
 
         SET_DYNAMIC_ALIAS(Busy)
         SET_DYNAMIC_ALIAS(Working)
 
-#undef SET_STATIC
-#undef SET_DYNAMIC
+#undef SET_STATIC_ALIAS
+#undef SET_DYNAMIC_ALIAS
 
         template<typename BitmapData>
         struct Icon
         {
-            D2D1_POINT_2F displayOffset = {};
             BitmapData bitmapData = {};
+            D2D1_POINT_2F hotSpotOffset = {};
         };
         using StaticIcon = Icon<BitmapObject>;
         using DynamicIcon = Icon<animation_utils::BitmapSequence>;
 
-        using StaticIconMap = cpp_lang_utils::EnumClassMap<StaticIconIndex, StaticIcon>;
-        using DynamicIconMap = cpp_lang_utils::EnumClassMap<DynamicIconIndex, DynamicIcon>;
+        using StaticIconMap = cpp_lang_utils::EnumMap<StaticIconIndex, StaticIcon>;
+        using DynamicIconMap = cpp_lang_utils::EnumMap<DynamicIconIndex, DynamicIcon>;
 
         struct IconSeries
         {
@@ -66,16 +67,13 @@ namespace d14engine::uikit
 
         Cursor(
             const BasicIconThemeMap& icons = loadBasicIcons(),
-            const D2D1_RECT_F& rect = { 0.0f, 0.0f, 32.0f, 32.0f });
+            const D2D1_RECT_F& rect = { 0.0f, 0.0f, 48.0f, 48.0f });
 
         void registerDrawObjects() override;
 
-    public:
-        bool useSystemIcons = true;
-
+    protected:
         static BasicIconThemeMap loadBasicIcons();
 
-    protected:
         static IconSeries loadBasicIconSeries(WstrParam themeName);
         static DynamicIcon loadBasicIconFrames(WstrParam name, size_t count);
 
@@ -123,6 +121,9 @@ namespace d14engine::uikit
     public:
         // To show a basic icon, you only need to specify the index,
         // and its category will be decided by current theme automatically.
+        //
+        // For a custom icon, its ico-name is the unique identifier,
+        // and you may need to manually adapt it in the onChangeThemeStyle.
 
         void setIcon(StaticIconIndex index);
         void setStaticIcon(WstrParam name);
@@ -130,6 +131,24 @@ namespace d14engine::uikit
         void setIcon(DynamicIconIndex index);
         void setDynamicIcon(WstrParam name);
 
+    public:
+        enum class IconSource { System, UIKit };
+
+        constexpr static auto System = IconSource::System;
+        constexpr static auto UIKit = IconSource::UIKit;
+
+    protected:
+        IconSource m_iconSource = System;
+
+    public:
+        IconSource iconSource() const;
+        void setIconSource(IconSource src);
+
+    protected:
+        bool m_systemIconUpdateFlag = false;
+
+        // Displays the corresponding system default cursor
+        // based on the currently selected basic icon index.
         void setSystemIcon();
 
     protected:

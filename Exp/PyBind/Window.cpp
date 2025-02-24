@@ -51,18 +51,6 @@ namespace d14uikit
             &Window::content,
             &Window::setContent);
 
-        i.def_property_readonly(
-            "normal",
-            &Window::normal);
-
-        i.def_property_readonly(
-            "minimized",
-            &Window::minimized);
-
-        i.def_property_readonly(
-            "maximized",
-            &Window::maximized);
-
         i.def_property(
             "minimizeButton",
             &Window::minimizeButton,

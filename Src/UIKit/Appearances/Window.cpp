@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void Window::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.background.color = D2D1::ColorF{ 0xf9f9f9 };
             light.shadow.color = D2D1::ColorF{ 0x808080 };
@@ -94,7 +94,7 @@ namespace d14engine::uikit::appearance
                 }
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.background.color = D2D1::ColorF{ 0x272727 };
             dark.shadow.color = D2D1::ColorF{ 0x000000 };
@@ -183,11 +183,11 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(Window);
+    _D14_SET_THEME_DATA_MAP_IMPL(Window);
 
     void Window::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
         _ref.decorativeBar.gradientColor =
         {
@@ -195,15 +195,15 @@ namespace d14engine::uikit::appearance
             g_colorGroup.primary, // _0_5
             g_colorGroup.tertiary // _1_0
         };
-        _D14_UPDATE_THEME_STYLE_DATA_1(background.color);
-        _D14_UPDATE_THEME_STYLE_DATA_1(shadow.color);
+        _D14_UPDATE_THEME_DATA_1(background.color);
+        _D14_UPDATE_THEME_DATA_1(shadow.color);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(captionPanel.background.color);
+        _D14_UPDATE_THEME_DATA_1(captionPanel.background.color);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(decorativeBar.gradientColor._0_0);
-        _D14_UPDATE_THEME_STYLE_DATA_1(decorativeBar.gradientColor._0_5);
-        _D14_UPDATE_THEME_STYLE_DATA_1(decorativeBar.gradientColor._1_0);
+        _D14_UPDATE_THEME_DATA_1(decorativeBar.gradientColor._0_0);
+        _D14_UPDATE_THEME_DATA_1(decorativeBar.gradientColor._0_5);
+        _D14_UPDATE_THEME_DATA_1(decorativeBar.gradientColor._1_0);
 
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(threeBrothers);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(threeBrothers);
     }
 }

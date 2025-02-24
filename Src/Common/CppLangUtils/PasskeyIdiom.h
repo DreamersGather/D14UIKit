@@ -5,7 +5,30 @@
 namespace d14engine
 {
     // Usage: Declare a struct inherited from PasskeyIdiom, and append a
-    // parameter of Token at the end of the ctor you want to privatize.
+    // parameter of Token at the end of the ctor you want to privatize:
+    //
+    // struct A, B, C;
+    // 
+    // struct A : PasskeyIdiom<B>
+    // {
+    //     friend B;
+    //     A(Token) { }
+    //
+    // private: A() { }
+    // };
+    //
+    // struct B
+    // {
+    //     void func1() { A a(A::Token); } // OK
+    //     void func2() { auto a = std::make_unique<A>(); } // Error
+    //     void func3() { auto a = std::unique_ptr<A>(new A); } // OK
+    //     void func4() { auto a = std::make_unique<A>(Token); } // OK
+    // };
+    //
+    // struct C
+    // {
+    //     void func1() { A a(A::Token); } // Error
+    // };
     // 
     // This allows the ctor behaves as private while declaring its access
     // level as public, and it is helpful when using some external utils.

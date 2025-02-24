@@ -178,11 +178,11 @@ namespace d14engine::uikit
             outlineRect, resource_utils::g_solidColorBrush.Get(), setting.stroke.width);
     }
 
-    void OnOffSwitch::onChangeThemeHelper(WstrParam themeName)
+    void OnOffSwitch::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ClickablePanel::onChangeThemeHelper(themeName);
+        ClickablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void OnOffSwitch::onMouseEnterHelper(MouseMoveEvent& e)

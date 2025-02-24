@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void CheckBox::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.icon.background[(size_t)CheckBoxState::Flag::UncheckedIdle] =
             light.icon.background[(size_t)CheckBoxState::Flag::UncheckedHover] =
@@ -104,7 +104,7 @@ namespace d14engine::uikit::appearance
                 }
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.icon.background[(size_t)CheckBoxState::Flag::UncheckedIdle] =
             dark.icon.background[(size_t)CheckBoxState::Flag::UncheckedHover] =
@@ -203,11 +203,11 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(CheckBox);
+    _D14_SET_THEME_DATA_MAP_IMPL(CheckBox);
 
     void CheckBox::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
         _ref.button[(size_t)CheckBoxState::Flag::IntermediateIdle] =
         _ref.button[(size_t)CheckBoxState::Flag::CheckedIdle] =
@@ -254,7 +254,7 @@ namespace d14engine::uikit::appearance
                 0.0f // opacity
             }
         };
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(icon.background);
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(button);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(icon.background);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(button);
     }
 }

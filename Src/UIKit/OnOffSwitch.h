@@ -26,6 +26,7 @@ namespace d14engine::uikit
         constexpr static auto OFF = State::ActiveFlag::Off;
 
         void setOnOff(State::ActiveFlag flag);
+        // Skips comparison and directly set the state.
         void setOnOffState(State::ActiveFlag flag);
 
     protected:
@@ -44,7 +45,7 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
         // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseEnterHelper(MouseMoveEvent& e) override;
 

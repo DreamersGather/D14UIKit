@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/ToggleButton.h"
 #include "UIKit/FilledButton.h"
 #include "UIKit/StatefulObject.h"
@@ -10,15 +12,17 @@ namespace d14engine::uikit
 {
     struct ToggleButtonState
     {
-        enum class ActiveFlag { Activated, Deactivated, Count } activeFlag = {};
-        enum class ButtonFlag { Idle, Hover, Down, Disabled, Count } buttonFlag = {};
+        enum class ActiveFlag { Activated, Deactivated } activeFlag = {};
+        enum class ButtonFlag { Idle, Hover, Down, Disabled } buttonFlag = {};
 
-        size_t index() const { return (size_t)buttonFlag + (size_t)activeFlag * (size_t)ButtonFlag::Count; }
-
+        size_t index() const
+        {
+            return (size_t)buttonFlag + (size_t)activeFlag * cpp_lang_utils::enumCount<ButtonFlag>;
+        }
         enum class Flag
         {
             ActivatedIdle, ActivatedHover, ActivatedDown, ActivatedDisabled,
-            DeactivatedIdle, DeactivatedHover, DeactivatedDown, DeactivatedDisabled, Count
+            DeactivatedIdle, DeactivatedHover, DeactivatedDown, DeactivatedDisabled
         };
     };
 
@@ -54,6 +58,7 @@ namespace d14engine::uikit
         constexpr static auto DEACTIVATED = StatefulObject::State::ActiveFlag::Deactivated;
 
         void setActivated(StatefulObject::State::ActiveFlag flag);
+        // Skips comparison and directly set the state.
         void setActivatedState(StatefulObject::State::ActiveFlag flag);
 
     protected:
@@ -61,7 +66,7 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
         // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         // ClickablePanel
         void onMouseButtonReleaseHelper(Button::Event& e) override;

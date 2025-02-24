@@ -32,20 +32,23 @@ namespace d14engine::renderer
     {
         THROW_IF_NULL(rndr);
 
-        m_enabled = value;
-        if (m_enabled)
+        if (value != m_enabled)
         {
-            createRootSignature();
-            createPipelineState();
-            createVertexBuffer();
-        }
-        else // Clear created components.
-        {
-            m_rootSigature.Reset();
-            m_pipelineState.Reset();
+            if (value)
+            {
+                createRootSignature();
+                createPipelineState();
+                createVertexBuffer();
+            }
+            else // Clear created components.
+            {
+                m_rootSigature.Reset();
+                m_pipelineState.Reset();
 
-            m_vertexBuffer.reset();
-            m_vertexBufferView = {};
+                m_vertexBuffer.reset();
+                m_vertexBufferView = {};
+            }
+            m_enabled = value;
         }
     }
 
@@ -112,7 +115,7 @@ namespace d14engine::renderer
             /* pRootSignatureDesc */ &rootSigDesc,
             /* MaxVersion         */ maxVersion,
             /* ppBlob             */ &rootSigBlob,
-            /* ppErrorBlob        */ &error
+            /* ppErrorBlob        */ ppErrorBlob
         ));
         THROW_IF_FAILED(rndr->d3d12Device()->CreateRootSignature
         (
@@ -203,25 +206,32 @@ namespace d14engine::renderer
 
     void Letterbox::copySceneToBackBuffer()
     {
+#pragma warning(push)
+#pragma warning(disable : 26815)
+        // these are guaranteed to be valid when composition=false
+        auto currBackBuffer = rndr->currBackBuffer().value();
+        auto sceneBuffer = rndr->sceneBuffer().value();
+#pragma warning(pop)
+
         D3D12_RESOURCE_BARRIER barriers[] =
         {
             CD3DX12_RESOURCE_BARRIER::Transition
             (
-                rndr->currBackBuffer(),
+                currBackBuffer,
                 D3D12_RESOURCE_STATE_PRESENT,
                 D3D12_RESOURCE_STATE_COPY_DEST
             ),
             CD3DX12_RESOURCE_BARRIER::Transition
             (
-                rndr->sceneBuffer(),
+                sceneBuffer,
                 D3D12_RESOURCE_STATE_COMMON,
                 D3D12_RESOURCE_STATE_COPY_SOURCE
             ),
         };
         rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers));
 
-        CD3DX12_TEXTURE_COPY_LOCATION dst(rndr->currBackBuffer());
-        CD3DX12_TEXTURE_COPY_LOCATION src(rndr->sceneBuffer());
+        CD3DX12_TEXTURE_COPY_LOCATION dst(currBackBuffer);
+        CD3DX12_TEXTURE_COPY_LOCATION src(sceneBuffer);
         CD3DX12_BOX srcBox(0, 0, rndr->getSceneWidth(), rndr->getSceneHeight());
 
         rndr->cmdList()->CopyTextureRegion(&dst, 0, 0, 0, &src, &srcBox);
@@ -236,13 +246,13 @@ namespace d14engine::renderer
         {
             CD3DX12_RESOURCE_BARRIER::Transition
             (
-                rndr->currBackBuffer(),
+                rndr->currBackBuffer().value(),
                 D3D12_RESOURCE_STATE_PRESENT,
                 D3D12_RESOURCE_STATE_RENDER_TARGET
             ),
             CD3DX12_RESOURCE_BARRIER::Transition
             (
-                rndr->sceneBuffer(),
+                rndr->sceneBuffer().value(),
                 D3D12_RESOURCE_STATE_COMMON,
                 D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
             )
@@ -252,19 +262,19 @@ namespace d14engine::renderer
         rndr->cmdList()->RSSetViewports(1, &m_viewport);
         rndr->cmdList()->RSSetScissorRects(1, &m_scissors);
 
-        auto rtvHandle = rndr->backRtvHandle();
-
+        // backRtvHandle is guaranteed to be valid when composition=false
+        D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rndr->backRtvHandle().value();
         rndr->cmdList()->OMSetRenderTargets(1, &rtvHandle, TRUE, nullptr);
         rndr->cmdList()->ClearRenderTargetView(rtvHandle, color, 0, nullptr);
 
         rndr->cmdList()->SetGraphicsRootSignature(m_rootSigature.Get());
         rndr->cmdList()->SetPipelineState(m_pipelineState.Get());
 
-        ID3D12DescriptorHeap* ppHeaps[] = { rndr->srvHeap() };
+        ID3D12DescriptorHeap* ppHeaps[] = { rndr->srvHeap().value() };
         rndr->cmdList()->SetDescriptorHeaps(NUM_ARR_ARGS(ppHeaps));
 
         rndr->cmdList()->SetGraphicsRootDescriptorTable(
-            0, rndr->srvHeap()->GetGPUDescriptorHandleForHeapStart());
+            0, rndr->srvHeap().value()->GetGPUDescriptorHandleForHeapStart());
 
         // Use "TRIANGLESTRIP" instead of "TRIANGLELIST" to fit the vertex data.
         rndr->cmdList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

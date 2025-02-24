@@ -308,11 +308,11 @@ namespace d14engine::uikit
         loadValueLabelMaskBitmap();
     }
 
-    void Slider::onChangeThemeHelper(WstrParam themeName)
+    void Slider::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Panel::onChangeThemeHelper(themeName);
+        Panel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void Slider::onMouseMoveHelper(MouseMoveEvent& e)

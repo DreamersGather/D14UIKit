@@ -25,7 +25,9 @@ namespace d14engine::uikit
     {
         THROW_IF_NULL(Application::g_app);
 
-        setCornerState(ROUND); // adapt win11 geometry
+        // Try to adapt the fluent design of Windows 11.
+        setCornerState(Round);
+        setBorderColor(DefaultColor);
 
         operationTarget = OperationTarget::GlobalWin32Window;
 
@@ -68,66 +70,26 @@ namespace d14engine::uikit
         resize((float)dipSize.cx, (float)dipSize.cy);
     }
 
-    void MainWindow::setDisplayState(DisplayState state)
+    bool MainWindow::immersiveDarkMode() const
     {
-        m_displayState = state;
-
-        setDisplayStateHelper(state);
+        return m_immersiveDarkMode;
     }
 
-    void MainWindow::setDisplayStateHelper(DisplayState state)
+    bool MainWindow::setImmersiveDarkMode(bool value)
     {
         THROW_IF_NULL(Application::g_app);
 
-        switch (state)
-        {
-        case DisplayState::Normal:
-        {
-            setCornerState(ROUND);
+        auto window = Application::g_app->win32Window();
 
-            isDraggable = true;
-            m_originalDisplayState = DisplayState::Normal;
-
-            auto hwnd = Application::g_app->win32Window();
-
-            RECT wndrect = {};
-            GetClientRect(hwnd, &wndrect);
-
-            auto pixSize = math_utils::size(wndrect);
-            auto dipSize = platform_utils::restoredByDpi(pixSize);
-
-            resize((float)dipSize.cx, (float)dipSize.cy);
-
-            ShowWindow(hwnd, SW_NORMAL);
-            break;
-        }
-        case DisplayState::Minimized:
-        {
-            ShowWindow(Application::g_app->win32Window(), SW_MINIMIZE);
-            break;
-        }
-        case DisplayState::Maximized:
-        {
-            setCornerState(DONOTRUOND);
-
-            isDraggable = false;
-            m_originalDisplayState = DisplayState::Maximized;
-
-            auto hwnd = Application::g_app->win32Window();
-
-            RECT wndrect = {};
-            GetClientRect(hwnd, &wndrect);
-
-            auto pixSize = math_utils::size(wndrect);
-            auto dipSize = platform_utils::restoredByDpi(pixSize);
-
-            resize((float)dipSize.cx, (float)dipSize.cy);
-
-            ShowWindow(hwnd, SW_MAXIMIZE);
-            break;
-        }
-        default: break;
-        }
+        auto ret = SUCCEEDED(DwmSetWindowAttribute
+        (
+            /* hwnd        */ window,
+            /* dwAttribute */ DWMWA_USE_IMMERSIVE_DARK_MODE,
+            /* pvAttribute */ &value,
+            /* cbAttribute */ sizeof(value))
+        );
+        if (ret) m_immersiveDarkMode = value;
+        return ret;
     }
 
     MainWindow::CornerState MainWindow::cornerState() const
@@ -135,24 +97,126 @@ namespace d14engine::uikit
         return m_cornerState;
     }
 
-    void MainWindow::setCornerState(CornerState state)
+    bool MainWindow::setCornerState(CornerState state)
     {
         THROW_IF_NULL(Application::g_app);
 
-        if (SUCCEEDED(DwmSetWindowAttribute(
-            Application::g_app->win32Window(),
-            DWMWA_WINDOW_CORNER_PREFERENCE,
-            &state, sizeof(CornerState))))
+        auto window = Application::g_app->win32Window();
+
+        auto ret = SUCCEEDED(DwmSetWindowAttribute
+        (
+            /* hwnd        */ window,
+            /* dwAttribute */ DWMWA_WINDOW_CORNER_PREFERENCE,
+            /* pvAttribute */ &state,
+            /* cbAttribute */ sizeof(state))
+        );
+        if (ret)
         {
             m_cornerState = state;
+            if (m_displayState != Normal)
+            {
+                m_originalCornerState = state;
+            }
+        }
+        return ret;
+    }
+
+    bool MainWindow::setBorderColorAttr(BorderColor color)
+    {
+        THROW_IF_NULL(Application::g_app);
+
+        auto window = Application::g_app->win32Window();
+
+        auto ret = SUCCEEDED(DwmSetWindowAttribute
+        (
+            /* hwnd        */ window,
+            /* dwAttribute */ DWMWA_BORDER_COLOR,
+            /* pvAttribute */ &color,
+            /* cbAttribute */ sizeof(color))
+        );
+        if (ret) m_borderColor = color;
+        return ret;
+    }
+
+    MainWindow::BorderColor MainWindow::borderColor() const
+    {
+        return m_borderColor;
+    }
+
+    bool MainWindow::setBorderColor(BorderColor color)
+    {
+        THROW_IF_NULL(Application::g_app);
+
+        if (m_accentBorder && color != NoneColor)
+        {
+            return false;
+        }
+        auto window = Application::g_app->win32Window();
+
+        return setBorderColorAttr(color);
+    }
+
+    bool MainWindow::accentBorder() const
+    {
+        return m_accentBorder;
+    }
+
+    bool MainWindow::setAccentBorder(bool value)
+    {
+        bool ret = false;
+        if (m_borderColor != NoneColor)
+        {
+            if (value)
+            {
+                auto& color = appearance::g_colorGroup.primary;
+                ret = setBorderColorAttr((color_utils::iRGB)color);
+            }
+            else ret = setBorderColorAttr(m_borderColor);
+        }
+        if (ret) m_accentBorder = value;
+        return ret;
+    }
+
+#if _D14_MAINWINDOW_MATERIAL_TYPE
+    MainWindow::MaterialType MainWindow::materialType() const
+    {
+        return m_materialType;
+    }
+
+    bool MainWindow::setMaterialType(MaterialType type)
+    {
+        THROW_IF_NULL(Application::g_app);
+
+        auto window = Application::g_app->win32Window();
+
+        auto ret = SUCCEEDED(DwmSetWindowAttribute
+        (
+            /* hwnd        */ window,
+            /* dwAttribute */ DWMWA_SYSTEMBACKDROP_TYPE,
+            /* pvAttribute */ &type,
+            /* cbAttribute */ sizeof(type))
+        );
+        if (ret) m_materialType = type;
+        return ret;
+    }
+#endif
+
+    void MainWindow::onChangeThemeStyleHelper(const ThemeStyle& style)
+    {
+        Window::onChangeThemeStyleHelper(style);
+
+        if (m_accentBorder && m_borderColor != NoneColor)
+        {
+            auto& color = appearance::g_colorGroup.primary;
+            setBorderColorAttr((color_utils::iRGB)color);
         }
     }
 
     void MainWindow::onCloseHelper()
     {
-        THROW_IF_NULL(Application::g_app);
-
         Window::onCloseHelper();
+
+        THROW_IF_NULL(Application::g_app);
 
         Application::g_app->exit();
     }
@@ -161,20 +225,57 @@ namespace d14engine::uikit
     {
         Window::onRestoreHelper();
 
-        setDisplayStateHelper(DisplayState::Normal);
+        THROW_IF_NULL(Application::g_app);
+
+        setCornerState(m_originalCornerState);
+
+        isDraggable = true;
+        m_originalDisplayState = Normal;
+
+        auto hwnd = Application::g_app->win32Window();
+
+        RECT wndrect = {};
+        GetClientRect(hwnd, &wndrect);
+
+        auto pixSize = math_utils::size(wndrect);
+        auto dipSize = platform_utils::restoredByDpi(pixSize);
+
+        resize((float)dipSize.cx, (float)dipSize.cy);
+
+        ShowWindow(hwnd, SW_NORMAL);
     }
 
     void MainWindow::onMinimizeHelper()
     {
         Window::onMinimizeHelper();
 
-        setDisplayStateHelper(DisplayState::Minimized);
+        THROW_IF_NULL(Application::g_app);
+
+        ShowWindow(Application::g_app->win32Window(), SW_MINIMIZE);
     }
 
     void MainWindow::onMaximizeHelper()
     {
         Window::onMaximizeHelper();
 
-        setDisplayStateHelper(DisplayState::Maximized);
+        THROW_IF_NULL(Application::g_app);
+
+        m_originalCornerState = m_cornerState;
+        setCornerState(DoNotRound);
+
+        isDraggable = false;
+        m_originalDisplayState = Maximized;
+
+        auto hwnd = Application::g_app->win32Window();
+
+        RECT wndrect = {};
+        GetClientRect(hwnd, &wndrect);
+
+        auto pixSize = math_utils::size(wndrect);
+        auto dipSize = platform_utils::restoredByDpi(pixSize);
+
+        resize((float)dipSize.cx, (float)dipSize.cy);
+
+        ShowWindow(hwnd, SW_MAXIMIZE);
     }
 }

@@ -158,11 +158,11 @@ namespace d14engine::uikit
         drawOutline(rndr);
     }
 
-    void LabelArea::onChangeThemeHelper(WstrParam themeName)
+    void LabelArea::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Label::onChangeThemeHelper(themeName);
+        Label::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void LabelArea::onGetFocusHelper()
@@ -199,7 +199,7 @@ namespace d14engine::uikit
 
         THROW_IF_NULL(Application::g_app);
 
-        Application::g_app->cursor()->setIcon(Cursor::Beam);
+        Application::g_app->cursor()->setIcon(Cursor::Text);
 
         if (isFocused() && e.buttonState.leftPressed)
         {

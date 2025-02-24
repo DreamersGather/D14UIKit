@@ -26,10 +26,10 @@ namespace d14engine::renderer
 
             bool fullscreen = false;
 
-            // Select GPU device.  Set to 0 to use the default one.
+            // Select GPU device. Set to 0 to use the default one.
             UINT adapterIndex = 0;
 
-            // For [bitblt] model, which is used by default, values are:
+            // For [flip] model, which is used by default, values are:
             // 0 - The presentation occurs immediately, there is no synchronization.
             // 1 through 4 - Synchronize presentation after the nth vertical blank.
             UINT syncInterval = 0;
@@ -37,17 +37,28 @@ namespace d14engine::renderer
             // Allowing tearing is required for VRR displays.
             bool allowTearing = false;
 
-            // The scene is resized to:
+            // The scene will be resized to:
             // (True) fit the resolution of current display mode.
             // (False) fill the client area of the root Win32 window.
-            bool resolutionScaling = false;
+            bool scaling = false;
 
-            // The scene is resized to fit the resolution
+            // Select output monitor. Set to 0 to use the default one.
+            UINT outputIndex = 0;
+
+            // The scene will be resized to fit the resolution
             // of specific display mode if enable resolution-scaling.
             UINT displayModeIndex = 0;
 
-            XMVECTORF32 sceneColor = Colors::White;
-            XMVECTORF32 letterboxColor = Colors::Black;
+            // The back buffers will be:
+            // (True) alpha bitmaps provided by DirectComposition.
+            // (False) opaque Direct3D textures with best performance.
+            bool composition = false;
+
+            // Clear value of the scene buffer.
+            XMVECTORF32 sceneColor = Colors::Black;
+
+            // Clear value of the composition layer.
+            D2D1_COLOR_F layerColor = { .a = 0.0f };
         };
 
         Renderer(HWND window, const CreateInfo& info = {});
@@ -60,6 +71,8 @@ namespace d14engine::renderer
 #pragma region Win32 Components
 
     private:
+        static RECT queryDesktopRectGDI();
+
         struct Window : cpp_lang_utils::EnableMasterPtr<Renderer>
         {
             using EnableMasterPtrType::EnableMasterPtrType;
@@ -99,13 +112,10 @@ namespace d14engine::renderer
             mutable bool m_fullscreen = false;
 
         public:
-            bool fullscreen() const;
-
             const OriginalInfo& originalInfo() const;
 
-            // These methods return directly if already in target mode.
-            void enterFullscreenMode() const;
-            void restoreWindowedMode() const;
+            bool fullscreen() const;
+            void setFullscreen(bool value) const;
         }
         m_window{ this };
 
@@ -113,7 +123,7 @@ namespace d14engine::renderer
         const Window& window() const;
 
         void onWindowResize(); // Call this in WM_SIZE.
-        void renderNextFrame(); // Call this in WM_SIZE, WM_PAINT and main.
+        void renderNextFrame(); // Call this in WM_SIZE, WM_PAINT.
 
 #pragma endregion
 
@@ -136,7 +146,7 @@ namespace d14engine::renderer
 
             struct Feature
             {
-                bool allowTearing = {}; // Tearing-On == VSync-Off
+                bool allowTearing = {}; // Tearing-On --> VSync-Off
             }
             feature = {};
 
@@ -147,17 +157,17 @@ namespace d14engine::renderer
                 using EnableMasterPtrType::EnableMasterPtrType;
 
             private:
-                mutable UINT m_currSelectedAdapterIndex = {};
+                mutable UINT m_adapterIndex = {};
 
                 mutable UINT m_syncInterval = {};
 
                 mutable bool m_allowTearing = {};
 
             public:
-                UINT currSelectedAdapterIndex() const;
+                UINT adapterIndex() const;
 
-                IDXGIAdapter* currSelectedAdapter() const;
-                void selectAdapter(UINT index) const;
+                IDXGIAdapter* adapter() const;
+                void setAdapter(UINT index) const;
 
                 UINT syncInterval() const;
                 void setSyncInterval(UINT count) const;
@@ -179,22 +189,26 @@ namespace d14engine::renderer
 
         void queryDxgiFactoryInfo();
 
+        // DXGI Factory Properties
         void queryDxgiFactoryProperties();
         void queryAvailableAdapters();
 
+        // DXGI Factory Features
         void queryDxgiFactoryFeatures();
         void queryTearingSupport();
 
         void checkDxgiFactoryConfigs();
-
         void checkAdapterConfig();
         void checkSyncIntervalConfig();
         void checkTearingConfig();
 
+        // DXGI Factory Settings
         void populateDxgiFactorySettings();
 
     private:
         ComPtr<ID3D12Device> m_d3d12Device = {};
+
+        using OutputArray = std::vector<ComPtr<IDXGIOutput>>;
 
         using DisplayModeArray = std::vector<DXGI_MODE_DESC>;
 
@@ -204,11 +218,13 @@ namespace d14engine::renderer
 
             struct Property
             {
-                struct DescHandleIncrementSize
+                struct DescHandleSize
                 {
-                    UINT64 RTV = {}, DSV = {}, CBV_SRV_UAV = {};
+                    UINT RTV = {}, DSV = {}, CBV_SRV_UAV = {};
                 }
-                descHandleIncrementSize = {};
+                descHandleSize = {};
+
+                OutputArray availableOutputs = {};
 
                 DisplayModeArray availableDisplayModes = {};
             }
@@ -232,15 +248,26 @@ namespace d14engine::renderer
                 using EnableMasterPtrType::EnableMasterPtrType;
 
             private:
-                mutable bool m_resolutionScaling = {};
-                mutable UINT m_currDisplayModeIndex = {};
+                mutable UINT m_outputIndex = {};
+
+                mutable bool m_scaling = {};
+                mutable UINT m_displayModeIndex = {};
+
+                void updateDisplayMode() const;
 
             public:
-                bool resolutionScaling() const;
-                UINT currDisplayModeIndex() const;
+                UINT outputIndex() const;
 
-                const DXGI_MODE_DESC& currDisplayMode() const;
-                void setDisplayMode(bool scaling, UINT index) const;
+                IDXGIOutput* output() const;
+                void setOutput(UINT index) const;
+
+                bool scaling() const;
+                void setScaling(bool value) const;
+
+                UINT displayModeIndex() const;
+
+                const DXGI_MODE_DESC& displayMode() const;
+                void setDisplayMode(UINT index) const;
             }
             setting{ this };
         }
@@ -256,16 +283,21 @@ namespace d14engine::renderer
 
         void queryD3d12DeviceInfo();
 
+        // D3D12 Device Properties
         void queryD3d12DeviceProperties();
-        void queryDescHandleIncrementSizes();
+        void queryDescHandleSizes();
+        void queryAvailableOutputs();
         void queryAvailableDisplayModes();
 
+        // D3D12 Device Features
         void queryD3d12DeviceFeatures();
         void queryRootSignatureFeature();
 
         void checkD3d12DeviceConfigs();
+        void checkOutputConfig();
         void checkDisplayModeConfig();
 
+        // D3D12 Device Settings
         void populateD3d12DeviceSettings();
 
     private:
@@ -354,6 +386,32 @@ namespace d14engine::renderer
 
 #pragma endregion
 
+#pragma region DComposition Components
+
+    private:
+        bool m_composition = {};
+
+        ComPtr<IDCompositionDevice> m_dcompDevice = {};
+
+        ComPtr<IDCompositionTarget> m_dcompTarget = {};
+
+        ComPtr<IDCompositionVisual> m_dcompVisual = {};
+
+    public:
+        bool composition() const;
+        void setComposition(bool value);
+
+        Optional<IDCompositionDevice*> dcompDevice() const;
+
+        Optional<IDCompositionTarget*> dcompTarget() const;
+
+        Optional<IDCompositionVisual*> dcompVisual() const;
+
+    private:
+        void createDcompObjects();
+
+#pragma endregion
+
 #pragma region Graphics Resources
 
     public:
@@ -375,15 +433,15 @@ namespace d14engine::renderer
         ComPtr<ID3D12DescriptorHeap> m_srvHeap = {};
 
     public:
-        ID3D12DescriptorHeap* rtvHeap() const;
-        ID3D12DescriptorHeap* srvHeap() const;
+        Optional<ID3D12DescriptorHeap*> rtvHeap() const;
+        Optional<ID3D12DescriptorHeap*> srvHeap() const;
 
     private:
         void createRtvHeap();
         void createSrvHeap();
 
     public:
-        D3D12_CPU_DESCRIPTOR_HANDLE getRtvHandle(UINT offsetIndex) const;
+        Optional<D3D12_CPU_DESCRIPTOR_HANDLE> getRtvHandle(UINT offsetIndex) const;
 
     private:
         using BackBufferArray = FrameResource::Array<ComPtr<ID3D12Resource>>;
@@ -394,25 +452,28 @@ namespace d14engine::renderer
 
         ComPtr<ID3D11Resource> m_wrappedBuffer = {};
 
-        ComPtr<ID2D1Bitmap1> m_d2d1RenderTarget = {};
+        ComPtr<ID2D1Bitmap1> m_renderTarget = {};
 
     public:
-        const BackBufferArray& backBuffers() const;
+        Optional<ID3D12Resource*> getBackBuffer(UINT index) const;
 
-        ID3D12Resource* currBackBuffer() const;
-        D3D12_CPU_DESCRIPTOR_HANDLE backRtvHandle() const;
+        Optional<ID3D12Resource*> currBackBuffer() const;
+        Optional<D3D12_CPU_DESCRIPTOR_HANDLE> backRtvHandle() const;
 
         UINT getSceneWidth() const;
         UINT getSceneHeight() const;
 
-        ID3D12Resource* sceneBuffer() const;
+        Optional<ID3D12Resource*> sceneBuffer() const;
 
-        D3D12_CPU_DESCRIPTOR_HANDLE sceneRtvHandle() const;
-        D3D12_CPU_DESCRIPTOR_HANDLE sceneSrvhandle() const;
+        Optional<D3D12_CPU_DESCRIPTOR_HANDLE> sceneRtvHandle() const;
+        Optional<D3D12_CPU_DESCRIPTOR_HANDLE> sceneSrvhandle() const;
 
-        ID3D11Resource* wrappedBuffer() const;
+        Optional<ID3D11Resource*> wrappedBuffer() const;
 
-        ID2D1Bitmap1* d2d1RenderTarget() const;
+        // The render target will be:
+        // (composition=true) the first back buffer of the composition swap chain.
+        // (composition=false) the current back buffer of the d3dCmdQueue swap chain.
+        ID2D1Bitmap1* renderTarget() const;
 
     private:
         void createBackBuffers();
@@ -421,7 +482,10 @@ namespace d14engine::renderer
 
         void createWrappedBuffer();
 
-        void clearInterpStates();
+        void createRenderTarget();
+
+        // Releases all outstanding references to the back buffers of the swap chain.
+        void clearSwapChainRefs();
 
 #pragma endregion
 
@@ -448,6 +512,12 @@ namespace d14engine::renderer
 
         void clearSceneBuffer();
 
+        D2D1_COLOR_F m_layerColor = {};
+
+        void clearLayerBuffer();
+
+        void clearRenderTarget();
+
     public:
         // Skipping the updating helps optimize performance
         // if there is no need to play animation or similar things.
@@ -455,6 +525,9 @@ namespace d14engine::renderer
 
         const XMVECTORF32& sceneColor() const;
         void setSceneColor(const XMVECTORF32& color);
+
+        const D2D1_COLOR_F& layerColor() const;
+        void setLayerColor(const D2D1_COLOR_F& color);
 
     private:
         UniquePtr<TickTimer> m_timer = {};
@@ -466,7 +539,7 @@ namespace d14engine::renderer
         UniquePtr<Letterbox> m_letterbox = {};
 
     public:
-        Letterbox* letterbox() const;
+        Optional<Letterbox*> letterbox() const;
 
     public:
         struct CommandLayer : ISortable<CommandLayer>

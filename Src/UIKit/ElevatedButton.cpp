@@ -79,10 +79,10 @@ namespace d14engine::uikit
         shadow.loadBitmap(math_utils::roundu(e.size));
     }
 
-    void ElevatedButton::onChangeThemeHelper(WstrParam themeName)
+    void ElevatedButton::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        FilledButton::onChangeThemeHelper(themeName);
+        FilledButton::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 }

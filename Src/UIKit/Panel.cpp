@@ -41,8 +41,8 @@ namespace d14engine::uikit
     {
         THROW_IF_NULL(Application::g_app);
 
-        onChangeThemeHelper(Application::g_app->currThemeName());
-        onChangeLangLocaleHelper(Application::g_app->currLangLocaleName());
+        onChangeThemeStyleHelper(Application::g_app->themeStyle());
+        onChangeLangLocaleHelper(Application::g_app->langLocale());
     }
 
     bool Panel::release()
@@ -253,18 +253,18 @@ namespace d14engine::uikit
         if (f_onParentMove) f_onParentMove(this, e);
     }
 
-    void Panel::onChangeTheme(WstrParam themeName)
+    void Panel::onChangeThemeStyle(const ThemeStyle& style)
     {
-        onChangeThemeHelper(themeName);
+        onChangeThemeStyleHelper(style);
 
-        if (f_onChangeTheme) f_onChangeTheme(this, themeName);
+        if (f_onChangeThemeStyle) f_onChangeThemeStyle(this, style);
     }
 
-    void Panel::onChangeLangLocale(WstrParam langLocaleName)
+    void Panel::onChangeLangLocale(WstrParam codeName)
     {
-        onChangeLangLocaleHelper(langLocaleName);
+        onChangeLangLocaleHelper(codeName);
 
-        if (f_onChangeLangLocale) f_onChangeLangLocale(this, langLocaleName);
+        if (f_onChangeLangLocale) f_onChangeLangLocale(this, codeName);
     }
 
     void Panel::onGetFocus()
@@ -377,23 +377,23 @@ namespace d14engine::uikit
         onMove(me);
     }
 
-    void Panel::onChangeThemeHelper(WstrParam themeName)
+    void Panel::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        if (m_skipChangeChildrenThemes) return;
+        if (m_skipChangeChildrenThemeStyle) return;
 
         for (auto& child : m_children)
         {
-            child->onChangeTheme(themeName);
+            child->onChangeThemeStyle(style);
         }
     }
 
-    void Panel::onChangeLangLocaleHelper(WstrParam langLocaleName)
+    void Panel::onChangeLangLocaleHelper(WstrParam codeName)
     {
         if (m_skipChangeChildrenLangLocale) return;
 
         for (auto& child : m_children)
         {
-            child->onChangeLangLocale(langLocaleName);
+            child->onChangeLangLocale(codeName);
         }
     }
 
@@ -421,7 +421,7 @@ namespace d14engine::uikit
         }
         ChildObjectTempSet currHitChildren = {};
 
-        if (!m_skipUpdateChildrenHitStatesInMouseMoveEvent)
+        if (!m_skipUpdateChildrenHitStateInMouseMoveEvent)
         {
             for (auto& child : m_children)
             {
@@ -515,7 +515,7 @@ namespace d14engine::uikit
 
     void Panel::onMouseLeaveHelper(MouseMoveEvent& e)
     {
-        if (forceTriggerChildrenMouseLeaveEvents)
+        if (forceTriggerChildrenMouseLeaveEvent)
         {
             ISortable<Panel>::foreach(m_hitChildren, [&](ShrdPtrParam<Panel> child)
             {

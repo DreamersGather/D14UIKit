@@ -39,10 +39,10 @@ namespace d14engine::uikit
         Button::onRendererDrawD2d1ObjectHelper(rndr);
     }
 
-    void FlatButton::onChangeThemeHelper(WstrParam themeName)
+    void FlatButton::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Button::onChangeThemeHelper(themeName);
+        Button::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 }

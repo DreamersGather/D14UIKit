@@ -33,7 +33,7 @@ namespace d14engine::uikit::appearance
             }
             arrow = {};
 
-            struct ThemeStyle : FlatButton::Appearance::ThemeStyle
+            struct ThemeData : FlatButton::Appearance::ThemeData
             {
                 struct Arrow
                 {
@@ -46,7 +46,7 @@ namespace d14engine::uikit::appearance
                 }
                 arrow = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(FlatButton::Appearance& appearance, WstrParam themeName) override;
         }

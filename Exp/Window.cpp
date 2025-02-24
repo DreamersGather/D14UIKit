@@ -130,19 +130,14 @@ namespace d14uikit
         else pimpl->uiobj->setCenterUIObject(nullptr);
     }
 
-    bool Window::normal() const
+    Window::DisplayState Window::displayState() const
     {
-        return pimpl->uiobj->isDisplayNormal();
+        return (DisplayState)pimpl->uiobj->displayState();
     }
 
-    bool Window::minimized() const
+    void Window::setDisplayState(DisplayState state)
     {
-        return pimpl->uiobj->isDisplayMinimized();
-    }
-
-    bool Window::maximized() const
-    {
-        return pimpl->uiobj->isDisplayMaximized();
+        pimpl->uiobj->setDisplayState((uikit::Window::DisplayState)state);
     }
 
     bool Window::minimizeButton() const

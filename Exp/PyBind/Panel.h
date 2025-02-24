@@ -16,7 +16,7 @@ namespace d14uikit
         using Panel::onUpdate;
         using Panel::onSize;
         using Panel::onMove;
-        using Panel::onChangeTheme;
+        using Panel::onChangeThemeStyle;
         using Panel::onChangeLangLocale;
         using Panel::onGetFocus;
         using Panel::onLoseFocus;
@@ -46,9 +46,9 @@ namespace d14uikit
         {
             PYBIND11_OVERRIDE(void, PanelBase, onMove, e);
         }
-        void onChangeTheme(const std::wstring& name) override
+        void onChangeThemeStyle(const ThemeStyle& style) override
         {
-            PYBIND11_OVERRIDE(void, PanelBase, onChangeTheme, name);
+            PYBIND11_OVERRIDE(void, PanelBase, onChangeThemeStyle, style);
         }
         void onChangeLangLocale(const std::wstring& name) override
         {

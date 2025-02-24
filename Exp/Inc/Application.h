@@ -120,16 +120,13 @@ namespace d14uikit
 
         Cursor* cursor() const;
 
-        const std::wstring& themeMode() const;
-        void setThemeMode(const std::wstring& name);
-
-        Color themeColor() const;
-        void setThemeColor(const Color& value);
+        ThemeStyle themeStyle() const;
+        void setThemeStyle(const ThemeStyle& style);
 
         bool useSystemTheme() const;
         void setUseSystemTheme(bool value);
 
         const std::wstring& langLocale() const;
-        void setLangLocale(const std::wstring& name);
+        void setLangLocale(const std::wstring& code);
     };
 }

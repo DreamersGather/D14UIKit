@@ -6,32 +6,46 @@ namespace d14uikit
 {
     struct Range
     {
-        int offset = {}, count = {};
+        int offset = {};
+        int count = {};
     };
 
     struct Size
     {
-        int width = {}, height = {};
+        int width = {};
+        int height = {};
     };
 
     struct Point
     {
-        int x = {}, y = {};
+        int x = {};
+        int y = {};
     };
 
     struct Rect
     {
-        int left = {},  top = {};
+        int left = {}, top = {};
         int right = {}, bottom = {};
     };
 
     struct Color
     {
-        int r = {}, g = {}, b = {};
+        int r = {};
+        int g = {};
+        int b = {};
     };
 
     struct Pixel
     {
-        uint8_t r = {}, g = {}, b = {}, a = {};
+        uint8_t r = {};
+        uint8_t g = {};
+        uint8_t b = {};
+        uint8_t a = {};
+    };
+
+    struct ThemeStyle
+    {
+        std::wstring name = {};
+        Color color = {};
     };
 }

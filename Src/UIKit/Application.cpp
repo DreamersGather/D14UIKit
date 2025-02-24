@@ -12,6 +12,7 @@
 
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/BitmapUtils.h"
+#include "UIKit/ColorUtils.h"
 #include "UIKit/Cursor.h"
 #include "UIKit/PlatformUtils.h"
 #include "UIKit/ResourceUtils.h"
@@ -23,12 +24,7 @@ namespace d14engine::uikit
 {
     Application* Application::g_app = nullptr;
 
-    Application::Application(
-        int argc,
-        wchar_t* argv[],
-        const CreateInfo& info)
-        :
-        createInfo(info)
+    Application::Application(const CreateInfo& info) : createInfo(info)
     {
         g_app = this;
 
@@ -82,29 +78,9 @@ namespace d14engine::uikit
         auto workAreaWidth = math_utils::width(workAreaRect);
         auto workAreaHeight = math_utils::height(workAreaRect);
 
-        RECT wndrect = {};
-        if (createInfo.showMaximized)
-        {
-            wndrect = { 0, 0, workAreaWidth, workAreaHeight };
-        }
-        else if (createInfo.win32WindowRect.has_value())
-        {
-            auto srcrc = platform_utils::scaledByDpi(createInfo.win32WindowRect.value());
-
-            if (createInfo.showCentered)
-            {
-                wndrect = math_utils::centered(
-                    { 0, 0, workAreaWidth, workAreaHeight },
-                    math_utils::size(srcrc));
-            }
-            else wndrect = createInfo.win32WindowRect.value();
-        }
-        else // Display in the default rectangle area (800 x 600).
-        {
-            wndrect = math_utils::centered(
-                { 0, 0, workAreaWidth, workAreaHeight },
-                platform_utils::scaledByDpi(SIZE{ 800, 600 }));
-        }
+        RECT wndrect = math_utils::centered(
+            { 0, 0, workAreaWidth, workAreaHeight },
+            platform_utils::scaledByDpi(createInfo.windowSize));
 
         DWORD dwStyle = WS_POPUP;
         // Prevent DWM from drawing the window again.
@@ -137,8 +113,20 @@ namespace d14engine::uikit
     {
         auto dpi = platform_utils::dpi();
 
-        Renderer::CreateInfo info = { .dpi = dpi };
+        Renderer::CreateInfo info =
+        {
+            .binaryPath = createInfo.binaryPath,
+            .dpi = dpi,
+            .composition = createInfo.composition
+        };
         m_renderer = std::make_unique<Renderer>(m_win32Window, info);
+
+        m_renderer->skipUpdating = true;
+        m_renderer->timer()->stop();
+        // We will restart the timer when playing animation.
+
+        m_renderer->d2d1DeviceContext()->SetDpi(dpi, dpi);
+        m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
 
         auto device = m_renderer->d3d12Device();
         m_uiCmdLayer = std::make_shared<Renderer::CommandLayer>(device);
@@ -147,31 +135,29 @@ namespace d14engine::uikit
         m_renderer->cmdLayers.insert(m_uiCmdLayer);
 
         m_uiCmdLayer->drawTarget.emplace<Renderer::CommandLayer::D2D1Target>();
-
-        m_renderer->skipUpdating = true;
-        m_renderer->timer()->stop();
-        // We will restart the timer when playing animation.
-
-        m_renderer->d2d1DeviceContext()->SetDpi(dpi, dpi);
-        m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
     }
 
     void Application::initMiscComponents()
     {
-        m_systemThemeStyle.querySystemSettingsFromRegistry();
-        bool light = (m_systemThemeStyle.mode == ThemeStyle::Mode::Light);
-        m_renderer->setSceneColor(light ? Colors::White : Colors::Black);
-
+        m_themeStyle = querySystemThemeStyle();
+        // appearance::initialize depends on Application::m_themeStyle
         appearance::initialize();
-        m_currThemeName = light ? L"Light" : L"Dark";
 
+        if (m_themeStyle.name == L"Light")
+        {
+            m_renderer->setSceneColor(Colors::White);
+        }
+        else if (m_themeStyle.name == L"Dark")
+        {
+            m_renderer->setSceneColor(Colors::Black);
+        }
         resource_utils::initialize();
 
         m_cursor = makeUIObject<Cursor>();
 
         m_cursor->setPrivateVisible(false);
         m_cursor->registerDrawObjects();
-        // The cursor does not need to receive any UI event.
+        // The built-in cursor does not need to receive any UI events.
     }
 
     int Application::run(FuncParam<void(Application* app)> onLaunch)
@@ -180,12 +166,7 @@ namespace d14engine::uikit
 
         m_renderer->renderNextFrame();
 
-        if (createInfo.showFullscreen)
-        {
-            m_renderer->window().enterFullscreenMode();
-        }
-        else ShowWindow(m_win32Window, SW_SHOW);
-
+        ShowWindow(m_win32Window, SW_SHOW);
         UpdateWindow(m_win32Window);
 
         MSG msg;
@@ -275,9 +256,12 @@ namespace d14engine::uikit
             {
                 if (lstrcmp(LPCTSTR(lParam), L"ImmersiveColorSet") == 0)
                 {
-                    app->m_systemThemeStyle.querySystemSettingsFromRegistry();
-                
-                    if (app->f_onSystemThemeStyleChange) app->f_onSystemThemeStyleChange();
+                    auto style = Application::querySystemThemeStyle();
+
+                    if (app->themeStyle() != style && app->f_onSystemThemeStyleChange)
+                    {
+                        app->f_onSystemThemeStyleChange(style);
+                    }
                 }
             }
             return 0;
@@ -305,23 +289,17 @@ namespace d14engine::uikit
         {
             if (app != nullptr && LOWORD(lParam) == HTCLIENT)
             {
-                if (app->m_cursor->useSystemIcons)
+                if (app->m_cursor->m_iconSource == Cursor::System)
                 {
                     app->m_cursor->setSystemIcon();
                 }
                 else SetCursor(nullptr); // Take over cursor drawing from GDI.
-                return 0;
-            }
-            return DefWindowProc(hwnd, message, wParam, lParam);
-        }
-        case WM_NCHITTEST:
-        {
-            if (app != nullptr)
-            {
-                POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
-                ScreenToClient(hwnd, &pt);
 
-                return app->handleWin32NCHITTESTMessage(platform_utils::restoredByDpi(pt));
+                app->m_cursor->m_systemIconUpdateFlag = false;
+
+                // If an application processes this message,
+                // it should return TRUE to halt further processing.
+                return TRUE;
             }
             return DefWindowProc(hwnd, message, wParam, lParam);
         }
@@ -347,6 +325,17 @@ namespace d14engine::uikit
                 pMinMaxInfo->ptMinTrackSize = platform_utils::scaledByDpi(minSize);
             }
             return 0;
+        }
+        case WM_NCHITTEST:
+        {
+            if (app != nullptr)
+            {
+                POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+                ScreenToClient(hwnd, &pt);
+
+                return app->handleWin32NCHITTESTMessage(platform_utils::restoredByDpi(pt));
+            }
+            return DefWindowProc(hwnd, message, wParam, lParam);
         }
         case WM_MOUSEMOVE:
         {
@@ -495,7 +484,7 @@ namespace d14engine::uikit
             }
             // Register mouse-leave event for the Win32 window.
             TRACKMOUSEEVENT tme = {};
-            tme.cbSize = sizeof(TRACKMOUSEEVENT);
+            tme.cbSize = sizeof(tme);
             tme.dwFlags = TME_LEAVE;
             tme.hwndTrack = hwnd;
 
@@ -504,7 +493,7 @@ namespace d14engine::uikit
             // The cursor will be hidden if moves out of the Win32 window,
             // so we need to show it explicitly in every mouse-move event.
             app->m_cursor->setPrivateVisible(true);
-            if (app->m_cursor->useSystemIcons)
+            if (app->m_cursor->m_iconSource == Cursor::System)
             {
                 app->m_cursor->setSystemIcon();
             }
@@ -969,20 +958,40 @@ namespace d14engine::uikit
 
     ComPtr<ID2D1Bitmap1> Application::screenshot() const
     {
-        m_renderer->beginGpuCommand();
+        if (m_renderer->composition())
+        {
+            auto src = m_renderer->renderTarget();
+            auto pixSize = src->GetPixelSize();
 
-        auto texture = m_renderer->sceneBuffer();
-        auto staging = graph_utils::capture(texture, m_renderer->cmdList());
+            auto dst = bitmap_utils::loadBitmap(pixSize.width, pixSize.height);
 
-        m_renderer->endGpuCommand();
+            D2D1_POINT_2U dstPoint = { 0, 0 };
+            D2D1_RECT_U srcRect = { 0, 0, pixSize.width, pixSize.height };
+            THROW_IF_FAILED(dst->CopyFromBitmap(&dstPoint, src, &srcRect));
 
-        auto unmap = cpp_lang_utils::finally([&]() { staging->Unmap(0, nullptr); });
+            return dst;
+        }
+        else // self-maintained back buffers
+        {
+#pragma warning(push)
+#pragma warning(disable : 26815)
+            // sceneBuffer is guaranteed to be valid when composition=false
+            auto texture = m_renderer->sceneBuffer().value();
+#pragma warning(pop)
+            m_renderer->beginGpuCommand();
 
-        BYTE* mapped = nullptr;
-        THROW_IF_FAILED(staging->Map(0, nullptr, (void**)&mapped));
+            auto staging = graph_utils::capture(texture, m_renderer->cmdList());
 
-        auto pixSize = m_renderer->d2d1RenderTarget()->GetPixelSize();
-        return bitmap_utils::loadBitmap(pixSize.width, pixSize.height, mapped);
+            m_renderer->endGpuCommand();
+
+            auto unmap = cpp_lang_utils::finally([&]() { staging->Unmap(0, nullptr); });
+
+            BYTE* mapped = nullptr;
+            THROW_IF_FAILED(staging->Map(0, nullptr, (void**)&mapped));
+
+            auto pixSize = m_renderer->renderTarget()->GetPixelSize();
+            return bitmap_utils::loadBitmap(pixSize.width, pixSize.height, mapped);
+        }
     }
 
     int Application::animationCount() const
@@ -1141,84 +1150,70 @@ namespace d14engine::uikit
         return m_lastCursorPoint;
     }
 
-    const Wstring& Application::currThemeName() const
+    Wstring Application::querySystemThemeMode()
     {
-        return m_currThemeName;
+        DWORD value = TRUE, valueSize = sizeof(value);
+
+        RegGetValue(HKEY_CURRENT_USER,
+            L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &value, &valueSize);
+
+        return value ? L"Light" : L"Dark";
     }
 
-    void Application::changeTheme(WstrParam themeName)
+    D2D1_COLOR_F Application::querySystemThemeColor()
     {
-        appearance::g_colorGroup.generateTonedColors();
+        DWORD value = 0x00'00'00'00, valueSize = sizeof(value);
 
-        if (themeName == L"Light")
+        RegGetValue(HKEY_CURRENT_USER,
+            L"Software\\Microsoft\\Windows\\DWM", L"AccentColor",
+            RRF_RT_REG_DWORD, nullptr, &value, &valueSize);
+
+        return (D2D1_COLOR_F)color_utils::HEX(value);
+    }
+
+    Application::ThemeStyle Application::querySystemThemeStyle()
+    {
+        return { querySystemThemeMode(), querySystemThemeColor() };
+    }
+
+    const Application::ThemeStyle& Application::themeStyle() const
+    {
+        return m_themeStyle;
+    }
+
+    void Application::setThemeStyle(const ThemeStyle& style)
+    {
+        appearance::g_colorGroup.generateTonedColors(style);
+
+        if (style.name == L"Light")
         {
             m_renderer->setSceneColor(Colors::White);
         }
-        else if (themeName == L"Dark")
+        else if (style.name == L"Dark")
         {
             m_renderer->setSceneColor(Colors::Black);
         }        
-        m_currThemeName = themeName;
 
         for (auto& uiobj : m_uiObjects)
         {
-            uiobj->onChangeTheme(themeName);
+            uiobj->onChangeThemeStyle(style);
         }
+        m_themeStyle = style;
     }
 
-    void Application::ThemeStyle::querySystemSettingsFromRegistry()
+    const Wstring& Application::langLocale() const
     {
-        querySystemModeSetting();
-        querySystemColorSetting();
+        return m_langLocale;
     }
 
-    void Application::ThemeStyle::querySystemModeSetting()
+    void Application::setLangLocale(WstrParam codeName)
     {
-        DWORD value = FALSE, valueSize = sizeof(value);
-
-        if (SUCCEEDED(RegGetValue(HKEY_CURRENT_USER,
-            L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
-            L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &value, &valueSize)))
-        {
-            mode = value ? Mode::Light : Mode::Dark;
-        }
-    }
-
-    void Application::ThemeStyle::querySystemColorSetting()
-    {
-        DWORD value = FALSE, valueSize = sizeof(value);
-
-        if (SUCCEEDED(RegGetValue(HKEY_CURRENT_USER,
-            L"Software\\Microsoft\\Windows\\DWM", L"AccentColor",
-            RRF_RT_REG_DWORD, nullptr, &value, &valueSize)))
-        {
-            BYTE r = value % 256;
-            BYTE g = (value >> 8) % 256;
-            BYTE b = (value >> 16) % 256;
-            BYTE a = (value >> 24) % 256;
-
-            color = D2D1::ColorF((r << 16) + (g << 8) + b, a / 255.0f);
-        }
-    }
-
-    const Application::ThemeStyle& Application::systemThemeStyle() const
-    {
-        return m_systemThemeStyle;
-    }
-
-    const Wstring& Application::currLangLocaleName() const
-    {
-        return m_currLangLocaleName;
-    }
-
-    void Application::changeLangLocale(WstrParam langLocaleName)
-    {
-        m_currLangLocaleName = langLocaleName;
-
         for (auto& uiobj : m_uiObjects)
         {
-            uiobj->onChangeLangLocale(langLocaleName);
+            uiobj->onChangeLangLocale(codeName);
         }
+        m_langLocale = codeName;
     }
 
     void Application::broadcastInputStringEvent(WstrParam content)

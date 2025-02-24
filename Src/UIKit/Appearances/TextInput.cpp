@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void TextInput::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.main[(size_t)State::Idle] =
             {
@@ -85,7 +85,7 @@ namespace d14engine::uikit::appearance
                 1.0f // opacity
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.main[(size_t)State::Idle] =
             {
@@ -165,20 +165,20 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(TextInput);
+    _D14_SET_THEME_DATA_MAP_IMPL(TextInput);
 
     void TextInput::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
         _ref.bottomLine.background.Dynamic =
         {
             g_colorGroup.primary, // color
             1.0f // opacity
         };
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(main);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(main);
 
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_1(bottomLine.background.Static);
-        _D14_UPDATE_THEME_STYLE_DATA_1(bottomLine.background.Dynamic);
+        _D14_UPDATE_THEME_DATA_ARRAY_1(bottomLine.background.Static);
+        _D14_UPDATE_THEME_DATA_1(bottomLine.background.Dynamic);
     }
 }

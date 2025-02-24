@@ -7,7 +7,17 @@
 namespace d14engine::cpp_lang_utils
 {
     // Usage: Declare an inner struct inherited from EnableMasterPtr, and
-    // access the parent with m_master.
+    // access the parent with m_master:
+    //
+    // struct Parent
+    // {
+    //     struct Child : EnableMasterPtr<Parent>
+    //     {
+    //         using EnableMasterPtr::EnableMasterPtr;
+    //         void func() { Parent* parent = m_master; }
+    //     }
+    //     child{ this };
+    // };
     // 
     // Since the parent is referenced through raw pointer, it is unsafe to
     // create an object outside the parent, so it is necessary to make the

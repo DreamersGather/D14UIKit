@@ -37,83 +37,70 @@ namespace d14engine::uikit::appearance
 {
     void initialize()
     {
-        g_colorGroup.generateTonedColors();
-
-#define INIT_THEME_STYLES(Class_Name) \
-        Class_Name::Appearance::initialize()
-
-        INIT_THEME_STYLES(Button);
-        INIT_THEME_STYLES(CheckBox);
-        INIT_THEME_STYLES(ComboBox);
-        INIT_THEME_STYLES(ElevatedButton);
-        INIT_THEME_STYLES(FilledButton);
-        INIT_THEME_STYLES(FlatButton);
-        INIT_THEME_STYLES(Label);
-        INIT_THEME_STYLES(LabelArea);
-        INIT_THEME_STYLES(Layout);
-        INIT_THEME_STYLES(MenuItem);
-        INIT_THEME_STYLES(MenuSeparator);
-        INIT_THEME_STYLES(OnOffSwitch);
-        INIT_THEME_STYLES(OutlinedButton);
-        INIT_THEME_STYLES(PopupMenu);
-        INIT_THEME_STYLES(RawTextInput);
-        INIT_THEME_STYLES(ResizablePanel);
-        INIT_THEME_STYLES(ScrollView);
-        INIT_THEME_STYLES(Slider);
-        INIT_THEME_STYLES(TabCaption);
-        INIT_THEME_STYLES(TabGroup);
-        INIT_THEME_STYLES(TextInput);
-        INIT_THEME_STYLES(ToggleButton);
-        INIT_THEME_STYLES(TreeViewItem);
-        INIT_THEME_STYLES(ViewItem);
-        INIT_THEME_STYLES(Window);
-
-#undef INIT_THEME_STYLES
-    }
-
-    void ColorGroup::generateTonedColors()
-    {
         THROW_IF_NULL(Application::g_app);
 
-        Application::ThemeStyle themeStyle = {};
-        if (Application::g_app->customThemeStyle.has_value())
-        {
-            themeStyle = Application::g_app->customThemeStyle.value();
-        }
-        else themeStyle = Application::g_app->systemThemeStyle();
+        g_colorGroup.generateTonedColors(Application::g_app->themeStyle());
 
-        iHSB hsb = rgb2hsb(convert(themeStyle.color));
+#define INIT_THEME_DATA(Class_Name) \
+        Class_Name::Appearance::initialize()
+
+        INIT_THEME_DATA(Button);
+        INIT_THEME_DATA(CheckBox);
+        INIT_THEME_DATA(ComboBox);
+        INIT_THEME_DATA(ElevatedButton);
+        INIT_THEME_DATA(FilledButton);
+        INIT_THEME_DATA(FlatButton);
+        INIT_THEME_DATA(Label);
+        INIT_THEME_DATA(LabelArea);
+        INIT_THEME_DATA(Layout);
+        INIT_THEME_DATA(MenuItem);
+        INIT_THEME_DATA(MenuSeparator);
+        INIT_THEME_DATA(OnOffSwitch);
+        INIT_THEME_DATA(OutlinedButton);
+        INIT_THEME_DATA(PopupMenu);
+        INIT_THEME_DATA(RawTextInput);
+        INIT_THEME_DATA(ResizablePanel);
+        INIT_THEME_DATA(ScrollView);
+        INIT_THEME_DATA(Slider);
+        INIT_THEME_DATA(TabCaption);
+        INIT_THEME_DATA(TabGroup);
+        INIT_THEME_DATA(TextInput);
+        INIT_THEME_DATA(ToggleButton);
+        INIT_THEME_DATA(TreeViewItem);
+        INIT_THEME_DATA(ViewItem);
+        INIT_THEME_DATA(Window);
+
+#undef INIT_THEME_DATA
+    }
+
+    void ColorGroup::generateTonedColors(const Appearance::ThemeStyle& style)
+    {
+        auto hsb = (iHSB)style.color;
         iHSB primary = hsb, secondary = hsb, tertiary = hsb;
 
-        // Transform HSB color according to the selected theme mode.
+        // Transform HSB color according to the selected color mode.
         // Also see D14Engine/Src/UIKit/Appearances/ColorScheme.txt.
-        switch (themeStyle.mode)
+        if (style.name == L"Light")
         {
-        case Application::ThemeStyle::Mode::Light:
+            primary.s = 100;
+            secondary.s = 85;
+            tertiary.s = 70;
+            primary.b = 70;
+            secondary.b = 75;
+            tertiary.b = 80;
+        }
+        else if (style.name == L"Dark")
         {
-            primary.S = 100;
-            secondary.S = 85;
-            tertiary.S = 70;
-            primary.B = 70;
-            secondary.B = 75;
-            tertiary.B = 80;
-            break;
+            primary.s = 50;
+            secondary.s = 50;
+            tertiary.s = 50;
+            primary.b = 90;
+            secondary.b = 85;
+            tertiary.b = 80;
         }
-        case Application::ThemeStyle::Mode::Dark:
-        {
-            primary.S = 50;
-            secondary.S = 50;
-            tertiary.S = 50;
-            primary.B = 90;
-            secondary.B = 85;
-            tertiary.B = 80;
-            break;
-        }
-        default: break;
-        }
-        g_colorGroup.primary = convert(hsb2rgb(primary));
-        g_colorGroup.secondary = convert(hsb2rgb(secondary));
-        g_colorGroup.tertiary = convert(hsb2rgb(tertiary));
+        g_colorGroup.primary = (D2D1_COLOR_F)primary;
+        g_colorGroup.secondary = (D2D1_COLOR_F)secondary;
+        g_colorGroup.tertiary = (D2D1_COLOR_F)tertiary;
     }
 
     ColorGroup g_colorGroup = {};

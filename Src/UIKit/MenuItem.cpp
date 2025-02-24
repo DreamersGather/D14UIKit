@@ -79,11 +79,11 @@ namespace d14engine::uikit
         }
     }
 
-    void MenuItem::onChangeThemeHelper(WstrParam themeName)
+    void MenuItem::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ViewItem::onChangeThemeHelper(themeName);
+        ViewItem::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(ViewItem::getAppearance(), themeName);
+        getAppearance().changeTheme(ViewItem::getAppearance(), style.name);
     }
 
     void MenuItem::onMouseButtonHelper(MouseButtonEvent& e)

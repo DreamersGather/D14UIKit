@@ -21,7 +21,7 @@ namespace d14engine::uikit
             float roundRadius = 0.0f,
             const D2D1_RECT_F& rect = {});
 
-        enum class State { Idle, Hover, Down, Disabled, Count };
+        enum class State { Idle, Hover, Down, Disabled };
 
         void onInitializeFinish() override;
 
@@ -50,7 +50,7 @@ namespace d14engine::uikit
 
         void onSizeHelper(SizeEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseEnterHelper(MouseMoveEvent& e) override;
 

@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void RawTextInput::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.background.color = D2D1::ColorF{ 0xfdfdfd };
             light.stroke.color = D2D1::ColorF{ 0xe5e5e5 };
@@ -17,7 +17,7 @@ namespace d14engine::uikit::appearance
                 1.0f // opacity
             };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.background.color = D2D1::ColorF{ 0x343434 };
             dark.stroke.color = D2D1::ColorF{ 0x1d1d1d };
@@ -29,14 +29,14 @@ namespace d14engine::uikit::appearance
             };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(RawTextInput);
+    _D14_SET_THEME_DATA_MAP_IMPL(RawTextInput);
 
     void RawTextInput::Appearance::changeTheme(Label::Appearance& appearance, WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
-        _D14_UPDATE_THEME_STYLE_DATA_2(background);
-        _D14_UPDATE_THEME_STYLE_DATA_2(stroke);
-        _D14_UPDATE_THEME_STYLE_DATA_1(bottomLine.background);
+        _D14_UPDATE_THEME_DATA_2(background);
+        _D14_UPDATE_THEME_DATA_2(stroke);
+        _D14_UPDATE_THEME_DATA_1(bottomLine.background);
     }
 }

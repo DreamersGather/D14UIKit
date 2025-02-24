@@ -4,6 +4,8 @@
 
 #include "Renderer/Renderer.h"
 
+#include "UIKit/Appearances/Appearance.h"
+
 namespace d14engine::uikit
 {
     struct Cursor;
@@ -24,19 +26,17 @@ namespace d14engine::uikit
             using LibraryPathArray = std::vector<Wstring>;
             LibraryPathArray libraryPaths = {};
 
-            Optional<float> dpi = std::nullopt;
+            Optional<float> dpi = {};
 
-            bool showCentered = true;
+            SIZE windowSize = { 800, 600 };
 
-            bool showMaximized = false;
-            bool showFullscreen = false;
-
-            Optional<RECT> win32WindowRect = std::nullopt;
+            // Whether to enable the DWM composition.
+            bool composition = false;
         };
 
         static Application* g_app;
 
-        Application(int argc, wchar_t* argv[], const CreateInfo& info = {});
+        explicit Application(const CreateInfo& info = {});
 
         // After exiting the program, the application is destroyed at first,
         // and other objects are destroyed subsequently, in which situation
@@ -205,41 +205,31 @@ namespace d14engine::uikit
 
         bool isTriggerDraggingWin32Window = false;
 
-    private:
-        Wstring m_currThemeName = {};
-
     public:
-        const Wstring& currThemeName() const;
-        void changeTheme(WstrParam themeName);
-
-    public:
-        struct ThemeStyle
-        {
-            enum class Mode { Light, Dark };
-
-            Mode mode = {}; // custom/system
-            D2D1_COLOR_F color = {}; // custom/system
-
-            void querySystemSettingsFromRegistry();
-            void querySystemModeSetting();
-            void querySystemColorSetting();
-        };
-        Optional<ThemeStyle> customThemeStyle = {};
+        using ThemeStyle = appearance::Appearance::ThemeStyle;
 
     private:
-        ThemeStyle m_systemThemeStyle = {};
+        static Wstring querySystemThemeMode();
+        static D2D1_COLOR_F querySystemThemeColor();
 
     public:
-        const ThemeStyle& systemThemeStyle() const;
-
-        Function<void()> f_onSystemThemeStyleChange = {};
+        static ThemeStyle querySystemThemeStyle();
 
     private:
-        Wstring m_currLangLocaleName = L"en-us";
+        ThemeStyle m_themeStyle = {};
 
     public:
-        const Wstring& currLangLocaleName() const;
-        void changeLangLocale(WstrParam langLocaleName);
+        const ThemeStyle& themeStyle() const;
+        void setThemeStyle(const ThemeStyle& style);
+
+        Function<void(const ThemeStyle&)> f_onSystemThemeStyleChange = {};
+
+    private:
+        Wstring m_langLocale = L"en-us";
+
+    public:
+        const Wstring& langLocale() const;
+        void setLangLocale(WstrParam codeName);
 
     private:
         WeakPtr<TextInputObject> m_focusedTextInputObject = {};

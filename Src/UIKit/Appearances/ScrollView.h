@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/SolidStyle.h"
 #include "UIKit/StrokeStyle.h"
@@ -10,7 +12,7 @@ namespace d14engine::uikit::appearance
 {
     struct ScrollView
     {
-        enum class ScrollBarState { Idle, Hover, Down, Count };
+        enum class ScrollBarState { Idle, Hover, Down };
 
         struct Appearance : appearance::Appearance
         {
@@ -32,9 +34,9 @@ namespace d14engine::uikit::appearance
 
                 SolidStyle background = {};
             }
-            scrollBar[(size_t)ScrollBarState::Count] = {};
+            scrollBar[cpp_lang_utils::enumCount<ScrollBarState>] = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Background
                 {
@@ -52,9 +54,9 @@ namespace d14engine::uikit::appearance
                 {
                     SolidStyle background = {};
                 }
-                scrollBar[(size_t)ScrollBarState::Count] = {};
+                scrollBar[cpp_lang_utils::enumCount<ScrollBarState>] = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

@@ -489,11 +489,11 @@ namespace d14engine::uikit
         m_layout->transform(selfCoordRect());
     }
 
-    void TreeViewItem::onChangeThemeHelper(WstrParam themeName)
+    void TreeViewItem::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ViewItem::onChangeThemeHelper(themeName);
+        ViewItem::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void TreeViewItem::onMouseButtonHelper(MouseButtonEvent& e)

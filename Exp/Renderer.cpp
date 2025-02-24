@@ -42,90 +42,90 @@ namespace d14uikit
         return pimpl->uiobj->rndr->cmdList();
     }
 
-    UINT Renderer::backBufferCount() const
-    {
-        return renderer::FrameResource::g_bufferCount;
-    }
+    //UINT Renderer::backBufferCount() const
+    //{
+    //    return renderer::FrameResource::g_bufferCount;
+    //}
 
-    UINT Renderer::currFrameIndex() const
-    {
-        return pimpl->uiobj->rndr->currFrameIndex();
-    }
+    //UINT Renderer::currFrameIndex() const
+    //{
+    //    return pimpl->uiobj->rndr->currFrameIndex();
+    //}
 
-    ID3D11On12Device* Renderer::d3d11On12Device() const
-    {
-        return pimpl->uiobj->rndr->d3d11On12Device();
-    }
+    //ID3D11On12Device* Renderer::d3d11On12Device() const
+    //{
+    //    return pimpl->uiobj->rndr->d3d11On12Device();
+    //}
 
-    ID3D11DeviceContext* Renderer::d3d11DeviceContext() const
-    {
-        return pimpl->uiobj->rndr->d3d11DeviceContext();
-    }
+    //ID3D11DeviceContext* Renderer::d3d11DeviceContext() const
+    //{
+    //    return pimpl->uiobj->rndr->d3d11DeviceContext();
+    //}
 
-    ID2D1Factory1* Renderer::d2d1Factory() const
-    {
-        return pimpl->uiobj->rndr->d2d1Factory();
-    }
+    //ID2D1Factory1* Renderer::d2d1Factory() const
+    //{
+    //    return pimpl->uiobj->rndr->d2d1Factory();
+    //}
 
-    ID2D1Device* Renderer::d2d1Device() const
-    {
-        return pimpl->uiobj->rndr->d2d1Device();
-    }
+    //ID2D1Device* Renderer::d2d1Device() const
+    //{
+    //    return pimpl->uiobj->rndr->d2d1Device();
+    //}
 
-    ID2D1DeviceContext* Renderer::d2d1DeviceContext() const
-    {
-        return pimpl->uiobj->rndr->d2d1DeviceContext();
-    }
+    //ID2D1DeviceContext* Renderer::d2d1DeviceContext() const
+    //{
+    //    return pimpl->uiobj->rndr->d2d1DeviceContext();
+    //}
 
-    IDWriteFactory3* Renderer::dwriteFactory() const
-    {
-        return pimpl->uiobj->rndr->dwriteFactory();
-    }
+    //IDWriteFactory3* Renderer::dwriteFactory() const
+    //{
+    //    return pimpl->uiobj->rndr->dwriteFactory();
+    //}
 
-    DXGI_FORMAT Renderer::renderTargetFormat() const
-    {
-        return pimpl->uiobj->rndr->g_renderTargetFormat;
-    }
+    //DXGI_FORMAT Renderer::renderTargetFormat() const
+    //{
+    //    return pimpl->uiobj->rndr->g_renderTargetFormat;
+    //}
 
-    DXGI_FORMAT Renderer::depthStencilFormat() const
-    {
-        return pimpl->uiobj->rndr->g_depthStencilFormat;
-    }
+    //DXGI_FORMAT Renderer::depthStencilFormat() const
+    //{
+    //    return pimpl->uiobj->rndr->g_depthStencilFormat;
+    //}
 
-    IDXGISwapChain3* Renderer::swapChain() const
-    {
-        return pimpl->uiobj->rndr->swapChain();
-    }
+    //IDXGISwapChain3* Renderer::swapChain() const
+    //{
+    //    return pimpl->uiobj->rndr->swapChain();
+    //}
 
-    ID3D12DescriptorHeap* Renderer::rtvHeap() const
-    {
-        return pimpl->uiobj->rndr->rtvHeap();
-    }
+    //ID3D12DescriptorHeap* Renderer::rtvHeap() const
+    //{
+    //    return pimpl->uiobj->rndr->rtvHeap();
+    //}
 
-    ID3D12DescriptorHeap* Renderer::srvHeap() const
-    {
-        return pimpl->uiobj->rndr->srvHeap();
-    }
+    //ID3D12DescriptorHeap* Renderer::srvHeap() const
+    //{
+    //    return pimpl->uiobj->rndr->srvHeap();
+    //}
 
-    ID3D12Resource* Renderer::currBackBuffer() const
-    {
-        return pimpl->uiobj->rndr->currBackBuffer();
-    }
+    //ID3D12Resource* Renderer::currBackBuffer() const
+    //{
+    //    return pimpl->uiobj->rndr->currBackBuffer();
+    //}
 
-    ID3D12Resource* Renderer::sceneBuffer() const
-    {
-        return pimpl->uiobj->rndr->sceneBuffer();
-    }
+    //ID3D12Resource* Renderer::sceneBuffer() const
+    //{
+    //    return pimpl->uiobj->rndr->sceneBuffer();
+    //}
 
-    ID3D11Resource* Renderer::wrappedBuffer() const
-    {
-        return pimpl->uiobj->rndr->wrappedBuffer();
-    }
+    //ID3D11Resource* Renderer::wrappedBuffer() const
+    //{
+    //    return pimpl->uiobj->rndr->wrappedBuffer();
+    //}
 
-    ID2D1Bitmap1* Renderer::d2d1RenderTarget() const
-    {
-        return pimpl->uiobj->rndr->d2d1RenderTarget();
-    }
+    //ID2D1Bitmap1* Renderer::d2d1RenderTarget() const
+    //{
+    //    return pimpl->uiobj->rndr->d2d1RenderTarget();
+    //}
 
     void Renderer::resetCmdList()
     {

@@ -23,18 +23,23 @@ namespace d14uikit
         pimpl->uiobj = uiobj;
     }
 
-    void MainWindow::showNormal()
+    bool MainWindow::immersiveDarkMode() const
     {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Normal);
+        return pimpl->uiobj->immersiveDarkMode();
     }
 
-    void MainWindow::showMinimized()
+    bool MainWindow::setImmersiveDarkMode(bool value)
     {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Minimized);
+        return pimpl->uiobj->setImmersiveDarkMode(value);
     }
 
-    void MainWindow::showMaximized()
+    MainWindow::CornerState MainWindow::cornerState() const
     {
-        pimpl->uiobj->setDisplayState(uikit::Window::DisplayState::Maximized);
+        return (CornerState)pimpl->uiobj->cornerState();
+    }
+
+    bool MainWindow::setCornerState(CornerState state)
+    {
+        return pimpl->uiobj->setCornerState((uikit::MainWindow::CornerState)state);
     }
 }

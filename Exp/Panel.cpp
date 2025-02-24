@@ -78,22 +78,26 @@ namespace d14uikit
                 pcallback->onMove(this, &event);
             }
         };
-        pimpl->uiobj->f_onChangeTheme = [this]
-        (uikit::Panel* p, WstrParam themeName)
+        pimpl->uiobj->f_onChangeThemeStyle = [this]
+        (uikit::Panel* p, const uikit::Application::ThemeStyle& style)
         {
-            onChangeTheme(themeName);
-            if (pcallback->onChangeTheme)
+            ThemeStyle ts =
             {
-                pcallback->onChangeTheme(this, themeName);
+                style.name, convert(style.color)
+            };
+            onChangeThemeStyle(ts);
+            if (pcallback->onChangeThemeStyle)
+            {
+                pcallback->onChangeThemeStyle(this, ts);
             }
         };
         pimpl->uiobj->f_onChangeLangLocale = [this]
-        (uikit::Panel* p, WstrParam langLocaleName)
+        (uikit::Panel* p, WstrParam codeName)
         {
-            onChangeLangLocale(langLocaleName);
+            onChangeLangLocale(codeName);
             if (pcallback->onChangeLangLocale)
             {
-                pcallback->onChangeLangLocale(this, langLocaleName);
+                pcallback->onChangeLangLocale(this, codeName);
             }
         };
         pimpl->uiobj->f_onGetFocus = [this]
@@ -567,7 +571,7 @@ namespace d14uikit
 
     void Panel::onMove(MoveEvent* event) { }
 
-    void Panel::onChangeTheme(const std::wstring& name) { }
+    void Panel::onChangeThemeStyle(const ThemeStyle& style) { }
 
     void Panel::onChangeLangLocale(const std::wstring& name) { }
 

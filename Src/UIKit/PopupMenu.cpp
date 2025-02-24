@@ -261,11 +261,11 @@ namespace d14engine::uikit
         shadow.loadBitmap(math_utils::roundu(extendedSize(e.size)));
     }
 
-    void PopupMenu::onChangeThemeHelper(WstrParam themeName)
+    void PopupMenu::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        WaterfallView::onChangeThemeHelper(themeName);
+        WaterfallView::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void PopupMenu::onMouseMoveHelper(MouseMoveEvent& e)

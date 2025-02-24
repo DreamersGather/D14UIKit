@@ -187,16 +187,16 @@ namespace d14engine::uikit
         return math_utils::isOverlapped(p, sizingFrameExtendedRect(m_absoluteRect));
     }
 
-    void ResizablePanel::onChangeThemeHelper(WstrParam themeName)
+    void ResizablePanel::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Panel::onChangeThemeHelper(themeName);
+        Panel::onChangeThemeStyleHelper(style);
 
-        onChangeThemeWrapper(themeName);
+        onChangeThemeWrapper(style);
     }
 
-    void ResizablePanel::onChangeThemeWrapper(WstrParam themeName)
+    void ResizablePanel::onChangeThemeWrapper(const ThemeStyle& style)
     {
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void ResizablePanel::onMouseMoveHelper(MouseMoveEvent& e)

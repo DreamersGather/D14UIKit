@@ -74,5 +74,15 @@ namespace d14uikit
             i.def_readwrite("b", &Pixel::b);
             i.def_readwrite("a", &Pixel::a);
         }
+        // ThemeStyle
+        {
+            py::class_<ThemeStyle> i(m, "ThemeStyle");
+
+            i.def(py::init<std::wstring, Color>(),
+                "name"_a = L"", "color"_a = Color{});
+
+            i.def_readwrite("name", &ThemeStyle::name);
+            i.def_readwrite("color", &ThemeStyle::color);
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(Label)
 
+        static Wstring defaultTextFormatName;
+
     protected:
         Wstring m_text = {};
 
@@ -135,6 +137,6 @@ namespace d14engine::uikit
         // Panel
         void onSizeHelper(SizeEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
     };
 }

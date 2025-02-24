@@ -181,7 +181,7 @@ namespace d14engine::uikit
 
         void onMoveHelper(MoveEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseMoveHelper(MouseMoveEvent& e) override;
 

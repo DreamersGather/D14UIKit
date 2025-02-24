@@ -148,11 +148,11 @@ namespace d14engine::uikit
         m_title->transform(titleSelfcoordRect());
     }
 
-    void TabCaption::onChangeThemeHelper(WstrParam themeName)
+    void TabCaption::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Panel::onChangeThemeHelper(themeName);
+        Panel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void TabCaption::onMouseMoveHelper(MouseMoveEvent& e)

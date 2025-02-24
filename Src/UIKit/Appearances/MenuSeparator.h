@@ -16,11 +16,11 @@ namespace d14engine::uikit::appearance
 
             float strokeWidth = 1.0f;
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 SolidStyle background = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(ViewItem::Appearance& appearance, WstrParam themeName) override;
         }

@@ -25,10 +25,10 @@ namespace d14engine::uikit
             roundRadius,
             rect) { }
 
-    void OutlinedButton::onChangeThemeHelper(WstrParam themeName)
+    void OutlinedButton::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Button::onChangeThemeHelper(themeName);
+        Button::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(FlatButton::getAppearance(), themeName);
+        getAppearance().changeTheme(FlatButton::getAppearance(), style.name);
     }
 }

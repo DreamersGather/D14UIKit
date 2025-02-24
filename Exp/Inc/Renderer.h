@@ -38,37 +38,37 @@ namespace d14uikit
 
         ID3D12GraphicsCommandList* cmdList() const;
 
-        UINT backBufferCount() const;
+        //UINT backBufferCount() const;
 
-        UINT currFrameIndex() const;
+        //UINT currFrameIndex() const;
 
-        ID3D11On12Device* d3d11On12Device() const;
+        //ID3D11On12Device* d3d11On12Device() const;
 
-        ID3D11DeviceContext* d3d11DeviceContext() const;
+        //ID3D11DeviceContext* d3d11DeviceContext() const;
 
-        ID2D1Factory1* d2d1Factory() const;
+        //ID2D1Factory1* d2d1Factory() const;
 
-        ID2D1Device* d2d1Device() const;
+        //ID2D1Device* d2d1Device() const;
 
-        ID2D1DeviceContext* d2d1DeviceContext() const;
+        //ID2D1DeviceContext* d2d1DeviceContext() const;
 
-        IDWriteFactory3* dwriteFactory() const;
+        //IDWriteFactory3* dwriteFactory() const;
 
-        DXGI_FORMAT renderTargetFormat() const;
-        DXGI_FORMAT depthStencilFormat() const;
+        //DXGI_FORMAT renderTargetFormat() const;
+        //DXGI_FORMAT depthStencilFormat() const;
 
-        IDXGISwapChain3* swapChain() const;
+        //IDXGISwapChain3* swapChain() const;
 
-        ID3D12DescriptorHeap* rtvHeap() const;
-        ID3D12DescriptorHeap* srvHeap() const;
+        //ID3D12DescriptorHeap* rtvHeap() const;
+        //ID3D12DescriptorHeap* srvHeap() const;
 
-        ID3D12Resource* currBackBuffer() const;
+        //ID3D12Resource* currBackBuffer() const;
 
-        ID3D12Resource* sceneBuffer() const;
+        //ID3D12Resource* sceneBuffer() const;
 
-        ID3D11Resource* wrappedBuffer() const;
+        //ID3D11Resource* wrappedBuffer() const;
 
-        ID2D1Bitmap1* d2d1RenderTarget() const;
+        //ID2D1Bitmap1* d2d1RenderTarget() const;
 
         void resetCmdList();
         void submitCmdList();

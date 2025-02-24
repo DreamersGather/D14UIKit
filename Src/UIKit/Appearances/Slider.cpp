@@ -20,7 +20,7 @@ namespace d14engine::uikit::appearance
 
     void Slider::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"] = {});
+        auto& light = (g_themeData[L"Light"] = {});
         {
             light.bar.filled.secondaryBackground =
             {
@@ -48,7 +48,7 @@ namespace d14engine::uikit::appearance
             };
             light.valueLabel.shadow.color = D2D1::ColorF{ 0x8c8c8c };
         }
-        auto& dark = (g_themeStyles[L"Dark"] = {});
+        auto& dark = (g_themeData[L"Dark"] = {});
         {
             dark.bar.filled.secondaryBackground =
             {
@@ -77,11 +77,11 @@ namespace d14engine::uikit::appearance
             dark.valueLabel.shadow.color = D2D1::ColorF{ 0xa6a6a6 };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(Slider);
+    _D14_SET_THEME_DATA_MAP_IMPL(Slider);
 
     void Slider::Appearance::changeTheme(WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(themeName);
+        _D14_FIND_THEME_DATA(themeName);
 
         _ref.bar.filled.background =
         {
@@ -98,18 +98,18 @@ namespace d14engine::uikit::appearance
             g_colorGroup.primary, // color
             1.0f // opacity
         };
-        _D14_UPDATE_THEME_STYLE_DATA_1(bar.filled.background);
-        _D14_UPDATE_THEME_STYLE_DATA_1(bar.filled.secondaryBackground);
-        _D14_UPDATE_THEME_STYLE_DATA_1(bar.complete.background);
-        _D14_UPDATE_THEME_STYLE_DATA_1(bar.complete.secondaryBackground);
+        _D14_UPDATE_THEME_DATA_1(bar.filled.background);
+        _D14_UPDATE_THEME_DATA_1(bar.filled.secondaryBackground);
+        _D14_UPDATE_THEME_DATA_1(bar.complete.background);
+        _D14_UPDATE_THEME_DATA_1(bar.complete.secondaryBackground);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(handle.background);
-        _D14_UPDATE_THEME_STYLE_DATA_1(handle.secondaryBackground);
-        _D14_UPDATE_THEME_STYLE_DATA_1(handle.shadow.color);
-        _D14_UPDATE_THEME_STYLE_DATA_1(handle.shadow.secondaryColor);
+        _D14_UPDATE_THEME_DATA_1(handle.background);
+        _D14_UPDATE_THEME_DATA_1(handle.secondaryBackground);
+        _D14_UPDATE_THEME_DATA_1(handle.shadow.color);
+        _D14_UPDATE_THEME_DATA_1(handle.shadow.secondaryColor);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(valueLabel.mainRect.background);
-        _D14_UPDATE_THEME_STYLE_DATA_1(valueLabel.sideTriangle.background);
-        _D14_UPDATE_THEME_STYLE_DATA_1(valueLabel.shadow.color);
+        _D14_UPDATE_THEME_DATA_1(valueLabel.mainRect.background);
+        _D14_UPDATE_THEME_DATA_1(valueLabel.sideTriangle.background);
+        _D14_UPDATE_THEME_DATA_1(valueLabel.shadow.color);
     }
 }

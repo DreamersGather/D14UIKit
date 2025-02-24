@@ -62,7 +62,9 @@ def main():
     def changeThemeMode(obj, text):
         app = Application.app
         if text == 'Light' or text == 'Dark':
-            app.themeMode = text
+            style = app.themeStyle
+            style.name = text
+            app.themeMode = style
         elif text == 'Use system setting':
             app.useSystemTheme = True
 

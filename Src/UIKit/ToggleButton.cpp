@@ -66,11 +66,11 @@ namespace d14engine::uikit
         else FilledButton::onRendererDrawD2d1ObjectHelper(rndr);
     }
 
-    void ToggleButton::onChangeThemeHelper(WstrParam themeName)
+    void ToggleButton::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        FilledButton::onChangeThemeHelper(themeName);
+        FilledButton::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void ToggleButton::onMouseButtonReleaseHelper(Button::Event& e)

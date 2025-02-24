@@ -165,11 +165,11 @@ namespace d14engine::uikit
         m_dropDownMenu->resize(e.size.width, m_dropDownMenu->height());
     }
 
-    void ComboBox::onChangeThemeHelper(WstrParam themeName)
+    void ComboBox::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Button::onChangeThemeHelper(themeName);
+        Button::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(FlatButton::getAppearance(), themeName);
+        getAppearance().changeTheme(FlatButton::getAppearance(), style.name);
     }
 
     void ComboBox::onMouseButtonReleaseHelper(ClickablePanel::Event& e)

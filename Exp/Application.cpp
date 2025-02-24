@@ -31,7 +31,7 @@ namespace d14uikit
         const std::optional<float>& dpi)
         :
         Application(std::make_shared<uikit::Application>(
-            0, nullptr, CreateInfo{ .name = name, .dpi = dpi })) { }
+            CreateInfo{ .name = name, .dpi = dpi })) { }
 
     _D14_UIKIT_CTOR(Application)
         :
@@ -48,20 +48,11 @@ namespace d14uikit
             pimpl->rndr = std::shared_ptr<Renderer>(new Renderer(rndrCast));
         }
         pimpl->uiobj->f_onSystemThemeStyleChange = [this]
+        (const uikit::Application::ThemeStyle& style)
         {
             if (pimpl->useSystemTheme)
             {
-                auto& mode = pimpl->uiobj->systemThemeStyle().mode;
-                using ThemeMode = uikit::Application::ThemeStyle::Mode;
-
-                if (mode == ThemeMode::Light)
-                {
-                    pimpl->uiobj->changeTheme(L"Light");
-                }
-                else if (mode == ThemeMode::Dark)
-                {
-                    pimpl->uiobj->changeTheme(L"Dark");
-                }
+                pimpl->uiobj->setThemeStyle(style);
             }
         };
         _D14_UIKIT_BIND(Cursor, cursor);
@@ -351,9 +342,7 @@ namespace d14uikit
 
     void Application::setFullscreen(bool value)
     {
-        auto& dxwnd = pimpl->uiobj->dx12Renderer()->window();
-        if (value) dxwnd.enterFullscreenMode();
-        else dxwnd.restoreWindowedMode();
+        pimpl->uiobj->dx12Renderer()->window().setFullscreen(value);
     }
 
     int Application::fps() const
@@ -427,45 +416,16 @@ namespace d14uikit
         return pimpl->cursor.get();
     }
 
-    const std::wstring& Application::themeMode() const
+    ThemeStyle Application::themeStyle() const
     {
-        return pimpl->uiobj->currThemeName();
+        auto& style = pimpl->uiobj->themeStyle();
+        return { style.name, convert(style.color) };
     }
 
-    void Application::setThemeMode(const std::wstring& name)
+    void Application::setThemeStyle(const ThemeStyle& style)
     {
-        if (name != L"Light" && name != L"Dark") return;
-
-        if (useSystemTheme()) setUseSystemTheme(false);
-
-        auto& style = pimpl->uiobj->customThemeStyle.value();
-        using ThemeMode = uikit::Application::ThemeStyle::Mode;
-
-        if (name == L"Light") style.mode = ThemeMode::Light;
-        else if (name == L"Dark") style.mode = ThemeMode::Dark;
-
-        pimpl->uiobj->changeTheme(name);
-    }
-
-    Color Application::themeColor() const
-    {
-        uikit::Application::ThemeStyle style = {};
-        if (pimpl->uiobj->customThemeStyle.has_value())
-        {
-            style = pimpl->uiobj->customThemeStyle.value();
-        }
-        else style = pimpl->uiobj->systemThemeStyle();
-
-        return convert(style.color);
-    }
-
-    void Application::setThemeColor(const Color& value)
-    {
-        if (useSystemTheme()) setUseSystemTheme(false);
-
-        pimpl->uiobj->customThemeStyle.value().color = convert(value);
-
-        pimpl->uiobj->changeTheme(pimpl->uiobj->currThemeName());
+        pimpl->uiobj->setThemeStyle(
+            { style.name, convert(style.color) });
     }
 
     bool Application::useSystemTheme() const
@@ -475,27 +435,18 @@ namespace d14uikit
 
     void Application::setUseSystemTheme(bool value)
     {
-        if (pimpl->useSystemTheme && !value)
-        {
-            auto& systemStyle = pimpl->uiobj->systemThemeStyle();
-            pimpl->uiobj->customThemeStyle = systemStyle;
-        }
-        else pimpl->uiobj->customThemeStyle.reset();
-
         pimpl->useSystemTheme = value;
-        if (pimpl->useSystemTheme)
-        {
-            pimpl->uiobj->f_onSystemThemeStyleChange();
-        }
+
+        pimpl->uiobj->setThemeStyle(pimpl->uiobj->querySystemThemeStyle());
     }
 
     const std::wstring& Application::langLocale() const
     {
-        return pimpl->uiobj->currLangLocaleName();
+        return pimpl->uiobj->langLocale();
     }
 
-    void Application::setLangLocale(const std::wstring& name)
+    void Application::setLangLocale(const std::wstring& code)
     {
-        pimpl->uiobj->changeLangLocale(name);
+        pimpl->uiobj->setLangLocale(code);
     }
 }

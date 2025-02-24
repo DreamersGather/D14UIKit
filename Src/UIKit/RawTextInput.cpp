@@ -25,7 +25,7 @@ namespace d14engine::uikit
         roundRadiusX = roundRadiusY = roundRadius;
 
         m_takeOverChildrenDrawing = true;
-        m_skipChangeChildrenThemes = true;
+        m_skipChangeChildrenThemeStyle = true;
 
         m_placeholder = makeUIObject<Label>();
     }
@@ -330,19 +330,19 @@ namespace d14engine::uikit
         // The text layout should adapt the visible area instead of the box self.
     }
 
-    void RawTextInput::onChangeThemeHelper(WstrParam themeName)
+    void RawTextInput::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        LabelArea::onChangeThemeHelper(themeName);
+        LabelArea::onChangeThemeStyleHelper(style);
 
-        if (themeName == L"Light")
+        if (style.name == L"Light")
         {
             m_placeholder->getAppearance().foreground.color = D2D1::ColorF{ 0x8c8c8c };
         }
-        else if (themeName == L"Dark")
+        else if (style.name == L"Dark")
         {
             m_placeholder->getAppearance().foreground.color = D2D1::ColorF{ 0xa6a6a6 };
         }
-        getAppearance().changeTheme(Label::getAppearance(), themeName);
+        getAppearance().changeTheme(Label::getAppearance(), style.name);
     }
 
     void RawTextInput::onKeyboardHelper(KeyboardEvent& e)

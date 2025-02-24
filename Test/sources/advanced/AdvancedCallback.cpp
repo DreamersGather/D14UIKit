@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
     // Prepares the copy source to improve performance.
     std::array<Pixel, 32*32> pencil, eraser;
 
-    Color color = app.themeColor();
+    Color color = app.themeStyle().color;
     for (int i = 0; i < 32*32; ++i)
     {
         pencil[i] = // theme color
@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
     };
     canvas.D14_onMouseMove(p, e, &)
     {
-        app.cursor()->setIcon(Cursor::Pen);
+        app.cursor()->setIcon(Cursor::Hand);
 
         if (e->lbutton())
         {

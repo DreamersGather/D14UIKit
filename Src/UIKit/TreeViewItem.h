@@ -172,7 +172,7 @@ namespace d14engine::uikit
         // Panel
         void onSizeHelper(SizeEvent& e) override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseButtonHelper(MouseButtonEvent& e) override;
 

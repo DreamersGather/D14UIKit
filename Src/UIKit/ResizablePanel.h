@@ -96,8 +96,8 @@ namespace d14engine::uikit
         // Panel
         bool isHitHelper(const Event::Point& p) const override;
 
-        void onChangeThemeHelper(WstrParam themeName) override;
-        void onChangeThemeWrapper(WstrParam themeName);
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
+        void onChangeThemeWrapper(const ThemeStyle& style);
 
         void onMouseMoveHelper(MouseMoveEvent& e) override;
         void onMouseMoveWrapper(MouseMoveEvent& e);

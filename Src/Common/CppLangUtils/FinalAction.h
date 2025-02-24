@@ -10,7 +10,13 @@ namespace d14engine::cpp_lang_utils
     // 
     // Usage: Simply create a FinalAction object at the top of current scope,
     // and the finally-code will be called automatically when it goes out of
-    // the scope.
+    // the scope:
+    //
+    // void func()
+    // {
+    //     auto pNum = new int(1);
+    //     auto clear = finally([&] { delete pNum; });
+    // }
     // 
     // The definition order is significant since the dtors will be called in
     // the reverse order of creation, so the FinalAction object should be
@@ -20,11 +26,15 @@ namespace d14engine::cpp_lang_utils
     struct FinalAction
     {
         T clean;
-        explicit FinalAction(const T& functor) : clean{ functor } { }
+
+        explicit FinalAction(const T& functor)
+            :
+            clean{ functor } { }
+
         virtual ~FinalAction() { clean(); }
     };
 
-    // Help deduce the template parameter type.
+    // Helps deduce the template parameter type.
     template<typename T>
     FinalAction<T> finally(const T& functor)
     {
@@ -44,7 +54,7 @@ namespace d14engine::cpp_lang_utils
     //         // If the operation throws an exception after changing
     //         // m_member, the finally-code will restore it to 0.
     //     }
-    // }
+    // };
 
     template<typename T, typename FT>
     void restoreFromException(T& target, const FT& operation)

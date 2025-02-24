@@ -13,9 +13,5 @@ namespace d14uikit
         py::class_<MainWindow, Window, PyWindow<MainWindow>> i(m, "MainWindow");
 
         i.def(py::init<const std::wstring&>(), "title"_a = L"Untitled");
-
-        i.def("showNormal", &MainWindow::showNormal);
-        i.def("showMinimized", &MainWindow::showMinimized);
-        i.def("showMaximized", &MainWindow::showMaximized);
     }
 }

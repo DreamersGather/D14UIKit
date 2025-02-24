@@ -29,10 +29,10 @@ namespace d14engine::uikit
             resource_utils::g_solidColorBrush.Get(), getAppearance().strokeWidth);
     }
 
-    void MenuSeparator::onChangeThemeHelper(WstrParam themeName)
+    void MenuSeparator::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        MenuItem::onChangeThemeHelper(themeName);
+        MenuItem::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(ViewItem::getAppearance(), themeName);
+        getAppearance().changeTheme(ViewItem::getAppearance(), style.name);
     }
 }

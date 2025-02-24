@@ -89,7 +89,7 @@ def main():
     pencil = list()
     eraser = list()
 
-    color = app.themeColor
+    color = app.themeStyle.color
     for i in range(32*32):
         pencil.append(Pixel(color.r, color.g, color.b, 255))
         eraser.append(Pixel(0, 0, 0, 0))

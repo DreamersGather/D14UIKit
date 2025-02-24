@@ -14,6 +14,17 @@ namespace d14engine::renderer
         // to make sure they will be synchronized with the command fence.
         constexpr static UINT g_bufferCount = 3;
 
+        constexpr static bool flipModeRequire =
+            2 <= g_bufferCount;
+
+        constexpr static bool swapChainRequire =
+            g_bufferCount <= DXGI_MAX_SWAP_CHAIN_BUFFERS;
+
+        constexpr static bool countRequire =
+            flipModeRequire && swapChainRequire;
+
+        static_assert(countRequire, "FrameResource::g_bufferCount is invalid!");
+
         template<typename T>
         using Array = std::array<T, g_bufferCount>;
 

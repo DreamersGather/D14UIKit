@@ -129,11 +129,11 @@ namespace d14engine::uikit
         m_content->transform(selfCoordRect());
     }
 
-    void Button::onChangeThemeHelper(WstrParam themeName)
+    void Button::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ClickablePanel::onChangeThemeHelper(themeName);
+        ClickablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void Button::onMouseEnterHelper(MouseMoveEvent& e)

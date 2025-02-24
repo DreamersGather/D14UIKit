@@ -2,8 +2,6 @@
 
 #include "Common/Precompile.h"
 
-#include "Common/CppLangUtils/EnumClassMap.h"
-
 #include "UIKit/Appearances/CheckBox.h"
 #include "UIKit/ClickablePanel.h"
 #include "UIKit/StatefulObject.h"
@@ -40,12 +38,13 @@ namespace d14engine::uikit
         constexpr static auto CHECKED = State::ActiveFlag::Checked;
 
         void setChecked(State::ActiveFlag flag);
+        // Skips comparison and directly set the state.
         void setCheckedState(State::ActiveFlag flag);
 
     protected:
         bool m_isTripleState = {};
 
-        using StateTransitionMap = cpp_lang_utils::EnumClassMap<State::ActiveFlag>;
+        using StateTransitionMap = cpp_lang_utils::EnumMap<State::ActiveFlag>;
 
         StateTransitionMap m_stateTransitionMap = {};
 
@@ -58,7 +57,7 @@ namespace d14engine::uikit
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
 
         // Panel
-        void onChangeThemeHelper(WstrParam themeName) override;
+        void onChangeThemeStyleHelper(const ThemeStyle& style) override;
 
         void onMouseEnterHelper(MouseMoveEvent& e) override;
 

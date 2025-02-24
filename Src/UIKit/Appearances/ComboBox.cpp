@@ -6,7 +6,7 @@ namespace d14engine::uikit::appearance
 {
     void ComboBox::Appearance::initialize()
     {
-        auto& light = (g_themeStyles[L"Light"]);
+        auto& light = (g_themeData[L"Light"]);
         {
             light.main[(size_t)uikit::Button::State::Idle] =
             {
@@ -87,7 +87,7 @@ namespace d14engine::uikit::appearance
             light.arrow.background.color = D2D1::ColorF{ 0x000000 };
             light.arrow.secondaryBackground.color = D2D1::ColorF{ 0x9e9e9e };
         }
-        auto& dark = (g_themeStyles[L"Dark"]);
+        auto& dark = (g_themeData[L"Dark"]);
         {
             dark.main[(size_t)uikit::Button::State::Idle] =
             {
@@ -169,15 +169,15 @@ namespace d14engine::uikit::appearance
             dark.arrow.secondaryBackground.color = D2D1::ColorF{ 0x777777 };
         }
     }
-    _D14_SET_THEME_STYLE_MAP_IMPL(ComboBox);
+    _D14_SET_THEME_DATA_MAP_IMPL(ComboBox);
 
     void ComboBox::Appearance::changeTheme(FlatButton::Appearance& appearance, WstrParam themeName)
     {
-        _D14_FIND_THEME_STYLE(ComboBox);
+        _D14_FIND_THEME_DATA(themeName);
 
-        _D14_UPDATE_THEME_STYLE_DATA_ARRAY_2(main);
+        _D14_UPDATE_THEME_DATA_ARRAY_2(main);
 
-        _D14_UPDATE_THEME_STYLE_DATA_1(arrow.background.color);
-        _D14_UPDATE_THEME_STYLE_DATA_1(arrow.secondaryBackground.color);
+        _D14_UPDATE_THEME_DATA_1(arrow.background.color);
+        _D14_UPDATE_THEME_DATA_1(arrow.secondaryBackground.color);
     }
 }

@@ -161,14 +161,9 @@ namespace d14uikit
             &Application::cursor);
 
         i.def_property(
-            "themeMode",
-            &Application::themeMode,
-            &Application::setThemeMode);
-
-        i.def_property(
-            "themeColor",
-            &Application::themeColor,
-            &Application::setThemeColor);
+            "themeStyle",
+            &Application::themeStyle,
+            &Application::setThemeStyle);
 
         i.def_property(
             "useSystemTheme",

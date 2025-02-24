@@ -132,7 +132,7 @@ namespace d14uikit
 
             std::function<void(Panel*, MoveEvent*)> onMove = {};
 
-            std::function<void(Panel*, const std::wstring&)> onChangeTheme = {};
+            std::function<void(Panel*, const ThemeStyle&)> onChangeThemeStyle = {};
 
             std::function<void(Panel*, const std::wstring&)> onChangeLangLocale = {};
 
@@ -163,9 +163,9 @@ namespace d14uikit
 
         virtual void onMove(MoveEvent* event);
 
-        virtual void onChangeTheme(const std::wstring& name);
+        virtual void onChangeThemeStyle(const ThemeStyle& style);
 
-        virtual void onChangeLangLocale(const std::wstring& name);
+        virtual void onChangeLangLocale(const std::wstring& code);
 
         virtual void onGetFocus();
 

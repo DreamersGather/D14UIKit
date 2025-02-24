@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/Event.h"
 #include "UIKit/SolidStyle.h"
@@ -12,15 +14,17 @@ namespace d14engine::uikit
     struct OnOffSwitchState
     {
         // Finished is not an actual state and only used to control animation.
-        enum class ActiveFlag { On, Off, Count, Finished } activeFlag = {};
-        enum class ButtonFlag { Idle, Hover, Down, Disabled, Count } buttonFlag = {};
+        enum class ActiveFlag { On, Off, Finished } activeFlag = {};
+        enum class ButtonFlag { Idle, Hover, Down, Disabled } buttonFlag = {};
 
-        size_t index() const { return (size_t)buttonFlag + (size_t)activeFlag * (size_t)ButtonFlag::Count; }
-
+        size_t index() const
+        {
+            return (size_t)buttonFlag + (size_t)activeFlag * cpp_lang_utils::enumCount<ButtonFlag>;
+        }
         enum class Flag
         {
             OnIdle, OnHover, OnDown, OnDisabled,
-            OffIdle, OffHover, OffDown, OffDisabled, Count
+            OffIdle, OffHover, OffDown, OffDisabled
         };
     };
 
@@ -49,7 +53,7 @@ namespace d14engine::uikit::appearance
                 SolidStyle background = {};
                 StrokeStyle stroke = {};
             }
-            main[(size_t)OnOffSwitchState::Flag::Count] = {};
+            main[cpp_lang_utils::enumCount<OnOffSwitchState::Flag>] = {};
 
             struct Handle
             {
@@ -74,9 +78,9 @@ namespace d14engine::uikit::appearance
                         else return 0.0f; // return leftmost by default
                     }
                 }
-                geometry[(size_t)OnOffSwitchState::Flag::Count] = {};
+                geometry[cpp_lang_utils::enumCount<OnOffSwitchState::Flag>] = {};
 
-                SolidStyle background[(size_t)OnOffSwitchState::Flag::Count] = {};
+                SolidStyle background[cpp_lang_utils::enumCount<OnOffSwitchState::Flag>] = {};
 
                 struct Animation
                 {
@@ -93,17 +97,17 @@ namespace d14engine::uikit::appearance
             }
             handle = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
-                Main main[(size_t)OnOffSwitchState::Flag::Count] = {};
+                Main main[cpp_lang_utils::enumCount<OnOffSwitchState::Flag>] = {};
 
                 struct Handle
                 {
-                    SolidStyle background[(size_t)OnOffSwitchState::Flag::Count] = {};
+                    SolidStyle background[cpp_lang_utils::enumCount<OnOffSwitchState::Flag>] = {};
                 }
                 handle = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

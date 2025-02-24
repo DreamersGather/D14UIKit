@@ -210,7 +210,7 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
         DEF_PROPERTY(onUpdate);
         DEF_PROPERTY(onSize);
         DEF_PROPERTY(onMove);
-        DEF_PROPERTY(onChangeTheme);
+        DEF_PROPERTY(onChangeThemeStyle);
         DEF_PROPERTY(onChangeLangLocale);
         DEF_PROPERTY(onGetFocus);
         DEF_PROPERTY(onLoseFocus);
@@ -239,8 +239,8 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
 
         i.def(
             "onChangeTheme",
-            &ExPanel::onChangeTheme,
-            "name"_a);
+            &ExPanel::onChangeThemeStyle,
+            "style"_a);
 
         i.def(
             "onChangeLangLocale",

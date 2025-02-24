@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/Event.h"
 #include "UIKit/SolidStyle.h"
@@ -10,7 +12,7 @@ namespace d14engine::uikit
 {
     struct TreeViewItemState
     {
-        enum class Flag { Folded, Unfolded, Count } flag = {};
+        enum class Flag { Folded, Unfolded } flag = {};
 
         size_t index() const { return (size_t)flag; }
     };
@@ -53,7 +55,7 @@ namespace d14engine::uikit::appearance
                     }
                     line0 = {}, line1 = {};
                 }
-                geometry[(size_t)TreeViewItemState::Flag::Count] =
+                geometry[cpp_lang_utils::enumCount<TreeViewItemState::Flag>] =
                 {
                     // Foled
                     {
@@ -75,7 +77,7 @@ namespace d14engine::uikit::appearance
             }
             arrow = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Arrow
                 {
@@ -88,7 +90,7 @@ namespace d14engine::uikit::appearance
                 }
                 arrow = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
     controlBtn.setText(L"Pause Progress");
 
     constexpr int full = 500;
-    auto color = app.themeColor();
+    auto color = app.themeStyle().color;
 
     Label progressLbl;
     progressLbl.setParent(&clntArea);

@@ -2,6 +2,8 @@
 
 #include "Common/Precompile.h"
 
+#include "Common/CppLangUtils/EnumMagic.h"
+
 #include "UIKit/Appearances/Appearance.h"
 #include "UIKit/Event.h"
 #include "UIKit/SolidStyle.h"
@@ -11,16 +13,18 @@ namespace d14engine::uikit
 {
     struct CheckBoxState
     {
-        enum class ActiveFlag { Unchecked, Intermediate, Checked, Count } activeFlag = {};
-        enum class ButtonFlag { Idle, Hover, Down, Disabled, Count } buttonFlag = {};
+        enum class ActiveFlag { Unchecked, Intermediate, Checked } activeFlag = {};
+        enum class ButtonFlag { Idle, Hover, Down, Disabled } buttonFlag = {};
 
-        size_t index() const { return (size_t)buttonFlag + (size_t)activeFlag * (size_t)ButtonFlag::Count; }
-
+        size_t index() const
+        {
+            return (size_t)buttonFlag + (size_t)activeFlag * cpp_lang_utils::enumCount<ButtonFlag>;
+        }
         enum class Flag
         {
             UncheckedIdle, UncheckedHover, UncheckedDown, UncheckedDisabled,
             IntermediateIdle, IntermediateHover, IntermediateDown, IntermediateDisabled,
-            CheckedIdle, CheckedHover, CheckedDown, CheckedDisabled, Count
+            CheckedIdle, CheckedHover, CheckedDown, CheckedDisabled
         };
     };
 
@@ -69,7 +73,7 @@ namespace d14engine::uikit::appearance
                 }
                 geometry = {};
 
-                SolidStyle background[(size_t)CheckBoxState::Flag::Count] = {};
+                SolidStyle background[cpp_lang_utils::enumCount<CheckBoxState::Flag>] = {};
             }
             icon = {};
 
@@ -78,13 +82,13 @@ namespace d14engine::uikit::appearance
                 SolidStyle background = {};
                 StrokeStyle stroke = {};
             }
-            button[(size_t)CheckBoxState::Flag::Count] = {};
+            button[cpp_lang_utils::enumCount<CheckBoxState::Flag>] = {};
 
-            struct ThemeStyle
+            struct ThemeData
             {
                 struct Icon
                 {
-                    SolidStyle background[(size_t)CheckBoxState::Flag::Count] = {};
+                    SolidStyle background[cpp_lang_utils::enumCount<CheckBoxState::Flag>] = {};
                 }
                 icon = {};
 
@@ -93,9 +97,9 @@ namespace d14engine::uikit::appearance
                     SolidStyle background = {};
                     StrokeStyle stroke = {};
                 }
-                button[(size_t)CheckBoxState::Flag::Count] = {};
+                button[cpp_lang_utils::enumCount<CheckBoxState::Flag>] = {};
             };
-            _D14_SET_THEME_STYLE_MAP_DECL;
+            _D14_SET_THEME_DATA_MAP_DECL;
 
             void changeTheme(WstrParam themeName) override;
         }

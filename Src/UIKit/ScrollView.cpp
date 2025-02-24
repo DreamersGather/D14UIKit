@@ -350,11 +350,11 @@ namespace d14engine::uikit
         onViewportOffsetChange(m_viewportOffset);
     }
 
-    void ScrollView::onChangeThemeHelper(WstrParam themeName)
+    void ScrollView::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        ResizablePanel::onChangeThemeHelper(themeName);
+        ResizablePanel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void ScrollView::onMouseMoveHelper(MouseMoveEvent& e)
@@ -403,7 +403,7 @@ namespace d14engine::uikit
 
             m_isVertBarHover = math_utils::isOverlapped(p, vrect);
         }
-        m_skipUpdateChildrenHitStatesInMouseMoveEvent = isControllingScrollBars();
+        m_skipUpdateChildrenHitStateInMouseMoveEvent = isControllingScrollBars();
     }
 
     void ScrollView::onMouseLeaveHelper(MouseMoveEvent& e)

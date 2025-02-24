@@ -20,7 +20,7 @@ namespace d14engine::uikit
         TextLayoutParams layoutParams =
         {
             /* text               */ std::nullopt,
-            /* textFormat         */ resource_utils::g_textFormats.at(L"Default/Normal/16").Get(),
+            /* textFormat         */ resource_utils::g_textFormats.at(defaultTextFormatName).Get(),
             /* maxWidth           */ std::nullopt,
             /* maxHeight          */ std::nullopt,
             /* incrementalTabStop */ 4.0f * 96.0f / 72.0f,
@@ -31,6 +31,8 @@ namespace d14engine::uikit
         m_textLayout = getTextLayout(layoutParams);
         updateTextOverhangMetrics();
     }
+
+    Wstring Label::defaultTextFormatName = L"Default/Normal/16";
 
     Optional<Wstring> Label::preprocessInputStr(WstrParam in)
     {
@@ -124,7 +126,8 @@ namespace d14engine::uikit
         };
         m_textLayout = getTextLayout(layoutParams);
 
-#define COPY_TEXT_LAYOUT_FONT_ARRT(Property_Name) do { \
+#define COPY_TEXT_LAYOUT_FONT_ATTR(Property_Name) \
+do { \
         auto& src = source->m_textLayout; \
         decltype(src->GetFont##Property_Name()) value; \
         if (FAILED(src->GetFont##Property_Name(0, &value))) \
@@ -137,12 +140,12 @@ namespace d14engine::uikit
 
         // Copy the format of the 1st character by default.
 
-        COPY_TEXT_LAYOUT_FONT_ARRT(Size);
-        COPY_TEXT_LAYOUT_FONT_ARRT(Weight);
-        COPY_TEXT_LAYOUT_FONT_ARRT(Style);
-        COPY_TEXT_LAYOUT_FONT_ARRT(Stretch);
+        COPY_TEXT_LAYOUT_FONT_ATTR(Size);
+        COPY_TEXT_LAYOUT_FONT_ATTR(Weight);
+        COPY_TEXT_LAYOUT_FONT_ATTR(Style);
+        COPY_TEXT_LAYOUT_FONT_ATTR(Stretch);
 
-#undef COPY_TEXT_LAYOUT_FONT_ARRT
+#undef COPY_TEXT_LAYOUT_FONT_ATTR
 
         updateTextOverhangMetrics();
 
@@ -242,26 +245,28 @@ namespace d14engine::uikit
     Label::PointHitTestResult Label::hitTestPoint(FLOAT pointX, FLOAT pointY)
     {
         PointHitTestResult result = {};
-        THROW_IF_FAILED(m_textLayout->HitTestPoint(
-            pointX,
-            pointY,
-            &result.isTrailingHit,
-            &result.isInside,
-            &result.metrics));
-
+        THROW_IF_FAILED(m_textLayout->HitTestPoint
+        (
+            /* pointX         */ pointX,
+            /* pointY         */ pointY,
+            /* isTrailingHit  */ &result.isTrailingHit,
+            /* isInside       */ &result.isInside,
+            /* hitTestMetrics */ &result.metrics
+        ));
         return result;
     }
 
     Label::TextPosHitTestResult Label::hitTestTextPos(UINT32 textPosition, BOOL isTrailingHit)
     {
         TextPosHitTestResult result = {};
-        THROW_IF_FAILED(m_textLayout->HitTestTextPosition(
-            textPosition,
-            isTrailingHit,
-            &result.pointX,
-            &result.pointY,
-            &result.metrics));
-
+        THROW_IF_FAILED(m_textLayout->HitTestTextPosition
+        (
+            /* textPosition   */ textPosition,
+            /* isTrailingHit  */ isTrailingHit,
+            /* pointX         */ &result.pointX,
+            /* pointY         */ &result.pointY,
+            /* hitTestMetrics */ &result.metrics
+        ));
         return result;
     }
 
@@ -269,27 +274,32 @@ namespace d14engine::uikit
     Label::hitTestTextRange(UINT32 textPosition, UINT32 textLength, FLOAT originX, FLOAT originY)
     {
         UINT32 count;
-        if (m_textLayout->HitTestTextRange(
-            textPosition,
-            textLength,
-            originX,
-            originY,
-            nullptr,
-            0,
-            &count) != E_NOT_SUFFICIENT_BUFFER)
+        HRESULT hr;
+        hr = m_textLayout->HitTestTextRange
+        (
+            /* _                         */ textPosition,
+            /* _                         */ textLength,
+            /* _                         */ originX,
+            /* _                         */ originY,
+            /* hitTestMetrics            */ nullptr,
+            /* maxHitTestMetricsCount    */ 0,
+            /* actualHitTestMetricsCount */ &count
+        );
+        if (hr != E_NOT_SUFFICIENT_BUFFER)
         {
             THROW_ERROR(L"Unexpected calling result.");
         }
         TextRangeHitTestResult result = { count };
-        THROW_IF_FAILED(m_textLayout->HitTestTextRange(
-            textPosition,
-            textLength,
-            originX,
-            originY,
-            result.metrics.data(),
-            (UINT32)result.metrics.size(),
-            &count));
-
+        THROW_IF_FAILED(m_textLayout->HitTestTextRange
+        (
+            /* _                         */ textPosition,
+            /* _                         */ textLength,
+            /* _                         */ originX,
+            /* _                         */ originY,
+            /* hitTestMetrics            */ result.metrics.data(),
+            /* maxHitTestMetricsCount    */ (UINT32)result.metrics.size(),
+            /* actualHitTestMetricsCount */ &count
+        ));
         return result;
     }
 
@@ -370,9 +380,7 @@ namespace d14engine::uikit
 
     void Label::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
     {
-        drawBackground(rndr);
-        drawText(rndr);
-        drawOutline(rndr);
+        drawBackground(rndr); drawText(rndr); drawOutline(rndr);
     }
 
     void Label::onSizeHelper(SizeEvent& e)
@@ -385,10 +393,10 @@ namespace d14engine::uikit
         updateTextOverhangMetrics();
     }
 
-    void Label::onChangeThemeHelper(WstrParam themeName)
+    void Label::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        Panel::onChangeThemeHelper(themeName);
+        Panel::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 }

@@ -80,7 +80,9 @@ int main(int argc, char* argv[])
         auto app = Application::app();
         if (text == L"Light" || text == L"Dark")
         {
-            app->setThemeMode(text);
+            auto style = app->themeStyle();
+            style.name = text;
+            app->setThemeStyle(style);
         }
         else if (text == L"Use system setting")
         {

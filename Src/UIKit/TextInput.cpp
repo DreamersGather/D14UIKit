@@ -100,11 +100,11 @@ namespace d14engine::uikit
         }
     }
 
-    void TextInput::onChangeThemeHelper(WstrParam themeName)
+    void TextInput::onChangeThemeStyleHelper(const ThemeStyle& style)
     {
-        RawTextInput::onChangeThemeHelper(themeName);
+        RawTextInput::onChangeThemeStyleHelper(style);
 
-        getAppearance().changeTheme(themeName);
+        getAppearance().changeTheme(style.name);
     }
 
     void TextInput::onGetFocusHelper()

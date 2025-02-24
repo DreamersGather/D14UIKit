@@ -22,14 +22,14 @@ namespace d14uikit
         pimpl->uiobj = uiobj;
     }
 
-    bool Cursor::useSystemIcons() const
+    Cursor::IconSource Cursor::iconSource() const
     {
-        return pimpl->uiobj->useSystemIcons;
+        return (IconSource)pimpl->uiobj->iconSource();
     }
 
-    void Cursor::setUseSystemIcons(bool value)
+    void Cursor::setIconSource(IconSource src)
     {
-        pimpl->uiobj->useSystemIcons = value;
+        pimpl->uiobj->setIconSource((uikit::Cursor::IconSource)src);
     }
 
     void Cursor::setIcon(StaticIconIndex index)
