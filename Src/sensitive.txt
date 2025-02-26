@@ -5,36 +5,53 @@ Renderer/GraphUtils/Shader.h
 
 ========= Modified =========
 
-Common/Precompile.h
--------------------
-Remove DirectX 12 Agility SDK
-Add macro definition for module name
+*---------------------*
+| Common/Precompile.h |
+*---------------------*
 
-Common/ResourcePack.cpp
------------------------
+1. Remove DirectX 12 Agility SDK
+2. Add macro definition for module name
+
+*-------------------------*
+| Common/ResourcePack.cpp |
+*-------------------------*
+
 Adapt related module name
 
-Renderer/Letterbox.cpp
-----------------------
-Load CSO instead of compiling HLSL
+*------------------------*
+| Renderer/Letterbox.cpp |
+*------------------------*
 
-Renderer/Renderer.cpp
----------------------
-Remove shader initialization
+Load shaders from CSO instead of compiling HLSL
 
-UIKit/AppEntry.h
-----------------
-Change entry from 'wmain' to 'main'
+*-----------------------*
+| Renderer/Renderer.cpp |
+*-----------------------*
 
-UIKit/Application.cpp
----------------------
+Remove shader::initialize
+
+*------------------*
+| UIKit/AppEntry.h |
+*------------------*
+
+Change entry from (wmain) to (main)
+
+*-----------------------*
+| UIKit/Application.cpp |
+*-----------------------*
+
 Adapt related module name
 
-UIKit/Application.h
--------------------
-Clear default libraryPaths
+*---------------------*
+| UIKit/Application.h |
+*---------------------*
 
-UIKit/Cursor.cpp
-UIKit/Cursor.h
-----------------
-Load cursor from resource instead of images
+Clear default CreateInfo::libraryPaths
+
+*------------------*
+| UIKit/Cursor.cpp |
+*------------------*
+| UIKit/Cursor.h   |
+*------------------*
+
+Load icons from D14UIKit.rc instead of images
