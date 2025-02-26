@@ -8,7 +8,6 @@ namespace d14engine::math_utils
     {
         0, 0, 0, 0
     };
-
     const RECT& zeroRectRef()
     {
         return g_zeroRect;

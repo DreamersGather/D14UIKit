@@ -254,14 +254,14 @@ namespace d14engine::math_utils
         return { rect.left, rect.top, rect.right, value };
     }
 
-    D2D1_RECT_F overrideLeftRight(const D2D1_RECT_F& rect, const OffsetSpanF& span)
+    D2D1_RECT_F overrideLeftRight(const D2D1_RECT_F& rect, const Float2Adapter& f2)
     {
-        return { span.start, rect.top, span.end, rect.bottom };
+        return { f2.first, rect.top, f2.second, rect.bottom };
     }
 
-    D2D1_RECT_F overrideTopBottom(const D2D1_RECT_F& rect, const OffsetSpanF& span)
+    D2D1_RECT_F overrideTopBottom(const D2D1_RECT_F& rect, const Float2Adapter& f2)
     {
-        return { rect.left, span.start, rect.right, span.end };
+        return { rect.left, f2.first, rect.right, f2.second };
     }
 
     D2D1_RECT_F increaseLeft(const D2D1_RECT_F& rect, float value)
@@ -284,24 +284,24 @@ namespace d14engine::math_utils
         return { rect.left, rect.top, rect.right, rect.bottom + value };
     }
 
-    D2D1_RECT_F increaseLeftRight(const D2D1_RECT_F& rect, const OffsetSpanF& span)
+    D2D1_RECT_F increaseLeftRight(const D2D1_RECT_F& rect, const Float2Adapter& f2)
     {
-        return { rect.left + span.start, rect.top, rect.right + span.end, rect.bottom };
+        return { rect.left + f2.first, rect.top, rect.right + f2.second, rect.bottom };
     }
 
-    D2D1_RECT_F increaseTopBottom(const D2D1_RECT_F& rect, const OffsetSpanF& span)
+    D2D1_RECT_F increaseTopBottom(const D2D1_RECT_F& rect, const Float2Adapter& f2)
     {
-        return { rect.left, rect.top + span.start, rect.right, rect.bottom + span.end };
-    }
-
-    D2D1_RECT_F stretch(const D2D1_RECT_F& rect, const Float2Adapter& extension)
-    {
-        return { rect.left - extension.first, rect.top - extension.second, rect.right + extension.first, rect.bottom + extension.second };
+        return { rect.left, rect.top + f2.first, rect.right, rect.bottom + f2.second };
     }
 
     D2D1_RECT_F offset(const D2D1_RECT_F& rect, const Float2Adapter& offset)
     {
         return { rect.left + offset.first, rect.top + offset.second, rect.right + offset.first, rect.bottom + offset.second };
+    }
+
+    D2D1_RECT_F stretch(const D2D1_RECT_F& rect, const Float2Adapter& extension)
+    {
+        return { rect.left - extension.first, rect.top - extension.second, rect.right + extension.first, rect.bottom + extension.second };
     }
 
     D2D1_RECT_F moveVertex(const D2D1_RECT_F& rect, const D2D1_RECT_F& delta)

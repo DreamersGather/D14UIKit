@@ -8,8 +8,8 @@ namespace d14engine::cpp_lang_utils
     // 
     // using IntArray = std::vector<int>;
     //
-    // constexpr bool value1 = isInstanceOf<IntArray, std::vector>; // true
-    // constexpr bool value2 = isInstanceOf<IntArray, std::list>; // false
+    // constexpr bool value1 = isInstanceOf<IntArray, std::vector>; --> true
+    // constexpr bool value2 = isInstanceOf<IntArray, std::list>; --> false
 
     template<typename, template<typename...> typename>
     constexpr bool isInstanceOf = false;
@@ -19,8 +19,8 @@ namespace d14engine::cpp_lang_utils
 
     // Check whether the type has definitions of the specific operators:
     //
-    // constexpr bool value1 = has_operator::equalTo<int>; // true
-    // constexpr bool value2 = has_operator::lessThan<int>; // true
+    // constexpr bool value1 = has_operator::equalTo<int>; --> true
+    // constexpr bool value2 = has_operator::lessThan<int>; --> true
     // 
     // struct A
     // {
@@ -30,8 +30,8 @@ namespace d14engine::cpp_lang_utils
     //     { return a == rhs.a; }
     // };
     //
-    // constexpr bool value1 = has_operator::equalTo<A>; // true
-    // constexpr bool value2 = has_operator::lessThan<A>; // false
+    // constexpr bool value1 = has_operator::equalTo<A>; --> true
+    // constexpr bool value2 = has_operator::lessThan<A>; --> false
 
     namespace has_operator
     {

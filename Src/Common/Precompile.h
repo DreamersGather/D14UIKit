@@ -84,8 +84,6 @@ namespace d14engine
 #include <d3d11on12.h>
 #include <d3d12.h>
 #include <dcomp.h>
-#include <DirectXColors.h>
-#include <DirectXMath.h>
 #include <dwmapi.h>
 #include <dwrite_3.h>
 #include <dxgi1_6.h>
@@ -94,6 +92,9 @@ namespace d14engine
 #include <Windows.h>
 #include <windowsx.h>
 #include <wrl.h>
+
+#include <DirectXColors.h>
+#include <DirectXMath.h>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>

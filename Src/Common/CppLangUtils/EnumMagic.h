@@ -20,7 +20,7 @@ namespace d14engine::cpp_lang_utils
     //     std::cout << __FUNCSIG__ << std::endl;
     // }
     //---------------------------------------------------------------
-    // __FUNCSIG__ results in MSVC:
+    // __FUNCSIG__ results of MSVC:
     //---------------------------------------------------------------
     // 
     // func<int, 1>();
@@ -46,11 +46,8 @@ namespace d14engine::cpp_lang_utils
     //
     // enum class Animal { Cat, Dog };
     // 
-    // hasEnum<Animal, Animal::Cat> // true
-    // hasEnum<Animal, Animal::Dog> // true
-    //
-    // constexpr auto none = (Animal)14;
-    // hasEnum<Animal, none> // false
+    // hasEnum<Animal, Animal::Cat> --> true
+    // hasEnum<Animal, (Animal)14> --> false
 
     template<typename Enum_T, Enum_T Value>
     constexpr bool _hasEnum()
@@ -80,8 +77,8 @@ namespace d14engine::cpp_lang_utils
     // enum class Animal { Cat, Dog };
     // enum class Language { C, Cpp, Python };
     // 
-    // enumCount<Animal> // 2
-    // enumCount<Language> // 3
+    // enumCount<Animal> --> 2
+    // enumCount<Language> --> 3
 
     template<typename Enum_T>
     constexpr size_t _countEnum()
@@ -127,8 +124,23 @@ namespace d14engine::cpp_lang_utils
     //
     // enum class Animal { Cat, Dog };
     // 
-    // enumName(Animal::Cat) // L"Cat"
-    // enumName((Animal)1) // L"Dog"
+    // enumName((Animal)0) --> L"Cat"
+    // enumName(Animal::Dog) --> L"Dog"
+    //
+    // Attention! Using enumName to get the string corresponding to an enum value
+    // is indeed convenient, but it comes at the cost of runtime performance loss.
+    // Below is a benchmark of repeatedly traversing to get strings 10^8 times
+    // using enumMap (manually constructed string array) and enumName respectively:
+    // (compiled with MSVC Debug/Release flags, running on an AMD 9950X processor):
+    //
+    // [Debug]              [Release]
+    // str: enumMap         str: enumMap
+    // time = 3.16469 (s)   time = 0.15178 (s)
+    // str: enumName        str: enumName
+    // time = 9.37265 (s)   time = 1.26274 (s)
+    // 
+    // It can be seen that enumName has nearly 3~9 times the performance loss,
+    // so you may be careful and do not blindly favoring the elegance of enumName.
 
     template<typename Enum_T, Enum_T Value>
     constexpr std::wstring_view _enumName()

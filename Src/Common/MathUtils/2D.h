@@ -4,34 +4,56 @@
 
 namespace d14engine::math_utils
 {
+#pragma region Type
+
+    // Usage: Use this structure as a parameter to receive any float2 type value
+    // (constexpr can minimize runtime conversion overhead as much as possible):
+    //
+    // std::pair<float, float> pair = {};
+    // D2D1_SIZE_F size = {};
+    // D2D1_POINT_2F point = {};
+    // 
+    // void func1(const D2D1_SIZE_F& value);
+    // func1({ 1.0f, 2.0f }); --> OK
+    // func1(pair); --> Error
+    // func1(size); --> OK
+    // func1(point); --> Error
+    // 
+    // void func2(const Float2Adapter& value);
+    // func2({ 1.0f, 2.0f }); --> OK
+    // func2(pair); --> OK
+    // func2(size); --> OK
+    // func2(point); --> OK
+
     struct Float2Adapter : std::pair<float, float>
     {
         using pair::pair;
 
-        Float2Adapter(const D2D1_SIZE_F& rhs)
+        constexpr Float2Adapter(const D2D1_SIZE_F& rhs)
         {
             first = rhs.width;
             second = rhs.height;
         }
-        Float2Adapter(const D2D1_POINT_2F& rhs)
+        constexpr Float2Adapter(const D2D1_POINT_2F& rhs)
         {
             first = rhs.x;
             second = rhs.y;
         }
     };
-    template<typename T>
-    struct OffsetSpan { T start, end; };
-
-    using OffsetSpanF = OffsetSpan<float>;
-    using OffsetSpanU = OffsetSpan<UINT32>;
-
-    using Triangle2D = std::array<D2D1_POINT_2F, 3>;
-
     struct ConstraintResult
     {
+        // Whether point overlaps with the target area after being constrained.
         bool isOverlapped = {};
         D2D1_POINT_2F point = {};
     };
+
+#pragma endregion
+
+#pragma region Alias
+
+    using Triangle2D = std::array<D2D1_POINT_2F, 3>;
+
+#pragma endregion
 
 #pragma region Size
 
@@ -118,20 +140,20 @@ namespace d14engine::math_utils
     D2D1_RECT_F overrideRight(const D2D1_RECT_F& rect, float value);
     D2D1_RECT_F overrideBottom(const D2D1_RECT_F& rect, float value);
 
-    D2D1_RECT_F overrideLeftRight(const D2D1_RECT_F& rect, const OffsetSpanF& span);
-    D2D1_RECT_F overrideTopBottom(const D2D1_RECT_F& rect, const OffsetSpanF& span);
+    D2D1_RECT_F overrideLeftRight(const D2D1_RECT_F& rect, const Float2Adapter& f2);
+    D2D1_RECT_F overrideTopBottom(const D2D1_RECT_F& rect, const Float2Adapter& f2);
 
     D2D1_RECT_F increaseLeft(const D2D1_RECT_F& rect, float value);
     D2D1_RECT_F increaseTop(const D2D1_RECT_F& rect, float value);
     D2D1_RECT_F increaseRight(const D2D1_RECT_F& rect, float value);
     D2D1_RECT_F increaseBottom(const D2D1_RECT_F& rect, float value);
 
-    D2D1_RECT_F increaseLeftRight(const D2D1_RECT_F& rect, const OffsetSpanF& span);
-    D2D1_RECT_F increaseTopBottom(const D2D1_RECT_F& rect, const OffsetSpanF& span);
-
-    D2D1_RECT_F stretch(const D2D1_RECT_F& rect, const Float2Adapter& extension);
+    D2D1_RECT_F increaseLeftRight(const D2D1_RECT_F& rect, const Float2Adapter& f2);
+    D2D1_RECT_F increaseTopBottom(const D2D1_RECT_F& rect, const Float2Adapter& f2);
 
     D2D1_RECT_F offset(const D2D1_RECT_F& rect, const Float2Adapter& offset);
+
+    D2D1_RECT_F stretch(const D2D1_RECT_F& rect, const Float2Adapter& extension);
 
     D2D1_RECT_F moveVertex(const D2D1_RECT_F& rect, const D2D1_RECT_F& delta);
 

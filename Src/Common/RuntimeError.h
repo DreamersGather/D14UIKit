@@ -9,13 +9,19 @@ namespace d14engine
         // The flag will be set when a RuntimeError exception is thrown.
         static bool g_flag;
 
-        Wstring fileName = {};
-        UINT lineNumber = {};
-
-        Wstring descText = {};
+        const Wstring fileName = {};
+        const UINT lineNumber = {};
 
         RuntimeError(WstrParam fileName, UINT lineNumber, WstrParam descText = {});
 
+    protected:
+        Wstring m_descText = {};
+
+    public:
+        const Wstring& descText() const;
+
+        // Returns detailed information about the specific RuntimeError,
+        // usually called in a catch block to assist with debugging.
         virtual Wstring message() const;
     };
 }

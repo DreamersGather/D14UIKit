@@ -6,14 +6,15 @@
 
 namespace d14engine
 {
-    // Define ISortable as template to enable distinguishing the priorities
-    // of different attributes.
+    // Define ISortable as a template class, so that an object can implement
+    // sorting functionality for different properties by inheriting
+    // multiple ISortable<T> (where T represents different properties).
     // 
     // For example, suppose struct Student is inherited from
     // ISortable<Height> and ISortable<Weight>, in which case a student knows
-    // their height and weight respectively and can be sorted by any of them.
+    // their height and weight respectively and can be sorted by each of them.
 
-    template<typename T, typename PT = int>
+    template<typename T, typename PT = int> // PT: Priority Type
     struct ISortable
     {
         static_assert(cpp_lang_utils::has_operator::lessThan<PT> && cpp_lang_utils::has_operator::equalTo<PT>,
@@ -27,6 +28,10 @@ namespace d14engine
 
         PT priority() const { return m_priority; }
         void setPriority(PT value) { m_priority = value; }
+
+        ///////////////////////
+        // Raw Ptr Ascending //
+        ///////////////////////
         
         struct RawAscending
         {
@@ -49,6 +54,14 @@ namespace d14engine
                 }
             }
         };
+        using RawPrioritySet = std::set<T, RawAscending>;
+        template<typename ValueType>
+        using RawPriorityMap = std::map<T, ValueType, RawAscending>;
+
+        //////////////////////////
+        // Shared Ptr Ascending //
+        //////////////////////////
+
         struct ShrdAscending
         {
             bool operator()(ShrdPtrParam<ISortable<T>> lhs, ShrdPtrParam<ISortable<T>> rhs) const
@@ -56,6 +69,14 @@ namespace d14engine
                 return RawAscending()(*lhs.get(), *rhs.get());
             }
         };
+        using ShrdPrioritySet = std::set<SharedPtr<T>, ShrdAscending>;
+        template<typename ValueType>
+        using ShrdPriorityMap = std::map<SharedPtr<T>, ValueType, ShrdAscending>;
+
+        ////////////////////////
+        // Weak Ptr Ascending //
+        ////////////////////////
+
         struct WeakAscending
         {
             bool operator()(WeakPtrParam<ISortable<T>> lhs, WeakPtrParam<ISortable<T>> rhs) const
@@ -68,7 +89,23 @@ namespace d14engine
                 // 
                 // 2. Return "false" in advance of "true":
                 // 
-                //    Ensure the total order relation (compatible with STL).
+                //    Ensure the TOR (compatible with STL).
+                //
+                //-----------------------------------------------
+                // TOR: Total Order Relation
+                //-----------------------------------------------
+                // 1. Reflexive:
+                //    assert(a <= a)
+                //-----------------------------------------------
+                // 2. Transitive:
+                //    If (a <= b && b <= c) then (a <= c)
+                //-----------------------------------------------
+                // 3. Antisymmetric:
+                //    If (a <= b && b <= a) then (a == b)
+                //-----------------------------------------------
+                // 4. Strongly Connected (Total):
+                //    assert(a <= b || b <= a)
+                //-----------------------------------------------
 
                 if (rhs.expired()) return false;
                 if (lhs.expired()) return true;
@@ -76,21 +113,19 @@ namespace d14engine
                 return ShrdAscending()(lhs.lock(), rhs.lock());
             }
         };
-
-        using RawPrioritySet = std::set<T, RawAscending>;
-        template<typename ValueType>
-        using RawPriorityMap = std::map<T, ValueType, RawAscending>;
-
-        using ShrdPrioritySet = std::set<SharedPtr<T>, ShrdAscending>;
-        template<typename ValueType>
-        using ShrdPriorityMap = std::map<SharedPtr<T>, ValueType, ShrdAscending>;
-
         using WeakPrioritySet = std::set<WeakPtr<T>, WeakAscending>;
         template<typename ValueType>
         using WeakPriorityMap = std::map<WeakPtr<T>, ValueType, WeakAscending>;
 
-        // func's return boolean means whether to handle the remaining alive objects.
-        static void foreach(WeakPrioritySet& cont, FuncParam<bool(ShrdPtrParam<T>)> func)
+        ///////////////////
+        // Miscellaneous //
+        ///////////////////
+
+        // The boolean value returned by func
+        // indicates whether to handle the remainings.
+        static void foreach(
+            WeakPrioritySet& cont,
+            FuncParam<bool(ShrdPtrParam<T>)> func)
         {
             bool continueDeliver = true;
 
@@ -111,24 +146,5 @@ namespace d14engine
                 else break;
             }
         }
-#ifdef _DEBUG // We are determined to disable the naming mechanism in release-mode.
-    protected:
-        Wstring m_name = L"Unnamed";
-
-    public:
-        const Wstring& name() const { return m_name; }
-        void setName(WstrParam name) { m_name = name; }
-#else
-        template<typename T = int>
-        const Wstring& name() const
-        {
-            static_assert(false, "This method is not available in release-mode.");
-        }
-        template<typename T = int>
-        void setName(WstrParam name)
-        {
-            static_assert(false, "This method is not available in release-mode.");
-        }
-#endif
     };
 }

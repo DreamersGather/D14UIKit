@@ -4,5 +4,5 @@
 
 namespace d14engine::math_utils
 {
-
+    // Here left blank intentionally.
 }

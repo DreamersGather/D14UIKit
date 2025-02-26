@@ -8,7 +8,7 @@ namespace d14engine
 {
     struct DirectXError : RuntimeError
     {
-        HRESULT hr = E_UNEXPECTED;
+        HRESULT hr = E_FAIL;
 
         DirectXError(HRESULT hr, WstrParam fileName, UINT lineNumber);
     };

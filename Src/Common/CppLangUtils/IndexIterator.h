@@ -146,9 +146,11 @@ namespace d14engine::cpp_lang_utils
             return m_pList != nullptr && index < m_pList->size();
         }
 
+        // general-valid only means that invalidate is not called,
+        // but the iterator may be invalid if it has been changed!
         bool generalValid() const
         {
-            return m_pList != nullptr && index != SIZE_MAX; // may be invalid
+            return m_pList != nullptr && index != SIZE_MAX;
         }
 
         Type& invalidate()
