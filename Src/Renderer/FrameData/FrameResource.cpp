@@ -8,8 +8,12 @@ namespace d14engine::renderer
 {
     FrameResource::FrameResource(ID3D12Device* device)
     {
-        THROW_IF_FAILED(device->CreateCommandAllocator(
-            D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&m_cmdAlloc)));
+        THROW_IF_FAILED(device->CreateCommandAllocator
+        (
+        /* type               */ D3D12_COMMAND_LIST_TYPE_DIRECT,
+        /* riid               */
+        /* ppCommandAllocator */ IID_PPV_ARGS(&m_cmdAlloc)
+        ));
     }
 
     UINT64 FrameResource::fenceValue() const

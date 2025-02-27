@@ -11,7 +11,7 @@ namespace d14engine::renderer::graph_utils
 {
     namespace texture
     {
-        // this function depends on GPU commands, so you need to reset/commit the command list manually
+        // GPU Commands Required
         SharedPtr<DefaultBuffer> load(Renderer* rndr, IWICBitmapSource* source);
     }
 }

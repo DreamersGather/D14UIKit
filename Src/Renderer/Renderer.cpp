@@ -118,9 +118,9 @@ namespace d14engine::renderer
 
     void Renderer::Window::setFullscreen(bool value) const
     {
-        if (value != m_fullscreen)
+        if (m_fullscreen != value)
         {
-            if (value)
+            if (m_fullscreen = value)
             {
                 Renderer* rndr = m_master;
                 THROW_IF_NULL(rndr);
@@ -152,17 +152,16 @@ namespace d14engine::renderer
                 }
                 SetWindowPos
                 (
-                    /* hWnd            */ ptr,
-                    /* hWndInsertAfter */ HWND_TOPMOST,
-                    /* X               */ fullRect.left,
-                    /* Y               */ fullRect.top,
-                    /* cx              */ (int)math_utils::width(fullRect),
-                    /* cy              */ (int)math_utils::height(fullRect),
-                    /* uFlags          */ SWP_FRAMECHANGED | SWP_NOACTIVATE
+                /* hWnd            */ ptr,
+                /* hWndInsertAfter */ HWND_TOPMOST,
+                /* X               */ fullRect.left,
+                /* Y               */ fullRect.top,
+                /* cx              */ (int)math_utils::width(fullRect),
+                /* cy              */ (int)math_utils::height(fullRect),
+                /* uFlags          */ SWP_FRAMECHANGED | SWP_NOACTIVATE
                 );
                 ShowWindow(ptr, SW_SHOW);
 
-                m_fullscreen = true;
                 GetWindowRect(ptr, &m_windowRect);
                 GetClientRect(ptr, &m_clientRect);
             }
@@ -172,21 +171,19 @@ namespace d14engine::renderer
 
                 SetWindowPos
                 (
-                    /* hWnd            */ ptr,
-                    /* hWndInsertAfter */ HWND_TOP,
-                    /* X               */ m_originalInfo.windowRect.left,
-                    /* Y               */ m_originalInfo.windowRect.top,
-                    /* cx              */ (int)math_utils::width(m_originalInfo.windowRect),
-                    /* cy              */ (int)math_utils::height(m_originalInfo.windowRect),
-                    /* uFlags          */ SWP_FRAMECHANGED | SWP_NOACTIVATE
+                /* hWnd            */ ptr,
+                /* hWndInsertAfter */ HWND_TOP,
+                /* X               */ m_originalInfo.windowRect.left,
+                /* Y               */ m_originalInfo.windowRect.top,
+                /* cx              */ (int)math_utils::width(m_originalInfo.windowRect),
+                /* cy              */ (int)math_utils::height(m_originalInfo.windowRect),
+                /* uFlags          */ SWP_FRAMECHANGED | SWP_NOACTIVATE
                 );
                 ShowWindow(ptr, SW_SHOW);
 
-                m_fullscreen = false;
                 GetWindowRect(ptr, &m_windowRect);
                 GetClientRect(ptr, &m_clientRect);
             }
-            m_fullscreen = value;
         }
     }
 
@@ -207,18 +204,43 @@ namespace d14engine::renderer
 
             m_letterbox->resize
             (
-                /* sceneWidth   */ dispMode.Width,
-                /* sceneHeight  */ dispMode.Height,
-                /* windowWidth  */ m_window.clientWidth(),
-                /* windowHeight */ m_window.clientHeight()
+            /* sceneWidth   */ dispMode.Width,
+            /* sceneHeight  */ dispMode.Height,
+            /* windowWidth  */ m_window.clientWidth(),
+            /* windowHeight */ m_window.clientHeight()
             );
         }
     }
 
     void Renderer::renderNextFrame()
     {
+        //-------------------------------------------------------------------------
+        // Command Allocator Schedule
+        //-------------------------------------------------------------------------
+        // 1. Renderer: the global unique main allocator (Common)
+        // 2. FrameResource: one allocator one frame-resource (Update)
+        // 3. CommandLayer: g_bufferCount allocators per layer (Draw)
+        //-------------------------------------------------------------------------
+        // Note the difference in how FrameResource and CommandLayer manage them:
+        // 
+        // Renderer
+        //    |
+        //    *--- FrameResource[3]
+        //    |          |
+        //    |          *--- CommandAllocator
+        //    |
+        //    *--- CommandLayer
+        //              |
+        //              *--- CommandAllocator[3]
+        // 
+        // Each FrameResource only manages one CommandAllocator related to itself,
+        // while CommandLayer manages all CommandAllocator (size = g_bufferCount)
+        // that need to be reset in every render pass (for frame synchronization).
+        //-------------------------------------------------------------------------
+
         waitCurrFrameResource();
 
+        // Update Commands
         currFrameResource()->resetCmdList(m_cmdList.Get());
 
         if (!skipUpdating)
@@ -233,6 +255,7 @@ namespace d14engine::renderer
         {
             if (layer->enabled)
             {
+                // Draw Commands
                 layer->resetCmdList(m_cmdList.Get(), m_currFrameIndex);
 
                 if (std::holds_alternative<CommandLayer::D3D12Target>(layer->drawTarget))
@@ -280,6 +303,8 @@ namespace d14engine::renderer
         };
         cpp_lang_utils::restoreFromException(target, operation);
 
+        // The command queue has not be created at this point
+        // for the case that setAdapter is called in Renderer's ctor.
         if (rndr->m_cmdQueue)
         {
             rndr->waitGpuCommand();
@@ -351,9 +376,9 @@ namespace d14engine::renderer
 #endif
         THROW_IF_FAILED(CreateDXGIFactory2
         (
-            /* Flags     */ flags,
-            /* riid      */
-            /* ppFactory */ IID_PPV_ARGS(&m_dxgiFactory)
+        /* Flags     */ flags,
+        /* riid      */
+        /* ppFactory */ IID_PPV_ARGS(&m_dxgiFactory)
         ));
     }
 
@@ -387,13 +412,15 @@ namespace d14engine::renderer
 
     void Renderer::queryTearingSupport()
     {
-        BOOL allowTearing = FALSE;
+        BOOL allowTearing = {};
 
-        HRESULT hr = m_dxgiFactory->CheckFeatureSupport(
-            DXGI_FEATURE_PRESENT_ALLOW_TEARING, &allowTearing, sizeof(allowTearing));
-
-        // Make sure the result is returned by succeeded operation.
-        m_dxgiFactoryInfo.feature.allowTearing = SUCCEEDED(hr) && allowTearing;
+        THROW_IF_FAILED(m_dxgiFactory->CheckFeatureSupport
+        (
+        /* Feature                */ DXGI_FEATURE_PRESENT_ALLOW_TEARING,
+        /* pFeatureSupportData    */ &allowTearing,
+        /* FeatureSupportDataSize */ sizeof(allowTearing)
+        ));
+        m_dxgiFactoryInfo.feature.allowTearing = allowTearing;
     }
 
     void Renderer::checkDxgiFactoryConfigs()
@@ -441,7 +468,8 @@ namespace d14engine::renderer
 
     void Renderer::checkTearingConfig()
     {
-        if (m_dxgiFactoryInfo.setting.m_allowTearing && !m_dxgiFactoryInfo.feature.allowTearing)
+        if (m_dxgiFactoryInfo.setting.m_allowTearing &&
+           !m_dxgiFactoryInfo.feature.allowTearing)
         {
             THROW_ERROR(L"Tearing (required for VRR displays) is not supported.");
         }
@@ -464,17 +492,23 @@ namespace d14engine::renderer
         Renderer* rndr = info->m_master;
         THROW_IF_NULL(rndr);
 
-        D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS msaaInfo = {};
-        msaaInfo.Format = g_renderTargetFormat;
-        msaaInfo.SampleCount = sampleCount;
-        msaaInfo.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
-        msaaInfo.NumQualityLevels = 0;
-
-        THROW_IF_FAILED(rndr->m_d3d12Device->CheckFeatureSupport(
-            D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &msaaInfo, sizeof(msaaInfo)));
-
-        if (msaaInfo.NumQualityLevels == 0) return std::nullopt;
-        else return msaaInfo.NumQualityLevels - 1; // max-level == level-count - 1
+        D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS msaaInfo =
+        {
+            .Format      = g_renderTargetFormat,
+            .SampleCount = sampleCount,
+        };
+        THROW_IF_FAILED(rndr->m_d3d12Device->CheckFeatureSupport
+        (
+        /* Feature                */ D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS,
+        /* pFeatureSupportData    */ &msaaInfo,
+        /* FeatureSupportDataSize */ sizeof(msaaInfo)
+        ));
+        if (msaaInfo.NumQualityLevels == 0)
+        {
+            return std::nullopt;
+        }
+        // MSAA max-level = (level-count - 1)
+        return msaaInfo.NumQualityLevels - 1;
     }
 
     void Renderer::D3D12DeviceInfo::Setting::updateDisplayMode() const
@@ -487,16 +521,22 @@ namespace d14engine::renderer
 
         if (!rndr->m_composition)
         {
-            rndr->beginGpuCommand();
-
             if (info->setting.m_scaling)
             {
+                rndr->beginGpuCommand();
+
                 rndr->createSrvHeap();
                 rndr->m_letterbox->setEnabled(true);
-            }
-            else rndr->m_letterbox->setEnabled(false);
 
-            rndr->endGpuCommand();
+                rndr->endGpuCommand();
+            }
+            else // free scaling mode
+            {
+                rndr->waitGpuCommand();
+
+                rndr->m_srvHeap.Reset();
+                rndr->m_letterbox->setEnabled(false);
+            }
             rndr->onWindowResize();
         }
     }
@@ -600,10 +640,10 @@ namespace d14engine::renderer
 
         THROW_IF_FAILED(D3D12CreateDevice
         (
-            /* pAdapter            */ adapter,
-            /* MinimumFeatureLevel */ D3D_FEATURE_LEVEL_12_0,
-            /* riid                */
-            /* ppDevice            */ IID_PPV_ARGS(&m_d3d12Device)
+        /* pAdapter            */ adapter,
+        /* MinimumFeatureLevel */ D3D_FEATURE_LEVEL_12_0,
+        /* riid                */
+        /* ppDevice            */ IID_PPV_ARGS(&m_d3d12Device)
         ));
 #ifdef _DEBUG
         debug_utils::suppressWarnings(m_d3d12Device.Get());
@@ -658,20 +698,20 @@ namespace d14engine::renderer
         UINT modeCount = 0;
         THROW_IF_FAILED(output->GetDisplayModeList
         (
-            /* EnumFormat */ g_renderTargetFormat,
-            /* Flags      */ 0,
-            /* pNumModes  */ &modeCount,
-            /* pDesc      */ nullptr
+        /* EnumFormat */ g_renderTargetFormat,
+        /* Flags      */ 0,
+        /* pNumModes  */ &modeCount,
+        /* pDesc      */ nullptr
         ));
         auto& modes = m_d3d12DeviceInfo.property.availableDisplayModes;
         modes.resize(modeCount);
 
         THROW_IF_FAILED(output->GetDisplayModeList
         (
-            /* EnumFormat */ g_renderTargetFormat,
-            /* Flags      */ 0,
-            /* pNumModes  */ &modeCount,
-            /* pDesc      */ modes.data()
+        /* EnumFormat */ g_renderTargetFormat,
+        /* Flags      */ 0,
+        /* pNumModes  */ &modeCount,
+        /* pDesc      */ modes.data()
         ));
     }
 
@@ -682,13 +722,16 @@ namespace d14engine::renderer
 
     void Renderer::queryRootSignatureFeature()
     {
-        D3D12_FEATURE_DATA_ROOT_SIGNATURE rootSigInfo = {};
-        rootSigInfo.HighestVersion = D3D_ROOT_SIGNATURE_VERSION_1_0;
-
-        THROW_IF_FAILED(m_d3d12Device->CheckFeatureSupport(
-            D3D12_FEATURE_ROOT_SIGNATURE,
-            &rootSigInfo, sizeof(rootSigInfo)));
-
+        D3D12_FEATURE_DATA_ROOT_SIGNATURE rootSigInfo =
+        {
+            .HighestVersion = D3D_ROOT_SIGNATURE_VERSION_1_0
+        };
+        THROW_IF_FAILED(m_d3d12Device->CheckFeatureSupport
+        (
+        /* Feature                */ D3D12_FEATURE_ROOT_SIGNATURE,
+        /* pFeatureSupportData    */ &rootSigInfo,
+        /* FeatureSupportDataSize */ sizeof(rootSigInfo)
+        ));
         auto& feature = m_d3d12DeviceInfo.feature.rootSignature;
         feature.HighestVersion = rootSigInfo.HighestVersion;
     }
@@ -768,10 +811,10 @@ namespace d14engine::renderer
     {
         THROW_IF_FAILED(m_d3d12Device->CreateFence
         (
-            /* InitialValue */ 0,
-            /* Flags        */ D3D12_FENCE_FLAG_NONE,
-            /* riid         */
-            /* ppFence      */ IID_PPV_ARGS(&m_fence)
+        /* InitialValue */ m_fenceValue,
+        /* Flags        */ D3D12_FENCE_FLAG_NONE,
+        /* riid         */
+        /* ppFence      */ IID_PPV_ARGS(&m_fence)
         ));
     }
 
@@ -792,30 +835,31 @@ namespace d14engine::renderer
 
     void Renderer::createCommandObjects()
     {
-        D3D12_COMMAND_QUEUE_DESC desc = {};
-        desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
-        desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
-
+        D3D12_COMMAND_QUEUE_DESC desc =
+        {
+            .Type = D3D12_COMMAND_LIST_TYPE_DIRECT,
+            .Flags = D3D12_COMMAND_QUEUE_FLAG_NONE
+        };
         THROW_IF_FAILED(m_d3d12Device->CreateCommandQueue
         (
-            /* pDesc          */ &desc,
-            /* riid           */
-            /* ppCommandQueue */ IID_PPV_ARGS(&m_cmdQueue)
+        /* pDesc          */ &desc,
+        /* riid           */
+        /* ppCommandQueue */ IID_PPV_ARGS(&m_cmdQueue)
         ));
         THROW_IF_FAILED(m_d3d12Device->CreateCommandAllocator
         (
-            /* type               */ desc.Type,
-            /* riid               */
-            /* ppCommandAllocator */ IID_PPV_ARGS(&m_cmdAlloc)
+        /* type               */ desc.Type,
+        /* riid               */
+        /* ppCommandAllocator */ IID_PPV_ARGS(&m_cmdAlloc)
         ));
         THROW_IF_FAILED(m_d3d12Device->CreateCommandList
         (
-            /* nodeMask          */ 0,
-            /* type              */ desc.Type,
-            /* pCommandAllocator */ m_cmdAlloc.Get(),
-            /* pInitialState     */ nullptr,
-            /* riid              */
-            /* ppCommandList     */ IID_PPV_ARGS(&m_cmdList)
+        /* nodeMask          */ 0,
+        /* type              */ desc.Type,
+        /* pCommandAllocator */ m_cmdAlloc.Get(),
+        /* pInitialState     */ nullptr,
+        /* riid              */
+        /* ppCommandList     */ IID_PPV_ARGS(&m_cmdList)
         ));
         // The command list must be closed before reset.
         THROW_IF_FAILED(m_cmdList->Close());
@@ -864,16 +908,16 @@ namespace d14engine::renderer
         ComPtr<ID3D11Device> d3d11Device = {};
         THROW_IF_FAILED(D3D11On12CreateDevice
         (
-            /* pDevice             */ m_d3d12Device.Get(),
-            /* Flags               */ flags,
-            /* pFeatureLevels      */ nullptr,
-            /* FeatureLevels       */ 0,
-            /* ppCommandQueues     */ (IUnknown**)m_cmdQueue.GetAddressOf(),
-            /* NumQueues           */ 1,
-            /* NodeMask            */ 0,
-            /* ppDevice            */ &d3d11Device,
-            /* ppImmediateContext  */ &m_d3d11DeviceContext,
-            /* pChosenFeatureLevel */ nullptr
+        /* pDevice             */ m_d3d12Device.Get(),
+        /* Flags               */ flags,
+        /* pFeatureLevels      */ nullptr,
+        /* FeatureLevels       */ 0,
+        /* ppCommandQueues     */ (IUnknown**)m_cmdQueue.GetAddressOf(),
+        /* NumQueues           */ 1,
+        /* NodeMask            */ 0,
+        /* ppDevice            */ &d3d11Device,
+        /* ppImmediateContext  */ &m_d3d11DeviceContext,
+        /* pChosenFeatureLevel */ nullptr
         ));
         THROW_IF_FAILED(d3d11Device.As(&m_d3d11On12Device));
     }
@@ -908,28 +952,28 @@ namespace d14engine::renderer
 #endif
         THROW_IF_FAILED(D2D1CreateFactory
         (
-            /* factoryType     */ D2D1_FACTORY_TYPE_SINGLE_THREADED,
-            /* riid            */ __uuidof(m_d2d1Factory),
-            /* pFactoryOptions */ &options,
-            /* ppIFactory      */ &m_d2d1Factory)
+        /* factoryType     */ D2D1_FACTORY_TYPE_SINGLE_THREADED,
+        /* riid            */ __uuidof(m_d2d1Factory),
+        /* pFactoryOptions */ &options,
+        /* ppIFactory      */ &m_d2d1Factory)
         );
         ComPtr<IDXGIDevice> dxgiDevice = {};
         THROW_IF_FAILED(m_d3d11On12Device.As(&dxgiDevice));
         THROW_IF_FAILED(m_d2d1Factory->CreateDevice
         (
-            /* dxgiDevice */ dxgiDevice.Get(),
-            /* d2dDevice  */ &m_d2d1Device)
+        /* dxgiDevice */ dxgiDevice.Get(),
+        /* d2dDevice  */ &m_d2d1Device)
         );
         THROW_IF_FAILED(m_d2d1Device->CreateDeviceContext
         (
-            /* options       */ D2D1_DEVICE_CONTEXT_OPTIONS_NONE,
-            /* deviceContext */ &m_d2d1DeviceContext)
+        /* options       */ D2D1_DEVICE_CONTEXT_OPTIONS_NONE,
+        /* deviceContext */ &m_d2d1DeviceContext)
         );
         THROW_IF_FAILED(DWriteCreateFactory
         (
-            /* factoryType */ DWRITE_FACTORY_TYPE_SHARED,
-            /* iid         */ __uuidof(m_dwriteFactory),
-            /* factory     */ &m_dwriteFactory)
+        /* factoryType */ DWRITE_FACTORY_TYPE_SHARED,
+        /* iid         */ __uuidof(m_dwriteFactory),
+        /* factory     */ &m_dwriteFactory)
         );
     }
 
@@ -953,6 +997,8 @@ namespace d14engine::renderer
 
         if (m_composition = value)
         {
+            waitGpuCommand();
+
             createDcompObjects();
 
             m_rtvHeap.Reset();
@@ -962,6 +1008,8 @@ namespace d14engine::renderer
         }
         else // self-maintained back buffers
         {
+            beginGpuCommand();
+
             m_dcompDevice.Reset();
             m_dcompVisual.Reset();
             m_dcompTarget.Reset();
@@ -971,20 +1019,14 @@ namespace d14engine::renderer
             {
                 createSrvHeap();
             }
-            m_letterbox = std::make_unique<Letterbox>(this, Letterbox::Token{});
+            else m_srvHeap.Reset();
 
-            // initialize letterbox resources
-            beginGpuCommand();
-            {
-                if (m_d3d12DeviceInfo.setting.m_scaling)
-                {
-                    m_letterbox->setEnabled(true);
-                }
-                else m_letterbox->setEnabled(false);
-            }
+            m_letterbox = std::make_unique<Letterbox>(this, Letterbox::Token{});
+            m_letterbox->setEnabled(m_d3d12DeviceInfo.setting.m_scaling);
+
             endGpuCommand();
         }
-        // Ensures the swap chain is created with the actual size.
+        // Ensure the swap chain is created with the actual window size.
         m_window.onResize(); createSwapChain(); onWindowResize();
     }
 
@@ -1024,15 +1066,15 @@ namespace d14engine::renderer
         THROW_IF_FAILED(m_d3d11On12Device.As(&dxgiDevice));
         THROW_IF_FAILED(DCompositionCreateDevice
         (
-            /* dxgiDevice         */ dxgiDevice.Get(),
-            /* iid                */
-            /* dcompositionDevice */ IID_PPV_ARGS(&m_dcompDevice)
+        /* dxgiDevice         */ dxgiDevice.Get(),
+        /* iid                */
+        /* dcompositionDevice */ IID_PPV_ARGS(&m_dcompDevice)
         ));
         THROW_IF_FAILED(m_dcompDevice->CreateTargetForHwnd
         (
-            /* hwnd    */ m_window.ptr,
-            /* topmost */ TRUE,
-            /* target  */ &m_dcompTarget)
+        /* hwnd    */ m_window.ptr,
+        /* topmost */ TRUE,
+        /* target  */ &m_dcompTarget)
         );
         THROW_IF_FAILED(m_dcompDevice->CreateVisual(&m_dcompVisual));
     }
@@ -1122,22 +1164,22 @@ namespace d14engine::renderer
             THROW_IF_FAILED(m_d3d11On12Device.As(&dxgiDevice));
             THROW_IF_FAILED(m_dxgiFactory->CreateSwapChainForComposition
             (
-                /* pDevice           */ dxgiDevice.Get(),
-                /* pDesc             */ &desc,
-                /* pRestrictToOutput */ nullptr,
-                /* ppSwapChain       */ &swapChain
+            /* pDevice           */ dxgiDevice.Get(),
+            /* pDesc             */ &desc,
+            /* pRestrictToOutput */ nullptr,
+            /* ppSwapChain       */ &swapChain
             ));
         }
         else // d3d12CmdQueue swap chain
         {
             THROW_IF_FAILED(m_dxgiFactory->CreateSwapChainForHwnd
             (
-                /* pDevice           */ m_cmdQueue.Get(),
-                /* hWnd              */ m_window.ptr,
-                /* pDesc             */ &desc,
-                /* pFullscreenDesc   */ nullptr,
-                /* pRestrictToOutput */ nullptr,
-                /* ppSwapChain       */ &swapChain
+            /* pDevice           */ m_cmdQueue.Get(),
+            /* hWnd              */ m_window.ptr,
+            /* pDesc             */ &desc,
+            /* pFullscreenDesc   */ nullptr,
+            /* pRestrictToOutput */ nullptr,
+            /* ppSwapChain       */ &swapChain
             ));
         }
         THROW_IF_FAILED(swapChain.As(&m_swapChain));
@@ -1175,11 +1217,11 @@ namespace d14engine::renderer
 
         THROW_IF_FAILED(m_swapChain->ResizeBuffers
         (
-            /* BufferCount    */ FrameResource::g_bufferCount,
-            /* Width          */ m_window.clientWidth(),
-            /* Height         */ m_window.clientHeight(),
-            /* NewFormat      */ desc.BufferDesc.Format,
-            /* SwapChainFlags */ desc.Flags
+        /* BufferCount    */ FrameResource::g_bufferCount,
+        /* Width          */ m_window.clientWidth(),
+        /* Height         */ m_window.clientHeight(),
+        /* NewFormat      */ desc.BufferDesc.Format,
+        /* SwapChainFlags */ desc.Flags
         ));
         // The back buffer index will be reset after the swap chain resized.
         m_currFrameIndex = m_swapChain->GetCurrentBackBufferIndex();
@@ -1220,28 +1262,34 @@ namespace d14engine::renderer
 
     void Renderer::createRtvHeap()
     {
-        D3D12_DESCRIPTOR_HEAP_DESC desc = {};
-
-        // Back Buffers + Scene Buffer
-        desc.NumDescriptors = (UINT)m_backBuffers.size() + 1;
-
-        desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
-        desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-
-        THROW_IF_FAILED(m_d3d12Device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&m_rtvHeap)));
+        D3D12_DESCRIPTOR_HEAP_DESC desc =
+        {
+            .Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV,
+            // Back Buffers + Scene Buffer
+            .NumDescriptors = (UINT)m_backBuffers.size() + 1
+        };
+        THROW_IF_FAILED(m_d3d12Device->CreateDescriptorHeap
+        (
+        /* pDescriptorHeapDesc */ &desc,
+        /* riid                */
+        /* ppvHeap             */ IID_PPV_ARGS(&m_rtvHeap)
+        ));
     }
 
     void Renderer::createSrvHeap()
     {
-        D3D12_DESCRIPTOR_HEAP_DESC desc = {};
-
-        // Scene Buffer
-        desc.NumDescriptors = 1;
-
-        desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-        desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-
-        THROW_IF_FAILED(m_d3d12Device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&m_srvHeap)));
+        D3D12_DESCRIPTOR_HEAP_DESC desc =
+        {
+            .Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
+            .NumDescriptors = 1, // Scene Buffer
+            .Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
+        };
+        THROW_IF_FAILED(m_d3d12Device->CreateDescriptorHeap
+        (
+        /* pDescriptorHeapDesc */ &desc,
+        /* riid                */
+        /* ppvHeap             */ IID_PPV_ARGS(&m_srvHeap)
+        ));
     }
 
     Optional<D3D12_CPU_DESCRIPTOR_HANDLE> Renderer::getRtvHandle(UINT offsetIndex) const
@@ -1250,10 +1298,12 @@ namespace d14engine::renderer
         {
             return std::nullopt;
         }
-        return CD3DX12_CPU_DESCRIPTOR_HANDLE(
-            m_rtvHeap->GetCPUDescriptorHandleForHeapStart(),
-            (INT)offsetIndex,
-            (UINT)m_d3d12DeviceInfo.property.descHandleSize.RTV);
+        return CD3DX12_CPU_DESCRIPTOR_HANDLE
+        (
+        /* other                   */ m_rtvHeap->GetCPUDescriptorHandleForHeapStart(),
+        /* offsetInDescriptors     */ (INT)offsetIndex,
+        /* descriptorIncrementSize */ (UINT)m_d3d12DeviceInfo.property.descHandleSize.RTV
+        );
     }
 
     Optional<ID3D12Resource*> Renderer::getBackBuffer(UINT index) const
@@ -1361,11 +1411,11 @@ namespace d14engine::renderer
         auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
         auto desc = CD3DX12_RESOURCE_DESC::Tex2D
         (
-            /* format    */ g_renderTargetFormat,
-            /* width     */ getSceneWidth(),
-            /* height    */ getSceneHeight(),
-            /* arraySize */ 1,
-            /* mipLevels */ 1
+        /* format    */ g_renderTargetFormat,
+        /* width     */ getSceneWidth(),
+        /* height    */ getSceneHeight(),
+        /* arraySize */ 1,
+        /* mipLevels */ 1
         );
         desc.Flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 
@@ -1376,29 +1426,29 @@ namespace d14engine::renderer
 
         THROW_IF_FAILED(m_d3d12Device->CreateCommittedResource
         (
-            /* pHeapProperties      */ &prop,
-            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
-            /* pDesc                */ &desc,
-            /* InitialResourceState */ D3D12_RESOURCE_STATE_COMMON,
-            /* pOptimizedClearValue */ &clearValue,
-            /* riidResource         */
-            /* ppvResource          */ IID_PPV_ARGS(&m_sceneBuffer)
+        /* pHeapProperties      */ &prop,
+        /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+        /* pDesc                */ &desc,
+        /* InitialResourceState */ D3D12_RESOURCE_STATE_COMMON,
+        /* pOptimizedClearValue */ &clearValue,
+        /* riidResource         */
+        /* ppvResource          */ IID_PPV_ARGS(&m_sceneBuffer)
         ));
         // sceneRtvHandle is guaranteed to be valid when composition=false
         m_d3d12Device->CreateRenderTargetView
         (
-            /* pResource      */ m_sceneBuffer.Get(),
-            /* pDesc          */ nullptr,
-            /* DestDescriptor */ sceneRtvHandle().value()
+        /* pResource      */ m_sceneBuffer.Get(),
+        /* pDesc          */ nullptr,
+        /* DestDescriptor */ sceneRtvHandle().value()
         );
         if (m_d3d12DeviceInfo.setting.m_scaling)
         {
             // sceneSrvhandle is guaranteed to be valid when composition=false
             m_d3d12Device->CreateShaderResourceView
             (
-                /* pResource      */ m_sceneBuffer.Get(),
-                /* pDesc          */ nullptr,
-                /* DestDescriptor */ sceneSrvhandle().value()
+            /* pResource      */ m_sceneBuffer.Get(),
+            /* pDesc          */ nullptr,
+            /* DestDescriptor */ sceneSrvhandle().value()
             );
         }
     }
@@ -1410,14 +1460,14 @@ namespace d14engine::renderer
 
         THROW_IF_FAILED(m_d3d11On12Device->CreateWrappedResource
         (
-            /* pResource12  */ m_sceneBuffer.Get(),
-            /* pFlags11     */ &flags,
-            /* InState      */ D3D12_RESOURCE_STATE_COMMON,
-            /* OutState     */ D3D12_RESOURCE_STATE_COMMON,
-            /* riid         */      
-            /* ppResource11 */ IID_PPV_ARGS(&m_wrappedBuffer)
+        /* pResource12  */ m_sceneBuffer.Get(),
+        /* pFlags11     */ &flags,
+        /* InState      */ D3D12_RESOURCE_STATE_COMMON,
+        /* OutState     */ D3D12_RESOURCE_STATE_COMMON,
+        /* riid         */      
+        /* ppResource11 */ IID_PPV_ARGS(&m_wrappedBuffer)
         ));
-        ComPtr<IDXGISurface> surface;
+        ComPtr<IDXGISurface> surface = {};
         THROW_IF_FAILED(m_wrappedBuffer.As(&surface));
 
         FLOAT dpi = 96.0f;
@@ -1429,22 +1479,22 @@ namespace d14engine::renderer
 
         auto props = D2D1::BitmapProperties1
         (
-            /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-            /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
-            /* dpiX          */ dpi,
-            /* dpiY          */ dpi
+        /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+        /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
+        /* dpiX          */ dpi,
+        /* dpiY          */ dpi
         );
         THROW_IF_FAILED(m_d2d1DeviceContext->CreateBitmapFromDxgiSurface
         (
-            /* surface          */ surface.Get(),
-            /* bitmapProperties */ &props,
-            /* bitmap           */ &m_renderTarget
+        /* surface          */ surface.Get(),
+        /* bitmapProperties */ &props,
+        /* bitmap           */ &m_renderTarget
         ));
     }
 
     void Renderer::createRenderTarget()
     {
-        ComPtr<IDXGISurface> surface;
+        ComPtr<IDXGISurface> surface = {};
         // For DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL,
         // only the swap chain's zero-index buffer can be read from and written to.
         // The swap chain's buffers with indexes greater than zero can only be read from.
@@ -1459,16 +1509,16 @@ namespace d14engine::renderer
 
         auto props = D2D1::BitmapProperties1
         (
-            /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-            /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
-            /* dpiX          */ dpi,
-            /* dpiY          */ dpi
+        /* bitmapOptions */ D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+        /* pixelFormat   */ D2D1::PixelFormat(g_renderTargetFormat, D2D1_ALPHA_MODE_PREMULTIPLIED),
+        /* dpiX          */ dpi,
+        /* dpiY          */ dpi
         );
         THROW_IF_FAILED(m_d2d1DeviceContext->CreateBitmapFromDxgiSurface
         (
-            /* surface          */ surface.Get(),
-            /* bitmapProperties */ props,
-            /* bitmap           */ &m_renderTarget
+        /* surface          */ surface.Get(),
+        /* bitmapProperties */ props,
+        /* bitmap           */ &m_renderTarget
         ));
     }
 
@@ -1486,10 +1536,11 @@ namespace d14engine::renderer
         m_renderTarget.Reset();
     }
 
-    void Renderer::resetCmdList()
+    void Renderer::resetCmdList(OptParam<ID3D12CommandAllocator*> alloc)
     {
-        THROW_IF_FAILED(m_cmdAlloc->Reset());
-        THROW_IF_FAILED(m_cmdList->Reset(m_cmdAlloc.Get(), nullptr));
+        auto cmdAlloc = alloc.has_value() ? alloc.value() : m_cmdAlloc.Get();
+        THROW_IF_FAILED(cmdAlloc->Reset());
+        THROW_IF_FAILED(m_cmdList->Reset(cmdAlloc, nullptr));
     }
 
     void Renderer::submitCmdList()
@@ -1506,11 +1557,12 @@ namespace d14engine::renderer
 
         if (m_fence->GetCompletedValue() < m_fenceValue)
         {
-            HANDLE hEvent = CreateEventEx(nullptr, nullptr, 0, EVENT_ALL_ACCESS);
+            auto hEvent = CreateEventEx(nullptr, nullptr, 0, EVENT_ALL_ACCESS);
             THROW_IF_NULL(hEvent);
             // m_fenceValue ==> wait all submitted commands
             THROW_IF_FAILED(m_fence->SetEventOnCompletion(m_fenceValue, hEvent));
             WaitForSingleObject(hEvent, INFINITE);
+            CloseHandle(hEvent);
         }
     }
 
@@ -1536,7 +1588,7 @@ namespace d14engine::renderer
         if (currFrameResource()->m_fenceValue != 0 &&
             m_fence->GetCompletedValue() < currFrameResource()->m_fenceValue)
         {
-            HANDLE hEvent = CreateEventEx(nullptr, nullptr, 0, EVENT_ALL_ACCESS);
+            auto hEvent = CreateEventEx(nullptr, nullptr, 0, EVENT_ALL_ACCESS);
             THROW_IF_NULL(hEvent);
             // FrameResource::m_fenceValue ==> wait commands submitted in previous render pass
             THROW_IF_FAILED(m_fence->SetEventOnCompletion(currFrameResource()->m_fenceValue, hEvent));
@@ -1698,8 +1750,12 @@ namespace d14engine::renderer
     {
         for (auto& cmdAlloc : m_cmdAllocs)
         {
-            THROW_IF_FAILED(device->CreateCommandAllocator(
-                D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&cmdAlloc)));
+            THROW_IF_FAILED(device->CreateCommandAllocator
+            (
+            /* type               */ D3D12_COMMAND_LIST_TYPE_DIRECT,
+            /* riid               */
+            /* ppCommandAllocator */ IID_PPV_ARGS(&cmdAlloc)
+            ));
         }
     }
 
@@ -1809,11 +1865,11 @@ namespace d14engine::renderer
         THROW_IF_FAILED(m_dwriteFactory->CreateRenderingParams(&params));
         return
         {
-            params->GetGamma(),
-            params->GetEnhancedContrast(),
-            params->GetClearTypeLevel(),
-            params->GetPixelGeometry(),
-            params->GetRenderingMode()
+            .gamma            = params->GetGamma(),
+            .enhancedContrast = params->GetEnhancedContrast(),
+            .clearTypeLevel   = params->GetClearTypeLevel(),
+            .pixelGeometry    = params->GetPixelGeometry(),
+            .renderingMode    = params->GetRenderingMode()
         };
     }
 
@@ -1822,12 +1878,12 @@ namespace d14engine::renderer
         ComPtr<IDWriteRenderingParams> params = {};
         THROW_IF_FAILED(m_dwriteFactory->CreateCustomRenderingParams
         (
-            mode.gamma,
-            mode.enhancedContrast,
-            mode.clearTypeLevel,
-            mode.pixelGeometry,
-            mode.renderingMode,
-            &params
+        /* gamma            */ mode.gamma,
+        /* enhancedContrast */ mode.enhancedContrast,
+        /* clearTypeLevel   */ mode.clearTypeLevel,
+        /* pixelGeometry    */ mode.pixelGeometry,
+        /* renderingMode    */ mode.renderingMode,
+        /* renderingParams  */ &params
         ));
         m_d2d1DeviceContext->SetTextRenderingParams(params.Get());
     }

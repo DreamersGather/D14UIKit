@@ -13,6 +13,6 @@ namespace d14engine::renderer
 
         virtual Scissors scissors() const = 0;
 
-        virtual void onViewResize(UINT viewWidth, UINT viewHeight) = 0;
+        virtual void onViewResize(UINT width, UINT height) = 0;
     };
 }

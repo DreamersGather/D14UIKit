@@ -21,14 +21,14 @@ namespace d14engine::renderer::graph_utils
 
         device->GetCopyableFootprints
         (
-            /* pResourceDesc    */ &texDesc,
-            /* FirstSubresource */ 0,
-            /* NumSubresources  */ 1,
-            /* BaseOffset       */ 0,
-            /* pLayouts         */ nullptr,
-            /* pNumRows         */ nullptr,
-            /* pRowSizeInBytes  */ &rowSizeInBytes,
-            /* pTotalBytes      */ &totalBytes
+        /* pResourceDesc    */ &texDesc,
+        /* FirstSubresource */ 0,
+        /* NumSubresources  */ 1,
+        /* BaseOffset       */ 0,
+        /* pLayouts         */ nullptr,
+        /* pNumRows         */ nullptr,
+        /* pRowSizeInBytes  */ &rowSizeInBytes,
+        /* pTotalBytes      */ &totalBytes
         );
         ComPtr<ID3D12Resource> staging = {};
         auto stagingProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
@@ -36,13 +36,13 @@ namespace d14engine::renderer::graph_utils
 
         THROW_IF_FAILED(device->CreateCommittedResource
         (
-            /* pHeapProperties      */ &stagingProp,
-            /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
-            /* pDesc                */ &stagingDesc,
-            /* InitialResourceState */ D3D12_RESOURCE_STATE_COPY_DEST,
-            /* pOptimizedClearValue */ nullptr,
-            /* riidResource         */
-            /* ppvResource          */ IID_PPV_ARGS(&staging)
+        /* pHeapProperties      */ &stagingProp,
+        /* HeapFlags            */ D3D12_HEAP_FLAG_NONE,
+        /* pDesc                */ &stagingDesc,
+        /* InitialResourceState */ D3D12_RESOURCE_STATE_COPY_DEST,
+        /* pOptimizedClearValue */ nullptr,
+        /* riidResource         */
+        /* ppvResource          */ IID_PPV_ARGS(&staging)
         ));
         auto barrier = CD3DX12_RESOURCE_BARRIER::Transition
         (
@@ -50,16 +50,14 @@ namespace d14engine::renderer::graph_utils
         );
         cmdList->ResourceBarrier(1, &barrier);
 
-        auto& depth = texDesc.DepthOrArraySize;
-
         D3D12_PLACED_SUBRESOURCE_FOOTPRINT footprint = {};
         footprint.Footprint =
         {
-            /* Format   */ texDesc.Format,
-            /* Width    */ (UINT)texDesc.Width,
-            /* Height   */ (UINT)texDesc.Height,
-            /* Depth    */ (UINT)depth,
-            /* RowPitch */ (UINT)rowSizeInBytes
+            .Format   = texDesc.Format,
+            .Width    = (UINT)texDesc.Width,
+            .Height   = (UINT)texDesc.Height,
+            .Depth    = (UINT)texDesc.DepthOrArraySize,
+            .RowPitch = (UINT)rowSizeInBytes
         };
         CD3DX12_TEXTURE_COPY_LOCATION dst(staging.Get(), footprint);
         CD3DX12_TEXTURE_COPY_LOCATION src(texture, 0);

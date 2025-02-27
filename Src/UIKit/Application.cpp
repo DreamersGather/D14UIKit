@@ -122,8 +122,8 @@ namespace d14engine::uikit
         m_renderer = std::make_unique<Renderer>(m_win32Window, info);
 
         m_renderer->skipUpdating = true;
-        m_renderer->timer()->stop();
-        // We will restart the timer when playing animation.
+        m_renderer->timer()->pause();
+        // We will resume the timer when playing animation.
 
         m_renderer->d2d1DeviceContext()->SetDpi(dpi, dpi);
         m_renderer->d2d1DeviceContext()->SetUnitMode(D2D1_UNIT_MODE_DIPS);
@@ -1024,7 +1024,7 @@ namespace d14engine::uikit
         {
             m_renderer->skipUpdating = true;
             m_renderer->timer()->start();
-            m_renderer->timer()->stop();
+            m_renderer->timer()->pause();
         }
     }
 

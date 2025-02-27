@@ -18,20 +18,29 @@ namespace d14engine::renderer
 
         Letterbox(Renderer* rndr, Token);
 
-        // prevent std::unique_ptr from generating default deleter
-        virtual ~Letterbox() = default;
+        // A std::unique_ptr<T> member needs to obtain sizeof(T) to call the default deleter.
+        // In the case of forward declaration, T is an incomplete type, so it cannot compile.
+        // 
+        // The solution is to declare the destructor in the header file and
+        // implement it in the source file (where T is a complete type).
+        // 
+        // PS: For MSVC, directly defining dtor() = default in the header file can also compile,
+        // but for the sake of standardization, it is better to define it in the source file.
+        virtual ~Letterbox();
 
     private:
         Renderer* rndr = nullptr;
 
         FrameResource::CmdAllocArray m_cmdAllocs = {};
 
+        ID3D12CommandAllocator* cmdAlloc() const;
+
     private:
         bool m_enabled = false;
 
     public:
         bool enabled() const;
-        // reset the GPU command list before calling this
+        // GPU Commands Required
         void setEnabled(bool value);
 
     private:
@@ -64,6 +73,8 @@ namespace d14engine::renderer
     private:
         void createRootSignature();
         void createPipelineState();
+
+        // GPU Commands Required
         void createVertexBuffer();
 
     public:

@@ -22,6 +22,10 @@ namespace d14engine::renderer
             // Resources (such as shaders) are loaded from this path.
             Wstring binaryPath = L"Bin/";
 
+            Wstring shaderPath() const
+            {
+                return binaryPath + L"Shaders/";
+            }
             Optional<float> dpi = std::nullopt;
 
             bool fullscreen = false;
@@ -29,9 +33,9 @@ namespace d14engine::renderer
             // Select GPU device. Set to 0 to use the default one.
             UINT adapterIndex = 0;
 
-            // For [flip] model, which is used by default, values are:
-            // 0 - The presentation occurs immediately, there is no synchronization.
-            // 1 through 4 - Synchronize presentation after the nth vertical blank.
+            // For flip model, which is used by default, this can be:
+            // (0) The presentation occurs immediately, there is no synchronization.
+            // (1 ~ 4) Synchronize presentation after the nth vertical blank.
             UINT syncInterval = 0;
 
             // Allowing tearing is required for VRR displays.
@@ -104,7 +108,7 @@ namespace d14engine::renderer
         private:
             mutable struct OriginalInfo
             {
-                UINT style = 0;
+                UINT style = {};
                 RECT windowRect = {};
             }
             m_originalInfo = {};
@@ -138,17 +142,29 @@ namespace d14engine::renderer
         {
             using EnableMasterPtrType::EnableMasterPtrType;
 
+            //////////////////////////
+            // DXGI Device Property //
+            //////////////////////////
+
             struct Property
             {
                 AdapterArray availableAdapters = {};
             }
             property = {};
 
+            /////////////////////////
+            // DXGI Device Feature //
+            /////////////////////////
+
             struct Feature
             {
                 bool allowTearing = {}; // Tearing-On --> VSync-Off
             }
             feature = {};
+
+            /////////////////////////
+            // DXGI Device Setting //
+            /////////////////////////
 
             struct Setting : cpp_lang_utils::EnableMasterPtr<DxgiFactoryInfo>
             {
@@ -216,6 +232,10 @@ namespace d14engine::renderer
         {
             using EnableMasterPtrType::EnableMasterPtrType;
 
+            ///////////////////////////
+            // D3D12 Device Property //
+            ///////////////////////////
+
             struct Property
             {
                 struct DescHandleSize
@@ -230,6 +250,10 @@ namespace d14engine::renderer
             }
             property = {};
 
+            //////////////////////////
+            // D3D12 Device Feature //
+            //////////////////////////
+
             struct Feature : cpp_lang_utils::EnableMasterPtr<D3D12DeviceInfo>
             {
                 using EnableMasterPtrType::EnableMasterPtrType;
@@ -240,6 +264,10 @@ namespace d14engine::renderer
                 D3D12_FEATURE_DATA_ROOT_SIGNATURE rootSignature = {};
             }
             feature{ this };
+
+            //////////////////////////
+            // D3D12 Device Setting //
+            //////////////////////////
 
             struct Setting : cpp_lang_utils::EnableMasterPtr<D3D12DeviceInfo>
             {
@@ -335,7 +363,7 @@ namespace d14engine::renderer
 
         FrameResourceArray m_frameResources = {};
 
-        UINT m_currFrameIndex = 0;
+        UINT m_currFrameIndex = {};
 
     public:
         const FrameResourceArray& frameResources() const;
@@ -414,6 +442,11 @@ namespace d14engine::renderer
 
 #pragma region Graphics Resources
 
+        // Among the following property methods for graphics resources,
+        // some getters return optional values because when composition
+        // takes different values (i.e. whether to use the composition swap chain),
+        // the creation situation of certain resources can be different.
+
     public:
         constexpr static DXGI_FORMAT g_renderTargetFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
         constexpr static DXGI_FORMAT g_depthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -472,7 +505,7 @@ namespace d14engine::renderer
 
         // The render target will be:
         // (composition=true) the first back buffer of the composition swap chain.
-        // (composition=false) the current back buffer of the d3dCmdQueue swap chain.
+        // (composition=false) the current back buffer of the d3d12CmdQueue swap chain.
         ID2D1Bitmap1* renderTarget() const;
 
     private:
@@ -492,12 +525,10 @@ namespace d14engine::renderer
 #pragma region Render Pass Implementation
 
     public:
-        void resetCmdList();
+        void resetCmdList(OptParam<ID3D12CommandAllocator*> alloc = std::nullopt);
         void submitCmdList();
         void flushCmdQueue();
 
-        // Wrap the GPU command code with begin/end,
-        // otherwise it might cause the render pass to crash.
         void beginGpuCommand();
         void endGpuCommand();
 
@@ -505,6 +536,7 @@ namespace d14engine::renderer
 
     private:
         void waitCurrFrameResource();
+
         void update();
         void present();
 
@@ -519,8 +551,8 @@ namespace d14engine::renderer
         void clearRenderTarget();
 
     public:
-        // Skipping the updating helps optimize performance
-        // if there is no need to play animation or similar things.
+        // Skipping the updating helps improve performance
+        // if there is no need to play animation or others.
         bool skipUpdating = false;
 
         const XMVECTORF32& sceneColor() const;

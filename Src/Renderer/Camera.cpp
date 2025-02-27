@@ -15,6 +15,8 @@ namespace d14engine::renderer
         }
     }
 
+    Camera::~Camera() = default;
+
     Camera::Viewport Camera::viewport() const
     {
         return m_viewport;
@@ -25,22 +27,22 @@ namespace d14engine::renderer
         return m_scissors;
     }
 
-    void Camera::onViewResize(UINT viewWidth, UINT viewHeight)
+    void Camera::onViewResize(UINT width, UINT height)
     {
-        viewWidth = std::max(viewWidth, 1u);
-        viewHeight = std::max(viewHeight, 1u);
+        width = std::max(width, 1u);
+        height = std::max(height, 1u);
 
         m_viewport.TopLeftX = 0.0f;
         m_viewport.TopLeftY = 0.0f;
-        m_viewport.Width = (FLOAT)viewWidth;
-        m_viewport.Height = (FLOAT)viewHeight;
+        m_viewport.Width = (FLOAT)width;
+        m_viewport.Height = (FLOAT)height;
         m_viewport.MinDepth = 0.0f;
         m_viewport.MaxDepth = 1.0f;
 
         m_scissors.left = 0;
-        m_scissors.right = viewWidth;
+        m_scissors.right = width;
         m_scissors.top = 0;
-        m_scissors.bottom = viewHeight;
+        m_scissors.bottom = height;
 
         updateProjMatrix();
     }
@@ -86,11 +88,7 @@ namespace d14engine::renderer
 
     void Camera::updateViewMatrix()
     {
-        auto eyePosition = XMLoadFloat3(&eyePos);
-        auto eyeDirection = XMLoadFloat3(&eyeDir);
-        auto upDirection = XMLoadFloat3(&up);
-
-        XMStoreFloat4x4(&m_data.viewMatrix, XMMatrixLookToLH(eyePosition, eyeDirection, upDirection));
+        XMStoreFloat4x4(&m_data.viewMatrix, XMMatrixLookToLH(XMLoadFloat3(&eyePos), XMLoadFloat3(&eyeDir), XMLoadFloat3(&up)));
     }
 
     void Camera::updateProjMatrix()

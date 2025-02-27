@@ -10,17 +10,18 @@ namespace d14engine::renderer::debug_utils
 {
     void enableD3d12DebugLayer()
     {
-        ComPtr<ID3D12Debug> debugController;
-        THROW_IF_FAILED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController)));
-        debugController->EnableDebugLayer();
+        ComPtr<ID3D12Debug> debug = {};
+        THROW_IF_FAILED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug)));
+
+        debug->EnableDebugLayer();
     }
 
     void suppressWarnings(ID3D12Device* device)
     {
-        ComPtr<ID3D12InfoQueue> infoQueue;
+        ComPtr<ID3D12InfoQueue> infoQueue = {};
         THROW_IF_FAILED(device->QueryInterface<ID3D12InfoQueue>(&infoQueue));
 
-        D3D12_MESSAGE_ID hide[] =
+        D3D12_MESSAGE_ID hides[] =
         {
             // After introducing the preceding D2D1 drawing layer, some D2D1
             // effects need to be processed before setting the render target.
@@ -69,35 +70,37 @@ namespace d14engine::renderer::debug_utils
         };
 
         D3D12_INFO_QUEUE_FILTER filter = {};
-        filter.DenyList.NumIDs = _countof(hide);
-        filter.DenyList.pIDList = hide;
+        filter.DenyList.NumIDs = _countof(hides);
+        filter.DenyList.pIDList = hides;
 
         THROW_IF_FAILED(infoQueue->AddStorageFilterEntries(&filter));
     }
 
+// Refer to https://learn.microsoft.com/en-us/windows/win32/api/dxgidebug/nf-dxgidebug-dxgigetdebuginterface
+// IDXGIDebug and IDXGIInfoQueue are debugging interfaces. To access DXGIGetDebugInterface,
+// call GetModuleHandle to get Dxgidebug.dll and GetProcAddress to get DXGIGetDebugInterface.
+
     ComPtr<IDXGIDebug> queryDxgiDebugInterface()
     {
-        HMODULE hDll; // Dxgidebug.dll
-
         // CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG) may have already loaded it.
-        hDll = GetModuleHandle(L"Dxgidebug.dll");
-        if (hDll == nullptr)
+        auto dll = GetModuleHandle(L"Dxgidebug.dll");
+        if (dll == nullptr)
         {
             // Load DLL manually otherwise (DXGI does not provide LIB for Dxgidebug).
-            hDll = LoadLibrary(L"Dxgidebug.dll");
+            dll = LoadLibrary(L"Dxgidebug.dll");
         }
-        THROW_IF_NULL(hDll);
+        THROW_IF_NULL(dll);
 
-        using FuncPtr = HRESULT(*)(REFIID, void**);
-        auto DXGIGetDebugInterface = (FuncPtr)GetProcAddress(hDll, "DXGIGetDebugInterface");
-        THROW_IF_NULL(DXGIGetDebugInterface);
+        using Func = HRESULT(*)(REFIID, void**);
+        auto func = (Func)GetProcAddress(dll, "DXGIGetDebugInterface");
+        THROW_IF_NULL(func);
 
-        ComPtr<IDXGIDebug> dxgiDebugController;
-        THROW_IF_FAILED(DXGIGetDebugInterface(IID_PPV_ARGS(&dxgiDebugController)));
+        ComPtr<IDXGIDebug> debug = {};
+        THROW_IF_FAILED(func(IID_PPV_ARGS(&debug)));
+        return debug;
 
-        // Because dxgiDebugController may only be accessed in the DEBUG environment,
-        // there is no need to free "Dxgidebug.dll" during the application's lifecycle.
-        return dxgiDebugController;
+        // Because the IDXGIDebug instance may only be accessed in DEBUG environment,
+        // there is no need to free Dxgidebug.dll during the application's lifecycle.
     }
 }
 

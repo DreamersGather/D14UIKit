@@ -11,7 +11,7 @@ namespace d14engine::renderer
     template<typename FrameType>
     struct FrameSequence
     {
-        using FrameAnim = renderer::FrameAnimation<FrameType>;
+        using FrameAnim = FrameAnimation<FrameType>;
 
         using FrameArray = FrameAnim::FrameArray;
         using FramePackage = FrameAnim::FramePackage;
@@ -26,7 +26,7 @@ namespace d14engine::renderer
             fanim.restore();
         }
 
-        void update(renderer::Renderer* rndr)
+        void update(Renderer* rndr)
         {
             if (enabled)
             {

@@ -4,14 +4,22 @@
 
 namespace d14engine::renderer
 {
+    ////////////////
+    // GPU Buffer //
+    ////////////////
+
     struct GpuBuffer
     {
     protected:
         ComPtr<ID3D12Resource> m_resource = {};
 
     public:
-        ID3D12Resource* resource() const { return m_resource.Get(); }
+        ID3D12Resource* resource() const;
     };
+
+    ////////////////////
+    // Default Buffer //
+    ////////////////////
 
     // Maintains a resource buffer with DEFAULT type (static).
     // Pros: optimized for GPU, working at the best performance.
@@ -24,11 +32,41 @@ namespace d14engine::renderer
         ComPtr<ID3D12Resource> m_intermediate = {};
 
     public:
-        ID3D12Resource* intermediate() const { return m_intermediate.Get(); }
+        ID3D12Resource* intermediate() const;
 
     public:
-        void uploadData(ID3D12GraphicsCommandList* cmdList, void* pSrc, UINT64 byteSize);
+        // To update the data in DefaultBuffer:
+        // 1. Call copyDataCPU to copy the data from CPU to intermediate,
+        // 2. Call copyDataGPU to copy the data from intermediate to GPU.
+        // 
+        // When the data size is small, you can directly call uploadData
+        // (which internally calls those two functions in sequence);
+        // otherwise, it is recommended to first call copyDataCPU for the 1st copy,
+        // then reset the command list and call copyDataGPU for the 2nd copy.
+        //
+        // Performance Tips: When the GPU load is high,
+        // the second method allows the CPU to proceed with the 1st copy
+        // without waiting for the GPU, thereby improving overall performance.
+
+        // Copy from CPU buffer to intermediate buffer.
+        void copyDataCPU(void* pSrc, UINT64 byteSize);
+
+        // GPU Commands Required
+        // Copy from intermediate buffer to GPU buffer.
+        void copyDataGPU(ID3D12GraphicsCommandList* cmdList, UINT64 byteSize);
+
+        // GPU Commands Required
+        // This simply calls copyDataCPU and copyDataGPU in sequence.
+        void uploadData(ID3D12GraphicsCommandList* cmdList, void* pSrc, UINT64 byteSize)
+        {
+            copyDataCPU(pSrc, byteSize);
+            copyDataGPU(cmdList, byteSize);
+        }
     };
+
+    ///////////////////
+    // Upload Buffer //
+    ///////////////////
 
     // Maintains a resource buffer with UPLOAD type (dynamic).
     // Pros: modifiable at runtime, coherent between CPU and GPU.
@@ -37,16 +75,10 @@ namespace d14engine::renderer
     {
         UploadBuffer(ID3D12Device* device, UINT elemCount, UINT64 elemByteSize);
 
-        virtual ~UploadBuffer()
-        {
-            if (m_resource) m_resource->Unmap(0, nullptr); m_mapped = nullptr;
-        }
+        virtual ~UploadBuffer();
 
     protected:
-        // Total element count in buffer.
         UINT m_elemCount = {};
-
-        // Byte size of single element in buffer.
         UINT64 m_elemByteSize = {};
 
         // Where in memory the buffer is mapped to.
@@ -54,17 +86,20 @@ namespace d14engine::renderer
         BYTE* m_mapped = nullptr;
 
     public:
-        UINT elemCount() const { return m_elemCount; }
+        UINT elemCount() const;
+        UINT64 elemByteSize() const;
 
-        UINT64 elemByteSize() const { return m_elemByteSize; }
-
-        BYTE* mapped() const { return m_mapped; }
+        BYTE* mapped() const;
 
     public:
-        // dstIndexOffset is not applied to pSrc.
-        // Offset pSrc to the correct position before calling.
+        // It is worth noting that dstIndexOffset will not be applied to pSrc,
+        // and pSrc needs to be offset to the correct position before calling.
         void copyData(UINT dstIndexOffset, void* pSrc, UINT64 byteSize);
     };
+
+    /////////////////////
+    // Constant Buffer //
+    /////////////////////
 
     // Maps to the cbuffer of HLSL.
     // The only difference from UploadBuffer is that the data in this buffer

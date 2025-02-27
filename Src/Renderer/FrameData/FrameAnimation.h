@@ -4,12 +4,12 @@
 
 namespace d14engine::renderer
 {
-    namespace anim_literals
+    namespace fanim_literals
     {
         // 1 Jiffies == 1/60 Seconds
-        constexpr float operator""_jf(unsigned long long num)
+        constexpr float operator""_jf(unsigned long long n)
         {
-            return (float)num / 60.0f;
+            return (float)n / 60.0f;
         }
     }
     template<typename FrameType>

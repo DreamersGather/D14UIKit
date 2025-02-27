@@ -8,30 +8,37 @@ namespace d14engine::renderer
     {
         TickTimer();
 
+        void start();
+
     private:
         bool m_isPause = false;
 
     public:
         bool isPause() const;
 
-        void start();
-        void tick();
-        void stop();
+        void pause();
         void resume();
 
     private:
-        UINT m_fps = 0;
+        double m_fps = 0;
+        double m_sampleInterval = 1.0;
+
         UINT m_frameCount = 0;
-        double m_oneSecPoint = 0.0;
+        double m_updatePoint = 0.0;
 
     public:
-        UINT fps() const;
+        double fps() const;
+        // round integer number of fps
+        UINT fpsNum() const;
+
+        double sampleInterval() const;
+        void setSampleInterval(double value);
 
     private:
-        __int64 m_tickCountPerSec = 0;
+        UINT64 m_tickCountPerSec = 0;
 
-        __int64 m_baseTickCount = 0;
-        __int64 m_currTickCount = 0;
+        UINT64 m_baseTickCount = 0;
+        UINT64 m_currTickCount = 0;
 
         double m_secPerTickCount = 0.0;
 
@@ -41,10 +48,12 @@ namespace d14engine::renderer
         double m_elapsedSecsSinceResume = 0.0;
 
     public:
-        __int64 tickCountPerSec() const;
+        void tick();
 
-        __int64 baseTickCount() const;
-        __int64 currTickCount() const;
+        UINT64 tickCountPerSec() const;
+
+        UINT64 baseTickCount() const;
+        UINT64 currTickCount() const;
 
         double secPerTickCount() const;
 

@@ -17,19 +17,44 @@ namespace d14engine::renderer
     {
         explicit Camera(ID3D12Device* device);
 
-        // prevent std::unique_ptr from generating default deleter
-        virtual ~Camera() = default;
+        // A std::unique_ptr<T> member needs to obtain sizeof(T) to call the default deleter.
+        // In the case of forward declaration, T is an incomplete type, so it cannot compile.
+        // 
+        // The solution is to declare the destructor in the header file and
+        // implement it in the source file (where T is a complete type).
+        // 
+        // PS: For MSVC, directly defining dtor() = default in the header file can also compile,
+        // but for the sake of standardization, it is better to define it in the source file.
+        virtual ~Camera();
+
+        /////////////
+        // ICamera //
+        /////////////
 
     public:
         Viewport viewport() const override;
 
         Scissors scissors() const override;
 
-        void onViewResize(UINT viewWidth, UINT viewHeight) override;
+        void onViewResize(UINT width, UINT height) override;
+
+        ////////////////
+        // DrawObject //
+        ////////////////
 
     protected:
         void onRendererUpdateObjectHelper(Renderer* rndr) override;
         void onRendererDrawD3d12ObjectHelper(Renderer* rndr) override;
+
+        ////////////
+        // Camera //
+        ////////////
+
+        //--------------------------------------------
+        // View Matrix Raw Data
+        //--------------------------------------------
+        // Attention! After changing these parameters,
+        // updateViewMatrix needs to be called to update the actual transformation matrix.
 
     public:
         XMFLOAT3 eyePos = { 0.0f, 0.0f, 0.0f };
@@ -41,15 +66,25 @@ namespace d14engine::renderer
         Viewport m_viewport = {};
         Scissors m_scissors = {};
 
+        //--------------------------------------------
+        // Projection Matrix Raw Data
+        //--------------------------------------------
+        // Attention! After changing these parameters,
+        // updateProjMatrix needs to be called to update the actual transformation matrix.
+
     public:
         float fovAngleY = XM_PIDIV4; // in radians
 
         Optional<float> aspectRatio = {};
 
-        // Returns Viewport-Width / Viewport-Height if aspectRatio is empty.
+        // Returns viewport-width / viewport-height if aspectRatio is empty.
         float getAspectRatio() const;
 
         float nearZ = 1.0f, farZ = 1000.0f;
+
+        //--------------------------------------------
+        // Transformation Matrix
+        //--------------------------------------------
 
     protected:
         struct Data
@@ -65,6 +100,10 @@ namespace d14engine::renderer
 
         void updateViewMatrix();
         void updateProjMatrix();
+
+        //--------------------------------------------
+        // GPU/Shader Resources
+        //--------------------------------------------
 
     public:
         UINT rootParamIndex = 0;

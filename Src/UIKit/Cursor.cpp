@@ -10,7 +10,7 @@
 #include "UIKit/FileSystemUtils.h"
 
 using namespace d14engine::renderer;
-using namespace anim_literals;
+using namespace fanim_literals;
 
 namespace d14engine::uikit
 {

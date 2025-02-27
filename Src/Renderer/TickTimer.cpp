@@ -2,19 +2,16 @@
 
 #include "Renderer/TickTimer.h"
 
+#include "Common/MathUtils/Basic.h"
+
 namespace d14engine::renderer
 {
     TickTimer::TickTimer()
     {
         QueryPerformanceFrequency((LARGE_INTEGER*)&m_tickCountPerSec);
-        m_secPerTickCount = 1.0 / m_tickCountPerSec;
+        m_secPerTickCount = 1.0 / (double)m_tickCountPerSec;
 
         start();
-    }
-
-    bool TickTimer::isPause() const
-    {
-        return m_isPause;
     }
 
     void TickTimer::start()
@@ -26,7 +23,7 @@ namespace d14engine::renderer
 
         m_fps = 0;
         m_frameCount = 0;
-        m_oneSecPoint = 0.0;
+        m_updatePoint = 0.0;
 
         m_deltaSecs = 0.0;
 
@@ -34,33 +31,18 @@ namespace d14engine::renderer
         m_elapsedSecsSinceResume = 0.0;
     }
 
-    void TickTimer::tick()
+    bool TickTimer::isPause() const
     {
-        if (m_isPause) return;
-
-        QueryPerformanceCounter((LARGE_INTEGER*)&m_currTickCount);
-        double currElapsedSecs = (m_currTickCount - m_baseTickCount) * m_secPerTickCount;
-
-        m_deltaSecs = currElapsedSecs - m_elapsedSecsSinceResume;
-
-        m_elapsedSecsSinceResume = currElapsedSecs;
-
-        ++m_frameCount;
-        if (elapsedSecs() >= m_oneSecPoint + 1)
-        {
-            m_fps = m_frameCount;
-            m_frameCount = 0;
-            m_oneSecPoint = elapsedSecs();
-        }
+        return m_isPause;
     }
 
-    void TickTimer::stop()
+    void TickTimer::pause()
     {
         m_isPause = true;
-        
+
         m_fps = 0;
         m_frameCount = 0;
-        m_oneSecPoint = 0.0;
+        m_updatePoint = 0.0;
 
         m_deltaSecs = 0.0;
 
@@ -78,22 +60,73 @@ namespace d14engine::renderer
         }
     }
 
-    UINT TickTimer::fps() const
+    double TickTimer::fps() const
     {
         return m_fps;
     }
 
-    __int64 TickTimer::tickCountPerSec() const
+    UINT TickTimer::fpsNum() const
+    {
+        return math_utils::round<UINT>(m_fps);
+    }
+
+    double TickTimer::sampleInterval() const
+    {
+        return m_sampleInterval;
+    }
+
+    void TickTimer::setSampleInterval(double value)
+    {
+        m_sampleInterval = value;
+    }
+
+    void TickTimer::tick()
+    {
+        if (m_isPause) return;
+
+        QueryPerformanceCounter((LARGE_INTEGER*)&m_currTickCount);
+        auto tickCount = (double)(m_currTickCount - m_baseTickCount);
+        auto currElapsedSecs = tickCount * m_secPerTickCount;
+
+        m_deltaSecs = currElapsedSecs - m_elapsedSecsSinceResume;
+
+        m_elapsedSecsSinceResume = currElapsedSecs;
+
+        //---------------------------------------------------------------------
+        // There are generally two strategies for calculating FPS:
+        //---------------------------------------------------------------------
+        // 1. Directly use the reciprocal of the frame generation time as FPS.
+        // 
+        // 2. Set a sampling interval, increment the counter value each frame,
+        //    and trigger when the elapsed time exceeds the sampling interval,
+        //    at which point ((frame count) / (sampling interval))
+        //    is the average FPS during this period. TickTimer uses this method.
+        //---------------------------------------------------------------------
+        // In fact, (1) is the case when the sampling time of (2) tends to zero.
+
+        ++m_frameCount;
+
+        auto updatePoint = m_updatePoint + m_sampleInterval;
+        if (elapsedSecs() >= updatePoint)
+        {
+            m_fps = (double)m_frameCount / m_sampleInterval;
+
+            m_frameCount = 0;
+            m_updatePoint = elapsedSecs();
+        }
+    }
+
+    UINT64 TickTimer::tickCountPerSec() const
     {
         return m_tickCountPerSec;
     }
 
-    __int64 TickTimer::baseTickCount() const
+    UINT64 TickTimer::baseTickCount() const
     {
         return m_baseTickCount;
     }
 
-    __int64 TickTimer::currTickCount() const
+    UINT64 TickTimer::currTickCount() const
     {
         return m_currTickCount;
     }
