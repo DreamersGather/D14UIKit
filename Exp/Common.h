@@ -8,7 +8,7 @@
 Type_Name::Type_Name(const std::shared_ptr<uikit::Type_Name>& uiobj)
 
 // Binds d14engine objects to d14uikit objects:
-// 
+//
 // It is necessary to use dynamic_pointer_cast, since some objects use virtual inheritance.
 // Additionally, it is safe to do so without checking, as the source d14engine object must exist.
 //

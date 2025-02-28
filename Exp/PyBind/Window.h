@@ -56,6 +56,6 @@ namespace d14uikit
         void onMinimize() override
         {
             PYBIND11_OVERRIDE(void, WindowBase, onMinimize, );
-        } 
+        }
     };
 }

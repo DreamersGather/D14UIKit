@@ -19,7 +19,7 @@
 // UI_Object from UIKit @ D14Engine
 //
 // _D14_UIKIT_FWDEF(UI_Object)
-// 
+//
 // namespace d14uikit
 // {
 //     class DllExport UI_Object

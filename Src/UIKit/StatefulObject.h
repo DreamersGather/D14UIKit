@@ -17,7 +17,7 @@ namespace d14engine::uikit
 
     public:
         void onStateChange(StateChangeEvent_T& e)
-        {            
+        {
             onStateChangeHelper(e);
 
             if (f_onStateChange) f_onStateChange(this, e);

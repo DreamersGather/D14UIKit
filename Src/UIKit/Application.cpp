@@ -1193,7 +1193,7 @@ namespace d14engine::uikit
         else if (style.name == L"Dark")
         {
             m_renderer->setSceneColor(Colors::Black);
-        }        
+        }
 
         for (auto& uiobj : m_uiObjects)
         {

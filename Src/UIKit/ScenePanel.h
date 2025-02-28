@@ -88,5 +88,5 @@ namespace d14engine::uikit
 
         // Panel
         void onSizeHelper(SizeEvent& e) override;
-    }; 
+    };
 }

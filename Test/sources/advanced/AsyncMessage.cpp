@@ -49,19 +49,19 @@ int main(int argc, char* argv[])
     // To avoid race conditions in multithreading,
     // it is necessary to lock read/write operations.
     // Below are commonly used methods:
-    // 
+    //
     // 1. Lock with UI
-    // 
+    //
     // Locking by managing UI controls.
     // This approach can address risks caused by user operations,
     // but cannot avoid potential race conditions within the program.
-    // 
+    //
     // 2. Lock with mutex
-    // 
+    //
     // Locking using mutex objects.
     // This is the standard locking method for multithreading,
     // and requires careful design by developers.
-    // 
+    //
     // Developers should choose based on the specific situation,
     // or use both methods simultaneously,
     // ensuring that race conditions are avoided.
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
     // between the thread event and its corresponding callback,
     // so here we simply choose the address of the variable as the ID
     // (this value is obviously globally unique).
-    // 
+    //
     // Developers can also choose custom IDs (like 0, 1 and 2 etc.),
     // as long as they ensure there are no conflicts.
     auto uiLockThreadID = (uint64_t)&uiLockNum;

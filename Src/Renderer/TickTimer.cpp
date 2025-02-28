@@ -96,7 +96,7 @@ namespace d14engine::renderer
         // There are generally two strategies for calculating FPS:
         //---------------------------------------------------------------------
         // 1. Directly use the reciprocal of the frame generation time as FPS.
-        // 
+        //
         // 2. Set a sampling interval, increment the counter value each frame,
         //    and trigger when the elapsed time exceeds the sampling interval,
         //    at which point ((frame count) / (sampling interval))

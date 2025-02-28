@@ -12,13 +12,13 @@ namespace d14engine::math_utils
     // std::pair<float, float> pair = {};
     // D2D1_SIZE_F size = {};
     // D2D1_POINT_2F point = {};
-    // 
+    //
     // void func1(const D2D1_SIZE_F& value);
     // func1({ 1.0f, 2.0f }); --> OK
     // func1(pair); --> Error
     // func1(size); --> OK
     // func1(point); --> Error
-    // 
+    //
     // void func2(const Float2Adapter& value);
     // func2({ 1.0f, 2.0f }); --> OK
     // func2(pair); --> OK

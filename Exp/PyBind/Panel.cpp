@@ -283,6 +283,6 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
         i.def(
             "onMouseButton",
             &ExPanel::onMouseButton,
-            "event"_a);  
+            "event"_a);
     }
 }

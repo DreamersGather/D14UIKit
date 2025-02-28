@@ -9,24 +9,24 @@ namespace d14engine::uikit::animation_utils
         //       acceleration             uniform              deceleration
         // start -----------> waypoint 1 ----------> waypoint2 -----------> end
         //         motion                  motion                 motion
-        // 
+        //
         // s --- total distance
         // t1 --- uniform speed motion time
         // t2 --- variable speed motion time
         //
         // v --- uniform speed
         // a --- ac/deceleration
-        // 
+        //
         // v = s / (t1 + t2)
-        // 
+        //
         // Then simple to get the distance from start to waypoint 1:
-        // 
+        //
         // s2 = v * t2 / 2 = s * t2 / (2 * (t1 + t2))
-        // 
+        //
         // We can calculate the variable speed from current position:
-        // 
+        //
         // v2 = sqrt((2 * s * dx) / (t2 * (t1 + t2)))
-        // 
+        //
         // The deceleration motion is similar to the acceleration motion.
 
         if (dx < s)

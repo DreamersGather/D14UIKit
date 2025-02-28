@@ -54,19 +54,19 @@ def main():
     # To avoid race conditions in multithreading,
     # it is necessary to lock read/write operations.
     # Below are commonly used methods:
-    # 
+    #
     # 1. Lock with UI
-    # 
+    #
     # Locking by managing UI controls.
     # This approach can address risks caused by user operations,
     # but cannot avoid potential race conditions within the program.
-    # 
+    #
     # 2. Lock with mutex
-    # 
+    #
     # Locking using mutex objects.
     # This is the standard locking method for multithreading,
     # and requires careful design by developers.
-    # 
+    #
     # Developers should choose based on the specific situation,
     # or use both methods simultaneously,
     # ensuring that race conditions are avoided.

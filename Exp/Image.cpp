@@ -164,7 +164,7 @@ namespace d14uikit
     }
 
     void Image::copyInFrame(const Point& dst, Image* source, const Rect& src)
-    {        
+    {
         D2D1_RECT_U srcRect =
         {
             (UINT)src.left,  (UINT)src.top,

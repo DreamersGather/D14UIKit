@@ -49,5 +49,5 @@ namespace d14uikit
 
     OnOffSwitch::Callback& OnOffSwitch::callback() const { return *pcallback; }
 
-    void OnOffSwitch::onStateChange(State state) { } 
+    void OnOffSwitch::onStateChange(State state) { }
 }

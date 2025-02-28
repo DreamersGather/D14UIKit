@@ -42,7 +42,7 @@ namespace d14engine::uikit
         // and other objects are destroyed subsequently, in which situation
         // the program will crash if their dtors use the global application
         // pointer (i.e. "g_app) to release the created resources.
-        // 
+        //
         // Set g_app to nullptr after the application destroyed to help the
         // objects decide whether there's need to do the clearing.
 
@@ -151,7 +151,7 @@ namespace d14engine::uikit
         UIObjectTempSet m_hitUIObjects = {};
         
         // The pinned UI objects keep receiving UI events while not hitting.
-        // 
+        //
         // Introduce the diff-pinned UI objects to avoid the hit UI objects
         // receiving the same event repeatedly (Diff-pinned = Hit - Pinned).
 
@@ -180,7 +180,7 @@ namespace d14engine::uikit
 
         // Updating the diff-pinned UI objects while handling UI events may
         // cause undefined behavior.
-        // 
+        //
         // To solve this problem, we can mark a flag and perform the actual
         // updating after handling UI events finished.
 
@@ -243,7 +243,7 @@ namespace d14engine::uikit
     private:
         // The UI objects are maintained with a std::set, and the UI event
         // callbacks are performed in order within each Win32 wnd-proc.
-        // 
+        //
         // Under normal circumstances, the callbacks are invoked according to
         // the receiving order of the Win32 messages, in which case there is
         // no conflict between each callback.  If a callback, however, sends
@@ -253,7 +253,7 @@ namespace d14engine::uikit
         // undefined results because we are trying to insert/erase a std::set
         // while traversing it with the corresponding iterator.
         // (PS: That operation is invalid for all STL associated containers).
-        // 
+        //
         // To solve the problem, we are determined to introduce a flag about
         // whether the Win32 wnd-proc is handling any UI event, and the newly
         // received Win32 messages will be added to the system message queue.

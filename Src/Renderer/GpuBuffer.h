@@ -38,7 +38,7 @@ namespace d14engine::renderer
         // To update the data in DefaultBuffer:
         // 1. Call copyDataCPU to copy the data from CPU to intermediate,
         // 2. Call copyDataGPU to copy the data from intermediate to GPU.
-        // 
+        //
         // When the data size is small, you can directly call uploadData
         // (which internally calls those two functions in sequence);
         // otherwise, it is recommended to first call copyDataCPU for the 1st copy,

@@ -36,7 +36,7 @@ namespace d14engine::renderer::debug_utils
             // It seems that ID2D1DeviceContext::FillGeometry are implemented
             // to draw different colors by clearing current render target
             // with different values.
-            // 
+            //
             // The mismatching of the actual value used to clear the render
             // target and the preset value configed in the related resource
             // will lead to slow operation.
@@ -46,7 +46,7 @@ namespace d14engine::renderer::debug_utils
             // DirectX 3D complains that "D3D12 resource is not sharable with
             // D3D11 layer" when trying to create a wrapped resource with the
             // D3D11On12 mechanism.
-            // 
+            //
             // However, the function returns S_OK and everything works well,
             // so we guess this might be a bug of the D3D12 interop library.
             // By the way, we also find the similar problems in some forums.
@@ -56,7 +56,7 @@ namespace d14engine::renderer::debug_utils
             // This warning is produced when recreating a D2D1 resource that
             // was bound to any render target in the previous render passes,
             // even if all references have been cleared.
-            // 
+            //
             // We guess that the clearing of the descriptor is delayed after
             // the associated resource destroyed.
 

@@ -8,7 +8,7 @@ namespace d14engine
     // parameter of Token at the end of the ctor you want to privatize:
     //
     // struct A, B, C;
-    // 
+    //
     // struct A : PasskeyIdiom<B>
     // {
     //     friend B;
@@ -29,15 +29,15 @@ namespace d14engine
     // {
     //     void func1() { A a(A::Token); } --> Error
     // };
-    // 
+    //
     // This allows the ctor behaves as private while declaring its access
     // level as public, and it is helpful when using some external utils.
-    // 
+    //
     // For example, if you have an instance managed by std::unique_ptr, and
     // want to make its ctor private, in which case it is impossible to use
     // std::make_unique in friends since std::make_unique requires the ctor
     // to be public. Using PasskeyIdiom will easily solve this problem.
-    // 
+    //
     // Maybe you can escape std::make_unique with std::unique_ptr(new T),
     // but we do not want any "new" in the code. Just use PasskeyIdiom.
 

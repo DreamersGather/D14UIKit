@@ -9,7 +9,7 @@ namespace d14engine
     // Define ISortable as a template class, so that an object can implement
     // sorting functionality for different properties by inheriting
     // multiple ISortable<T> (where T represents different properties).
-    // 
+    //
     // For example, suppose struct Student is inherited from
     // ISortable<Height> and ISortable<Weight>, in which case a student knows
     // their height and weight respectively and can be sorted by each of them.
@@ -82,13 +82,13 @@ namespace d14engine
             bool operator()(WeakPtrParam<ISortable<T>> lhs, WeakPtrParam<ISortable<T>> rhs) const
             {
                 // The order of comparison here is significant:
-                // 
+                //
                 // 1. Compare "rhs" in advance of "lhs":
-                // 
+                //
                 //    Place the expired elements in front of the set.
-                // 
+                //
                 // 2. Return "false" in advance of "true":
-                // 
+                //
                 //    Ensure the TOR (compatible with STL).
                 //
                 //-----------------------------------------------

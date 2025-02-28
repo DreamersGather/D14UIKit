@@ -49,8 +49,8 @@ namespace d14uikit
                 pcallback->onSelectChange(this, indices);
             }
         };
-        // Some UI objects that use PopupMenu as a component 
-        // will use the callback to implement corresponding functionality. 
+        // Some UI objects that use PopupMenu as a component
+        // will use the callback to implement corresponding functionality.
         // Therefore, it is necessary to check here to avoid redefinition.
         if (!pimpl->uiobj->f_onTriggerMenuItem)
         {

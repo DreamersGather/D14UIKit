@@ -131,7 +131,7 @@ namespace d14engine::renderer
         THROW_IF_FAILED(rndr->d3d12Device()->CreateRootSignature
         (
         /* nodeMask               */ 0,
-        /* pBlobWithRootSignature */ 
+        /* pBlobWithRootSignature */
         /* blobLengthInBytes      */ BLB_PSZ_ARGS(rootSigBlob),
         /* riid                   */
         /* ppvRootSignature       */ IID_PPV_ARGS(&m_rootSigature)
@@ -307,7 +307,7 @@ namespace d14engine::renderer
         /* StartInstanceLocation  */ 0
         );
         graph_utils::revertBarrier(NUM_ARR_ARGS(barriers));
-        rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers)); 
+        rndr->cmdList()->ResourceBarrier(NUM_ARR_ARGS(barriers));
     }
 #pragma warning(pop)
 }

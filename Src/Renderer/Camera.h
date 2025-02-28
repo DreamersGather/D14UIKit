@@ -19,10 +19,10 @@ namespace d14engine::renderer
 
         // A std::unique_ptr<T> member needs to obtain sizeof(T) to call the default deleter.
         // In the case of forward declaration, T is an incomplete type, so it cannot compile.
-        // 
+        //
         // The solution is to declare the destructor in the header file and
         // implement it in the source file (where T is a complete type).
-        // 
+        //
         // PS: For MSVC, directly defining dtor() = default in the header file can also compile,
         // but for the sake of standardization, it is better to define it in the source file.
         virtual ~Camera();

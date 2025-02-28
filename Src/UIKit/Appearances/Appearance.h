@@ -49,14 +49,14 @@ namespace d14engine::uikit::appearance
     Type_Name::Appearance::ThemeDataMap Type_Name::Appearance::g_themeData = {}
 
     // Consider the following scenario:
-    // 
+    //
     //     student <--- student_appear
     //        |
     // fashion_student <--- fashion_student_appear <--- student_appear
-    // 
+    //
     // which is a typical diamond problem and can be solved with virtual
     // inheritance, but here we use another way (i.e. proxy-method):
-    // 
+    //
     //     student <--- student_appear ---> (pass reference) ----->
     //        |                                                   |
     // fashion_student <--- fashion_student_appear <--- student_appear_proxy

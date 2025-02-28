@@ -48,7 +48,7 @@ namespace d14uikit
 
             i.def_readwrite("left", &Rect::left);
             i.def_readwrite("top",  &Rect::top);
-            i.def_readwrite("right",  &Rect::right);       
+            i.def_readwrite("right",  &Rect::right);
             i.def_readwrite("bottom", &Rect::bottom);
         }
         // Color

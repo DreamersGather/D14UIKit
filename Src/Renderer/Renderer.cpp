@@ -222,7 +222,7 @@ namespace d14engine::renderer
         // 3. CommandLayer: g_bufferCount allocators per layer (Draw)
         //-------------------------------------------------------------------------
         // Note the difference in how FrameResource and CommandLayer manage them:
-        // 
+        //
         // Renderer
         //    |
         //    *--- FrameResource[3]
@@ -232,7 +232,7 @@ namespace d14engine::renderer
         //    *--- CommandLayer
         //              |
         //              *--- CommandAllocator[3]
-        // 
+        //
         // Each FrameResource only manages one CommandAllocator related to itself,
         // while CommandLayer manages all CommandAllocator (size = g_bufferCount)
         // that need to be reset in every render pass (for frame synchronization).
@@ -773,7 +773,7 @@ namespace d14engine::renderer
         auto& availableDisplayModes = m_d3d12DeviceInfo.property.availableDisplayModes;
 
         if (displayModeIndex >= availableDisplayModes.size())
-        {            
+        {
             auto descText = // list available display modes
                 L"Specified display mode not supported. A total of " +
                 std::to_wstring(availableDisplayModes.size()) +
@@ -1105,7 +1105,7 @@ namespace d14engine::renderer
         DXGI_SWAP_CHAIN_DESC1 desc = {};
 
         // The resolution of the buffers follows the resolution of the window.
-        // 
+        //
         // If this is a d3d12CmdQueue swap chain, we will also maintain
         // a separate buffer outside the swap chain as the intermediate target,
         // which will be resized to follow the resolution of the actual scene.
@@ -1152,7 +1152,7 @@ namespace d14engine::renderer
 
         // Deferred Destruction Issues with Flip Presentation Swap Chains:
         // https://learn.microsoft.com/en-us/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-flush
-        // 
+        //
         // Call ID3D11DeviceContext::ClearState/Flush to force destroying the swap chain.
 
         m_d3d11DeviceContext->ClearState();
@@ -1464,7 +1464,7 @@ namespace d14engine::renderer
         /* pFlags11     */ &flags,
         /* InState      */ D3D12_RESOURCE_STATE_COMMON,
         /* OutState     */ D3D12_RESOURCE_STATE_COMMON,
-        /* riid         */      
+        /* riid         */
         /* ppResource11 */ IID_PPV_ARGS(&m_wrappedBuffer)
         ));
         ComPtr<IDXGISurface> surface = {};

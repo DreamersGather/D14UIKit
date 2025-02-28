@@ -223,7 +223,7 @@ namespace d14engine::uikit
             if (!m_parentView.expired())
             {
                 auto viewPtr = m_parentView.lock();
-                // We must create a copy here since startChildItor 
+                // We must create a copy here since startChildItor
                 // will be used to erase items from m_childrenItems later.
                 ChildItemImplList::iterator childItor = startChildItor;
 

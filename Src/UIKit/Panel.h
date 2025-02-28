@@ -115,7 +115,7 @@ namespace d14engine::uikit
 
         // We want to find a word for describing whether the panel is able to
         // react or respond to the specific app-event, but unfortunately none.
-        // 
+        //
         // After consulting Limiao, we are determinded to use "reactability",
         // since we think it is very consistent with what we want to express.
 
@@ -236,7 +236,7 @@ namespace d14engine::uikit
 
         // Introduce onXxxHelper to solve the inheritance conflicts of
         // the "override", "before" and "after" event callback lambdas.
-        // 
+        //
         // *--------*-----------------------------------------*-------------------------------------*
         // | Class  | onSize                                  | onSizeHelper                        |
         // *--------*-----------------------------------------*-------------------------------------*
@@ -244,7 +244,7 @@ namespace d14engine::uikit
         // *--------*-----------------------------------------*-------------------------------------*
         // | Window | "before"; Window::onSizeHelper; "after" | Panel::onSizeHelper; Window's works |
         // *--------*-----------------------------------------*-------------------------------------*
-        // 
+        //
         // To sum up, do the actual works in onXxxHelper methods and wrap them into onXxx methods.
 
         virtual void onSizeHelper(SizeEvent& e);
@@ -437,7 +437,7 @@ namespace d14engine::uikit
 
     protected:
         void updateDiffPinnedUIObjects();
-        void updateDiffPinnedUIObjectsLater();  
+        void updateDiffPinnedUIObjectsLater();
     };
 
     template<typename T = Panel>

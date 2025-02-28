@@ -21,7 +21,7 @@ namespace d14engine::uikit
 
         _D14_SET_APPEARANCE_GETTER(OutlinedButton)
 
-    protected:        
+    protected:
         // Panel
         void onChangeThemeStyleHelper(const ThemeStyle& style) override;
     };

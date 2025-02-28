@@ -5,7 +5,7 @@
 namespace d14engine::cpp_lang_utils
 {
     // Check whether the type is instantiated from the specific template:
-    // 
+    //
     // using IntArray = std::vector<int>;
     //
     // constexpr bool value1 = isInstanceOf<IntArray, std::vector>; --> true
@@ -21,7 +21,7 @@ namespace d14engine::cpp_lang_utils
     //
     // constexpr bool value1 = has_operator::equalTo<int>; --> true
     // constexpr bool value2 = has_operator::lessThan<int>; --> true
-    // 
+    //
     // struct A
     // {
     //     int a = 0;

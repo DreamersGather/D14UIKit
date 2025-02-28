@@ -48,7 +48,7 @@ namespace d14uikit
 
     int GridLayout::horzMargin() const
     {
-        return math_utils::round(pimpl->uiobj->horzMargin()); 
+        return math_utils::round(pimpl->uiobj->horzMargin());
     }
 
     void GridLayout::setHorzMargin(int value)
@@ -68,7 +68,7 @@ namespace d14uikit
 
     int GridLayout::vertMargin() const
     {
-        return math_utils::round(pimpl->uiobj->vertMargin()); 
+        return math_utils::round(pimpl->uiobj->vertMargin());
     }
 
     void GridLayout::setVertMargin(int value)

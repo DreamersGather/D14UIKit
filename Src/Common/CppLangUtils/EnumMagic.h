@@ -11,7 +11,7 @@ namespace d14engine::cpp_lang_utils
     // __FUNCSIG__ is a not a standard feature!
     // Different versions of MSVC may have different implementations!
     //---------------------------------------------------------------
-    // 
+    //
     // enum class Enum { Value1, Value2, Value3 };
     //
     // template<typename Enum_T, Enum_T Value>
@@ -22,7 +22,7 @@ namespace d14engine::cpp_lang_utils
     //---------------------------------------------------------------
     // __FUNCSIG__ results of MSVC:
     //---------------------------------------------------------------
-    // 
+    //
     // func<int, 1>();
     // "void __cdecl func<int,0x1>(void)"
     //
@@ -45,7 +45,7 @@ namespace d14engine::cpp_lang_utils
     ////////////////
     //
     // enum class Animal { Cat, Dog };
-    // 
+    //
     // hasEnum<Animal, Animal::Cat> --> true
     // hasEnum<Animal, (Animal)14> --> false
 
@@ -76,7 +76,7 @@ namespace d14engine::cpp_lang_utils
     //
     // enum class Animal { Cat, Dog };
     // enum class Language { C, Cpp, Python };
-    // 
+    //
     // enumCount<Animal> --> 2
     // enumCount<Language> --> 3
 
@@ -110,7 +110,7 @@ namespace d14engine::cpp_lang_utils
     //
     // enum class Animal { Cat, Dog };
     // using Name = std::string;
-    // 
+    //
     // EnumMap<Animal, Name> names = {};
     // names[(size_t)Animal::Cat] = "happy";
     // names[(size_t)Animal::Dog] = "smile";
@@ -123,7 +123,7 @@ namespace d14engine::cpp_lang_utils
     ///////////////
     //
     // enum class Animal { Cat, Dog };
-    // 
+    //
     // enumName((Animal)0) --> L"Cat"
     // enumName(Animal::Dog) --> L"Dog"
     //
@@ -138,7 +138,7 @@ namespace d14engine::cpp_lang_utils
     // time = 3.16469 (s)   time = 0.15178 (s)
     // str: enumName        str: enumName
     // time = 9.37265 (s)   time = 1.26274 (s)
-    // 
+    //
     // It can be seen that enumName has nearly 3~9 times the performance loss,
     // so you may be careful and do not blindly favoring the elegance of enumName.
 

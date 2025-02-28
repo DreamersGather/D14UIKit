@@ -18,7 +18,7 @@ namespace d14engine::cpp_lang_utils
     //     }
     //     child{ this };
     // };
-    // 
+    //
     // Since the parent is referenced through raw pointer, it is unsafe to
     // create an object outside the parent, so it is necessary to make the
     // ctor private and prevent any copying.

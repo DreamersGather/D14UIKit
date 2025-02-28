@@ -93,7 +93,7 @@ namespace d14engine::uikit
         }
         m_customIcons = {};
 
-    public:        
+    public:
         void registerIcon(WstrParam themeName, StaticIconIndex index, const StaticIcon& icon);
 
         void registerIcon(WstrParam name, const StaticIcon& icon);

@@ -156,7 +156,7 @@ void buildScene(Renderer* rndr, ScenePanel* sp)
         /* A */ { /* position */ { +0.0f, +0.5f, 0.0f, 1.0f }, /* color */ { 1.0f, 0.0f, 0.0f, 1.0f } },
         /* B */ { /* position */ { +0.5f, -0.5f, 0.0f, 1.0f }, /* color */ { 0.0f, 1.0f, 0.0f, 1.0f } },
         /* C */ { /* position */ { -0.5f, -0.5f, 0.0f, 1.0f }, /* color */ { 0.0f, 0.0f, 1.0f, 1.0f } },
-    }; 
+    };
     UINT32 indices[3] = { 0, 1, 2 };
 
     /************/
