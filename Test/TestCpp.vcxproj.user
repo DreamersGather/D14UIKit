@@ -5,32 +5,26 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|Win32'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rebug|x64'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommand>$(ProjectDir)$(TargetName).exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>HighDPI</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

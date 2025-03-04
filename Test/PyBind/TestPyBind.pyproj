@@ -15,7 +15,8 @@
     <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
-    <CommandLineArguments>HighDPI</CommandLineArguments>
+    <CommandLineArguments>
+    </CommandLineArguments>
     <InterpreterId>Global|PythonCore|3.10</InterpreterId>
     <IsWindowsApplication>True</IsWindowsApplication>
   </PropertyGroup>
