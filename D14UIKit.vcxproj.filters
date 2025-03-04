@@ -1523,7 +1523,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bin\Shaders\Letterbox.hlsl" />
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include=".editorconfig" />
@@ -1534,8 +1533,6 @@
     <None Include="Bin\Shaders\VS" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
-    <Text Include="Bin\Shaders\README.txt" />
     <Text Include="Src\sensitive.txt" />
     <Text Include="Bin\Images\Cursors\MacOS\README.txt" />
   </ItemGroup>

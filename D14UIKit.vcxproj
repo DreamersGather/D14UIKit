@@ -4187,9 +4187,6 @@
     <None Include=".editorconfig" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="Bin\Shaders\Letterbox.hlsl">
-      <FileType>Document</FileType>
-    </None>
     <None Include="Bin\Shaders\PS" />
     <None Include="Bin\Shaders\VS" />
     <None Include="LICENSE" />
@@ -4282,20 +4279,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='RPy310|Win32'">Common/Precompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Src\Common\RuntimeError.cpp" />
-    <ClCompile Include="Src\Renderer\Camera.cpp">
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPyBind|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy313|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy312|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy311|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy310|x64'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPyBind|Win32'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy313|Win32'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy312|Win32'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy311|Win32'">false</ShowIncludes>
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='DPy310|Win32'">false</ShowIncludes>
-    </ClCompile>
+    <ClCompile Include="Src\Renderer\Camera.cpp" />
     <ClCompile Include="Src\Renderer\DebugUtils.cpp" />
     <ClCompile Include="Src\Renderer\GpuBuffer.cpp" />
     <ClCompile Include="Src\Renderer\GraphUtils\Barrier.cpp" />
@@ -5730,9 +5714,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Bin\Images\Cursors\MacOS\README.txt" />
-    <Text Include="Bin\Shaders\README.txt" />
     <Text Include="Src\sensitive.txt" />
-    <Text Include="Src\UIKit\Appearances\ColorScheme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D14UIKit.rc" />
