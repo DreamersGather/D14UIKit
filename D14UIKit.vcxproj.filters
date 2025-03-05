@@ -1534,7 +1534,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\sensitive.txt" />
-    <Text Include="Bin\Images\Cursors\MacOS\README.txt" />
+    <Text Include="Bin\Images\Cursors\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D14UIKit.rc">

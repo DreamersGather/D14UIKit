@@ -5713,7 +5713,7 @@
     <ClInclude Include="Src\UIKit\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Bin\Images\Cursors\MacOS\README.txt" />
+    <Text Include="Bin\Images\Cursors\README.txt" />
     <Text Include="Src\sensitive.txt" />
   </ItemGroup>
   <ItemGroup>

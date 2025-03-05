@@ -61,189 +61,189 @@ VS                      SHADER                  "Bin\\Shaders\\VS"
 // PNG
 //
 
-DARKALTERNATE           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Alternate.png"
+DARKALTERNATE           PNG                     "Bin\\Images\\Cursors\\Dark\\Alternate.png"
 
-DARKARROW               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Arrow.png"
+DARKARROW               PNG                     "Bin\\Images\\Cursors\\Dark\\Arrow.png"
 
-DARKBACKDIAG            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\BackDiag.png"
+DARKBACKDIAG            PNG                     "Bin\\Images\\Cursors\\Dark\\BackDiag.png"
 
-DARKHAND                PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Hand.png"
+DARKHAND                PNG                     "Bin\\Images\\Cursors\\Dark\\Hand.png"
 
-DARKHELP                PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Help.png"
+DARKHELP                PNG                     "Bin\\Images\\Cursors\\Dark\\Help.png"
 
-DARKHORZSIZE            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\HorzSize.png"
+DARKHORZSIZE            PNG                     "Bin\\Images\\Cursors\\Dark\\HorzSize.png"
 
-DARKMAINDIAG            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\MainDiag.png"
+DARKMAINDIAG            PNG                     "Bin\\Images\\Cursors\\Dark\\MainDiag.png"
 
-DARKMOVE                PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Move.png"
+DARKMOVE                PNG                     "Bin\\Images\\Cursors\\Dark\\Move.png"
 
-DARKPERSON              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Person.png"
+DARKPERSON              PNG                     "Bin\\Images\\Cursors\\Dark\\Person.png"
 
-DARKPIN                 PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Pin.png"
+DARKPIN                 PNG                     "Bin\\Images\\Cursors\\Dark\\Pin.png"
 
-DARKSELECT              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Select.png"
+DARKSELECT              PNG                     "Bin\\Images\\Cursors\\Dark\\Select.png"
 
-DARKSTOP                PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Stop.png"
+DARKSTOP                PNG                     "Bin\\Images\\Cursors\\Dark\\Stop.png"
 
-DARKTEXT                PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Text.png"
+DARKTEXT                PNG                     "Bin\\Images\\Cursors\\Dark\\Text.png"
 
-DARKVERTSIZE            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\VertSize.png"
+DARKVERTSIZE            PNG                     "Bin\\Images\\Cursors\\Dark\\VertSize.png"
 
-LIGHTALTERNATE          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Alternate.png"
+LIGHTALTERNATE          PNG                     "Bin\\Images\\Cursors\\Light\\Alternate.png"
 
-LIGHTARROW              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Arrow.png"
+LIGHTARROW              PNG                     "Bin\\Images\\Cursors\\Light\\Arrow.png"
 
-LIGHTBACKDIAG           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\BackDiag.png"
+LIGHTBACKDIAG           PNG                     "Bin\\Images\\Cursors\\Light\\BackDiag.png"
 
-LIGHTHAND               PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Hand.png"
+LIGHTHAND               PNG                     "Bin\\Images\\Cursors\\Light\\Hand.png"
 
-LIGHTHELP               PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Help.png"
+LIGHTHELP               PNG                     "Bin\\Images\\Cursors\\Light\\Help.png"
 
-LIGHTHORZSIZE           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\HorzSize.png"
+LIGHTHORZSIZE           PNG                     "Bin\\Images\\Cursors\\Light\\HorzSize.png"
 
-LIGHTMAINDIAG           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\MainDiag.png"
+LIGHTMAINDIAG           PNG                     "Bin\\Images\\Cursors\\Light\\MainDiag.png"
 
-LIGHTMOVE               PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Move.png"
+LIGHTMOVE               PNG                     "Bin\\Images\\Cursors\\Light\\Move.png"
 
-LIGHTPERSON             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Person.png"
+LIGHTPERSON             PNG                     "Bin\\Images\\Cursors\\Light\\Person.png"
 
-LIGHTPIN                PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Pin.png"
+LIGHTPIN                PNG                     "Bin\\Images\\Cursors\\Light\\Pin.png"
 
-LIGHTSELECT             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Select.png"
+LIGHTSELECT             PNG                     "Bin\\Images\\Cursors\\Light\\Select.png"
 
-LIGHTSTOP               PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Stop.png"
+LIGHTSTOP               PNG                     "Bin\\Images\\Cursors\\Light\\Stop.png"
 
-LIGHTTEXT               PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Text.png"
+LIGHTTEXT               PNG                     "Bin\\Images\\Cursors\\Light\\Text.png"
 
-LIGHTVERTSIZE           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\VertSize.png"
+LIGHTVERTSIZE           PNG                     "Bin\\Images\\Cursors\\Light\\VertSize.png"
 
-DARKBUSY1               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\1.png"
+DARKBUSY1               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\1.png"
 
-DARKBUSY2               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\2.png"
+DARKBUSY2               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\2.png"
 
-DARKBUSY3               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\3.png"
+DARKBUSY3               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\3.png"
 
-DARKBUSY4               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\4.png"
+DARKBUSY4               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\4.png"
 
-DARKBUSY5               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\5.png"
+DARKBUSY5               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\5.png"
 
-DARKBUSY6               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\6.png"
+DARKBUSY6               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\6.png"
 
-DARKBUSY7               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\7.png"
+DARKBUSY7               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\7.png"
 
-DARKBUSY8               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\8.png"
+DARKBUSY8               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\8.png"
 
-DARKBUSY9               PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\9.png"
+DARKBUSY9               PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\9.png"
 
-DARKBUSY10              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\10.png"
+DARKBUSY10              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\10.png"
 
-DARKBUSY11              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\11.png"
+DARKBUSY11              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\11.png"
 
-DARKBUSY12              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\12.png"
+DARKBUSY12              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\12.png"
 
-DARKBUSY13              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\13.png"
+DARKBUSY13              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\13.png"
 
-DARKBUSY14              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\14.png"
+DARKBUSY14              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\14.png"
 
-DARKBUSY15              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\15.png"
+DARKBUSY15              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\15.png"
 
-DARKBUSY16              PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Busy\\16.png"
+DARKBUSY16              PNG                     "Bin\\Images\\Cursors\\Dark\\Busy\\16.png"
 
-DARKWORKING1            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\1.png"
+DARKWORKING1            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\1.png"
 
-DARKWORKING2            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\2.png"
+DARKWORKING2            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\2.png"
 
-DARKWORKING3            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\3.png"
+DARKWORKING3            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\3.png"
 
-DARKWORKING4            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\4.png"
+DARKWORKING4            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\4.png"
 
-DARKWORKING5            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\5.png"
+DARKWORKING5            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\5.png"
 
-DARKWORKING6            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\6.png"
+DARKWORKING6            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\6.png"
 
-DARKWORKING7            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\7.png"
+DARKWORKING7            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\7.png"
 
-DARKWORKING8            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\8.png"
+DARKWORKING8            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\8.png"
 
-DARKWORKING9            PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\9.png"
+DARKWORKING9            PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\9.png"
 
-DARKWORKING10           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\10.png"
+DARKWORKING10           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\10.png"
 
-DARKWORKING11           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\11.png"
+DARKWORKING11           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\11.png"
 
-DARKWORKING12           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\12.png"
+DARKWORKING12           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\12.png"
 
-DARKWORKING13           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\13.png"
+DARKWORKING13           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\13.png"
 
-DARKWORKING14           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\14.png"
+DARKWORKING14           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\14.png"
 
-DARKWORKING15           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\15.png"
+DARKWORKING15           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\15.png"
 
-DARKWORKING16           PNG                     "Bin\\Images\\Cursors\\MacOS\\Dark\\Working\\16.png"
+DARKWORKING16           PNG                     "Bin\\Images\\Cursors\\Dark\\Working\\16.png"
 
-LIGHTBUSY1              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\1.png"
+LIGHTBUSY1              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\1.png"
 
-LIGHTBUSY2              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\2.png"
+LIGHTBUSY2              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\2.png"
 
-LIGHTBUSY3              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\3.png"
+LIGHTBUSY3              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\3.png"
 
-LIGHTBUSY4              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\4.png"
+LIGHTBUSY4              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\4.png"
 
-LIGHTBUSY5              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\5.png"
+LIGHTBUSY5              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\5.png"
 
-LIGHTBUSY6              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\6.png"
+LIGHTBUSY6              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\6.png"
 
-LIGHTBUSY7              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\7.png"
+LIGHTBUSY7              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\7.png"
 
-LIGHTBUSY8              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\8.png"
+LIGHTBUSY8              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\8.png"
 
-LIGHTBUSY9              PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\9.png"
+LIGHTBUSY9              PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\9.png"
 
-LIGHTBUSY10             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\10.png"
+LIGHTBUSY10             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\10.png"
 
-LIGHTBUSY11             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\11.png"
+LIGHTBUSY11             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\11.png"
 
-LIGHTBUSY12             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\12.png"
+LIGHTBUSY12             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\12.png"
 
-LIGHTBUSY13             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\13.png"
+LIGHTBUSY13             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\13.png"
 
-LIGHTBUSY14             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\14.png"
+LIGHTBUSY14             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\14.png"
 
-LIGHTBUSY15             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\15.png"
+LIGHTBUSY15             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\15.png"
 
-LIGHTBUSY16             PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Busy\\16.png"
+LIGHTBUSY16             PNG                     "Bin\\Images\\Cursors\\Light\\Busy\\16.png"
 
-LIGHTWORKING1           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\1.png"
+LIGHTWORKING1           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\1.png"
 
-LIGHTWORKING2           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\2.png"
+LIGHTWORKING2           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\2.png"
 
-LIGHTWORKING3           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\3.png"
+LIGHTWORKING3           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\3.png"
 
-LIGHTWORKING4           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\4.png"
+LIGHTWORKING4           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\4.png"
 
-LIGHTWORKING5           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\5.png"
+LIGHTWORKING5           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\5.png"
 
-LIGHTWORKING6           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\6.png"
+LIGHTWORKING6           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\6.png"
 
-LIGHTWORKING7           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\7.png"
+LIGHTWORKING7           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\7.png"
 
-LIGHTWORKING8           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\8.png"
+LIGHTWORKING8           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\8.png"
 
-LIGHTWORKING9           PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\9.png"
+LIGHTWORKING9           PNG                     "Bin\\Images\\Cursors\\Light\\Working\\9.png"
 
-LIGHTWORKING10          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\10.png"
+LIGHTWORKING10          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\10.png"
 
-LIGHTWORKING11          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\11.png"
+LIGHTWORKING11          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\11.png"
 
-LIGHTWORKING12          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\12.png"
+LIGHTWORKING12          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\12.png"
 
-LIGHTWORKING13          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\13.png"
+LIGHTWORKING13          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\13.png"
 
-LIGHTWORKING14          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\14.png"
+LIGHTWORKING14          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\14.png"
 
-LIGHTWORKING15          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\15.png"
+LIGHTWORKING15          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\15.png"
 
-LIGHTWORKING16          PNG                     "Bin\\Images\\Cursors\\MacOS\\Light\\Working\\16.png"
+LIGHTWORKING16          PNG                     "Bin\\Images\\Cursors\\Light\\Working\\16.png"
 
 #endif    // Chinese (Simplified, China) resources
 /////////////////////////////////////////////////////////////////////////////
