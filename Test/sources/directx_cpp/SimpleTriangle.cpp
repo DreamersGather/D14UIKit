@@ -38,12 +38,7 @@ void buildScene(Renderer* rndr, ScenePanel* sp);
 
 int main(int argc, char* argv[])
 {
-    float dpi = 96.0f;
-    if (argc >= 2 && strcmp(argv[1], "HighDPI") == 0)
-    {
-        dpi = 192.0f;
-    }
-    Application app(DEMO_NAME, dpi);
+    Application app(DEMO_NAME);
     app.setMinSize(app.size());
     app.setResizable(true);
 
