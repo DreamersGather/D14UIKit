@@ -32,7 +32,7 @@ namespace d14engine
         ///////////////////////
         // Raw Ptr Ascending //
         ///////////////////////
-        
+
         struct RawAscending
         {
             bool operator()(const ISortable<T>& lhs, const ISortable<T>& rhs) const

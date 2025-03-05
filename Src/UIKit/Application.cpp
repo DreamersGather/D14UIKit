@@ -59,7 +59,7 @@ namespace d14engine::uikit
         HINSTANCE hInstance = GetModuleHandle(_D14_MODULE_NAME);
 
         THROW_IF_NULL(hInstance);
-        
+
         WNDCLASSEX wndclass = {};
         wndclass.cbSize = sizeof(wndclass);
         wndclass.style = CS_DBLCLKS; // CS_DROPSHADOW has bugs on Windows 11.
@@ -214,7 +214,7 @@ namespace d14engine::uikit
             return DefWindowProc(hwnd, message, wParam, lParam);
         }
         auto app = (Application*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-        
+
         switch (message)
         {
         case WM_SIZE:
@@ -788,7 +788,7 @@ namespace d14engine::uikit
                 if (himc)
                 {
                     auto tobj = app->m_focusedTextInputObject.lock();
-                    
+
                     auto font = tobj->getCompositionFont();
                     if (font.has_value())
                     {

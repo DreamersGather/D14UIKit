@@ -424,7 +424,7 @@ namespace d14engine::uikit
     void ScenePanel::onSizeHelper(SizeEvent& e)
     {
         Panel::onSizeHelper(e);
-        
+
         loadOffscreenTexture();
     }
 }

@@ -657,7 +657,7 @@ namespace d14engine::uikit
         Panel::onMouseMoveHelper(e);
 
         auto& p = e.cursorPoint;
-        
+
         if (!m_isPerformSpecialOperation)
         {
             if (isMinimizeEnabled)

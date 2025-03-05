@@ -100,7 +100,7 @@ namespace d14engine::math_utils
 #pragma endregion
 
 #pragma region Rectangle
-    
+
     constexpr D2D1_RECT_F zeroRectF()
     {
         return { 0.0f, 0.0f, 0.0f, 0.0f };

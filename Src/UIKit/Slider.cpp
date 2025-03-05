@@ -146,7 +146,7 @@ namespace d14engine::uikit
         {
             float diffValue = tmpValue - m_value;
             float absDiffValue = std::abs(diffValue);
-            
+
             if (absDiffValue + FLT_EPSILON >= stepInterval)
             {
                 setValue(m_value + math_utils::round(diffValue / stepInterval) * stepInterval);

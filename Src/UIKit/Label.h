@@ -50,7 +50,7 @@ namespace d14engine::uikit
         void updateTextOverhangMetrics();
 
         D2D1_SIZE_F textAreaSize() const;
-        
+
         enum class HorzAlignment { Left, Right, Center, None };
         enum class VertAlignment { Top, Bottom, Center, None };
 

@@ -24,7 +24,7 @@ namespace d14engine::uikit
             mode = interpolationMode.value();
         }
         else mode = g_interpolationMode;
-        
+
         // This mode uses a variable-size high-quality cubic kernel
         // to perform a pre-downscale if the target draw-rect is samller
         // than the source bitmap, which is invalid for empty bitmap

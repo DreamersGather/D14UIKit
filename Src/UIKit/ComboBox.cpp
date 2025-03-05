@@ -187,7 +187,7 @@ namespace d14engine::uikit
                 }));
             }
             else m_dropDownMenu->move(selfCoordToAbsolute(customMenuRelativePosition.value()));
-            
+
             m_dropDownMenu->setActivated(true);
         }
     }

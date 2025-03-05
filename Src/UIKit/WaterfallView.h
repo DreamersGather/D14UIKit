@@ -90,7 +90,7 @@ namespace d14engine::uikit
         {
             // "index == m_items.size()" ---> append
             index = std::clamp(index, 0uz, m_items.size());
-            
+
             float height = 0.0f;
             for (auto& item : items)
             {

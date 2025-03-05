@@ -34,7 +34,7 @@ namespace d14engine::renderer
 
         m_sceneColor = createInfo.sceneColor;
         m_layerColor = createInfo.layerColor;
-        
+
         createDxgiFactory();
         queryDxgiFactoryInfo();
         checkDxgiFactoryConfigs();
@@ -1112,7 +1112,7 @@ namespace d14engine::renderer
 
         desc.Width = m_window.clientWidth();
         desc.Height = m_window.clientHeight();
-        
+
         desc.Format = g_renderTargetFormat;
 
         // DirectX 12 does not support creating MSAA swap chain anymore.

@@ -37,7 +37,7 @@ namespace d14engine::uikit
     protected:
         // IDrawObject2D
         void onRendererDrawD2d1ObjectHelper(renderer::Renderer* rndr) override;
-        
+
         // Panel
         bool releaseUIObjectHelper(ShrdPtrParam<Panel> uiobj) override;
     };

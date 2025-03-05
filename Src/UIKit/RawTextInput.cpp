@@ -244,7 +244,7 @@ namespace d14engine::uikit
         // to be compatible with the potential ClearType text rendering mode.
         m_visibleTextMask.color = Label::getAppearance().background.color;
         m_visibleTextMask.color.a = Label::getAppearance().background.opacity;
-        
+
         m_visibleTextMask.beginDraw(rndr->d2d1DeviceContext());
         {
             // Placeholder

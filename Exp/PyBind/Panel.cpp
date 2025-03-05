@@ -220,7 +220,7 @@ _D14_CALLBACK_PROPERTY(Panel, Name)
         DEF_PROPERTY(onMouseLeave);
         DEF_PROPERTY(onMouseWheel);
         DEF_PROPERTY(onMouseButton);
-        
+
 #undef DEF_PROPERTY
 
         i.def(

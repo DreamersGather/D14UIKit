@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     MainWindow mwnd(DEMO_NAME);
     Panel clntArea;
     mwnd.setContent(&clntArea);
-    
+
     TabGroup board;
     board.setParent(&clntArea);
     board.setSize({ 800, 436 });
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
     // Call this after other methods to make sure
     // the geometry of the value label is updated.
     strokeSlider.setValue(24.0f);
-    
+
     //------------------------------------------- Set UI event callbacks.
 
     // Prepares the copy source to improve performance.

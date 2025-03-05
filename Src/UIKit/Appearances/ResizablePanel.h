@@ -19,7 +19,7 @@ namespace d14engine::uikit::appearance
                 D2D1_RECT_F cornerOffset = { 12.0f, 12.0f, 12.0f, 12.0f };
             }
             sizingFrame = {};
-            
+
             struct StaticSizingGuideFrame
             {
                 SolidStyle background = {};
@@ -33,7 +33,7 @@ namespace d14engine::uikit::appearance
                 StaticSizingGuideFrame staticSizingGuideFrame = {};
             };
             _D14_SET_THEME_DATA_MAP_DECL;
-            
+
             void changeTheme(WstrParam themeName);
         }
         appearance = {};

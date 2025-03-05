@@ -123,7 +123,7 @@ namespace d14engine::uikit
         D2D1_RECT_F maximizeButtonAbsoluteRect() const;
         D2D1_RECT_F closeIconAbsoluteRect() const;
         D2D1_RECT_F closeButtonAbsoluteRect() const;
-        
+
         D2D1_RECT_F captionIconLabelSelfcoordRect() const;
 
     public:

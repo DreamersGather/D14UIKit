@@ -32,7 +32,7 @@ namespace d14engine::uikit
         Function<void(Panel*)> f_onDestroy = {};
 
         virtual void onInitializeFinish();
-        
+
         // Return whether the UI object is released successfully.
 
         bool release();
@@ -376,7 +376,7 @@ namespace d14engine::uikit
         D2D1_RECT_F relativeToSelfCoord(const D2D1_RECT_F& rect) const;
         D2D1_POINT_2F relativeToAbsolute(const D2D1_POINT_2F& p) const;
         D2D1_RECT_F relativeToAbsolute(const D2D1_RECT_F& rect) const;
-        
+
         D2D1_POINT_2F absoluteToSelfCoord(const D2D1_POINT_2F& p) const;
         D2D1_RECT_F absoluteToSelfCoord(const D2D1_RECT_F& rect) const;
         D2D1_POINT_2F absoluteToRelative(const D2D1_POINT_2F& p) const;

@@ -53,7 +53,7 @@ namespace d14uikit
         // MoveEvent
         {
             py::class_<MoveEvent, Event> i(m, "MoveEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MoveEvent, position);
@@ -61,7 +61,7 @@ namespace d14uikit
         // MouseEvent
         {
             py::class_<MouseEvent, Event> i(m, "MouseEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MouseEvent, cursorPoint);
@@ -69,7 +69,7 @@ namespace d14uikit
         // KeyboardEvent
         {
             py::class_<KeyboardEvent, Event> i(m, "KeyboardEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(KeyboardEvent, vkey);
@@ -79,7 +79,7 @@ namespace d14uikit
         // MouseMoveEvent
         {
             py::class_<MouseMoveEvent, MouseEvent> i(m, "MouseMoveEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MouseMoveEvent, lastCursorPoint);
@@ -87,7 +87,7 @@ namespace d14uikit
         // MouseWheelEvent
         {
             py::class_<MouseWheelEvent, MouseEvent> i(m, "MouseWheelEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MouseWheelEvent, deltaCount);
@@ -95,7 +95,7 @@ namespace d14uikit
         // MouseButtonEvent
         {
             py::class_<MouseButtonEvent, MouseEvent> i(m, "MouseButtonEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MouseButtonEvent, leftDown);
@@ -111,7 +111,7 @@ namespace d14uikit
         // MouseButtonClickEvent
         {
             py::class_<MouseButtonClickEvent, MouseEvent> i(m, "MouseButtonClickEvent");
-        
+
             i.def(py::init());
 
             DEF_PROPERTY_READONLY(MouseButtonClickEvent, left);

@@ -149,7 +149,7 @@ namespace d14engine::uikit
         using UIObjectTempSet = ISortable<Panel>::WeakPrioritySet;
 
         UIObjectTempSet m_hitUIObjects = {};
-        
+
         // The pinned UI objects keep receiving UI events while not hitting.
         //
         // Introduce the diff-pinned UI objects to avoid the hit UI objects

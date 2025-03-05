@@ -137,7 +137,7 @@ namespace d14engine::uikit
     void OnOffSwitch::onRendererDrawD2d1ObjectHelper(Renderer* rndr)
     {
         auto& setting = getAppearance().main[m_state.index()];
-        
+
         // Background
         resource_utils::g_solidColorBrush->SetColor(setting.background.color);
         resource_utils::g_solidColorBrush->SetOpacity(setting.background.opacity);

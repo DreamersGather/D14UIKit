@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
     menu->setRoundExtension(5);
 
     themeSelector.setCurrSelected(2);
-    
+
     //------------------------------------------- Set UI event callbacks.
 
     themeSelector.D14_onSelectedChange(ComboBox, obj, text)

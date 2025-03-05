@@ -34,7 +34,7 @@ namespace d14engine::uikit
         Panel::onInitializeFinish();
 
         addUIObject(m_content);
-        
+
         if (m_content) m_content->transform(selfCoordRect());
     }
 

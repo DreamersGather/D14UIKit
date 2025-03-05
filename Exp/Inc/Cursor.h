@@ -73,7 +73,7 @@ namespace d14uikit
         SET_SOURCE(UIKit)
 
 #undef SET_SOURCE
-        
+
         void setIcon(StaticIconIndex index);
         void setIcon(DynamicIconIndex index);
     };

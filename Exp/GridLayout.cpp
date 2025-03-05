@@ -92,7 +92,7 @@ namespace d14uikit
 
         uikit::GridLayout::GeometryInfo info = {};
         CONVERT_GEO_INFO(info, geoInfo);
-        
+
         pimpl->uiobj->addElement(elem->getImpl()->uiobj, info);
     }
 

@@ -153,7 +153,7 @@ namespace d14uikit
             std::function<void(Panel*, KeyboardEvent*)> onKeyboard = {};
         };
         Callback& callback() const;
-        
+
     protected:
         std::unique_ptr<Callback> pcallback = {};
 

@@ -769,7 +769,7 @@ do { \
             auto shadowPosition = math_utils::roundf(math_utils::leftTop(cardAbsoluteRect(m_currActiveCardTabIndex)));
 
             rndr->d2d1DeviceContext()->DrawImage(resource_utils::g_shadowEffect.Get(), shadowPosition);
-            
+
             // Entity
             auto& setting = getAppearance().tabBar.card.main[(size_t)CardState::Active];
 

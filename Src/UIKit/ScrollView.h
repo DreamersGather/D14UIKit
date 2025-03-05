@@ -108,7 +108,7 @@ namespace d14engine::uikit
         D2D1_RECT_F vertBarSelfcoordRect(ScrollBarState state) const;
 
         float m_horzBarHoldOffset = 0.0f, m_vertBarHoldOffset = 0.0f;
-        
+
     protected:
         // IDrawObject2D
         void onRendererDrawD2d1LayerHelper(renderer::Renderer* rndr) override;

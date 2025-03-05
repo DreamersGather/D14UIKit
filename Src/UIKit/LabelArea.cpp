@@ -81,7 +81,7 @@ namespace d14engine::uikit
 
         auto deltaSecs = (float)rndr->timer()->deltaSecs();
         float blinkPeriod = animSetting.periodInSecs.blink;
-        
+
         // Blink Indicator
         if (isFocused() && (m_indicatorBlinkElapsedSecs += deltaSecs) >= blinkPeriod)
         {

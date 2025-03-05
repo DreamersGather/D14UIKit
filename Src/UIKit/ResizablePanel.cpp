@@ -537,7 +537,7 @@ namespace d14engine::uikit
                     transform(m_sizingRect);
                 }
                 m_isLeftSizing = m_isTopSizing = m_isRightSizing = m_isBottomSizing = false;
-                
+
                 onEndResizing();
             }
         }

@@ -31,7 +31,7 @@ def main():
     #------------------------------------------- Initialize UI objects.
 
     mwnd = MainWindow(DEMO_NAME)
-    
+
     clntArea = Panel()
     mwnd.content = clntArea
 
