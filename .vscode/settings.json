@@ -1,5 +1,7 @@
 {
-    "editor.wordWrap": "on",
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true
 }

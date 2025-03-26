@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         Configuration: [Rebug, Release]
-        # Configuration: [Rebug, Release, RPy310, RPy311, RPy312, RPy313]
 
     runs-on: windows-latest
 
